@@ -13,13 +13,9 @@ app.get("/getSummonerName", (req, res) => {
     const data = await axios.get(
       "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/mistahpig?api_key=RGAPI-09ea864d-e4b8-41df-9a41-dc97b02fe32c"
     );
-    console.log("Summoner Info", data.data);
-    return data.data;
+    res.send(data.data);
   }
-
-  const summoner = getSummoner();
-
-  res.send(summoner);
+  getSummoner();
 });
 
 app.listen(port, () => {
