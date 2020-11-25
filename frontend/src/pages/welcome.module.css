@@ -1,5 +1,5 @@
-.welcome-background-container {
-  background-image: url('https://images.wallpapersden.com/image/download/yasuo-4k-league-of-legends_bGZubWyUmZqaraWkpJRobWllrWdma2U.jpg');
+.welcomeBackgroundContainer {
+  background-image: url("https://images.wallpapersden.com/image/download/yasuo-4k-league-of-legends_bGZubWyUmZqaraWkpJRobWllrWdma2U.jpg");
   background-size: cover;
   position: fixed;
   top: 0;
@@ -10,7 +10,7 @@
   height: 100%;
 }
 
-.welcome-container {
+.welcomeContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,6 +18,6 @@
   height: 80vh;
 }
 
-.welcome-container h1 {
+.welcomeContainer h1 {
   color: black;
 }

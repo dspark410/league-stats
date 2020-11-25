@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import './home.css'
+import React, { useState } from "react";
+import style from "./home.module.css";
 
 function Home({ summonerInfo, inputValue, change, submit }) {
   //   const [summonerInfo, setSummonerInfo] = useState({})
@@ -22,15 +21,15 @@ function Home({ summonerInfo, inputValue, change, submit }) {
   //   }
 
   return (
-    <div className='home-background-container'>
-      <div className='home-container'>
+    <div className={style.homeBackgroundContainer}>
+      <div className={style.homeContainer}>
         <h1>Enter Summoner Name</h1>
         <form onSubmit={submit}>
-          <input onChange={change} type='text' />
+          <input onChange={change} type="text" />
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
