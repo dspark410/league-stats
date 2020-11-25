@@ -1,5 +1,5 @@
 .welcomeBackgroundContainer {
-  background-image: url("https://images.wallpapersden.com/image/download/yasuo-4k-league-of-legends_bGZubWyUmZqaraWkpJRobWllrWdma2U.jpg");
+  background-image: url('https://images.wallpapersden.com/image/download/yasuo-4k-league-of-legends_bGZubWyUmZqaraWkpJRobWllrWdma2U.jpg');
   background-size: cover;
   position: fixed;
   top: 0;
@@ -15,7 +15,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh;
 }
 
 .welcomeContainer h1 {

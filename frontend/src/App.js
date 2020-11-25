@@ -16,7 +16,6 @@ function App() {
   const [redirect, setRedirect] = useState(false)
 
   const handleOnChange = (e) => {
-    console.log(e.target.value)
     setInputValue(e.target.value)
   }
 
