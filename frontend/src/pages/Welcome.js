@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './welcome.css'
+import axios from 'axios'
 
-function Welcome() {
+function Welcome({ summonerInfo }) {
+  const [mastery, setMastery] = useState([])
+
+  const handleClick = () => {
+    axios
+      .get(`http://localhost:5000/summoner/${summonerInfo.id}`)
+      .then((res) => {
+        setMastery(res.data)
+        console.log(res.data)
+      })
+  }
+
   return (
     <div className='welcome-background-container'>
       <div className='welcome-container'>
-        <h1>
-          <h1>Welcome</h1>
-        </h1>
+        <div>
+          <h1>Welcome {summonerInfo.name}</h1>
+          <button onClick={handleClick}>Get info</button>
+        </div>
       </div>
     </div>
   )

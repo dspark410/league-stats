@@ -24,6 +24,15 @@ app.get('/getSummonerName/:summoner', async (req, res) => {
   res.json(summonerData.data)
 })
 
+app.get('/summoner/:id', async (req, res) => {
+  const id = req.params.id
+  const api = process.env.API_KEY
+  const summonerData = await axios.get(
+    `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${id}?api_key=${api}`
+  )
+  res.json(summonerData.data)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
