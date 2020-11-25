@@ -1,28 +1,29 @@
-const express = require("express");
-const axios = require("axios");
-const app = express();
-const port = 5000;
+// Enable access to .env file
+require('dotenv').config()
+
+const express = require('express')
+const axios = require('axios')
+const app = express()
+const port = 5000
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+  res.header('Access-Control-Allow-Origin', '*')
+  next()
+})
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
-app.get("/getSummonerName", (req, res) => {
-  async function getSummoner() {
-    // fetch data from a url endpoint
-    const data = await axios.get(
-      "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/mistahpig?api_key=RGAPI-09ea864d-e4b8-41df-9a41-dc97b02fe32c"
-    );
-    res.json(data.data);
-  }
-  getSummoner();
-});
+app.get('/getSummonerName/:summoner', async (req, res) => {
+  const summoner = req.params.summoner
+  const api = process.env.API_KEY
+  const summonerData = await axios.get(
+    `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
+  )
+  res.json(summonerData.data)
+})
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+  console.log(`Example app listening at http://localhost:${port}`)
+})
