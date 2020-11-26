@@ -22,22 +22,32 @@ function Home({ change, submit }) {
 
   console.log("championRotation", championRotation);
 
-  const champNameArray = Object.keys(champions);
-  const champDetailArray = Object.values(champions);
+  useEffect(() => {
+    const champNameArray = Object.keys(champions);
+    const champDetailArray = Object.values(champions);
 
-  const newArray = [];
+    const newArray = [];
 
-  for (let i = 0; i < champNameArray.length; i++) {
-    const name = champNameArray[i];
-    const key = champDetailArray[i].key;
+    for (let i = 0; i < champNameArray.length; i++) {
+      const name = champNameArray[i];
+      const key = champDetailArray[i].key;
 
-    const object = {
-      name,
-      key,
-    };
+      const object = {
+        name,
+        key,
+      };
 
-    newArray.push(object);
-  }
+      newArray.push(object);
+    }
+    setChampKey(newArray);
+  }, [champions]);
+
+  console.log("ChampKey", champKey);
+
+  // Third useEffect where we will filter
+  // useEffect(() => {
+  //   champKey.filter(())
+  // }, [champKey])
 
   return (
     <div className={style.homeBackgroundContainer}>
