@@ -1,48 +1,47 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import './App.css'
-import Home from './pages/Home'
-import Welcome from './pages/Welcome'
+import React, { useState } from "react";
+import axios from "axios";
+import "./App.css";
+import Home from "./pages/Home";
+import Welcome from "./pages/Welcome";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from 'react-router-dom'
+} from "react-router-dom";
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState({})
-  const [inputValue, setInputValue] = useState({})
-  const [redirect, setRedirect] = useState(false)
+  const [summonerInfo, setSummonerInfo] = useState({});
+  const [inputValue, setInputValue] = useState({});
+  const [redirect, setRedirect] = useState(false);
 
   const handleOnChange = (e) => {
-    setInputValue(e.target.value)
-  }
+    setInputValue(e.target.value);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     axios
       .get(`http://localhost:5000/getSummonerName/${inputValue}`)
       .then((res) => {
-        setSummonerInfo(res.data)
-        setRedirect(true)
-      })
-  }
+        setSummonerInfo(res.data);
+        setRedirect(true);
+      });
+  };
 
   return (
     <Router>
-      <div className='App'>
+      <div className="App">
         <Switch>
           <Route
             exact
-            path='/'
-            render={(props) =>
+            path="/"
+            render={() =>
               redirect ? (
-                <Redirect to='/welcome' />
+                <Redirect to="/welcome" />
               ) : (
                 <Home
-                  {...props}
                   summonerInfo={summonerInfo}
                   inputValue={inputValue}
                   change={handleOnChange}
@@ -53,7 +52,7 @@ function App() {
             }
           />
           <Route
-            path='/welcome'
+            path="/welcome"
             render={(props) => (
               <Welcome {...props} summonerInfo={summonerInfo} isAuthed={true} />
             )}
@@ -61,7 +60,7 @@ function App() {
         </Switch>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
