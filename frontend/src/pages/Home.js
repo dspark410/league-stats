@@ -6,6 +6,7 @@ function Home({ change, submit }) {
   const [championRotation, setChampionRotation] = useState([]);
   const [champions, setChampions] = useState([]);
   const [champKey, setChampKey] = useState([]);
+  const [freeChamps, setFreeChamps] = useState([]);
 
   useEffect(() => {
     (async function () {
@@ -20,7 +21,7 @@ function Home({ change, submit }) {
     })();
   }, []);
 
-  console.log("championRotation", championRotation);
+  //console.log("championRotation", championRotation);
 
   useEffect(() => {
     const champNameArray = Object.keys(champions);
@@ -42,12 +43,20 @@ function Home({ change, submit }) {
     setChampKey(newArray);
   }, [champions]);
 
-  console.log("ChampKey", champKey);
+  //console.log("ChampKey", champKey);
 
   // Third useEffect where we will filter
-  // useEffect(() => {
-  //   champKey.filter(())
-  // }, [champKey])
+  useEffect(() => {
+    const rotationChamp = champKey.filter((champ) => {
+      //console.log(Number(champ.key));
+      if (championRotation.indexOf(Number(champ.key)) >= 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    setFreeChamps(rotationChamp);
+  }, [champKey, championRotation]);
 
   return (
     <div className={style.homeBackgroundContainer}>
