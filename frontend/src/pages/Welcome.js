@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import style from './welcome.module.css'
 import axios from 'axios'
+import MasteryCard from '../components/MasteryCard'
 
 function Welcome({ summonerInfo }) {
-  const [mastery, setMastery] = useState({})
+  const [mastery, setMastery] = useState([])
   const [champions, setChampions] = useState({})
   const [loading, setLoading] = useState(true)
 
@@ -31,31 +32,17 @@ function Welcome({ summonerInfo }) {
       })
   }, [])
 
-  const getChampionKey = () => {
-    for (let i in champions) {
-      for (let j in champions[i]) {
-        if ((j = 'key')) {
-          console.log(champions[i][j])
-          if (mastery[0].championId === champions[i][j]) {
-            console.log('hello')
-          }
-        }
-      }
-    }
-  }
-
-  getChampionKey()
   return (
     <div className={style.welcomeBackgroundContainer}>
       <div className={style.welcomeContainer}>
         <div>
           <h1>Welcome {summonerInfo.name}</h1>
         </div>
-        <div>
-          <div>{loading ? '' : mastery[0].championPoints}</div>
-          <div>{loading ? '' : mastery[1].championPoints}</div>
-          <div>{loading ? '' : mastery[2].championPoints}</div>
-        </div>
+        <MasteryCard
+          mastery={mastery}
+          champions={champions}
+          loading={loading}
+        />
       </div>
     </div>
   )
