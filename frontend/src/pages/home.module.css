@@ -1,5 +1,5 @@
 .homeBackgroundContainer {
-  background-image: url("https://wallpaperaccess.com/full/628546.jpg");
+  background-image: url('https://wallpaperaccess.com/full/628546.jpg');
   background-size: cover;
   position: fixed;
   top: 0;
@@ -31,4 +31,7 @@
 
 .homeContainer input:focus {
   outline: none;
+}
+
+.imageContainer {
 }

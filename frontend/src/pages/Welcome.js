@@ -1,36 +1,49 @@
-import React, { useState, useEffect } from "react";
-import style from "./welcome.module.css";
-import axios from "axios";
-import MasteryCard from "../components/MasteryCard";
+import React, { useState, useEffect } from 'react'
+import style from './welcome.module.css'
+import axios from 'axios'
+import MasteryCard from '../components/MasteryCard'
 
-function Welcome({ summonerInfo }) {
-  const [mastery, setMastery] = useState([]);
-  const [champions, setChampions] = useState({});
-  const [loading, setLoading] = useState(true);
+function Welcome({ summonerInfo, champInfo }) {
+  const [mastery, setMastery] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const [filteredChamps, setFilteredChamps] = useState([])
 
   useEffect(() => {
     if (!summonerInfo.id) {
-      console.log("Summoner info not in state");
+      console.log('Summoner info not in state')
     } else {
       axios
         .get(`http://localhost:5000/masteries/${summonerInfo.id}`)
         .then((res) => {
-          setMastery(res.data);
-          setLoading(false);
-          console.log(res.data);
-        });
+          setMastery(res.data)
+          setLoading(false)
+          console.log(res.data)
+        })
     }
-  }, [summonerInfo.id]);
+  }, [summonerInfo.id])
 
   useEffect(() => {
-    axios
-      .get(
-        "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion.json"
-      )
-      .then((res) => {
-        setChampions(res.data.data);
-      });
-  }, []);
+    const championInfoArray = []
+
+    mastery.forEach((champ) => {
+      championInfoArray.push(champ.championId)
+    })
+
+    const masteryChamp = champInfo.filter((champ) => {
+      if (championInfoArray.champonId.indexOf(Number(champ.key)) >= 0) {
+        return true
+      } else {
+        return false
+      }
+    })
+
+    setFilteredChamps(masteryChamp)
+
+    masteryChamp.forEach((champ) => {
+      console.log(champ)
+    })
+  }, [mastery])
 
   return (
     <div className={style.welcomeBackgroundContainer}>
@@ -38,14 +51,13 @@ function Welcome({ summonerInfo }) {
         <div>
           <h1>Welcome {summonerInfo.name}</h1>
         </div>
-        <MasteryCard
-          mastery={mastery}
-          champions={champions}
-          loading={loading}
-        />
+        <div>{loading ? '' : mastery[0].championPoints}</div>
+        <div>{loading ? '' : mastery[1].championPoints}</div>
+        <div>{loading ? '' : mastery[2].championPoints}</div>
+        <pre>{JSON.stringify(filteredChamps, null, 2)}</pre>
       </div>
     </div>
-  );
+  )
 }
 
-export default Welcome;
+export default Welcome
