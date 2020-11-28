@@ -34,13 +34,12 @@ function Welcome({ summonerInfo, champInfo }) {
 
   useEffect(() => {
     const champObject = [];
-
     mastery.filter((champ) => {
-      for (let i = 0; i < champInfo.length; i++) {
-        if (champ.championId === +champInfo[i].key) {
-          const name = champInfo[i].name;
+      champInfo.map((champion) => {
+        if (champ.championId === +champion.key) {
+          const name = champion.name;
           const key = champ.championId;
-          const image = champInfo[i].image;
+          const image = champion.image;
           const level = champ.championLevel;
           const points = champ.championPoints;
 
@@ -53,10 +52,10 @@ function Welcome({ summonerInfo, champInfo }) {
           };
           champObject.push(object);
         }
-      }
+      });
     });
     setFilteredChamps(champObject);
-  }, [mastery]);
+  }, [mastery, champInfo]);
 
   return (
     <div className={style.welcomeBackgroundContainer}>
