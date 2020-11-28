@@ -19,7 +19,7 @@ function Welcome({ summonerInfo, champInfo }) {
         .then((res) => {
           setMastery(res.data);
           setLoading(false);
-          console.log(res.data);
+          //console.log("mastery", res.data);
         });
     } else {
       axios
@@ -27,25 +27,35 @@ function Welcome({ summonerInfo, champInfo }) {
         .then((res) => {
           setMastery(res.data);
           setLoading(false);
-          console.log(res.data);
+          //console.log("mastery", res.data);
         });
     }
   }, [summonerInfo.id]);
 
   useEffect(() => {
-    const championInfoArray = [];
-    mastery.forEach((champ) => {
-      championInfoArray.push(champ.championId);
-    });
+    const champObject = [];
 
-    const masteryChamp = champInfo.filter((champ) => {
-      if (championInfoArray.indexOf(Number(champ.key)) >= 0) {
-        return true;
-      } else {
-        return false;
+    mastery.filter((champ) => {
+      for (let i = 0; i < champInfo.length; i++) {
+        if (champ.championId === +champInfo[i].key) {
+          const name = champInfo[i].name;
+          const key = champ.championId;
+          const image = champInfo[i].image;
+          const level = champ.championLevel;
+          const points = champ.championPoints;
+
+          const object = {
+            name,
+            key,
+            image,
+            level,
+            points,
+          };
+          champObject.push(object);
+        }
       }
     });
-    setFilteredChamps(masteryChamp);
+    setFilteredChamps(champObject);
   }, [mastery]);
 
   return (
