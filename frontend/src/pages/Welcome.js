@@ -25,24 +25,17 @@ function Welcome({ summonerInfo, champInfo }) {
 
   useEffect(() => {
     const championInfoArray = []
-
     mastery.forEach((champ) => {
       championInfoArray.push(champ.championId)
     })
-
     const masteryChamp = champInfo.filter((champ) => {
-      if (championInfoArray.champonId.indexOf(Number(champ.key)) >= 0) {
+      if (championInfoArray.indexOf(Number(champ.key)) >= 0) {
         return true
       } else {
         return false
       }
     })
-
     setFilteredChamps(masteryChamp)
-
-    masteryChamp.forEach((champ) => {
-      console.log(champ)
-    })
   }, [mastery])
 
   return (
