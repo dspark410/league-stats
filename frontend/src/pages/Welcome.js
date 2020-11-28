@@ -34,8 +34,8 @@ function Welcome({ summonerInfo, champInfo }) {
 
   useEffect(() => {
     const champObject = [];
-    mastery.filter((champ) => {
-      champInfo.map((champion) => {
+    mastery.forEach((champ) => {
+      champInfo.forEach((champion) => {
         if (champ.championId === +champion.key) {
           const name = champion.name;
           const key = champ.championId;
