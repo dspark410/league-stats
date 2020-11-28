@@ -14,7 +14,7 @@ function Welcome({ summonerInfo, champInfo }) {
       console.log('Summoner info not in state')
     } else {
       axios
-        .get(`http://localhost:5000/masteries/${summonerInfo.id}`)
+        .get(`http://localhost:5000/masteries/${summonerInfo.id || session.id}`)
         .then((res) => {
           setMastery(res.data)
           setLoading(false)
@@ -37,7 +37,6 @@ function Welcome({ summonerInfo, champInfo }) {
       }
     })
     setFilteredChamps(masteryChamp)
-
     //Get Sessions data
     const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
     setSession(sessionData)
