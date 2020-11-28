@@ -61,6 +61,9 @@ function App() {
       .get(`http://localhost:5000/getSummonerName/${inputValue}`)
       .then((res) => {
         setSummonerInfo(res.data)
+
+        //Set session data
+        sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
         setRedirect(true)
       })
   }

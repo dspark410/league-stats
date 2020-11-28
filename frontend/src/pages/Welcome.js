@@ -6,8 +6,8 @@ import MasteryCard from '../components/MasteryCard'
 function Welcome({ summonerInfo, champInfo }) {
   const [mastery, setMastery] = useState([])
   const [loading, setLoading] = useState(true)
-
   const [filteredChamps, setFilteredChamps] = useState([])
+  const [session, setSession] = useState({})
 
   useEffect(() => {
     if (!summonerInfo.id) {
@@ -28,6 +28,7 @@ function Welcome({ summonerInfo, champInfo }) {
     mastery.forEach((champ) => {
       championInfoArray.push(champ.championId)
     })
+
     const masteryChamp = champInfo.filter((champ) => {
       if (championInfoArray.indexOf(Number(champ.key)) >= 0) {
         return true
@@ -36,13 +37,17 @@ function Welcome({ summonerInfo, champInfo }) {
       }
     })
     setFilteredChamps(masteryChamp)
+
+    //Get Sessions data
+    const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+    setSession(sessionData)
   }, [mastery])
 
   return (
     <div className={style.welcomeBackgroundContainer}>
       <div className={style.welcomeContainer}>
         <div>
-          <h1>Welcome {summonerInfo.name}</h1>
+          <h1>Welcome {summonerInfo.name || session.name}</h1>
         </div>
         <div>{loading ? '' : mastery[0].championPoints}</div>
         <div>{loading ? '' : mastery[1].championPoints}</div>
