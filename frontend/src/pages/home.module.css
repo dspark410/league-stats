@@ -1,5 +1,5 @@
 .homeBackgroundContainer {
-  background-image: url('https://wallpaperaccess.com/full/628546.jpg');
+  background-image: url("https://wallpaperaccess.com/full/628546.jpg");
   background-size: cover;
   position: fixed;
   top: 0;
@@ -8,6 +8,7 @@
   bottom: 0;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
 }
 
 .homeContainer {
@@ -15,7 +16,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh;
 }
 
 .homeContainer h1 {
@@ -23,6 +23,7 @@
 }
 
 .homeContainer input {
+  width: auto;
   padding: 20px;
   font-size: 32px;
   border-radius: 8px;
@@ -34,4 +35,8 @@
 }
 
 .imageContainer {
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 3rem;
+  width: 60%;
 }
