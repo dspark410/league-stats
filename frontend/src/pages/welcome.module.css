@@ -1,5 +1,5 @@
 .welcomeBackgroundContainer {
-  background-image: url('https://images.wallpapersden.com/image/download/yasuo-4k-league-of-legends_bGZubWyUmZqaraWkpJRobWllrWdma2U.jpg');
+  background-image: url('https://cdna.artstation.com/p/assets/images/images/001/207/026/large/suke-5.jpg?1442210805');
   background-size: cover;
   position: fixed;
   top: 0;
@@ -8,6 +8,7 @@
   bottom: 0;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 }
 
 .welcomeContainer {
