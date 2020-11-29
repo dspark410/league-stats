@@ -1,31 +1,48 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import style from './masterycard.module.css'
 
-function MasteryCard({ mastery, champions, loading }) {
-  useEffect(() => {
-    const getChampionKey = () => {
-      const championArr = Object.values(champions)
-      const keyArr = championArr.map((champion) => {
-        return +champion.key
-      })
-      console.log(keyArr)
-      //console.log('champion mastery id', mastery[0].championId)
-      //   if (mastery) {
-
-      //     const filteredKey = keyArr.filter((key) => {
-      //       if (key === mastery[0].championId) {
-      //         console.log(filteredKey)
-      //       }
-      //     })
-      //   }
-    }
-    getChampionKey()
-  }, [champions])
-
+function MasteryCard({ filteredChamps, loading }) {
   return (
-    <div>
-      <div>{loading ? '' : mastery[0].championPoints}</div>
-      <div>{loading ? '' : mastery[1].championPoints}</div>
-      <div>{loading ? '' : mastery[2].championPoints}</div>
+    <div className={style.masteryCardContainer}>
+      <div>
+        {loading ? (
+          ''
+        ) : (
+          <img
+            alt={filteredChamps[0].image}
+            src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${filteredChamps[0].image}_0.jpg`}
+          />
+        )}
+        <div>{loading ? '' : filteredChamps[0].name}</div>
+        <div>{loading ? '' : filteredChamps[0].points}</div>
+        <div> {loading ? '' : filteredChamps[0].level}</div>
+      </div>
+      <div>
+        {loading ? (
+          ''
+        ) : (
+          <img
+            alt={filteredChamps[1].image}
+            src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${filteredChamps[1].image}_0.jpg`}
+          />
+        )}
+        <div>{loading ? '' : filteredChamps[1].name}</div>
+        <div>{loading ? '' : filteredChamps[1].points}</div>
+        <div> {loading ? '' : filteredChamps[1].level}</div>
+      </div>
+      <div>
+        {loading ? (
+          ''
+        ) : (
+          <img
+            alt={filteredChamps[2].image}
+            src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${filteredChamps[2].image}_0.jpg`}
+          />
+        )}
+        <div>{loading ? '' : filteredChamps[2].name}</div>
+        <div>{loading ? '' : filteredChamps[2].points}</div>
+        <div> {loading ? '' : filteredChamps[2].level}</div>
+      </div>
     </div>
   )
 }
