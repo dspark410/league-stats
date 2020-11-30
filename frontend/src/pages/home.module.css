@@ -24,19 +24,27 @@
 
 .homeContainer input {
   width: auto;
-  padding: 20px;
+  padding: 10px;
   font-size: 32px;
   border-radius: 8px;
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.3);
+  border: none;
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.7);
 }
 
 .homeContainer input:focus {
   outline: none;
+  border: none;
 }
 
 .imageContainer {
+  display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  margin-top: 3rem;
-  width: 60%;
+  align-items: center;
+  margin: 10px 10px;
+  max-width: 800px;
+}
+
+.imageContainer img {
+  margin: 10px 10px;
 }
