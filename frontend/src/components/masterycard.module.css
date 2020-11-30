@@ -20,14 +20,14 @@
   position: absolute;
   border-radius: 50%;
   border: solid 4px #f0d287;
-  bottom: 38%;
+  bottom: 39%;
 }
 
 .name {
   position: absolute;
   display: flex;
   flex-direction: initial;
-  width: 50%;
+  width: 60%;
   align-items: center;
   top: 3%;
   letter-spacing: 1px;
@@ -37,7 +37,7 @@
   position: absolute;
   display: flex;
   flex-direction: initial;
-  width: 50%;
+  width: 60%;
   align-items: center;
   top: 13%;
   letter-spacing: 0.4px;
@@ -47,7 +47,7 @@
   position: absolute;
   display: flex;
   flex-direction: initial;
-  width: 50%;
+  width: 60%;
   align-items: center;
   top: 23%;
   letter-spacing: 0.4px;
