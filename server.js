@@ -16,29 +16,42 @@ app.get("/", (req, res) => {
 });
 
 app.get("/getSummonerName/:summoner", async (req, res) => {
-  const summoner = req.params.summoner;
-  const api = process.env.API_KEY;
-  const summonerData = await axios.get(
-    `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
-  );
-  res.json(summonerData.data);
+  try {
+    const summoner = req.params.summoner;
+    const api = process.env.API_KEY;
+    const summonerData = await axios.get(
+      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
+    );
+    res.json(summonerData.data);
+  } catch (error) {
+    console.log(error);
+    res.send("Summoner not found");
+  }
 });
 
 app.get("/masteries/:id", async (req, res) => {
-  const id = req.params.id;
-  const api = process.env.API_KEY;
-  const masteriesData = await axios.get(
-    `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${id}?api_key=${api}`
-  );
-  res.json(masteriesData.data);
+  try {
+    const id = req.params.id;
+    const api = process.env.API_KEY;
+    const masteriesData = await axios.get(
+      `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${id}?api_key=${api}`
+    );
+    res.json(masteriesData.data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.get("/getChampionRotation", async (req, res) => {
-  const api = process.env.API_KEY;
-  const rotationData = await axios.get(
-    `https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${api}`
-  );
-  res.json(rotationData.data);
+  try {
+    const api = process.env.API_KEY;
+    const rotationData = await axios.get(
+      `https://na1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${api}`
+    );
+    res.json(rotationData.data);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.listen(port, () => {

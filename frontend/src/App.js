@@ -12,7 +12,7 @@ import {
 
 function App() {
   const [summonerInfo, setSummonerInfo] = useState({});
-  const [inputValue, setInputValue] = useState({});
+  const [inputValue, setInputValue] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [champions, setChampions] = useState([]);
   const [champInfo, setChampInfo] = useState([]);
@@ -56,15 +56,23 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios
-      .get(`http://localhost:5000/getSummonerName/${inputValue}`)
-      .then((res) => {
-        setSummonerInfo(res.data);
+    if (inputValue.trim() === "") {
+      console.log("Please enter something");
+    } else {
+      axios
+        .get(`http://localhost:5000/getSummonerName/${inputValue}`)
+        .then((res) => {
+          if (res.status) {
+            console.log(res.data);
+          } else {
+            setSummonerInfo(res.data);
 
-        //Set session data
-        sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-        setRedirect(true);
-      });
+            //Set session data
+            sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
+            setRedirect(true);
+          }
+        });
+    }
   };
 
   return (
