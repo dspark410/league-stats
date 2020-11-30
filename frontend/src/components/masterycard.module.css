@@ -2,35 +2,92 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 60%;
+  width: 100%;
   flex-flow: row wrap;
-}
-
-.masteryCard {
-  position: relative;
   color: white;
   font-weight: bold;
 }
 
+.masteryCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.championImage {
+  position: absolute;
+  border-radius: 50%;
+  border: solid 4px #f0d287;
+  bottom: 38%;
+}
+
 .name {
   position: absolute;
-  right: 50%;
-  bottom: 10%;
-  transform: translateX(50%);
+  display: flex;
+  flex-direction: initial;
+  width: 50%;
+  align-items: center;
+  top: 3%;
+  letter-spacing: 1px;
 }
 
 .points {
   position: absolute;
-  right: 50%;
-  bottom: 5%;
-  transform: translateX(50%);
+  display: flex;
+  flex-direction: initial;
+  width: 50%;
+  align-items: center;
+  top: 13%;
+  letter-spacing: 0.4px;
 }
 
 .level {
+  position: absolute;
+  display: flex;
+  flex-direction: initial;
+  width: 50%;
+  align-items: center;
+  top: 23%;
+  letter-spacing: 0.4px;
+}
+
+/* .masteryCard {
+  position: relative;
+  color: white;
+  font-weight: bold;
+} */
+
+/* .name {
+  width: 50%;
+  position: absolute;
+  right: 50%;
+  bottom: 15%;
+  transform: translateX(50%);
+  letter-spacing: 2px;
+  display: flex;
+  flex-direction: initial;
+  align-items: center;
+} */
+
+/* .points {
+  width: 50%;
+  position: absolute;
+  right: 50%;
+  bottom: 8%;
+  transform: translateX(50%);
+  letter-spacing: 2px;
+  display: flex;
+  flex-direction: initial;
+  align-items: center;
+} */
+
+/* .level {
   position: absolute;
   top: 3%;
   right: 4%;
   border-radius: 50%;
   padding: 10px 15px;
   background-color: #ccae64;
-}
+} */
