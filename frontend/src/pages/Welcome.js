@@ -5,6 +5,7 @@ import MasteryCard from '../components/MasteryCard'
 
 function Welcome({ summonerInfo, champInfo }) {
   const [mastery, setMastery] = useState([])
+  const [rank, setRank] = useState([])
   const [loading, setLoading] = useState(true)
   const [filteredChamps, setFilteredChamps] = useState([])
   const [session, setSession] = useState({})
@@ -20,7 +21,6 @@ function Welcome({ summonerInfo, champInfo }) {
         .then((res) => {
           setMastery(res.data)
           setLoading(false)
-          //console.log("mastery", res.data);
         })
     } else {
       axios
@@ -28,8 +28,27 @@ function Welcome({ summonerInfo, champInfo }) {
         .then((res) => {
           setMastery(res.data)
           setLoading(false)
-          //console.log("mastery", res.data);
         })
+    }
+  }, [summonerInfo.id])
+
+  useEffect(() => {
+    if (!summonerInfo.id) {
+      console.log('Summoner info not in state')
+      //Get Sessions data
+      const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+      setSession(sessionData)
+      axios.get(`http://localhost:5000/rank/${sessionData.id}`).then((res) => {
+        setRank(res)
+        console.log('rankinfo', res)
+        setLoading(false)
+      })
+    } else {
+      axios.get(`http://localhost:5000/rank/${summonerInfo.id}`).then((res) => {
+        setRank(res.data)
+        console.log('rankinfo', res)
+        setLoading(false)
+      })
     }
   }, [summonerInfo.id])
 

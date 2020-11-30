@@ -42,6 +42,19 @@ app.get('/masteries/:id', async (req, res) => {
   }
 })
 
+app.get('/rank/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const api = process.env.API_KEY
+    const rankData = await axios.get(
+      `https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/TqIXVKs8pDnH19hEGqKP7DodSYlGa28epBX8UkXR_YDtw6U?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6`
+    )
+    res.json(rankData)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 app.get('/getChampionRotation', async (req, res) => {
   try {
     const api = process.env.API_KEY
