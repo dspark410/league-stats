@@ -39,14 +39,14 @@ function Welcome({ summonerInfo, champInfo }) {
       const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
       setSession(sessionData)
       axios.get(`http://localhost:5000/rank/${sessionData.id}`).then((res) => {
-        setRank(res)
-        console.log('rankinfo', res)
+        setRank(res.data)
+        console.log('rankinfo', res.data)
         setLoading(false)
       })
     } else {
       axios.get(`http://localhost:5000/rank/${summonerInfo.id}`).then((res) => {
         setRank(res.data)
-        console.log('rankinfo', res)
+        console.log('rankinfo', res.data)
         setLoading(false)
       })
     }
