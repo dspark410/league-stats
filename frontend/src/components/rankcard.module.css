@@ -1,6 +1,9 @@
 .rankCardContainer {
   color: white;
+  font-weight: bold;
+  letter-spacing: 0.4px;
   display: flex;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
 }
@@ -11,9 +14,32 @@
   justify-content: center;
   align-items: center;
   margin: 0 10px;
+  position: relative;
 }
 
 .emblemImage {
-  width: 252px;
+  position: absolute;
+  bottom: 30%;
+  width: 172px;
   height: auto;
+}
+
+.queue {
+  position: absolute;
+  top: 5%;
+  font-size: 20px;
+  text-transform: lowercase;
+}
+
+.rank {
+  position: absolute;
+  top: 15%;
+
+  text-transform: lowercase;
+}
+
+.ratio {
+  position: absolute;
+  top: 25%;
+  text-transform: lowercase;
 }

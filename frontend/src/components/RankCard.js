@@ -37,13 +37,18 @@ function RankCard({ summonerInfo }) {
         <div className={style.rankCardContainer}>
           {!rank[0] ? (
             <div className={style.singleCardContainer}>
+              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
               <img
+                className={style.emblemImage}
                 src={process.env.PUBLIC_URL + `/images/emblems/UNRANKED.png`}
               />
-              <h2>UNRANKED</h2>
+              <span className={style.queue}>unranked</span>
+              <span className={style.rank}>unranked</span>
+              <span className={style.ratio}>0 wins / 0 losses</span>
             </div>
           ) : (
             <div className={style.singleCardContainer}>
+              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
               <img
                 className={style.emblemImage}
                 src={
@@ -51,9 +56,11 @@ function RankCard({ summonerInfo }) {
                 }
               />
 
-              <h2>{rank[0].queueType.split('_').slice(0, 2).join(' ')}</h2>
+              <span className={style.queue}>
+                {rank[0].queueType.split('_').slice(0, 2).join(' ')}
+              </span>
 
-              <h2>
+              <span className={style.rank}>
                 {rank[0].tier +
                   ' ' +
                   rank[0].rank +
@@ -61,48 +68,52 @@ function RankCard({ summonerInfo }) {
                   '(' +
                   rank[0].leaguePoints +
                   ')'}
-              </h2>
+              </span>
 
-              <h2>{`${rank[0].wins} wins / ${rank[0].losses} losses`}</h2>
+              <span
+                className={style.ratio}
+              >{`${rank[0].wins} wins / ${rank[0].losses} losses`}</span>
             </div>
           )}
 
           {!rank[1] ? (
             <div className={style.singleCardContainer}>
+              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
               <img
+                className={style.emblemImage}
                 src={process.env.PUBLIC_URL + `/images/emblems/UNRANKED.png`}
               />
-              <h2>UNRANKED</h2>
+              <span className={style.queue}>unranked</span>
+              <span className={style.rank}>unranked</span>
+              <span className={style.ratio}>0 wins / 0 losses</span>
             </div>
           ) : (
             <div className={style.singleCardContainer}>
-              <div>
-                <img
-                  className={style.emblemImage}
-                  src={
-                    process.env.PUBLIC_URL +
-                    `/images/emblems/${rank[1].tier}.png`
-                  }
-                />
-              </div>
+              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
+              <img
+                className={style.emblemImage}
+                src={
+                  process.env.PUBLIC_URL + `/images/emblems/${rank[1].tier}.png`
+                }
+              />
 
-              <div>
-                <h2>{rank[1].queueType.split('_').slice(0, 2).join(' ')}</h2>
-              </div>
-              <div>
-                <h2>
-                  {rank[1].tier +
-                    ' ' +
-                    rank[1].rank +
-                    ' ' +
-                    '(' +
-                    rank[1].leaguePoints +
-                    ')'}
-                </h2>
-              </div>
-              <div>
-                <h2>{`${rank[1].wins} wins / ${rank[1].losses} losses`}</h2>
-              </div>
+              <span className={style.queue}>
+                {rank[1].queueType.split('_').slice(0, 2).join(' ')}
+              </span>
+
+              <span className={style.rank}>
+                {rank[1].tier +
+                  ' ' +
+                  rank[1].rank +
+                  ' ' +
+                  '(' +
+                  rank[1].leaguePoints +
+                  ')'}
+              </span>
+
+              <span
+                className={style.ratio}
+              >{`${rank[1].wins} wins / ${rank[1].losses} losses`}</span>
             </div>
           )}
         </div>
