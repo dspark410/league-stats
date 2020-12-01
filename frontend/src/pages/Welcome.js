@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import style from './welcome.module.css'
 import axios from 'axios'
 import MasteryCard from '../components/MasteryCard'
+import RankCard from '../components/RankCard'
 
 function Welcome({ summonerInfo, champInfo }) {
   const [mastery, setMastery] = useState([])
-  const [rank, setRank] = useState([])
+
   const [loading, setLoading] = useState(true)
   const [filteredChamps, setFilteredChamps] = useState([])
   const [session, setSession] = useState({})
@@ -16,6 +17,7 @@ function Welcome({ summonerInfo, champInfo }) {
       //Get Sessions data
       const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
       setSession(sessionData)
+
       axios
         .get(`http://localhost:5000/masteries/${sessionData.id}`)
         .then((res) => {
@@ -29,26 +31,6 @@ function Welcome({ summonerInfo, champInfo }) {
           setMastery(res.data)
           setLoading(false)
         })
-    }
-  }, [summonerInfo.id])
-
-  useEffect(() => {
-    if (!summonerInfo.id) {
-      console.log('Summoner info not in state')
-      //Get Sessions data
-      const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
-      setSession(sessionData)
-      axios.get(`http://localhost:5000/rank/${sessionData.id}`).then((res) => {
-        setRank(res.data)
-        console.log('rankinfo', res.data)
-        setLoading(false)
-      })
-    } else {
-      axios.get(`http://localhost:5000/rank/${summonerInfo.id}`).then((res) => {
-        setRank(res.data)
-        console.log('rankinfo', res.data)
-        setLoading(false)
-      })
     }
   }, [summonerInfo.id])
 
@@ -83,6 +65,7 @@ function Welcome({ summonerInfo, champInfo }) {
         <div>
           <h1>Welcome {summonerInfo.name || session.name}</h1>
         </div>
+        <RankCard summonerInfo={summonerInfo} />
         <MasteryCard loading={loading} filteredChamps={filteredChamps} />
       </div>
     </div>

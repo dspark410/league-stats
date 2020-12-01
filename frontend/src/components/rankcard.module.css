@@ -1,0 +1,19 @@
+.rankCardContainer {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.singleCardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.emblemImage {
+  width: 252px;
+  height: auto;
+}
