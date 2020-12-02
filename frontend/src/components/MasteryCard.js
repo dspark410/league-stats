@@ -2,7 +2,6 @@ import React from 'react'
 import style from './masterycard.module.css'
 
 function MasteryCard({ filteredChamps, loading }) {
-  console.log(filteredChamps)
   return (
     <>
       {filteredChamps.length < 3 ? (

@@ -5,7 +5,7 @@ import axios from 'axios'
 function RankCard({ summonerInfo }) {
   const [rank, setRank] = useState([])
   const [loading, setLoading] = useState(true)
-  const [session, setSession] = useState({})
+  // const [session, setSession] = useState({})
 
   useEffect(() => {
     if (!summonerInfo.id) {
@@ -13,17 +13,15 @@ function RankCard({ summonerInfo }) {
 
       //Get Sessions data
       const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
-      setSession(sessionData)
+      //setSession(sessionData)
 
       axios.get(`http://localhost:5000/rank/${sessionData.id}`).then((res) => {
         setRank(res.data)
-        console.log('rankinfo', res.data)
         setLoading(false)
       })
     } else {
       axios.get(`http://localhost:5000/rank/${summonerInfo.id}`).then((res) => {
         setRank(res.data)
-        console.log('rankinfo', res.data)
         setLoading(false)
       })
     }
@@ -37,8 +35,12 @@ function RankCard({ summonerInfo }) {
         <div className={style.rankCardContainer}>
           {!rank[0] ? (
             <div className={style.singleCardContainer}>
-              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
               <img
+                alt='banner'
+                src={process.env.PUBLIC_URL + `/images/banner.png`}
+              />
+              <img
+                alt='unranked'
                 className={style.emblemImage}
                 src={process.env.PUBLIC_URL + `/images/emblems/UNRANKED.png`}
               />
@@ -48,8 +50,12 @@ function RankCard({ summonerInfo }) {
             </div>
           ) : (
             <div className={style.singleCardContainer}>
-              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
               <img
+                alt='banner'
+                src={process.env.PUBLIC_URL + `/images/banner.png`}
+              />
+              <img
+                alt='ranked tier'
                 className={style.emblemImage}
                 src={
                   process.env.PUBLIC_URL + `/images/emblems/${rank[0].tier}.png`
@@ -78,8 +84,12 @@ function RankCard({ summonerInfo }) {
 
           {!rank[1] ? (
             <div className={style.singleCardContainer}>
-              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
               <img
+                alt='banner'
+                src={process.env.PUBLIC_URL + `/images/banner.png`}
+              />
+              <img
+                alt='unranked'
                 className={style.emblemImage}
                 src={process.env.PUBLIC_URL + `/images/emblems/UNRANKED.png`}
               />
@@ -89,8 +99,12 @@ function RankCard({ summonerInfo }) {
             </div>
           ) : (
             <div className={style.singleCardContainer}>
-              <img src={process.env.PUBLIC_URL + `/images/banner.png`} />
               <img
+                alt='banner'
+                src={process.env.PUBLIC_URL + `/images/banner.png`}
+              />
+              <img
+                alt='ranked tier'
                 className={style.emblemImage}
                 src={
                   process.env.PUBLIC_URL + `/images/emblems/${rank[1].tier}.png`

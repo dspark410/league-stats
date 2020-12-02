@@ -3,10 +3,10 @@ import style from './welcome.module.css'
 import axios from 'axios'
 import MasteryCard from '../components/MasteryCard'
 import RankCard from '../components/RankCard'
+import SummonerCard from '../components/SummonerCard'
 
 function Welcome({ summonerInfo, champInfo }) {
   const [mastery, setMastery] = useState([])
-
   const [loading, setLoading] = useState(true)
   const [filteredChamps, setFilteredChamps] = useState([])
   const [session, setSession] = useState({})
@@ -62,10 +62,11 @@ function Welcome({ summonerInfo, champInfo }) {
   return (
     <div className={style.welcomeBackgroundContainer}>
       <div className={style.welcomeContainer}>
-        <div>
-          <h1>Welcome {summonerInfo.name || session.name}</h1>
-        </div>
-        <RankCard summonerInfo={summonerInfo} />
+        <h1 className={style.summonerName}>
+          WELCOME, {summonerInfo.name || session.name}
+        </h1>
+        <SummonerCard summonerInfo={summonerInfo} />
+        <RankCard summonerInfo={summonerInfo} session={session} />
         <MasteryCard loading={loading} filteredChamps={filteredChamps} />
       </div>
     </div>

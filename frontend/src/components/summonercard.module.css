@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.summonerCardContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.summonerBorder {
+  width: 250px;
+  height: 250px;
+  z-index: 1;
+}
+
+.profileIcon {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.summonerLevel {
+  position: absolute;
+  bottom: 9%;
+  z-index: 1;
+}
