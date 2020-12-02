@@ -48,3 +48,13 @@
   color: #f0d287;
   font-weight: bold;
 }
+
+.rankCardContainer {
+  color: #f0d287;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}

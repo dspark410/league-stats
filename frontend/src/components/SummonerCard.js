@@ -8,8 +8,6 @@ function SummonerCard({ summonerInfo }) {
 
   useEffect(() => {
     if (!summonerInfo.id) {
-      console.log("Summoner info not in state");
-
       //Get Sessions data
       const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
       setSession(sessionData);

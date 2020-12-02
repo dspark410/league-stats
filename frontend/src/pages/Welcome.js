@@ -3,19 +3,19 @@ import style from "./welcome.module.css";
 import axios from "axios";
 import MasteryCard from "../components/MasteryCard";
 import RankCard from "../components/RankCard";
+import UnrankedCard from "../components/UnrankedCard";
 import SummonerCard from "../components/SummonerCard";
 import MatchHistoryCard from "../components/MatchHistoryCard";
 
 function Welcome({ summonerInfo, champInfo }) {
   const [mastery, setMastery] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [rank, setRank] = useState([]);
   const [filteredChamps, setFilteredChamps] = useState([]);
   const [session, setSession] = useState({});
 
   useEffect(() => {
     if (!summonerInfo.id) {
       console.log("Summoner info not in state");
-      //Get Sessions data
       const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
       setSession(sessionData);
 
@@ -23,17 +23,31 @@ function Welcome({ summonerInfo, champInfo }) {
         .get(`http://localhost:5000/masteries/${sessionData.id}`)
         .then((res) => {
           setMastery(res.data);
-          setLoading(false);
         });
     } else {
+      console.log("Summoner info IS in state");
       axios
         .get(`http://localhost:5000/masteries/${summonerInfo.id}`)
         .then((res) => {
           setMastery(res.data);
-          setLoading(false);
         });
     }
   }, [summonerInfo.id]);
+
+  useEffect(() => {
+    if (!summonerInfo.id) {
+      console.log("Summoner info not in state, getting rank from session");
+
+      axios.get(`http://localhost:5000/rank/${session.id}`).then((res) => {
+        setRank(res.data);
+      });
+    } else {
+      console.log("Summoner info IS in state, getting rank from session");
+      axios.get(`http://localhost:5000/rank/${summonerInfo.id}`).then((res) => {
+        setRank(res.data);
+      });
+    }
+  }, [summonerInfo.id, session]);
 
   useEffect(() => {
     const champObject = [];
@@ -71,10 +85,16 @@ function Welcome({ summonerInfo, champInfo }) {
           <MatchHistoryCard />
         </div>
         <div className={style.appRight}>
-          <RankCard summonerInfo={summonerInfo} session={session} />
+          <div className={style.rankCardContainer}>
+            {rank.map((ranking, i) => (
+              <RankCard key={i} rank={ranking} />
+            ))}
+          </div>
           <div className={style.masteryCardContainer}>
             {filteredChamps.length < 3
-              ? ""
+              ? filteredChamps.map((champ, i) => {
+                  return <MasteryCard key={i} masteryChamp={champ} />;
+                })
               : filteredChamps.slice(0, 3).map((champ, i) => {
                   return <MasteryCard key={i} masteryChamp={champ} />;
                 })}
