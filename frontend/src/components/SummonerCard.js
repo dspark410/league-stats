@@ -14,7 +14,7 @@ function SummonerCard({ summonerInfo }) {
       //Get Sessions data
       const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
       setSession(sessionData);
-      setLevel(sessionData.summonerLevel);
+      setLevel(session.summonerLevel);
       setLoading(false);
     } else {
       setLevel(summonerInfo.summonerLevel);
@@ -42,7 +42,7 @@ function SummonerCard({ summonerInfo }) {
                     `/images/summonerborder/lvl${
                       Math.floor(level / 25) * 25
                     }.png`
-                  : process.env.PUBLIC_URL + `/images/summonerborder/lvl500.png`
+                  : ""
               }
             />
             <img
