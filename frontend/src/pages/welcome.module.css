@@ -1,5 +1,5 @@
 .welcomeBackgroundContainer {
-  background-image: url('https://cdna.artstation.com/p/assets/images/images/001/207/026/large/suke-5.jpg?1442210805');
+  background-image: url("https://cdna.artstation.com/p/assets/images/images/001/207/026/large/suke-5.jpg?1442210805");
   background-size: cover;
   position: fixed;
   top: 0;
@@ -37,4 +37,14 @@
   text-align: center;
   color: white;
   margin-bottom: 0;
+}
+
+.masteryCardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-flow: row wrap;
+  color: #f0d287;
+  font-weight: bold;
 }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import style from "./summonercard.module.css";
-import axios from "axios";
 
 function SummonerCard({ summonerInfo }) {
   const [session, setSession] = useState({});
@@ -14,13 +13,13 @@ function SummonerCard({ summonerInfo }) {
       //Get Sessions data
       const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
       setSession(sessionData);
-      setLevel(session.summonerLevel);
+      setLevel(sessionData.summonerLevel);
       setLoading(false);
     } else {
       setLevel(summonerInfo.summonerLevel);
       setLoading(false);
     }
-  }, []);
+  }, [summonerInfo]);
 
   return (
     <>
