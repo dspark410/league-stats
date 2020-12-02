@@ -42,7 +42,7 @@ function Welcome({ summonerInfo, champInfo }) {
         setRank(res.data);
       });
     } else {
-      console.log("Summoner info IS in state, getting rank from session");
+      console.log("Summoner info IS in state, getting rank from state");
       axios.get(`http://localhost:5000/rank/${summonerInfo.id}`).then((res) => {
         setRank(res.data);
       });
@@ -86,9 +86,24 @@ function Welcome({ summonerInfo, champInfo }) {
         </div>
         <div className={style.appRight}>
           <div className={style.rankCardContainer}>
-            {rank.map((ranking, i) => (
-              <RankCard key={i} rank={ranking} />
-            ))}
+            {!rank.length ? (
+              <div>
+                <UnrankedCard queueType="RANKED_FLEX_SR" />
+                <UnrankedCard queueType="RANKED_SOLO_5x5" />
+              </div>
+            ) : rank.length < 2 && rank[0].queueType === "RANKED_SOLO_5x5" ? (
+              <div>
+                <RankCard rank={rank[0]} />
+                <UnrankedCard queueType={"RANKED_FLEX_SR"} />
+              </div>
+            ) : rank.length < 2 && rank[0].queueType === "RANKED_FLEX_SR" ? (
+              <div>
+                <RankCard rank={rank[0]} />
+                <UnrankedCard queueType={"RANKED_SOLO_5x5"} />
+              </div>
+            ) : (
+              rank.map((ranking, i) => <RankCard key={i} rank={ranking} />)
+            )}
           </div>
           <div className={style.masteryCardContainer}>
             {filteredChamps.length < 3
