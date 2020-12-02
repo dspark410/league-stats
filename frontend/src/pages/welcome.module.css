@@ -13,15 +13,28 @@
 
 .welcomeContainer {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
+  margin: 10px 0;
 }
 
 .welcomeContainer h1 {
   color: white;
 }
 
+.appLeft {
+  flex: 0.1;
+}
+
+.appRight {
+  flex: 0.7;
+}
+
 .summonerName {
   letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  margin-bottom: 0;
 }

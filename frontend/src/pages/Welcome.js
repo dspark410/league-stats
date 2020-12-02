@@ -4,6 +4,7 @@ import axios from 'axios'
 import MasteryCard from '../components/MasteryCard'
 import RankCard from '../components/RankCard'
 import SummonerCard from '../components/SummonerCard'
+import MatchHistoryCard from '../components/MatchHistoryCard'
 
 function Welcome({ summonerInfo, champInfo }) {
   const [mastery, setMastery] = useState([])
@@ -61,13 +62,18 @@ function Welcome({ summonerInfo, champInfo }) {
 
   return (
     <div className={style.welcomeBackgroundContainer}>
+      <h1 className={style.summonerName}>
+        Welcome, {summonerInfo.name || session.name}
+      </h1>
+      <SummonerCard summonerInfo={summonerInfo} />
       <div className={style.welcomeContainer}>
-        <h1 className={style.summonerName}>
-          WELCOME, {summonerInfo.name || session.name}
-        </h1>
-        <SummonerCard summonerInfo={summonerInfo} />
-        <RankCard summonerInfo={summonerInfo} session={session} />
-        <MasteryCard loading={loading} filteredChamps={filteredChamps} />
+        <div className={style.appLeft}>
+          <MatchHistoryCard />
+        </div>
+        <div className={style.appRight}>
+          <RankCard summonerInfo={summonerInfo} session={session} />
+          <MasteryCard loading={loading} filteredChamps={filteredChamps} />
+        </div>
       </div>
     </div>
   )
