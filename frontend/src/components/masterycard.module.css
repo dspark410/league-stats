@@ -1,13 +1,3 @@
-.masteryCardContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  flex-flow: row wrap;
-  color: #f0d287;
-  font-weight: bold;
-}
-
 .masteryCard {
   position: relative;
   display: flex;
