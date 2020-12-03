@@ -78,6 +78,17 @@ app.get('/mapList', async (req, res) => {
   }
 })
 
+app.get('/queueType', async (req, res) => {
+  try {
+    const queueTypeData = await axios.get(
+      `http://static.developer.riotgames.com/docs/lol/queues.json`
+    )
+    res.json(queueTypeData.data)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 app.get('/matchList/:id', async (req, res) => {
   try {
     const id = req.params.id

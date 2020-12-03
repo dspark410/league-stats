@@ -12,6 +12,8 @@ function Welcome({ summonerInfo, champInfo }) {
   const [rank, setRank] = useState([])
   const [filteredChamps, setFilteredChamps] = useState([])
   const [session, setSession] = useState({})
+  const [playerMatches, setPlayerMatches] = useState([])
+  const [matchDetails, setMatchDetails] = useState([])
 
   useEffect(() => {
     if (!summonerInfo.id) {
@@ -74,6 +76,39 @@ function Welcome({ summonerInfo, champInfo }) {
     setFilteredChamps(champObject)
   }, [mastery, champInfo])
 
+  // Matchlist api
+  useEffect(() => {
+    if (!summonerInfo.accountId) {
+      console.log('Summoner info not in state, getting rank from session')
+      const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+      axios
+        .get(`http://localhost:5000/matchList/${sessionData.accountId}`)
+        .then((res) => {
+          setPlayerMatches(res.data.matches)
+        })
+    } else {
+      axios
+        .get(`http://localhost:5000/matchList/${summonerInfo.accountId}`)
+        .then((res) => {
+          setPlayerMatches(res.data.matches)
+        })
+    }
+  }, [summonerInfo])
+
+  // Match Details
+  useEffect(() => {
+    const matchArray = []
+
+    playerMatches.slice(0, 2).forEach((match) => {
+      axios
+        .get(`http://localhost:5000/matchDetails/${match.gameId}`)
+        .then((res) => matchArray.push(res.data))
+        .then(() => {
+          matchArray.length === 2 && setMatchDetails(matchArray)
+        })
+    })
+  }, [playerMatches])
+
   return (
     <div className={style.welcomeBackgroundContainer}>
       <h1 className={style.summonerName}>
@@ -82,7 +117,7 @@ function Welcome({ summonerInfo, champInfo }) {
       <SummonerCard summonerInfo={summonerInfo} />
       <div className={style.welcomeContainer}>
         <div className={style.appLeft}>
-          <MatchHistoryCard summonerInfo={summonerInfo} session={session} />
+          <MatchHistoryCard matchDetails={matchDetails} />
         </div>
         <div className={style.appRight}>
           <div className={style.rankCardContainer}>
