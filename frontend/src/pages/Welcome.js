@@ -117,7 +117,10 @@ function Welcome({ summonerInfo, champInfo }) {
       <SummonerCard summonerInfo={summonerInfo} />
       <div className={style.welcomeContainer}>
         <div className={style.appLeft}>
-          <MatchHistoryCard matchDetails={matchDetails} />
+          <MatchHistoryCard
+            matchDetails={matchDetails}
+            summonerInfo={summonerInfo}
+          />
         </div>
         <div className={style.appRight}>
           <div className={style.rankCardContainer}>
