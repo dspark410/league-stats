@@ -62,7 +62,6 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
 
       match.participants.forEach((data) => {
         if (data.participantId === participantObj) {
-<<<<<<< HEAD
           const playerStats = data
           matchObj.playerInfo = playerStats
           champInfo.forEach((champ) => {
@@ -72,19 +71,6 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
             }
           })
           gameDetailsArr.push(matchObj)
-=======
-          const playerStats = data;
-          matchObj.playerInfo = playerStats;
-        }
-      });
-
-      champInfo.forEach((champ) => {
-        if (matchObj.playerInfo.championId === +champ.key) {
-          matchObj.championName = champ.name;
-          matchObj.championImage = champ.image;
-
-          gameDetailsArr.push(matchObj);
->>>>>>> 9776eacf629d5b4d36c7f62a515390d779e932b3
         }
       })
     })
@@ -164,8 +150,8 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
                 </span>
                 <div>
                   <span>
-                    {game.playerInfo.stats.largestMultiKill}
-                    {/* {game.playerInfo.stats.largestMultiKill === 0 || 1
+                    {game.playerInfo.stats.largestMultiKill === 0 ||
+                    game.playerInfo.stats.largestMultiKill === 1
                       ? ''
                       : game.playerInfo.stats.largestMultiKill === 2
                       ? 'Double Kill'
@@ -173,7 +159,7 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
                       ? 'Triple Kill'
                       : game.playerInfo.stats.largestMultiKill === 4
                       ? 'Quadra Kill'
-                      : 'Penta Kill'} */}
+                      : 'Penta Kill'}
                   </span>
                 </div>
               </div>
