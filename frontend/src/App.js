@@ -37,11 +37,17 @@ function App() {
       const name = championArray[i].name;
       const key = championArray[i].key;
       const image = championArray[i].image.full.split(".")[0];
+      const title = championArray[i].title;
+      const blurb = championArray[i].blurb;
+      const tags = championArray[i].tags;
 
       const object = {
         name,
         key,
         image,
+        title,
+        blurb,
+        tags,
       };
 
       newArray.push(object);
