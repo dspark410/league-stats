@@ -120,6 +120,7 @@ function Welcome({ summonerInfo, champInfo }) {
           <MatchHistoryCard
             matchDetails={matchDetails}
             summonerInfo={summonerInfo}
+            champInfo={champInfo}
           />
         </div>
         <div className={style.appRight}>
