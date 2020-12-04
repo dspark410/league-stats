@@ -1,7 +1,79 @@
 .matchContainer {
   color: white;
-  width: 600px;
+  width: 700px;
   height: 900px;
   background-color: black;
   margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.firstCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+}
+
+.firstCard p {
+  margin: 0;
+}
+
+.secondCard {
+  display: table-cell;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+}
+
+.championImg {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.championImage {
+  border-radius: 50%;
+  width: 50px;
+  height: auto;
+}
+
+.summonerSpellContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.summonerSpell {
+  width: 30px;
+  height: auto;
+  margin-left: 4px;
+}
+
+.championName {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.thirdCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.killDeathAssists {
 }
