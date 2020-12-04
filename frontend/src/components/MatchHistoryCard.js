@@ -62,6 +62,7 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
 
       match.participants.forEach((data) => {
         if (data.participantId === participantObj) {
+<<<<<<< HEAD
           const playerStats = data
           matchObj.playerInfo = playerStats
           champInfo.forEach((champ) => {
@@ -71,6 +72,19 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
             }
           })
           gameDetailsArr.push(matchObj)
+=======
+          const playerStats = data;
+          matchObj.playerInfo = playerStats;
+        }
+      });
+
+      champInfo.forEach((champ) => {
+        if (matchObj.playerInfo.championId === +champ.key) {
+          matchObj.championName = champ.name;
+          matchObj.championImage = champ.image;
+
+          gameDetailsArr.push(matchObj);
+>>>>>>> 9776eacf629d5b4d36c7f62a515390d779e932b3
         }
       })
     })
