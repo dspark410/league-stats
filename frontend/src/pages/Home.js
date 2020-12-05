@@ -31,7 +31,7 @@ function Home({ change, submit, champInfo, version }) {
       <div className={style.homeContainer}>
         <h1>Enter Summoner Name</h1>
         <form onSubmit={submit}>
-          <input onChange={change} type='text' />
+          <input spellCheck='false' onChange={change} type='text' />
         </form>
         <div className={style.imageContainer}>
           {freeChamps.map((champ, i) => (

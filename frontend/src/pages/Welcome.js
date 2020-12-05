@@ -125,7 +125,7 @@ function Welcome({ summonerInfo, champInfo, version }) {
           />
         </div>
         <div className={style.appRight}>
-          <h1>ranked info</h1>
+          <h1>Ranked Info</h1>
 
           <div className={style.rankCardContainer}>
             {!rank.length ? (
@@ -148,7 +148,7 @@ function Welcome({ summonerInfo, champInfo, version }) {
             )}
           </div>
           <div className={style.masteryCardContainer}>
-            <h1>champion mastery info</h1>
+            <h1>Champion Mastery Info</h1>
             <div className={style.masteryCardContainer2}>
               {filteredChamps.length < 3
                 ? filteredChamps.map((champ, i) => {

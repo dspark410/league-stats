@@ -1,14 +1,17 @@
 .matchContainer {
-  color: gray;
+  color: black;
   font-weight: bold;
   width: 700px;
   height: 900px;
   display: flex;
   flex-direction: column;
+  font-size: 13px;
 }
 
 .matchContainer h1 {
   text-align: center;
+  font-size: 32px;
+  margin-top: 0;
 }
 
 .cardContainerWin {
@@ -45,6 +48,14 @@
   margin: 0;
 }
 
+.win {
+  color: green;
+}
+
+.loss {
+  color: red;
+}
+
 .secondCard {
   display: flex;
   flex-direction: column;
@@ -66,7 +77,8 @@
 }
 
 .championImage {
-  border-radius: 50%;
+  border-radius: 8px;
+  border: solid 2px #f0d287;
   width: 50px;
   height: auto;
 }
@@ -80,11 +92,20 @@
   width: 30px;
   height: auto;
   margin-left: 4px;
+  margin-bottom: 4px;
+  border-radius: 3px;
+}
+
+.summonerSpell2 {
+  width: 30px;
+  height: auto;
+  margin-left: 4px;
+  border-radius: 3px;
 }
 
 .championName {
   text-align: center;
-  margin-top: 4px;
+  margin-top: -3px;
 }
 
 .thirdCard {

@@ -1,9 +1,5 @@
-* {
-  font-family: LeagueFont;
-}
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&family=Yeon+Sung&display=swap');
 
-@font-face {
-  font-family: 'LeagueFont';
-  src: local('LeagueFont'), url('./fonts/font.ttf') format('truetype');
-  font-weight: normal;
+* {
+  font-family: 'IBM Plex Serif', serif;
 }

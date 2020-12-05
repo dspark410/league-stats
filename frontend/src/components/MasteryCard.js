@@ -38,7 +38,7 @@ function MasteryCard({ masteryChamp, version }) {
           src={process.env.PUBLIC_URL + '/images/level.png'}
           alt='mastery icon'
         />
-        <span>mastery lvl {masteryChamp.level}</span>
+        <span>Mastery lvl {masteryChamp.level}</span>
       </div>
     </div>
   )

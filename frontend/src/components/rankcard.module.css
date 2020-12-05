@@ -5,6 +5,7 @@
   align-items: center;
   margin: -25px 10px;
   position: relative;
+  font-size: 13px;
 }
 
 .emblemImage {
@@ -18,18 +19,14 @@
   position: absolute;
   top: 15%;
   font-size: 20px;
-  text-transform: lowercase;
 }
 
 .rank {
   position: absolute;
   top: 25%;
-
-  text-transform: lowercase;
 }
 
 .ratio {
   position: absolute;
   top: 35%;
-  text-transform: lowercase;
 }
