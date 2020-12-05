@@ -7,7 +7,7 @@ import UnrankedCard from '../components/UnrankedCard'
 import SummonerCard from '../components/SummonerCard'
 import MatchHistoryCard from '../components/MatchHistoryCard'
 
-function Welcome({ summonerInfo, champInfo }) {
+function Welcome({ summonerInfo, champInfo, version }) {
   const [mastery, setMastery] = useState([])
   const [rank, setRank] = useState([])
   const [filteredChamps, setFilteredChamps] = useState([])
@@ -99,12 +99,12 @@ function Welcome({ summonerInfo, champInfo }) {
   useEffect(() => {
     const matchArray = []
 
-    playerMatches.slice(0, 9).forEach((match) => {
+    playerMatches.slice(0, 6).forEach((match) => {
       axios
         .get(`http://localhost:5000/matchDetails/${match.gameId}`)
         .then((res) => matchArray.push(res.data))
         .then(() => {
-          matchArray.length === 9 && setMatchDetails(matchArray)
+          matchArray.length === 6 && setMatchDetails(matchArray)
         })
     })
   }, [playerMatches])
@@ -114,10 +114,11 @@ function Welcome({ summonerInfo, champInfo }) {
       <h1 className={style.summonerName}>
         Welcome, {summonerInfo.name || session.name}
       </h1>
-      <SummonerCard summonerInfo={summonerInfo} />
+      <SummonerCard version={version} summonerInfo={summonerInfo} />
       <div className={style.welcomeContainer}>
         <div className={style.appLeft}>
           <MatchHistoryCard
+            version={version}
             matchDetails={matchDetails}
             summonerInfo={summonerInfo}
             champInfo={champInfo}
@@ -151,10 +152,22 @@ function Welcome({ summonerInfo, champInfo }) {
             <div className={style.masteryCardContainer2}>
               {filteredChamps.length < 3
                 ? filteredChamps.map((champ, i) => {
-                    return <MasteryCard key={i} masteryChamp={champ} />
+                    return (
+                      <MasteryCard
+                        version={version}
+                        key={i}
+                        masteryChamp={champ}
+                      />
+                    )
                   })
                 : filteredChamps.slice(0, 3).map((champ, i) => {
-                    return <MasteryCard key={i} masteryChamp={champ} />
+                    return (
+                      <MasteryCard
+                        version={version}
+                        key={i}
+                        masteryChamp={champ}
+                      />
+                    )
                   })}
             </div>
           </div>

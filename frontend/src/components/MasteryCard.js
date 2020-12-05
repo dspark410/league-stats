@@ -1,13 +1,13 @@
 import React from 'react'
 import style from './masterycard.module.css'
 
-function MasteryCard({ masteryChamp }) {
+function MasteryCard({ masteryChamp, version }) {
   return (
     <div className={style.masteryCard}>
       <img
         className={style.championImage}
         alt={masteryChamp.image}
-        src={`http://ddragon.leagueoflegends.com/cdn/10.24.1/img/champion/${masteryChamp.image}.png`}
+        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${masteryChamp.image}.png`}
       />
 
       <img
