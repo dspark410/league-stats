@@ -257,7 +257,7 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
                       <img
                         alt="item"
                         src={
-                          game.playerInfo.stats.item1
+                          game.playerInfo.stats.item0
                             ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item0}.png`
                             : process.env.PUBLIC_URL + "/images/emptyitem.png"
                         }
