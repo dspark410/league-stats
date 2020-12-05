@@ -99,12 +99,12 @@ function Welcome({ summonerInfo, champInfo }) {
   useEffect(() => {
     const matchArray = []
 
-    playerMatches.slice(0, 2).forEach((match) => {
+    playerMatches.slice(0, 9).forEach((match) => {
       axios
         .get(`http://localhost:5000/matchDetails/${match.gameId}`)
         .then((res) => matchArray.push(res.data))
         .then(() => {
-          matchArray.length === 2 && setMatchDetails(matchArray)
+          matchArray.length === 9 && setMatchDetails(matchArray)
         })
     })
   }, [playerMatches])
@@ -124,6 +124,8 @@ function Welcome({ summonerInfo, champInfo }) {
           />
         </div>
         <div className={style.appRight}>
+          <h1>ranked info</h1>
+
           <div className={style.rankCardContainer}>
             {!rank.length ? (
               <>
@@ -145,13 +147,16 @@ function Welcome({ summonerInfo, champInfo }) {
             )}
           </div>
           <div className={style.masteryCardContainer}>
-            {filteredChamps.length < 3
-              ? filteredChamps.map((champ, i) => {
-                  return <MasteryCard key={i} masteryChamp={champ} />
-                })
-              : filteredChamps.slice(0, 3).map((champ, i) => {
-                  return <MasteryCard key={i} masteryChamp={champ} />
-                })}
+            <h1>champion mastery info</h1>
+            <div className={style.masteryCardContainer2}>
+              {filteredChamps.length < 3
+                ? filteredChamps.map((champ, i) => {
+                    return <MasteryCard key={i} masteryChamp={champ} />
+                  })
+                : filteredChamps.slice(0, 3).map((champ, i) => {
+                    return <MasteryCard key={i} masteryChamp={champ} />
+                  })}
+            </div>
           </div>
         </div>
       </div>

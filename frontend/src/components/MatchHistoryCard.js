@@ -17,6 +17,8 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
   //const [maps, setMaps] = useState([])
   const [queues, setQueues] = useState([])
   const [gameDetails, setGameDetails] = useState([])
+  const [spells, setSpells] = useState([])
+  const [filteredSpells, setFilteredSpells] = useState([])
 
   useEffect(() => {
     // axios
@@ -29,7 +31,34 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
       .get('http://localhost:5000/queueType')
       .then((res) => setQueues(res.data))
     // axios.get('http://localhost:5000/mapList').then((res) => setMaps(res.data))
+    axios
+      .get(
+        'http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/summoner.json'
+      )
+      .then((res) => {
+        setSpells(res.data.data)
+      })
   }, [])
+
+  useEffect(() => {
+    const spellInfoArray = Object.values(spells)
+
+    const newArray = []
+
+    for (let i = 0; i < spellInfoArray.length; i++) {
+      const name = spellInfoArray[i].name
+      const key = spellInfoArray[i].key
+      const id = spellInfoArray[i].id
+
+      const object = {
+        name,
+        key,
+        id,
+      }
+      newArray.push(object)
+    }
+    setFilteredSpells(newArray)
+  }, [spells])
 
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
 
@@ -64,12 +93,13 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
         if (data.participantId === participantObj) {
           const playerStats = data
           matchObj.playerInfo = playerStats
-          champInfo.forEach((champ) => {
-            if (matchObj.playerInfo.championId === +champ.key) {
-              matchObj.championName = champ.name
-              matchObj.championImage = champ.image
-            }
-          })
+        }
+      })
+
+      champInfo.forEach((champ) => {
+        if (matchObj.playerInfo.championId === +champ.key) {
+          matchObj.championName = champ.name
+          matchObj.championImage = champ.image
           gameDetailsArr.push(matchObj)
         }
       })
@@ -79,9 +109,17 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
 
   return (
     <div className={style.matchContainer}>
-      {gameDetails.length === 2 &&
+      <h1>Match History</h1>
+      {gameDetails.length === 9 &&
         gameDetails.map((game, i) => (
-          <div className={style.cardContainer} key={i}>
+          <div
+            className={
+              game.playerInfo.stats.win
+                ? style.cardContainerWin
+                : style.cardContainerLose
+            }
+            key={i}
+          >
             <div className={style.firstCard}>
               <p className={style.gameType}>
                 {game.gameType.split(' ').slice(0, 3).join(' ')}
@@ -108,14 +146,27 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
                 </div>
 
                 <div className={style.summonerSpellContainer}>
-                  <img
-                    className={style.summonerSpell}
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.24.1/img/spell/SummonerFlash.png`}
-                  />
-                  <img
-                    className={style.summonerSpell}
-                    src={`http://ddragon.leagueoflegends.com/cdn/10.24.1/img/spell/SummonerFlash.png`}
-                  />
+                  {filteredSpells.map(
+                    (spell) =>
+                      +spell.key === game.playerInfo.spell1Id && (
+                        <img
+                          alt={spell.name}
+                          className={style.summonerSpell}
+                          src={`http://ddragon.leagueoflegends.com/cdn/10.24.1/img/spell/${spell.id}.png`}
+                        />
+                      )
+                  )}
+
+                  {filteredSpells.map(
+                    (spell) =>
+                      +spell.key === game.playerInfo.spell2Id && (
+                        <img
+                          alt={spell.name}
+                          className={style.summonerSpell}
+                          src={`http://ddragon.leagueoflegends.com/cdn/10.24.1/img/spell/${spell.id}.png`}
+                        />
+                      )
+                  )}
                 </div>
                 <div className={style.summonerSpellContainer}>
                   <img
@@ -154,16 +205,89 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo }) {
                     game.playerInfo.stats.largestMultiKill === 1
                       ? ''
                       : game.playerInfo.stats.largestMultiKill === 2
-                      ? 'Double Kill'
+                      ? 'double kill'
                       : game.playerInfo.stats.largestMultiKill === 3
-                      ? 'Triple Kill'
+                      ? 'triple kill'
                       : game.playerInfo.stats.largestMultiKill === 4
-                      ? 'Quadra Kill'
-                      : 'Penta Kill'}
+                      ? 'quadra kill'
+                      : 'penta kill'}
                   </span>
                 </div>
               </div>
-              <div></div>
+            </div>
+
+            <div className={style.fourthCard}>
+              <span>level {game.playerInfo.stats.champLevel}</span>
+              <span>
+                {game.playerInfo.stats.totalMinionsKilled +
+                  game.playerInfo.stats.neutralMinionsKilled}{' '}
+                cs
+              </span>
+              <span>
+                (
+                {(
+                  (game.playerInfo.stats.totalMinionsKilled +
+                    game.playerInfo.stats.neutralMinionsKilled) /
+                  (game.gameDuration / 60)
+                ).toFixed(1)}
+                )
+              </span>
+            </div>
+
+            <div className={style.fifthCard}>
+              <div className={style.itemRow1}>
+                <img
+                  src={
+                    game.playerInfo.stats.item0
+                      ? `http://ddragon.leagueoflegends.com/cdn/10.24.1/img/item/${game.playerInfo.stats.item0}.png`
+                      : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                  }
+                />
+                <img
+                  src={
+                    game.playerInfo.stats.item1
+                      ? `http://ddragon.leagueoflegends.com/cdn/10.24.1/img/item/${game.playerInfo.stats.item1}.png`
+                      : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                  }
+                />
+                <img
+                  src={
+                    game.playerInfo.stats.item2
+                      ? `http://ddragon.leagueoflegends.com/cdn/10.24.1/img/item/${game.playerInfo.stats.item2}.png`
+                      : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                  }
+                />
+                <img
+                  src={
+                    game.playerInfo.stats.item6
+                      ? `http://ddragon.leagueoflegends.com/cdn/10.24.1/img/item/${game.playerInfo.stats.item6}.png`
+                      : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                  }
+                />
+              </div>
+              <div className={style.itemRow2}>
+                <img
+                  src={
+                    game.playerInfo.stats.item3
+                      ? `http://ddragon.leagueoflegends.com/cdn/10.24.1/img/item/${game.playerInfo.stats.item3}.png`
+                      : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                  }
+                />
+                <img
+                  src={
+                    game.playerInfo.stats.item4
+                      ? `http://ddragon.leagueoflegends.com/cdn/10.24.1/img/item/${game.playerInfo.stats.item4}.png`
+                      : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                  }
+                />
+                <img
+                  src={
+                    game.playerInfo.stats.item5
+                      ? `http://ddragon.leagueoflegends.com/cdn/10.24.1/img/item/${game.playerInfo.stats.item5}.png`
+                      : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                  }
+                />
+              </div>
             </div>
           </div>
         ))}

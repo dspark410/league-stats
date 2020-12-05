@@ -29,6 +29,11 @@
   flex: 0.7;
 }
 
+.appRight h1 {
+  text-align: center;
+  margin-bottom: 0;
+}
+
 .summonerName {
   letter-spacing: 2px;
   display: flex;
@@ -40,13 +45,20 @@
 }
 
 .masteryCardContainer {
+  width: 100%;
+  color: #f0d287;
+  font-weight: bold;
+}
+
+.masteryCardContainer h1 {
+  margin: 0 0 20px 0;
+}
+
+.masteryCardContainer2 {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 100%;
   flex-flow: row wrap;
-  color: #f0d287;
-  font-weight: bold;
 }
 
 .rankCardContainer {
