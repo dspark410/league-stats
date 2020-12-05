@@ -19,6 +19,7 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
   const [gameDetails, setGameDetails] = useState([])
   const [spells, setSpells] = useState([])
   const [filteredSpells, setFilteredSpells] = useState([])
+  const [runes, setRunes] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -39,6 +40,13 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
       .then((res) => {
         setSpells(res.data.data)
         setLoading(false)
+      })
+    axios
+      .get(
+        `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
+      )
+      .then((res) => {
+        setRunes(res.data)
       })
   }, [version])
 
@@ -65,50 +73,53 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
 
   useEffect(() => {
-    const gameDetailsArr = []
-    matchDetails.forEach((match) => {
-      let matchObj
-      let participantObj
-      queues.forEach((queue) => {
-        if (match.queueId === queue.queueId) {
-          const date = new Date(match.gameCreation).toString()
+    const matchsAsync = async () => {
+      const gameDetailsArr = []
+      await matchDetails.forEach((match) => {
+        let matchObj
+        let participantObj
+        queues.forEach((queue) => {
+          if (match.queueId === queue.queueId) {
+            const date = new Date(match.gameCreation).toString()
 
-          matchObj = {
-            map: queue.map,
-            gameType: queue.description,
-            gameCreation: date,
-            gameDuration: match.gameDuration,
-            gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
+            matchObj = {
+              map: queue.map,
+              gameType: queue.description,
+              gameCreation: date,
+              gameDuration: match.gameDuration,
+              gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
+            }
           }
-        }
-      })
-      match.participantIdentities.forEach((id) => {
-        if (
-          id.player.accountId === summonerInfo.accountId ||
-          id.player.accountId === sessionData.accountId
-        ) {
-          participantObj = id.participantId
-          matchObj.participantId = participantObj
-        }
-      })
+        })
+        match.participantIdentities.forEach((id) => {
+          if (
+            id.player.accountId === summonerInfo.accountId ||
+            id.player.accountId === sessionData.accountId
+          ) {
+            participantObj = id.participantId
+            matchObj.participantId = participantObj
+          }
+        })
 
-      match.participants.forEach((data) => {
-        if (data.participantId === participantObj) {
-          const playerStats = data
-          matchObj.playerInfo = playerStats
-        }
-      })
+        match.participants.forEach((data) => {
+          if (data.participantId === participantObj) {
+            const playerStats = data
+            matchObj.playerInfo = playerStats
+          }
+        })
 
-      champInfo.forEach((champ) => {
-        if (matchObj.playerInfo.championId === +champ.key) {
-          matchObj.championName = champ.name
-          matchObj.championImage = champ.image
-          gameDetailsArr.push(matchObj)
-        }
+        champInfo.forEach((champ) => {
+          if (matchObj.playerInfo.championId === +champ.key) {
+            matchObj.championName = champ.name
+            matchObj.championImage = champ.image
+            gameDetailsArr.push(matchObj)
+          }
+        })
       })
-    })
-    setGameDetails(gameDetailsArr)
-    setLoading(false)
+      setGameDetails(gameDetailsArr)
+      setLoading(false)
+    }
+    matchsAsync()
   }, [matchDetails])
 
   return (
