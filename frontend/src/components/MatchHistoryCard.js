@@ -47,24 +47,25 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
         )
         .then((res) => {
-          let treeArray = [];
-          res.data.forEach((tree) => {
-            const treeObject = {
-              treeName: tree.name,
-              treeImage: tree.icon.toLowerCase(),
-              treeId: tree.id,
-              runeArray: [],
-            };
+          setRunes(res.data);
+          // let treeArray = [];
+          // res.data.forEach((tree) => {
+          //   const treeObject = {
+          //     treeName: tree.name,
+          //     treeImage: tree.icon.toLowerCase(),
+          //     treeId: tree.id,
+          //     runeArray: [],
+          //   };
 
-            tree.slots.forEach((item) => {
-              item.runes.forEach((runes) => {
-                treeObject.runeArray.push(runes);
-              });
-            });
-            treeArray.push(treeObject);
-          });
-          setRunes(treeArray);
-          setLoading(false);
+          //   tree.slots.forEach((item) => {
+          //     item.runes.forEach((runes) => {
+          //       treeObject.runeArray.push(runes);
+          //     });
+          //   });
+          //   treeArray.push(treeObject);
+          // });
+          // setRunes(treeArray);
+          // setLoading(false);
         });
     }
   }, [version]);
@@ -235,12 +236,14 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
                             .filter((rune) => {
                               return (
                                 game.playerInfo.stats.perkPrimaryStyle ===
-                                rune.treeId
+                                rune.id
                               );
                             })
                             .map(
                               (rune) =>
-                                `http://raw.communitydragon.org/${game.gameVersion}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.treeImage}`
+                                `http://raw.communitydragon.org/${
+                                  game.gameVersion
+                                }/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`
                             )}
                         />
 
@@ -250,13 +253,14 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
                           src={runes
                             .filter((rune) => {
                               return (
-                                game.playerInfo.stats.perkSubStyle ===
-                                rune.treeId
+                                game.playerInfo.stats.perkSubStyle === rune.id
                               );
                             })
                             .map(
                               (rune) =>
-                                `http://raw.communitydragon.org/${game.gameVersion}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.treeImage}`
+                                `http://raw.communitydragon.org/${
+                                  game.gameVersion
+                                }/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`
                             )}
                         />
                       </div>
