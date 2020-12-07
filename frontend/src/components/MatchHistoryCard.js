@@ -235,16 +235,21 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
                           src={runes
                             .filter((rune) => {
                               return (
-                                game.playerInfo.stats.perkPrimaryStyle ===
-                                rune.id
+                                rune.id ===
+                                game.playerInfo.stats.perkPrimaryStyle
                               );
                             })
-                            .map(
-                              (rune) =>
-                                `http://raw.communitydragon.org/${
-                                  game.gameVersion
-                                }/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`
-                            )}
+                            .map((rune) => {
+                              const perk0 = game.playerInfo.stats.perk0;
+                              const perkImage = rune.slots[0].runes.filter(
+                                (perk) => {
+                                  return perk.id === perk0;
+                                }
+                              );
+                              return `http://raw.communitydragon.org/${
+                                game.gameVersion
+                              }/plugins/rcp-be-lol-game-data/global/default/v1/${perkImage[0].icon.toLowerCase()}`;
+                            })}
                         />
 
                         <img
