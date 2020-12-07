@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from "react";
-import style from "./summonercard.module.css";
+import React, { useState, useEffect } from 'react'
+import style from './summonercard.module.css'
 
 function SummonerCard({ summonerInfo, version }) {
-  const [session, setSession] = useState({});
-  const [level, setLevel] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState({})
+  const [level, setLevel] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (!summonerInfo.id) {
       //Get Sessions data
-      const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-      setSession(sessionData);
-      setLevel(sessionData.summonerLevel);
-      if (version !== "") {
-        setLoading(false);
+      const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+      setSession(sessionData)
+      setLevel(sessionData.summonerLevel)
+      if (version !== '') {
+        setLoading(false)
       }
     } else {
-      setLevel(summonerInfo.summonerLevel);
-      if (version !== "") {
-        setLoading(false);
+      setLevel(summonerInfo.summonerLevel)
+      if (version !== '') {
+        setLoading(false)
       }
     }
-  }, [summonerInfo]);
+  }, [summonerInfo, version])
 
   return (
     <>
       {loading ? (
-        ""
+        ''
       ) : (
         <div className={style.container}>
           <div className={style.summonerCardContainer}>
             <img
-              alt="summoner border"
+              alt='summoner border'
               className={style.summonerBorder}
               src={
                 level < 30
@@ -43,11 +43,11 @@ function SummonerCard({ summonerInfo, version }) {
                     `/images/summonerborder/lvl${
                       Math.floor(level / 25) * 25
                     }.png`
-                  : ""
+                  : ''
               }
             />
             <img
-              alt="profile icon"
+              alt='profile icon'
               className={style.profileIcon}
               src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${
                 summonerInfo.profileIconId || session.profileIconId
@@ -60,7 +60,7 @@ function SummonerCard({ summonerInfo, version }) {
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default SummonerCard;
+export default SummonerCard
