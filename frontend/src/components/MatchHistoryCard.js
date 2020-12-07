@@ -23,48 +23,50 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // axios
-    //   .get('http://static.developer.riotgames.com/docs/lol/gameTypes.json')
-    //   .then((res) => setTypes(res.data))
-    // axios
-    //   .get('http://static.developer.riotgames.com/docs/lol/gameModes.json')
-    //   .then((res) => setModes(res.data))
-    axios
-      .get("http://localhost:5000/queueType")
-      .then((res) => setQueues(res.data));
-    // axios.get('http://localhost:5000/mapList').then((res) => setMaps(res.data))
-    axios
-      .get(
-        `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
-      )
-      .then((res) => {
-        setSpells(res.data.data);
-      });
-
-    axios
-      .get(
-        `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
-      )
-      .then((res) => {
-        let treeArray = [];
-        res.data.forEach((tree) => {
-          const treeObject = {
-            treeName: tree.name,
-            treeImage: tree.icon.toLowerCase(),
-            treeId: tree.id,
-            runeArray: [],
-          };
-
-          tree.slots.forEach((item) => {
-            item.runes.forEach((runes) => {
-              treeObject.runeArray.push(runes);
-            });
-          });
-          treeArray.push(treeObject);
+    if (version !== "") {
+      // axios
+      //   .get('http://static.developer.riotgames.com/docs/lol/gameTypes.json')
+      //   .then((res) => setTypes(res.data))
+      // axios
+      //   .get('http://static.developer.riotgames.com/docs/lol/gameModes.json')
+      //   .then((res) => setModes(res.data))
+      axios
+        .get("http://localhost:5000/queueType")
+        .then((res) => setQueues(res.data));
+      // axios.get('http://localhost:5000/mapList').then((res) => setMaps(res.data))
+      axios
+        .get(
+          `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
+        )
+        .then((res) => {
+          setSpells(res.data.data);
         });
-        setRunes(treeArray);
-        setLoading(false);
-      });
+
+      axios
+        .get(
+          `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
+        )
+        .then((res) => {
+          let treeArray = [];
+          res.data.forEach((tree) => {
+            const treeObject = {
+              treeName: tree.name,
+              treeImage: tree.icon.toLowerCase(),
+              treeId: tree.id,
+              runeArray: [],
+            };
+
+            tree.slots.forEach((item) => {
+              item.runes.forEach((runes) => {
+                treeObject.runeArray.push(runes);
+              });
+            });
+            treeArray.push(treeObject);
+          });
+          setRunes(treeArray);
+          setLoading(false);
+        });
+    }
   }, [version]);
 
   useEffect(() => {
