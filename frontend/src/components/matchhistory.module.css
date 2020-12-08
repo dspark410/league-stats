@@ -1,7 +1,7 @@
 .matchContainer {
-  color: black;
+  color: #1a1a1a;
   font-weight: bold;
-  width: 800px;
+  width: 770px;
   height: 900px;
   display: flex;
   flex-direction: column;
@@ -65,7 +65,7 @@
   text-align: center;
   align-items: center;
   justify-content: center;
-  margin-right: 20px;
+  margin-right: 7px;
 }
 
 .imageContainer {
@@ -173,7 +173,7 @@
 .sixthCard img {
   width: 20px;
   height: auto;
-  margin: 1px;
+  margin: 1px 3px 1px 1px;
 }
 
 .sixthCard img:hover {
@@ -202,7 +202,7 @@
 .seventhCard img {
   width: 20px;
   height: auto;
-  margin: 1px;
+  margin: 1px 3px 1px 1px;
 }
 
 .seventhCard img:hover {

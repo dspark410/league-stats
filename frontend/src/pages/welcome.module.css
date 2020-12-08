@@ -14,7 +14,7 @@
 .welcomeContainer {
   display: flex;
   justify-content: space-evenly;
-  margin: 0;
+  margin-top: -10px;
 }
 
 .welcomeContainer h1 {
@@ -41,7 +41,7 @@
   align-items: center;
   text-align: center;
   color: white;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 
 .masteryCardContainer {
