@@ -7,7 +7,13 @@ export default function Tooltip(props) {
       {props.children}
       <div className={style.tooltiptext}>
         <div>{props.name}</div>
-        <div>{props.info}</div>
+        <div
+          className={style.info}
+          dangerouslySetInnerHTML={{
+            __html: props.info,
+          }}
+        />
+
         <div>{props.moreInfo}</div>
       </div>
     </div>
