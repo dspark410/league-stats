@@ -13,8 +13,12 @@ export default function Tooltip(props) {
             __html: props.info,
           }}
         />
-
-        <div>{props.moreInfo}</div>
+        <div
+          className={style.info}
+          dangerouslySetInnerHTML={{
+            __html: props.moreInfo,
+          }}
+        />
       </div>
     </div>
   )

@@ -28,20 +28,18 @@
   opacity: 1;
 }
 
-.tooltip .info {
-  min-width: 200px;
-}
-
 .name {
+  font-size: 13px;
   color: #f0d287;
   margin-bottom: 5px;
 }
 
 .info {
   margin-bottom: 5px;
+  min-width: 200px;
 }
 
-@media screen and (max-width: 500px) {
+/* @media screen and (max-width: 500px) {
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 200px;
@@ -58,4 +56,4 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
-}
+} */
