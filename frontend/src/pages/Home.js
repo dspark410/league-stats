@@ -36,7 +36,12 @@ function Home({ change, submit, champInfo, version }) {
         </form>
         <div className={style.imageContainer}>
           {freeChamps.map((champ, i) => (
-            <Tooltip key={i} name={champ.name} info={champ.title}>
+            <Tooltip
+              key={i}
+              name={champ.name}
+              info={champ.title}
+              moreInfo={champ.blurb}
+            >
               <img
                 alt={champ.image}
                 src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}.png`}

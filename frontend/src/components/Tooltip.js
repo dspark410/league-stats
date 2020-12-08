@@ -8,6 +8,7 @@ export default function Tooltip(props) {
       <div className={style.tooltiptext}>
         <div>{props.name}</div>
         <div>{props.info}</div>
+        <div>{props.moreInfo}</div>
       </div>
     </div>
   );
