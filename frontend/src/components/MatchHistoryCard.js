@@ -12,7 +12,13 @@ import Loader from '../components/Loader'
 // ITEMS
 // http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/item.json
 
-function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
+function MatchHistoryCard({
+  matchDetails,
+  summonerInfo,
+  champInfo,
+  version,
+  getPlayername,
+}) {
   // const [types, setTypes] = useState([])
   // const [modes, setModes] = useState([])
   //const [maps, setMaps] = useState([])
@@ -92,6 +98,7 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
               gameCreation: date,
               gameDuration: match.gameDuration,
               gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
+              players: [],
             }
           }
         })
@@ -119,9 +126,8 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
             gameDetailsArr.push(matchObj)
           }
         })
+
         let playerObj
-        let playerArr = []
-        let allMatchArr = []
         match.participantIdentities.forEach((player) => {
           match.participants.forEach((id) => {
             if (player.participantId === id.participantId) {
@@ -136,11 +142,9 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
                 playerObj.image = key.image
               }
             })
-            playerArr.push(playerObj)
           })
+          matchObj.players.push(playerObj)
         })
-        allMatchArr.push(playerArr)
-        setPlayers(allMatchArr)
       })
       setGameDetails(gameDetailsArr)
 
@@ -387,15 +391,46 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
               </div>
 
               <div className={style.sixthCard}>
-                {players.map((player, i) => (
-                  <div className={style.sixthCard} key={i}>
-                    <img
-                      alt={player.image}
-                      src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}.png`}
-                    />
-                    <span>{player.name}</span>
-                  </div>
-                ))}
+                {game.players
+                  .slice(0, Math.ceil(game.players.length / 2))
+                  .map((player, i) => (
+                    <div
+                      onClick={getPlayername}
+                      name={player.name}
+                      className={style.col}
+                      key={i}
+                    >
+                      <img
+                        name={player.name}
+                        alt={player.image}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}.png`}
+                      />
+                      <span name={player.name}>{player.name}</span>
+                    </div>
+                  ))}
+              </div>
+
+              <div className={style.seventhCard}>
+                {game.players
+                  .slice(
+                    Math.ceil(game.players.length / 2),
+                    game.players.length
+                  )
+                  .map((player, i) => (
+                    <div
+                      onClick={getPlayername}
+                      name={player.name}
+                      className={style.col}
+                      key={i}
+                    >
+                      <img
+                        name={player.name}
+                        alt={player.image}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}.png`}
+                      />
+                      <span name={player.name}>{player.name}</span>
+                    </div>
+                  ))}
               </div>
             </div>
           ))

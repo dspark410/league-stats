@@ -1,7 +1,7 @@
 .matchContainer {
   color: black;
   font-weight: bold;
-  width: 900px;
+  width: 800px;
   height: 900px;
   display: flex;
   flex-direction: column;
@@ -18,22 +18,24 @@
   display: flex;
   flex-direction: row;
   margin: 10px 0;
-  justify-content: center;
+  justify-content: initial;
   align-items: center;
   background-color: #c3e598;
   border-radius: 8px;
   margin: 3px 0;
+  padding: 5px;
 }
 
 .cardContainerLose {
   display: flex;
   flex-direction: row;
   margin: 10px 0;
-  justify-content: center;
+  justify-content: initial;
   align-items: center;
   background-color: #e2b6b3;
   border-radius: 8px;
   margin: 3px 0;
+  padding: 5px;
 }
 
 .firstCard {
@@ -41,11 +43,12 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin-right: 7px;
+  margin: 0 7px;
 }
 
 .firstCard p {
   margin: 0;
+  min-width: 110px;
 }
 
 .win {
@@ -62,7 +65,7 @@
   text-align: center;
   align-items: center;
   justify-content: center;
-  margin-right: 7px;
+  margin-right: 20px;
 }
 
 .imageContainer {
@@ -105,7 +108,8 @@
 
 .championName {
   text-align: center;
-  margin-top: -3px;
+  margin-top: 2px;
+  min-width: 80px;
 }
 
 .thirdCard {
@@ -115,6 +119,7 @@
   justify-content: center;
   text-align: center;
   margin-right: 7px;
+  min-width: 80px;
 }
 
 .fourthCard {
@@ -157,17 +162,66 @@
 }
 
 .sixthCard {
-  display: grid;
-  grid-template-columns: repeat(2, 2fr);
-  column-gap: -100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: initial;
+  max-width: 100;
+  margin-right: 3px;
 }
 
 .sixthCard img {
   width: 20px;
   height: auto;
+  margin: 1px;
+}
+
+.sixthCard img:hover {
+  cursor: pointer;
 }
 
 .sixthCard span {
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 80px;
+  max-height: 20px;
+}
+
+.sixthCard span:hover {
+  cursor: pointer;
+}
+
+.seventhCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: initial;
+  max-width: 100;
+}
+
+.seventhCard img {
+  width: 20px;
+  height: auto;
+  margin: 1px;
+}
+
+.seventhCard img:hover {
+  cursor: pointer;
+}
+
+.seventhCard span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80px;
+  max-height: 20px;
+}
+
+.seventhCard span:hover {
+  cursor: pointer;
+}
+
+.col {
+  display: flex;
+  justify-content: initial;
+  align-items: center;
 }

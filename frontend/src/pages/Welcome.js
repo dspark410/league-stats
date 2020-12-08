@@ -7,7 +7,7 @@ import UnrankedCard from '../components/UnrankedCard'
 import SummonerCard from '../components/SummonerCard'
 import MatchHistoryCard from '../components/MatchHistoryCard'
 
-function Welcome({ summonerInfo, champInfo, version }) {
+function Welcome({ summonerInfo, champInfo, version, getPlayername }) {
   const [mastery, setMastery] = useState([])
   const [rank, setRank] = useState([])
   const [filteredChamps, setFilteredChamps] = useState([])
@@ -122,6 +122,7 @@ function Welcome({ summonerInfo, champInfo, version }) {
             matchDetails={matchDetails}
             summonerInfo={summonerInfo}
             champInfo={champInfo}
+            getPlayername={getPlayername}
           />
         </div>
         <div className={style.appRight}>
