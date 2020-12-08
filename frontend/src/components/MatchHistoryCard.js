@@ -22,6 +22,7 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
   const [filteredSpells, setFilteredSpells] = useState([])
   const [runes, setRunes] = useState([])
   const [loading, setLoading] = useState(true)
+  const [players, setPlayers] = useState([])
 
   useEffect(() => {
     if (version !== '') {
@@ -118,6 +119,28 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
             gameDetailsArr.push(matchObj)
           }
         })
+        let playerObj
+        let playerArr = []
+        let allMatchArr = []
+        match.participantIdentities.forEach((player) => {
+          match.participants.forEach((id) => {
+            if (player.participantId === id.participantId) {
+              playerObj = {
+                id: player.participantId,
+                name: player.player.summonerName,
+                champId: id.championId,
+              }
+            }
+            champInfo.forEach((key) => {
+              if (playerObj.champId === +key.key) {
+                playerObj.image = key.image
+              }
+            })
+            playerArr.push(playerObj)
+          })
+        })
+        allMatchArr.push(playerArr)
+        setPlayers(allMatchArr)
       })
       setGameDetails(gameDetailsArr)
 
@@ -125,7 +148,11 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
         setLoading(false)
       }, 1000)
     }
-    if (matchDetails.length > 1) {
+    //CHANGE MATCH DETAILS LENGTH
+    //CHANGE MATCH DETAILS LENGTH
+    //CHANGE MATCH DETAILS LENGTH
+    // CHANGE MATCH DETAILS LENGTH
+    if (matchDetails.length === 6) {
       matchsAsync()
     }
   }, [matchDetails])
@@ -357,6 +384,18 @@ function MatchHistoryCard({ matchDetails, summonerInfo, champInfo, version }) {
                     }
                   />
                 </div>
+              </div>
+
+              <div className={style.sixthCard}>
+                {players.map((player, i) => (
+                  <div className={style.sixthCard} key={i}>
+                    <img
+                      alt={player.image}
+                      src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}.png`}
+                    />
+                    <span>{player.name}</span>
+                  </div>
+                ))}
               </div>
             </div>
           ))

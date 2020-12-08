@@ -71,3 +71,9 @@
   align-items: center;
   margin-top: -45px;
 }
+
+@media (max-width: 900px) {
+  .welcomeContainer {
+    flex-direction: column;
+  }
+}
