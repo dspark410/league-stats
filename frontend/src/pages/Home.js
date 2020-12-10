@@ -3,29 +3,23 @@ import React, { useState, useEffect } from "react";
 import Tooltip from "../components/Tooltip";
 import style from "./home.module.css";
 
-function Home({ change, submit, champInfo, version }) {
-  const [championRotation, setChampionRotation] = useState([]);
+function Home({ change, submit, champInfo, version, inputResponse }) {
   const [freeChamps, setFreeChamps] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:5000/getChampionRotation").then((res) => {
-      setChampionRotation(res.data.freeChampionIds);
+      // Store array of numbers for free champion rotation in variable
+      const championRotation = res.data.freeChampionIds;
+      // Filter through champInfo to keep only the object for free champions
+      const rotationChamp = champInfo.filter((champ) =>
+        // If chamption rotation matches key of free champs, returns true
+        championRotation.includes(Number(champ.key))
+      );
+      // Save free champs into state
+      setFreeChamps(rotationChamp);
     });
-  }, []);
-
-  // Third useEffect where we will filter
-  useEffect(() => {
-    const rotationChamp = champInfo.filter((champ) => {
-      //console.log(Number(champ.key));
-      if (championRotation.indexOf(Number(champ.key)) >= 0) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-    setFreeChamps(rotationChamp);
-    //console.log('rotationChamp', rotationChamp)
-  }, [champInfo, championRotation]);
+    // Dependency, rerenders when champInfo is ready
+  }, [champInfo]);
 
   return (
     <div className={style.homeBackgroundContainer}>
@@ -34,6 +28,9 @@ function Home({ change, submit, champInfo, version }) {
         <form onSubmit={submit}>
           <input spellCheck="false" onChange={change} type="text" />
         </form>
+        <h2>{inputResponse}</h2>
+        <h1>Free Champion for the Week</h1>
+        <h3>Click for more info</h3>
         <div className={style.imageContainer}>
           {freeChamps.map((champ, i) => (
             <Tooltip
@@ -44,7 +41,7 @@ function Home({ change, submit, champInfo, version }) {
             >
               <img
                 alt={champ.image}
-                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}.png`}
+                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
               />
             </Tooltip>
           ))}

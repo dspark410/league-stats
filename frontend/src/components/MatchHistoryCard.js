@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import style from './matchhistory.module.css'
-import Tooltip from './Tooltip'
-import axios from 'axios'
-import Loader from '../components/Loader'
+import React, { useState, useEffect } from "react";
+import style from "./matchhistory.module.css";
+import Tooltip from "./Tooltip";
+import axios from "axios";
+import Loader from "../components/Loader";
 
 // MATCH TIMESLINES API
 // https://na1.api.riotgames.com/lol/match/v4/timelines/by-match/3630397822?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
@@ -18,44 +18,44 @@ function MatchHistoryCard({
   summonerInfo,
   champInfo,
   version,
-  getPlayername,
+  getPlayerName,
 }) {
   // const [types, setTypes] = useState([])
   // const [modes, setModes] = useState([])
   //const [maps, setMaps] = useState([])
-  const [queues, setQueues] = useState([])
-  const [gameDetails, setGameDetails] = useState([])
-  const [spells, setSpells] = useState([])
-  const [filteredSpells, setFilteredSpells] = useState([])
-  const [runes, setRunes] = useState([])
-  const [items, setItems] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [queues, setQueues] = useState([]);
+  const [gameDetails, setGameDetails] = useState([]);
+  const [spells, setSpells] = useState([]);
+  const [filteredSpells, setFilteredSpells] = useState([]);
+  const [runes, setRunes] = useState([]);
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const runeDescriptions = [
     {
-      description: 'Improved attacks and sustained damage.',
-      key: 'Precision',
+      description: "Improved attacks and sustained damage.",
+      key: "Precision",
     },
     {
-      description: 'Burst damage and target access.',
-      key: 'Domination',
+      description: "Burst damage and target access.",
+      key: "Domination",
     },
     {
-      description: 'Empowered abilities and resource manipulation.',
-      key: 'Sorcery',
+      description: "Empowered abilities and resource manipulation.",
+      key: "Sorcery",
     },
     {
-      description: 'Durability and crowd',
-      key: 'Resolve',
+      description: "Durability and crowd",
+      key: "Resolve",
     },
     {
-      description: 'Creative tools and rule bending',
-      key: 'Inspiration',
+      description: "Creative tools and rule bending",
+      key: "Inspiration",
     },
-  ]
+  ];
 
   useEffect(() => {
-    if (version !== '') {
+    if (version !== "") {
       // axios
       //   .get('http://static.developer.riotgames.com/docs/lol/gameTypes.json')
       //   .then((res) => setTypes(res.data))
@@ -63,40 +63,40 @@ function MatchHistoryCard({
       //   .get('http://static.developer.riotgames.com/docs/lol/gameModes.json')
       //   .then((res) => setModes(res.data))
       axios
-        .get('http://localhost:5000/queueType')
-        .then((res) => setQueues(res.data))
+        .get("http://localhost:5000/queueType")
+        .then((res) => setQueues(res.data));
       // axios.get('http://localhost:5000/mapList').then((res) => setMaps(res.data))
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
         )
         .then((res) => {
-          setSpells(res.data.data)
-        })
+          setSpells(res.data.data);
+        });
 
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
         )
         .then((res) => {
-          setRunes(res.data)
-        })
+          setRunes(res.data);
+        });
       axios
         .get(
-          'http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/item.json'
+          "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/item.json"
         )
         .then((res) => {
-          const itemNumber = Object.keys(res.data.data)
-          const itemObject = Object.values(res.data.data)
+          const itemNumber = Object.keys(res.data.data);
+          const itemObject = Object.values(res.data.data);
 
-          const newArray = []
+          const newArray = [];
 
           for (let i = 0; i < itemNumber.length; i++) {
-            const item = +itemNumber[i]
-            const name = itemObject[i].name
-            const description = itemObject[i].description
-            const base = itemObject[i].gold.base
-            const total = itemObject[i].gold.total
+            const item = +itemNumber[i];
+            const name = itemObject[i].name;
+            const description = itemObject[i].description;
+            const base = itemObject[i].gold.base;
+            const total = itemObject[i].gold.total;
 
             const object = {
               item,
@@ -104,85 +104,85 @@ function MatchHistoryCard({
               description,
               base,
               total,
-            }
+            };
 
-            newArray.push(object)
+            newArray.push(object);
           }
-          setItems(newArray)
-        })
+          setItems(newArray);
+        });
     }
-  }, [version])
+  }, [version]);
 
   useEffect(() => {
-    const spellInfoArray = Object.values(spells)
+    const spellInfoArray = Object.values(spells);
 
-    const newArray = []
+    const newArray = [];
 
     for (let i = 0; i < spellInfoArray.length; i++) {
-      const name = spellInfoArray[i].name
-      const key = spellInfoArray[i].key
-      const id = spellInfoArray[i].id
-      const description = spellInfoArray[i].description
+      const name = spellInfoArray[i].name;
+      const key = spellInfoArray[i].key;
+      const id = spellInfoArray[i].id;
+      const description = spellInfoArray[i].description;
 
       const object = {
         name,
         key,
         id,
         description,
-      }
-      newArray.push(object)
+      };
+      newArray.push(object);
     }
-    setFilteredSpells(newArray)
-  }, [spells])
+    setFilteredSpells(newArray);
+  }, [spells]);
 
-  const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
 
   useEffect(() => {
     const matchsAsync = async () => {
-      const gameDetailsArr = []
+      const gameDetailsArr = [];
       await matchDetails.forEach((match) => {
-        let matchObj
-        let participantObj
+        let matchObj;
+        let participantObj;
         queues.forEach((queue) => {
           if (match.queueId === queue.queueId) {
-            const date = new Date(match.gameCreation).toString()
+            const date = new Date(match.gameCreation).toString();
 
             matchObj = {
               map: queue.map,
               gameType: queue.description,
               gameCreation: date,
               gameDuration: match.gameDuration,
-              gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
+              gameVersion: match.gameVersion.split(".").slice(0, 2).join("."),
               players: [],
-            }
+            };
           }
-        })
+        });
         match.participantIdentities.forEach((id) => {
           if (
             id.player.accountId === summonerInfo.accountId ||
             id.player.accountId === sessionData.accountId
           ) {
-            participantObj = id.participantId
-            matchObj.participantId = participantObj
+            participantObj = id.participantId;
+            matchObj.participantId = participantObj;
           }
-        })
+        });
 
         match.participants.forEach((data) => {
           if (data.participantId === participantObj) {
-            const playerStats = data
-            matchObj.playerInfo = playerStats
+            const playerStats = data;
+            matchObj.playerInfo = playerStats;
           }
-        })
+        });
 
         champInfo.forEach((champ) => {
           if (matchObj.playerInfo.championId === +champ.key) {
-            matchObj.championName = champ.name
-            matchObj.championImage = champ.image
-            gameDetailsArr.push(matchObj)
+            matchObj.championName = champ.name;
+            matchObj.championImage = champ.image.full;
+            gameDetailsArr.push(matchObj);
           }
-        })
+        });
 
-        let playerObj
+        let playerObj;
         match.participantIdentities.forEach((player) => {
           match.participants.forEach((id) => {
             if (player.participantId === id.participantId) {
@@ -190,31 +190,31 @@ function MatchHistoryCard({
                 id: player.participantId,
                 name: player.player.summonerName,
                 champId: id.championId,
-              }
+              };
             }
             champInfo.forEach((key) => {
               if (playerObj.champId === +key.key) {
-                playerObj.image = key.image
+                playerObj.image = key.image.full;
               }
-            })
-          })
-          matchObj.players.push(playerObj)
-        })
-      })
-      setGameDetails(gameDetailsArr)
+            });
+          });
+          matchObj.players.push(playerObj);
+        });
+      });
+      setGameDetails(gameDetailsArr);
 
       setTimeout(() => {
-        setLoading(false)
-      }, 1000)
-    }
+        setLoading(false);
+      }, 1000);
+    };
     //CHANGE MATCH DETAILS LENGTH
     //CHANGE MATCH DETAILS LENGTH
     //CHANGE MATCH DETAILS LENGTH
     // CHANGE MATCH DETAILS LENGTH
     if (matchDetails.length === 6) {
-      matchsAsync()
+      matchsAsync();
     }
-  }, [matchDetails])
+  }, [matchDetails]);
 
   return (
     <div className={style.matchContainer}>
@@ -226,7 +226,7 @@ function MatchHistoryCard({
         gameDetails.length === 6 &&
         gameDetails
           .sort(function (a, b) {
-            return new Date(b.gameCreation) - new Date(a.gameCreation)
+            return new Date(b.gameCreation) - new Date(a.gameCreation);
           })
           .map((game, i) => (
             <div
@@ -239,15 +239,15 @@ function MatchHistoryCard({
             >
               <div className={style.firstCard}>
                 <p className={style.gameType}>
-                  {game.gameType.split(' ').slice(0, 3).join(' ')}
+                  {game.gameType.split(" ").slice(0, 3).join(" ")}
                 </p>
                 <p className={style.gameCreation}>
-                  {game.gameCreation.split(' ').slice(0, 4).join(' ')}
+                  {game.gameCreation.split(" ").slice(0, 4).join(" ")}
                 </p>
                 <p
                   className={game.playerInfo.stats.win ? style.win : style.loss}
                 >
-                  {game.playerInfo.stats.win ? 'Victory' : 'Defeat'}
+                  {game.playerInfo.stats.win ? "Victory" : "Defeat"}
                 </p>
                 <p className={style.gameDuration}>{`${Math.floor(
                   game.gameDuration / 60
@@ -260,7 +260,7 @@ function MatchHistoryCard({
                     <img
                       className={style.championImage}
                       alt={game.championImage}
-                      src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${game.championImage}.png`}
+                      src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${game.championImage}`}
                     />
                   </div>
 
@@ -305,13 +305,13 @@ function MatchHistoryCard({
                       .filter((rune) => {
                         return (
                           rune.id === game.playerInfo.stats.perkPrimaryStyle
-                        )
+                        );
                       })
                       .map((rune, i) => {
-                        const perk0 = game.playerInfo.stats.perk0
+                        const perk0 = game.playerInfo.stats.perk0;
                         const perkImage = rune.slots[0].runes.filter((perk) => {
-                          return perk.id === perk0
-                        })
+                          return perk.id === perk0;
+                        });
                         return (
                           <Tooltip
                             key={i}
@@ -319,19 +319,19 @@ function MatchHistoryCard({
                             info={perkImage[0].longDesc}
                           >
                             <img
-                              alt='runes'
+                              alt="runes"
                               className={style.summonerSpell}
                               src={`http://raw.communitydragon.org/${
                                 game.gameVersion
                               }/plugins/rcp-be-lol-game-data/global/default/v1/${perkImage[0].icon.toLowerCase()}`}
                             />
                           </Tooltip>
-                        )
+                        );
                       })}
 
                     {runes
                       .filter((rune) => {
-                        return game.playerInfo.stats.perkSubStyle === rune.id
+                        return game.playerInfo.stats.perkSubStyle === rune.id;
                       })
                       .map((rune, i) => (
                         <Tooltip
@@ -346,7 +346,7 @@ function MatchHistoryCard({
                           key={i}
                         >
                           <img
-                            alt='summoner spell'
+                            alt="summoner spell"
                             className={style.summonerSpell2}
                             src={`http://raw.communitydragon.org/${
                               game.gameVersion
@@ -379,14 +379,14 @@ function MatchHistoryCard({
                     <span>
                       {game.playerInfo.stats.largestMultiKill === 0 ||
                       game.playerInfo.stats.largestMultiKill === 1
-                        ? ''
+                        ? ""
                         : game.playerInfo.stats.largestMultiKill === 2
-                        ? 'Double Kill'
+                        ? "Double Kill"
                         : game.playerInfo.stats.largestMultiKill === 3
-                        ? 'Triple Kill'
+                        ? "Triple Kill"
                         : game.playerInfo.stats.largestMultiKill === 4
-                        ? 'Quadra Kill'
-                        : 'Penta Kill'}
+                        ? "Quadra Kill"
+                        : "Penta Kill"}
                     </span>
                   </div>
                 </div>
@@ -399,7 +399,7 @@ function MatchHistoryCard({
                 >
                   <span>
                     {game.playerInfo.stats.totalMinionsKilled +
-                      game.playerInfo.stats.neutralMinionsKilled}{' '}
+                      game.playerInfo.stats.neutralMinionsKilled}{" "}
                     cs
                   </span>
                 </Tooltip>
@@ -435,7 +435,7 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item0 && item.name
                       )
                       .map((item) => {
-                        return item.description
+                        return item.description;
                       })}
                     moreInfo={items
                       .filter(
@@ -443,15 +443,15 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item0 && item.name
                       )
                       .map((item) => {
-                        return `Cost: ${item.total} (${item.base})`
+                        return `Cost: ${item.total} (${item.base})`;
                       })}
                   >
                     <img
-                      alt='item'
+                      alt="item"
                       src={
                         game.playerInfo.stats.item0
                           ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item0}.png`
-                          : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
                       }
                     />
                   </Tooltip>
@@ -466,7 +466,7 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item1 && item.name
                       )
                       .map((item) => {
-                        return item.description
+                        return item.description;
                       })}
                     moreInfo={items
                       .filter(
@@ -474,15 +474,15 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item1 && item.name
                       )
                       .map((item) => {
-                        return `Cost: ${item.total} (${item.base})`
+                        return `Cost: ${item.total} (${item.base})`;
                       })}
                   >
                     <img
-                      alt='item'
+                      alt="item"
                       src={
                         game.playerInfo.stats.item1
                           ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item1}.png`
-                          : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
                       }
                     />
                   </Tooltip>
@@ -497,7 +497,7 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item2 && item.name
                       )
                       .map((item) => {
-                        return item.description
+                        return item.description;
                       })}
                     moreInfo={items
                       .filter(
@@ -505,15 +505,15 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item2 && item.name
                       )
                       .map((item) => {
-                        return `Cost: ${item.total} (${item.base})`
+                        return `Cost: ${item.total} (${item.base})`;
                       })}
                   >
                     <img
-                      alt='item'
+                      alt="item"
                       src={
                         game.playerInfo.stats.item2
                           ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item2}.png`
-                          : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
                       }
                     />
                   </Tooltip>
@@ -529,15 +529,15 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item6 && item.name
                       )
                       .map((item) => {
-                        return item.description
+                        return item.description;
                       })}
                   >
                     <img
-                      alt='item'
+                      alt="item"
                       src={
                         game.playerInfo.stats.item6
                           ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item6}.png`
-                          : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
                       }
                     />
                   </Tooltip>
@@ -554,7 +554,7 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item3 && item.name
                       )
                       .map((item) => {
-                        return item.description
+                        return item.description;
                       })}
                     moreInfo={items
                       .filter(
@@ -562,15 +562,15 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item3 && item.name
                       )
                       .map((item) => {
-                        return `Cost: ${item.total} (${item.base})`
+                        return `Cost: ${item.total} (${item.base})`;
                       })}
                   >
                     <img
-                      alt='item'
+                      alt="item"
                       src={
                         game.playerInfo.stats.item3
                           ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item3}.png`
-                          : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
                       }
                     />
                   </Tooltip>
@@ -585,7 +585,7 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item4 && item.name
                       )
                       .map((item) => {
-                        return item.description
+                        return item.description;
                       })}
                     moreInfo={items
                       .filter(
@@ -593,15 +593,15 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item4 && item.name
                       )
                       .map((item) => {
-                        return `Cost: ${item.total} (${item.base})`
+                        return `Cost: ${item.total} (${item.base})`;
                       })}
                   >
                     <img
-                      alt='item'
+                      alt="item"
                       src={
                         game.playerInfo.stats.item4
                           ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item4}.png`
-                          : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
                       }
                     />
                   </Tooltip>
@@ -616,7 +616,7 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item5 && item.name
                       )
                       .map((item) => {
-                        return item.description
+                        return item.description;
                       })}
                     moreInfo={items
                       .filter(
@@ -624,15 +624,15 @@ function MatchHistoryCard({
                           item.item === game.playerInfo.stats.item5 && item.name
                       )
                       .map((item) => {
-                        return `Cost: ${item.total} (${item.base})`
+                        return `Cost: ${item.total} (${item.base})`;
                       })}
                   >
                     <img
-                      alt='item'
+                      alt="item"
                       src={
                         game.playerInfo.stats.item5
                           ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item5}.png`
-                          : process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
                       }
                     />
                   </Tooltip>
@@ -644,7 +644,7 @@ function MatchHistoryCard({
                   .slice(0, Math.ceil(game.players.length / 2))
                   .map((player, i) => (
                     <div
-                      onClick={getPlayername}
+                      onClick={getPlayerName}
                       name={player.name}
                       className={style.col}
                       key={i}
@@ -652,7 +652,7 @@ function MatchHistoryCard({
                       <img
                         name={player.name}
                         alt={player.image}
-                        src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}`}
                       />
                       <span name={player.name}>{player.name}</span>
                     </div>
@@ -667,7 +667,7 @@ function MatchHistoryCard({
                   )
                   .map((player, i) => (
                     <div
-                      onClick={getPlayername}
+                      onClick={getPlayerName}
                       name={player.name}
                       className={style.col}
                       key={i}
@@ -675,7 +675,7 @@ function MatchHistoryCard({
                       <img
                         name={player.name}
                         alt={player.image}
-                        src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}.png`}
+                        src={`http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}`}
                       />
                       <span name={player.name}>{player.name}</span>
                     </div>
@@ -685,7 +685,7 @@ function MatchHistoryCard({
           ))
       )}
     </div>
-  )
+  );
 }
 
-export default MatchHistoryCard
+export default MatchHistoryCard;

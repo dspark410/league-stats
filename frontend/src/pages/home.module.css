@@ -1,5 +1,5 @@
 .homeBackgroundContainer {
-  background-image: url('https://cdn1.dotesports.com/wp-content/uploads/2019/05/13081216/thumb-1920-913622.jpg');
+  background-image: url("https://cdn1.dotesports.com/wp-content/uploads/2019/05/13081216/thumb-1920-913622.jpg");
   background-size: cover;
   position: fixed;
   top: 0;
@@ -47,4 +47,10 @@
 
 .imageContainer img {
   margin: 10px 10px;
+}
+
+.imageContainer img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
 }
