@@ -3,6 +3,7 @@ import style from "./matchhistory.module.css";
 import Tooltip from "./Tooltip";
 import axios from "axios";
 import Loader from "../components/Loader";
+import { runeDescriptions } from "../utils/constant";
 
 // MATCH TIMESLINES API
 // https://na1.api.riotgames.com/lol/match/v4/timelines/by-match/3630397822?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
@@ -26,35 +27,15 @@ function MatchHistoryCard({
   const [queues, setQueues] = useState([]);
   const [gameDetails, setGameDetails] = useState([]);
   const [spells, setSpells] = useState([]);
-  const [filteredSpells, setFilteredSpells] = useState([]);
   const [runes, setRunes] = useState([]);
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const runeDescriptions = [
-    {
-      description: "Improved attacks and sustained damage.",
-      key: "Precision",
-    },
-    {
-      description: "Burst damage and target access.",
-      key: "Domination",
-    },
-    {
-      description: "Empowered abilities and resource manipulation.",
-      key: "Sorcery",
-    },
-    {
-      description: "Durability and crowd",
-      key: "Resolve",
-    },
-    {
-      description: "Creative tools and rule bending",
-      key: "Inspiration",
-    },
-  ];
+  // Get info from Session Storage
+  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
 
   useEffect(() => {
+    // Validation to check if version is populated in props
     if (version !== "") {
       // axios
       //   .get('http://static.developer.riotgames.com/docs/lol/gameTypes.json')
@@ -62,18 +43,21 @@ function MatchHistoryCard({
       // axios
       //   .get('http://static.developer.riotgames.com/docs/lol/gameModes.json')
       //   .then((res) => setModes(res.data))
+      // axios.get('http://localhost:5000/mapList').then((res) => setMaps(res.data))
+
+      // Retrieve queueType list from Riot API
       axios
         .get("http://localhost:5000/queueType")
         .then((res) => setQueues(res.data));
-      // axios.get('http://localhost:5000/mapList').then((res) => setMaps(res.data))
+      // Retrieve list of summoner spells from Riot API
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
         )
         .then((res) => {
-          setSpells(res.data.data);
+          setSpells(Object.values(res.data.data));
         });
-
+      // Retrieve list of runes from Riot API
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
@@ -81,6 +65,7 @@ function MatchHistoryCard({
         .then((res) => {
           setRunes(res.data);
         });
+      // Retrieve item list from Riot API
       axios
         .get(
           "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/item.json"
@@ -112,30 +97,6 @@ function MatchHistoryCard({
         });
     }
   }, [version]);
-
-  useEffect(() => {
-    const spellInfoArray = Object.values(spells);
-
-    const newArray = [];
-
-    for (let i = 0; i < spellInfoArray.length; i++) {
-      const name = spellInfoArray[i].name;
-      const key = spellInfoArray[i].key;
-      const id = spellInfoArray[i].id;
-      const description = spellInfoArray[i].description;
-
-      const object = {
-        name,
-        key,
-        id,
-        description,
-      };
-      newArray.push(object);
-    }
-    setFilteredSpells(newArray);
-  }, [spells]);
-
-  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
 
   useEffect(() => {
     const matchsAsync = async () => {
@@ -265,7 +226,7 @@ function MatchHistoryCard({
                   </div>
 
                   <div className={style.summonerSpellContainer}>
-                    {filteredSpells.map(
+                    {spells.map(
                       (spell, i) =>
                         +spell.key === game.playerInfo.spell1Id && (
                           <Tooltip
@@ -282,7 +243,7 @@ function MatchHistoryCard({
                         )
                     )}
 
-                    {filteredSpells.map(
+                    {spells.map(
                       (spell, i) =>
                         +spell.key === game.playerInfo.spell2Id && (
                           <Tooltip
