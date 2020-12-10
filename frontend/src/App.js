@@ -18,6 +18,28 @@ function App() {
   const [version, setVersion] = useState("");
   const [inputResponse, setInputResponse] = useState("");
 
+  // Reusable function for changing the Summoner in the whole app
+  const getAccountInfo = (summonerName) => {
+    axios
+      .get(`http://localhost:5000/getSummonerName/${summonerName}`)
+      .then((res) => {
+        if (res.data === "Summoner Not Found") {
+          // Message will be displayed on Home Screen, dissapears after 3 seconds
+          setInputResponse(res.data);
+          setTimeout(() => {
+            setInputResponse("");
+          }, 3000);
+        } else {
+          // Set summoner info which will be referenced by entire web app
+          setSummonerInfo(res.data);
+
+          //Set session data
+          sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
+          setRedirect(true);
+        }
+      });
+  };
+
   useEffect(() => {
     axios
       // Link to version list from Riot
@@ -53,49 +75,14 @@ function App() {
         setInputResponse("");
       }, 3000);
     } else {
-      axios
-        .get(`http://localhost:5000/getSummonerName/${inputValue}`)
-        .then((res) => {
-          if (res.data === "Summoner Not Found") {
-            setInputResponse(res.data);
-            setTimeout(() => {
-              setInputResponse("");
-            }, 3000);
-          } else {
-            setSummonerInfo(res.data);
-
-            //Set session data
-            sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-            setRedirect(true);
-          }
-        });
+      getAccountInfo(inputValue);
     }
   };
 
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
-  //
-  // SEE IF WE CAN MAKE IT REUSABLE IN HANDLESUBMIT
-  //
-  //
   const getPlayerName = (e) => {
     const summonerName = e.target.getAttribute("name");
-
-    axios
-      .get(`http://localhost:5000/getSummonerName/${summonerName}`)
-      .then((res) => {
-        if (res.data === "Summoner Not Found") {
-          setInputResponse(res.data);
-          setTimeout(() => {
-            setInputResponse("");
-          }, 3000);
-        } else {
-          setSummonerInfo(res.data);
-
-          //Set session data
-          sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-          setRedirect(true);
-        }
-      });
+    getAccountInfo(summonerName);
   };
 
   return (

@@ -22,6 +22,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName }) {
   // Function for rank call specific to summoner id
   const getRank = (id) => axios.get(`http://localhost:5000/rank/${id}`);
 
+  // Function for getting match list specific to the summoner
   const getMatchList = (id) =>
     axios.get(`http://localhost:5000/matchList/${id}`);
 
@@ -53,6 +54,28 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName }) {
     // Dependency, rerenders when summonerInfo.id is ready
   }, [summonerInfo]);
 
+  //
+  // DEFINITELY CAN REFACTOR
+  //
+  // Match Details
+  useEffect(() => {
+    // Empty array to store match details
+    const matchArray = [];
+
+    // Slice to determine how many previous matches to render
+    playerMatches.slice(0, 6).forEach((match) => {
+      axios
+        .get(`http://localhost:5000/matchDetails/${match.gameId}`)
+        .then((res) => matchArray.push(res.data))
+        .then(() => {
+          // Need this .then because setMatchDetails renders too quickly
+          // Forces it to wait for matchArray to reach correct length
+          matchArray.length === 6 && setMatchDetails(matchArray);
+        });
+    });
+    // Dependent on playerMatches to be ready
+  }, [playerMatches]);
+
   useEffect(() => {
     // Array to store newly created object that matches champion key to mastery key
     const champObject = [];
@@ -82,28 +105,6 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName }) {
     // Stores new array of object into state to be mapped
     setFilteredChamps(champObject);
   }, [mastery, champInfo]);
-
-  //
-  // DEFINITELY CAN REFACTOR
-  //
-  // Match Details
-  useEffect(() => {
-    // Empty array to store match details
-    const matchArray = [];
-
-    // Slice to determine how many previous matches to render
-    playerMatches.slice(0, 6).forEach((match) => {
-      axios
-        .get(`http://localhost:5000/matchDetails/${match.gameId}`)
-        .then((res) => matchArray.push(res.data))
-        .then(() => {
-          // Need this .then because setMatchDetails renders too quickly
-          // Forces it to wait for matchArray to reach correct length
-          matchArray.length === 6 && setMatchDetails(matchArray);
-        });
-    });
-    // Dependent on playerMatches to be ready
-  }, [playerMatches]);
 
   return (
     <div className={style.welcomeBackgroundContainer}>
