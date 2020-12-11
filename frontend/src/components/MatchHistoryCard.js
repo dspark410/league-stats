@@ -3,6 +3,7 @@ import style from "./matchhistory.module.css";
 import Tooltip from "./Tooltip";
 import axios from "axios";
 import Loader from "../components/Loader";
+import ItemHistory from "../components/ItemHistory";
 import { runeDescriptions } from "../utils/constant";
 
 // MATCH TIMESLINES API
@@ -28,7 +29,7 @@ function MatchHistoryCard({
   const [gameDetails, setGameDetails] = useState([]);
   const [spells, setSpells] = useState([]);
   const [runes, setRunes] = useState([]);
-  const [items, setItems] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   // Get info from Session Storage
@@ -64,14 +65,6 @@ function MatchHistoryCard({
         )
         .then((res) => {
           setRunes(res.data);
-        });
-      // Retrieve item list from Riot API
-      axios
-        .get(
-          "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/item.json"
-        )
-        .then((res) => {
-          setItems(Object.values(res.data.data));
         });
     }
   }, [version]);
@@ -358,240 +351,10 @@ function MatchHistoryCard({
               </div>
 
               <div className={style.fifthCard}>
-                <div className={style.itemRow1}>
-                  <Tooltip
-                    name={items.map(
-                      (item) =>
-                        +item.image.full.split(".")[0] ===
-                          game.playerInfo.stats.item0 && item.name
-                    )}
-                    info={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item0 && item.name
-                      )
-                      .map((item) => {
-                        return item.description;
-                      })}
-                    moreInfo={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item0 && item.name
-                      )
-                      .map((item) => {
-                        return `Cost: ${item.gold.total} (${item.gold.base})`;
-                      })}
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        game.playerInfo.stats.item0
-                          ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item0}.png`
-                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
-                      }
-                    />
-                  </Tooltip>
-                  <Tooltip
-                    name={items.map(
-                      (item) =>
-                        +item.image.full.split(".")[0] ===
-                          game.playerInfo.stats.item1 && item.name
-                    )}
-                    info={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item1 && item.name
-                      )
-                      .map((item) => {
-                        return item.description;
-                      })}
-                    moreInfo={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item1 && item.name
-                      )
-                      .map((item) => {
-                        return `Cost: ${item.gold.total} (${item.gold.base})`;
-                      })}
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        game.playerInfo.stats.item1
-                          ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item1}.png`
-                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
-                      }
-                    />
-                  </Tooltip>
-                  <Tooltip
-                    name={items.map(
-                      (item) =>
-                        +item.image.full.split(".")[0] ===
-                          game.playerInfo.stats.item2 && item.name
-                    )}
-                    info={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item2 && item.name
-                      )
-                      .map((item) => {
-                        return item.description;
-                      })}
-                    moreInfo={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item2 && item.name
-                      )
-                      .map((item) => {
-                        return `Cost: ${item.gold.total} (${item.gold.base})`;
-                      })}
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        game.playerInfo.stats.item2
-                          ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item2}.png`
-                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
-                      }
-                    />
-                  </Tooltip>
-
-                  <Tooltip
-                    name={items.map(
-                      (item) =>
-                        +item.image.full.split(".")[0] ===
-                          game.playerInfo.stats.item6 && item.name
-                    )}
-                    info={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item6 && item.name
-                      )
-                      .map((item) => {
-                        return item.description;
-                      })}
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        game.playerInfo.stats.item6
-                          ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item6}.png`
-                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
-                      }
-                    />
-                  </Tooltip>
-                </div>
-                <div className={style.itemRow2}>
-                  <Tooltip
-                    name={items.map(
-                      (item) =>
-                        +item.image.full.split(".")[0] ===
-                          game.playerInfo.stats.item3 && item.name
-                    )}
-                    info={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item3 && item.name
-                      )
-                      .map((item) => {
-                        return item.description;
-                      })}
-                    moreInfo={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item3 && item.name
-                      )
-                      .map((item) => {
-                        return `Cost: ${item.gold.total} (${item.gold.base})`;
-                      })}
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        game.playerInfo.stats.item3
-                          ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item3}.png`
-                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
-                      }
-                    />
-                  </Tooltip>
-                  <Tooltip
-                    name={items.map(
-                      (item) =>
-                        +item.image.full.split(".")[0] ===
-                          game.playerInfo.stats.item4 && item.name
-                    )}
-                    info={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item4 && item.name
-                      )
-                      .map((item) => {
-                        return item.description;
-                      })}
-                    moreInfo={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item4 && item.name
-                      )
-                      .map((item) => {
-                        return `Cost: ${item.gold.total} (${item.gold.base})`;
-                      })}
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        game.playerInfo.stats.item4
-                          ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item4}.png`
-                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
-                      }
-                    />
-                  </Tooltip>
-                  <Tooltip
-                    name={items.map(
-                      (item) =>
-                        +item.image.full.split(".")[0] ===
-                          game.playerInfo.stats.item5 && item.name
-                    )}
-                    info={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item5 && item.name
-                      )
-                      .map((item) => {
-                        return item.description;
-                      })}
-                    moreInfo={items
-                      .filter(
-                        (item) =>
-                          +item.image.full.split(".")[0] ===
-                            game.playerInfo.stats.item5 && item.name
-                      )
-                      .map((item) => {
-                        return `Cost: ${item.gold.total} (${item.gold.base})`;
-                      })}
-                  >
-                    <img
-                      alt="item"
-                      src={
-                        game.playerInfo.stats.item5
-                          ? `http://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/item/${game.playerInfo.stats.item5}.png`
-                          : process.env.PUBLIC_URL + "/images/emptyitem.png"
-                      }
-                    />
-                  </Tooltip>
-                </div>
+                <ItemHistory
+                  details={game.playerInfo.stats}
+                  version={game.gameVersion}
+                />
               </div>
 
               <div className={style.sixthCard}>

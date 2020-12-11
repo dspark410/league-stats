@@ -1,0 +1,25 @@
+.itemRow1 {
+  display: flex;
+  flex-direction: row;
+}
+
+.itemRow1 img {
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  border-radius: 3px;
+}
+
+.itemRow2 {
+  display: flex;
+  flex-direction: row;
+}
+
+.itemRow2 img {
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
+  margin-bottom: 4px;
+  border-radius: 3px;
+}
