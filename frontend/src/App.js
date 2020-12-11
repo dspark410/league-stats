@@ -23,7 +23,7 @@ function App() {
     axios
       .get(`http://localhost:5000/getSummonerName/${summonerName}`)
       .then((res) => {
-        if (res.data === "Summoner Not Found") {
+        if (!res.data.id) {
           // Message will be displayed on Home Screen, dissapears after 3 seconds
           setInputResponse(res.data);
           setTimeout(() => {
