@@ -1,0 +1,9 @@
+.imageContainer {
+  position: relative;
+  max-width: 500px;
+}
+
+.championSplash {
+  max-width: 400px;
+  height: auto;
+}
