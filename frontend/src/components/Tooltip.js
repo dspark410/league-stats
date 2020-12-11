@@ -1,5 +1,5 @@
-import React from 'react'
-import style from './tooltip.module.css'
+import React from "react";
+import style from "./tooltip.module.css";
 
 export default function Tooltip(props) {
   return (
@@ -14,12 +14,12 @@ export default function Tooltip(props) {
           }}
         />
         <div
-          className={style.info}
+          className={style.moreInfo}
           dangerouslySetInnerHTML={{
             __html: props.moreInfo,
           }}
         />
       </div>
     </div>
-  )
+  );
 }

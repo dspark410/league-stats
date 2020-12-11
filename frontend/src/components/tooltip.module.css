@@ -39,6 +39,11 @@
   min-width: 200px;
 }
 
+.moreInfo {
+  color: #f0d287;
+  margin-bottom: 5px;
+}
+
 /* @media screen and (max-width: 500px) {
   .tooltip .tooltiptext {
     visibility: hidden;
