@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
-import style from "./matchhistory.module.css";
-import Tooltip from "./Tooltip";
-import axios from "axios";
-import Loader from "../components/Loader";
-import ItemHistory from "../components/ItemHistory";
-import { runeDescriptions } from "../utils/constant";
+import React, { useState, useEffect } from 'react'
+import style from './matchhistory.module.css'
+import Tooltip from './Tooltip'
+import axios from 'axios'
+import Loader from '../components/Loader'
+import ItemHistory from '../components/ItemHistory'
+import { runeDescriptions } from '../utils/constant'
 
 // MATCH TIMESLINES API
 // https://na1.api.riotgames.com/lol/match/v4/timelines/by-match/3630397822?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
-
-// SUMMONER SPELLS
-// http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/summoner.json
-
-// ITEMS
-// http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/item.json
 
 function MatchHistoryCard({
   matchDetails,
@@ -22,127 +16,117 @@ function MatchHistoryCard({
   version,
   getPlayerName,
 }) {
-  //const [types, setTypes] = useState([]);
-  // const [modes, setModes] = useState([])
-  //const [maps, setMaps] = useState([])
-  const [queues, setQueues] = useState([]);
-  const [gameDetails, setGameDetails] = useState([]);
-  const [spells, setSpells] = useState([]);
-  const [runes, setRunes] = useState([]);
+  const [queues, setQueues] = useState([])
+  const [spells, setSpells] = useState([])
+  const [gameDetails, setGameDetails] = useState([])
+  const [runes, setRunes] = useState([])
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   // Get info from Session Storage
-  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
+  const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
 
   useEffect(() => {
     // Validation to check if version is populated in props
-    if (version !== "") {
-      // axios
-      //   .get("http://static.developer.riotgames.com/docs/lol/gameTypes.json")
-      //   .then((res) => setTypes(res.data));
-      // axios
-      //   .get('http://static.developer.riotgames.com/docs/lol/gameModes.json')
-      //   .then((res) => setModes(res.data))
-      // axios.get('http://localhost:5000/mapList').then((res) => setMaps(res.data))
-
+    if (version !== '') {
       // Retrieve queueType list from Riot API
       axios
-        .get("http://localhost:5000/queueType")
-        .then((res) => setQueues(res.data));
+        .get('http://localhost:5000/queueType')
+        .then((res) => setQueues(res.data))
       // Retrieve list of summoner spells from Riot API
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
         )
         .then((res) => {
-          setSpells(Object.values(res.data.data));
-        });
+          setSpells(Object.values(res.data.data))
+        })
       // Retrieve list of runes from Riot API
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
         )
         .then((res) => {
-          setRunes(res.data);
-        });
+          setRunes(res.data)
+        })
     }
-  }, [version]);
+  }, [version])
 
   useEffect(() => {
-    const gameDetailsArr = [];
+    const gameDetailsArr = []
     matchDetails.forEach((match) => {
-      let matchObj;
-
-      console.log("Object Keys", Object.values(match.participants));
-
+      let matchObj
       // Loops through queue state, to match game type ex. 5v5 , 3v3, summoners rift, ranked
       queues.forEach((queue) => {
         if (match.queueId === queue.queueId) {
-          const date = new Date(match.gameCreation).toString();
+          const date = new Date(match.gameCreation).toString()
 
           matchObj = {
             map: queue.map,
             gameType: queue.description,
             gameCreation: date,
             gameDuration: match.gameDuration,
-            gameVersion: match.gameVersion.split(".").slice(0, 2).join("."),
+            gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
             players: [],
-          };
+          }
         }
-      });
+      })
 
       // loops through current account id in session or summonerInfo
       // To grab the right info for match history card
-      let playerObj;
-      match.participantIdentities.forEach((id) => {
-        if (
-          id.player.accountId === summonerInfo.accountId ||
-          id.player.accountId === sessionData.accountId
-        ) {
-          matchObj.participantId = id.participantId;
-        }
-        // Champion Icon for summoner and summoner name on sixth and seventh card
-        match.participants.forEach((part) => {
-          if (id.participantId === part.participantId) {
-            playerObj = {
-              id: id.participantId,
-              name: id.player.summonerName,
-              champId: part.championId,
-            };
+      if (matchObj !== undefined) {
+        let playerObj
+        match.participantIdentities.forEach((id) => {
+          if (
+            id.player.accountId === summonerInfo.accountId ||
+            id.player.accountId === sessionData.accountId
+          ) {
+            matchObj.participantId = id.participantId
           }
-          champInfo.forEach((key) => {
-            if (playerObj.champId === +key.key) {
-              playerObj.image = key.image.full;
+          // Champion Icon for summoner and summoner name on sixth and seventh card
+          match.participants.forEach((part) => {
+            if (id.participantId === part.participantId) {
+              playerObj = {
+                id: id.participantId,
+                name: id.player.summonerName,
+                champId: part.championId,
+              }
             }
-          });
-        });
-        matchObj.players.push(playerObj);
-      });
+            champInfo.forEach((key) => {
+              if (playerObj.champId === +key.key) {
+                playerObj.image = key.image.full
+              }
+            })
+          })
 
-      // finds matching participantId from matchObj and keeps all data from matching participants
-      match.participants.forEach((data) => {
-        if (data.participantId === matchObj.participantId) {
-          const playerStats = data;
-          matchObj.playerInfo = playerStats;
-        }
-      });
+          matchObj.players.push(playerObj)
+        })
 
-      // get relevant image for player's champion for that game
-      champInfo.forEach((champ) => {
-        if (matchObj.playerInfo.championId === +champ.key) {
-          matchObj.championName = champ.name;
-          matchObj.championImage = champ.image.full;
-          gameDetailsArr.push(matchObj);
-        }
-      });
-    });
-    setGameDetails(gameDetailsArr);
+        // finds matching participantId from matchObj and keeps all data from matching participants
+        match.participants.forEach((data) => {
+          if (data.participantId === matchObj.participantId) {
+            const playerStats = data
+            matchObj.playerInfo = playerStats
+          }
+        })
+
+        // get relevant image for player's champion for that game
+        champInfo.forEach((champ) => {
+          if (matchObj.playerInfo.championId === +champ.key) {
+            matchObj.championName = champ.name
+            matchObj.championImage = champ.image.full
+            gameDetailsArr.push(matchObj)
+          }
+        })
+
+        gameDetailsArr.length === 6 && setGameDetails(gameDetailsArr)
+      }
+    })
 
     setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, [matchDetails]);
+      setLoading(false)
+    }, 1000)
+  }, [matchDetails])
 
   return (
     <div className={style.matchContainer}>
@@ -154,7 +138,7 @@ function MatchHistoryCard({
         gameDetails.length === 6 &&
         gameDetails
           .sort(function (a, b) {
-            return new Date(b.gameCreation) - new Date(a.gameCreation);
+            return new Date(b.gameCreation) - new Date(a.gameCreation)
           })
           .map((game, i) => (
             <div
@@ -167,15 +151,15 @@ function MatchHistoryCard({
             >
               <div className={style.firstCard}>
                 <p className={style.gameType}>
-                  {game.gameType.split(" ").slice(0, 3).join(" ")}
+                  {game.gameType.split(' ').slice(0, 3).join(' ')}
                 </p>
                 <p className={style.gameCreation}>
-                  {game.gameCreation.split(" ").slice(0, 4).join(" ")}
+                  {game.gameCreation.split(' ').slice(0, 4).join(' ')}
                 </p>
                 <p
                   className={game.playerInfo.stats.win ? style.win : style.loss}
                 >
-                  {game.playerInfo.stats.win ? "Victory" : "Defeat"}
+                  {game.playerInfo.stats.win ? 'Victory' : 'Defeat'}
                 </p>
                 <p className={style.gameDuration}>{`${Math.floor(
                   game.gameDuration / 60
@@ -233,13 +217,13 @@ function MatchHistoryCard({
                       .filter((rune) => {
                         return (
                           rune.id === game.playerInfo.stats.perkPrimaryStyle
-                        );
+                        )
                       })
                       .map((rune, i) => {
-                        const perk0 = game.playerInfo.stats.perk0;
+                        const perk0 = game.playerInfo.stats.perk0
                         const perkImage = rune.slots[0].runes.filter((perk) => {
-                          return perk.id === perk0;
-                        });
+                          return perk.id === perk0
+                        })
                         return (
                           <Tooltip
                             key={i}
@@ -247,19 +231,19 @@ function MatchHistoryCard({
                             info={perkImage[0].longDesc}
                           >
                             <img
-                              alt="runes"
+                              alt='runes'
                               className={style.summonerSpell}
                               src={`http://raw.communitydragon.org/${
                                 game.gameVersion
                               }/plugins/rcp-be-lol-game-data/global/default/v1/${perkImage[0].icon.toLowerCase()}`}
                             />
                           </Tooltip>
-                        );
+                        )
                       })}
 
                     {runes
                       .filter((rune) => {
-                        return game.playerInfo.stats.perkSubStyle === rune.id;
+                        return game.playerInfo.stats.perkSubStyle === rune.id
                       })
                       .map((rune, i) => (
                         <Tooltip
@@ -274,7 +258,7 @@ function MatchHistoryCard({
                           key={i}
                         >
                           <img
-                            alt="summoner spell"
+                            alt='summoner spell'
                             className={style.summonerSpell2}
                             src={`http://raw.communitydragon.org/${
                               game.gameVersion
@@ -307,14 +291,14 @@ function MatchHistoryCard({
                     <span>
                       {game.playerInfo.stats.largestMultiKill === 0 ||
                       game.playerInfo.stats.largestMultiKill === 1
-                        ? ""
+                        ? ''
                         : game.playerInfo.stats.largestMultiKill === 2
-                        ? "Double Kill"
+                        ? 'Double Kill'
                         : game.playerInfo.stats.largestMultiKill === 3
-                        ? "Triple Kill"
+                        ? 'Triple Kill'
                         : game.playerInfo.stats.largestMultiKill === 4
-                        ? "Quadra Kill"
-                        : "Penta Kill"}
+                        ? 'Quadra Kill'
+                        : 'Penta Kill'}
                     </span>
                   </div>
                 </div>
@@ -323,16 +307,16 @@ function MatchHistoryCard({
               <div className={style.fourthCard}>
                 <span>level {game.playerInfo.stats.champLevel}</span>
                 <Tooltip
-                  info={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}
+                  moreInfo={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}
                 >
                   <span>
                     {game.playerInfo.stats.totalMinionsKilled +
-                      game.playerInfo.stats.neutralMinionsKilled}{" "}
+                      game.playerInfo.stats.neutralMinionsKilled}{' '}
                     cs
                   </span>
                 </Tooltip>
                 <Tooltip
-                  info={`${(
+                  moreInfo={`${(
                     (game.playerInfo.stats.totalMinionsKilled +
                       game.playerInfo.stats.neutralMinionsKilled) /
                     (game.gameDuration / 60)
@@ -403,7 +387,7 @@ function MatchHistoryCard({
           ))
       )}
     </div>
-  );
+  )
 }
 
-export default MatchHistoryCard;
+export default MatchHistoryCard

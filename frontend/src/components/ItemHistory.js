@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import style from "./itemhistory.module.css";
-import Tooltip from "./Tooltip";
-import axios from "axios";
-import Loader from "./Loader";
+import React, { useState, useEffect } from 'react'
+import style from './itemhistory.module.css'
+import Tooltip from './Tooltip'
+import axios from 'axios'
+import Loader from './Loader'
 
 export default function ItemHistory({ details, version }) {
-  const [items, setItems] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [items, setItems] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // Retrieve item list from Riot API
-    if (version !== "") {
+    if (version !== '') {
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}.1/data/en_US/item.json`
         )
         .then((res) => {
-          setItems(res.data.data);
-          setLoading(false);
-        });
+          setItems(res.data.data)
+          setLoading(false)
+        })
     }
-  }, [version]);
+  }, [version])
 
   return (
     <>
@@ -38,14 +38,14 @@ export default function ItemHistory({ details, version }) {
                 })`}
               >
                 <img
-                  alt="item"
+                  alt='item'
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item0}.png`}
                 />
               </Tooltip>
             ) : (
               <img
-                alt="item"
-                src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                alt='item'
+                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
               />
             )}
 
@@ -58,14 +58,14 @@ export default function ItemHistory({ details, version }) {
                 })`}
               >
                 <img
-                  alt="item"
+                  alt='item'
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item1}.png`}
                 />
               </Tooltip>
             ) : (
               <img
-                alt="item"
-                src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                alt='item'
+                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
               />
             )}
 
@@ -78,14 +78,14 @@ export default function ItemHistory({ details, version }) {
                 })`}
               >
                 <img
-                  alt="item"
+                  alt='item'
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item2}.png`}
                 />
               </Tooltip>
             ) : (
               <img
-                alt="item"
-                src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                alt='item'
+                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
               />
             )}
 
@@ -95,14 +95,14 @@ export default function ItemHistory({ details, version }) {
                 info={items[details.item6].description}
               >
                 <img
-                  alt="item"
+                  alt='item'
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item6}.png`}
                 />
               </Tooltip>
             ) : (
               <img
-                alt="item"
-                src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                alt='item'
+                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
               />
             )}
           </div>
@@ -116,14 +116,14 @@ export default function ItemHistory({ details, version }) {
                 })`}
               >
                 <img
-                  alt="item"
+                  alt='item'
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item3}.png`}
                 />
               </Tooltip>
             ) : (
               <img
-                alt="item"
-                src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                alt='item'
+                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
               />
             )}
             {details.item4 ? (
@@ -135,14 +135,14 @@ export default function ItemHistory({ details, version }) {
                 })`}
               >
                 <img
-                  alt="item"
+                  alt='item'
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item4}.png`}
                 />
               </Tooltip>
             ) : (
               <img
-                alt="item"
-                src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                alt='item'
+                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
               />
             )}
             {details.item5 ? (
@@ -154,19 +154,19 @@ export default function ItemHistory({ details, version }) {
                 })`}
               >
                 <img
-                  alt="item"
+                  alt='item'
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item5}.png`}
                 />
               </Tooltip>
             ) : (
               <img
-                alt="item"
-                src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                alt='item'
+                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
               />
             )}
           </div>
         </>
       )}
     </>
-  );
+  )
 }
