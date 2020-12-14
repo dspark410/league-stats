@@ -18,8 +18,8 @@ function MatchHistoryCard({
   queues,
 }) {
   const [gameDetails, setGameDetails] = useState([]);
-  const [spells, setSpells] = useState([]);
   const [runes, setRunes] = useState([]);
+  const [spells, setSpells] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
@@ -37,7 +37,7 @@ function MatchHistoryCard({
         .then((res) => {
           setSpells(Object.values(res.data.data));
         });
-      // Retrieve list of runes from Riot API
+      // Retrieve list of runes from Riot APIf
       axios
         .get(
           `http://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
