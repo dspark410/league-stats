@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import Home from "./pages/Home";
-import Welcome from "./pages/Welcome";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import './App.css'
+import Home from './pages/Home'
+import Welcome from './pages/Welcome'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
+} from 'react-router-dom'
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState({});
-  const [inputValue, setInputValue] = useState("");
-  const [redirect, setRedirect] = useState(false);
-  const [champInfo, setChampInfo] = useState([]);
-  const [version, setVersion] = useState("");
-  const [inputResponse, setInputResponse] = useState("");
+  const [summonerInfo, setSummonerInfo] = useState({})
+  const [inputValue, setInputValue] = useState('')
+  const [redirect, setRedirect] = useState(false)
+  const [champInfo, setChampInfo] = useState([])
+  const [version, setVersion] = useState('')
+  const [inputResponse, setInputResponse] = useState('')
+  const [queues, setQueues] = useState([])
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
@@ -25,28 +26,32 @@ function App() {
       .then((res) => {
         if (!res.data.id) {
           // Message will be displayed on Home Screen, dissapears after 3 seconds
-          setInputResponse(res.data);
+          setInputResponse(res.data)
           setTimeout(() => {
-            setInputResponse("");
-          }, 3000);
+            setInputResponse('')
+          }, 3000)
         } else {
           // Set summoner info which will be referenced by entire web app
-          setSummonerInfo(res.data);
+          setSummonerInfo(res.data)
 
           //Set session data
-          sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-          setRedirect(true);
+          sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+          setRedirect(true)
         }
-      });
-  };
+      })
+  }
 
   useEffect(() => {
+    // Retrieve queueType list from Riot API
+    axios
+      .get('http://localhost:5000/queueType')
+      .then((res) => setQueues(res.data))
     axios
       // Link to version list from Riot
-      .get("https://ddragon.leagueoflegends.com/api/versions.json")
+      .get('https://ddragon.leagueoflegends.com/api/versions.json')
       .then((res) => {
         // Save current version into state
-        setVersion(res.data[0]);
+        setVersion(res.data[0])
         axios
           .get(
             // Link to champion.json from Riot
@@ -55,46 +60,46 @@ function App() {
           .then((res) => {
             // Loop through Riot's champion.json array and keeps object values, in the form of an array
             // Store championArray into state
-            setChampInfo(Object.values(res.data.data));
-          });
-      });
-  }, []);
+            setChampInfo(Object.values(res.data.data))
+          })
+      })
+  }, [])
 
   // onChange for input field
   const handleOnChange = (e) => {
-    setInputValue(e.target.value);
-  };
+    setInputValue(e.target.value)
+  }
 
   // onSubmit for input form
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (inputValue.trim() === "") {
-      setInputResponse("Please Enter A Summoner Name!");
+    if (inputValue.trim() === '') {
+      setInputResponse('Please Enter A Summoner Name!')
       setTimeout(() => {
-        setInputResponse("");
-      }, 3000);
+        setInputResponse('')
+      }, 3000)
     } else {
-      getAccountInfo(inputValue);
+      getAccountInfo(inputValue)
     }
-  };
+  }
 
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
   const getPlayerName = (e) => {
-    const summonerName = e.target.getAttribute("name");
-    getAccountInfo(summonerName);
-  };
+    const summonerName = e.target.getAttribute('name')
+    getAccountInfo(summonerName)
+  }
 
   return (
     <Router>
-      <div className="App">
+      <div className='App'>
         <Switch>
           <Route
             exact
-            path="/"
+            path='/'
             render={() =>
               redirect ? (
-                <Redirect to="/welcome" />
+                <Redirect to='/welcome' />
               ) : (
                 <Home
                   summonerInfo={summonerInfo}
@@ -110,7 +115,7 @@ function App() {
             }
           />
           <Route
-            path="/welcome"
+            path='/welcome'
             render={(props) => (
               <Welcome
                 {...props}
@@ -119,13 +124,14 @@ function App() {
                 isAuthed={true}
                 version={version}
                 getPlayerName={getPlayerName}
+                queues={queues}
               />
             )}
           />
         </Switch>
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

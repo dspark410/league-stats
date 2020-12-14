@@ -21,7 +21,7 @@ export default function ItemHistory({ details, version }) {
         })
     }
   }, [version])
-
+  console.log('items', items)
   return (
     <>
       {loading ? (
