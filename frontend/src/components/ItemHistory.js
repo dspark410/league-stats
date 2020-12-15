@@ -17,7 +17,9 @@ export default function ItemHistory({ details, version }) {
         )
         .then((res) => {
           console.log('version', version)
-          setItems(res.data.data)
+
+          setItems(Object.values(res.data.data))
+          // setItems((res.data.data))
         })
     }
   }, [version])
@@ -37,11 +39,34 @@ export default function ItemHistory({ details, version }) {
           <div className={style.itemRow1}>
             {details.item0 ? (
               <Tooltip
-                name={items[details.item0].name}
-                info={items[details.item0].description}
-                moreInfo={`Cost: ${items[details.item0].gold.total} (${
-                  items[details.item0].gold.base
-                })`}
+                // name={items[details.item0].name}
+                // info={items[details.item0].description}
+                // moreInfo={`Cost: ${items[details.item0].gold.total} (${
+                //   items[details.item0].gold.base
+                // })`}
+                name={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item0 &&
+                      item.name
+                  )
+                  .map((item) => item.name)}
+                info={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item0 &&
+                      item.name
+                  )
+                  .map((item) => item.description)}
+                moreInfo={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item0 &&
+                      item.name
+                  )
+                  .map(
+                    (item) => `Cost: ${item.gold.total} (${item.gold.base})`
+                  )}
               >
                 <img
                   alt='item'
@@ -57,11 +82,34 @@ export default function ItemHistory({ details, version }) {
 
             {details.item1 ? (
               <Tooltip
-                name={items[details.item1].name}
-                info={items[details.item1].description}
-                moreInfo={`Cost: ${items[details.item1].gold.total} (${
-                  items[details.item1].gold.base
-                })`}
+                // name={items[details.item1].name}
+                //info={items[details.item1].description}
+                // moreInfo={`Cost: ${items[details.item1].gold.total} (${
+                //   items[details.item1].gold.base
+                // })`}
+                name={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item1 &&
+                      item.name
+                  )
+                  .map((item) => item.name)}
+                info={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item1 &&
+                      item.name
+                  )
+                  .map((item) => item.description)}
+                moreInfo={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item1 &&
+                      item.name
+                  )
+                  .map(
+                    (item) => `Cost: ${item.gold.total} (${item.gold.base})`
+                  )}
               >
                 <img
                   alt='item'
@@ -77,11 +125,34 @@ export default function ItemHistory({ details, version }) {
 
             {details.item2 ? (
               <Tooltip
-                name={items[details.item2].name}
-                info={items[details.item2].description}
-                moreInfo={`Cost: ${items[details.item2].gold.total} (${
-                  items[details.item2].gold.base
-                })`}
+                // name={items[details.item2].name}
+                // info={items[details.item2].description}
+                // moreInfo={`Cost: ${items[details.item2].gold.total} (${
+                //   items[details.item2].gold.base
+                // })`}
+                name={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item2 &&
+                      item.name
+                  )
+                  .map((item) => item.name)}
+                info={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item2 &&
+                      item.name
+                  )
+                  .map((item) => item.description)}
+                moreInfo={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item2 &&
+                      item.name
+                  )
+                  .map(
+                    (item) => `Cost: ${item.gold.total} (${item.gold.base})`
+                  )}
               >
                 <img
                   alt='item'
@@ -97,8 +168,22 @@ export default function ItemHistory({ details, version }) {
 
             {details.item6 ? (
               <Tooltip
-                name={items[details.item6].name}
-                info={items[details.item6].description}
+                // name={items[details.item6].name}
+                // info={items[details.item6].description}
+                name={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item6 &&
+                      item.name
+                  )
+                  .map((item) => item.name)}
+                info={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item6 &&
+                      item.name
+                  )
+                  .map((item) => item.description)}
               >
                 <img
                   alt='item'
@@ -115,11 +200,34 @@ export default function ItemHistory({ details, version }) {
           <div className={style.itemRow2}>
             {details.item3 ? (
               <Tooltip
-                name={items[details.item3].name}
-                info={items[details.item3].description}
-                moreInfo={`Cost: ${items[details.item3].gold.total} (${
-                  items[details.item3].gold.base
-                })`}
+                // name={items[details.item3].name}
+                // info={items[details.item3].description}
+                // moreInfo={`Cost: ${items[details.item3].gold.total} (${
+                //   items[details.item3].gold.base
+                // })`}
+                name={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item3 &&
+                      item.name
+                  )
+                  .map((item) => item.name)}
+                info={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item3 &&
+                      item.name
+                  )
+                  .map((item) => item.description)}
+                moreInfo={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item3 &&
+                      item.name
+                  )
+                  .map(
+                    (item) => `Cost: ${item.gold.total} (${item.gold.base})`
+                  )}
               >
                 <img
                   alt='item'
@@ -134,11 +242,34 @@ export default function ItemHistory({ details, version }) {
             )}
             {details.item4 ? (
               <Tooltip
-                name={items[details.item4].name}
-                info={items[details.item4].description}
-                moreInfo={`Cost: ${items[details.item4].gold.total} (${
-                  items[details.item4].gold.base
-                })`}
+                // name={items[details.item4].name}
+                // info={items[details.item4].description}
+                // moreInfo={`Cost: ${items[details.item4].gold.total} (${
+                //   items[details.item4].gold.base
+                // })`}
+                name={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item4 &&
+                      item.name
+                  )
+                  .map((item) => item.name)}
+                info={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item4 &&
+                      item.name
+                  )
+                  .map((item) => item.description)}
+                moreInfo={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item4 &&
+                      item.name
+                  )
+                  .map(
+                    (item) => `Cost: ${item.gold.total} (${item.gold.base})`
+                  )}
               >
                 <img
                   alt='item'
@@ -153,11 +284,34 @@ export default function ItemHistory({ details, version }) {
             )}
             {details.item5 ? (
               <Tooltip
-                name={items[details.item5].name}
-                info={items[details.item5].description}
-                moreInfo={`Cost: ${items[details.item5].gold.total} (${
-                  items[details.item5].gold.base
-                })`}
+                // name={items[details.item5].name}
+                // info={items[details.item5].description}
+                // moreInfo={`Cost: ${items[details.item5].gold.total} (${
+                //   items[details.item5].gold.base
+                // })`}
+                name={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item5 &&
+                      item.name
+                  )
+                  .map((item) => item.name)}
+                info={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item5 &&
+                      item.name
+                  )
+                  .map((item) => item.description)}
+                moreInfo={items
+                  .filter(
+                    (item) =>
+                      +item.image.full.split('.')[0] === details.item5 &&
+                      item.name
+                  )
+                  .map(
+                    (item) => `Cost: ${item.gold.total} (${item.gold.base})`
+                  )}
               >
                 <img
                   alt='item'
