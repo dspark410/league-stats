@@ -87,6 +87,7 @@ function App() {
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
   const getPlayerName = (e) => {
     const summonerName = e.target.getAttribute('name')
+
     getAccountInfo(summonerName)
   }
 

@@ -47,7 +47,8 @@ function SummonerCard({ summonerInfo, version }) {
                     `/images/summonerborder/lvl${
                       Math.floor(level / 25) * 25
                     }.png`
-                  : ''
+                  : process.env.PUBLIC_URL +
+                    `/images/summonerborder/lvl${500}.png`
               }
             />
             <img

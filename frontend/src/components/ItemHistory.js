@@ -5,7 +5,7 @@ import axios from 'axios'
 import Loader from './Loader'
 
 export default function ItemHistory({ details, version }) {
-  const [items, setItems] = useState({})
+  const [items, setItems] = useState()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -16,12 +16,18 @@ export default function ItemHistory({ details, version }) {
           `http://ddragon.leagueoflegends.com/cdn/${version}.1/data/en_US/item.json`
         )
         .then((res) => {
+          console.log('version', version)
           setItems(res.data.data)
-          setLoading(false)
         })
     }
   }, [version])
-  console.log('items', items)
+
+  useEffect(() => {
+    if (items) {
+      setLoading(false)
+    }
+  }, [items])
+
   return (
     <>
       {loading ? (
