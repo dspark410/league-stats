@@ -38,6 +38,43 @@
   padding: 5px;
 }
 
+@media (max-width: 768px) {
+  .matchContainer {
+    color: #1a1a1a;
+    font-weight: bold;
+    max-width: 360px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    align-items: center;
+  }
+
+  .cardContainerLose {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    justify-content: initial;
+    align-items: center;
+    background-color: #e2b6b3;
+    border-radius: 8px;
+    margin: 3px 0;
+    padding: 5px;
+  }
+
+  .cardContainerWin {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    justify-content: initial;
+    align-items: center;
+    background-color: #c3e598;
+    border-radius: 8px;
+    margin: 3px 0;
+    padding: 5px;
+  }
+}
+
 .firstCard {
   display: flex;
   flex-direction: column;
@@ -107,6 +144,7 @@
 }
 
 .championName {
+  font-weight: bold;
   text-align: center;
   margin-top: 2px;
   min-width: 80px;
@@ -162,7 +200,7 @@
 }
 
 .sixthCard span:hover {
-  cursor: pointer;
+  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
 }
 
 .seventhCard {
@@ -191,11 +229,31 @@
 }
 
 .seventhCard span:hover {
-  cursor: pointer;
+  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
 }
 
 .col {
   display: flex;
   justify-content: initial;
   align-items: center;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 768px) {
+  .firstCard,
+  .secondCard,
+  .thirdCard,
+  .fourthCard,
+  .fifthCard,
+  .sixthCard,
+  .seventhCard {
+    margin: 8px 8px;
+  }
+  .cardContainer {
+    align-items: center;
+  }
 }

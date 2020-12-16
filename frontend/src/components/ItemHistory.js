@@ -20,15 +20,10 @@ export default function ItemHistory({ details, version }) {
 
           setItems(Object.values(res.data.data))
           // setItems((res.data.data))
+          setLoading(false)
         })
     }
   }, [version])
-
-  useEffect(() => {
-    if (items) {
-      setLoading(false)
-    }
-  }, [items])
 
   return (
     <>

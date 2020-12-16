@@ -72,8 +72,11 @@
   margin-top: -45px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .welcomeContainer {
     flex-direction: column;
+  }
+  .appLeft {
+    margin: auto;
   }
 }

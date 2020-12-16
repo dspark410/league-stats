@@ -1,9 +1,76 @@
 .imageContainer {
   position: relative;
-  max-width: 500px;
+  min-width: 300px;
+  height: 560px;
 }
 
-.championSplash {
+.championBorder {
+  position: absolute;
   max-width: 400px;
   height: auto;
+  top: -10px;
+  left: -12px;
+}
+
+.championLoading {
+  position: absolute;
+  max-width: 400px;
+  height: auto;
+}
+
+.next {
+  position: absolute;
+  z-index: 1;
+  bottom: -2%;
+  right: 3%;
+  font-size: 50px;
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+
+.prev {
+  position: absolute;
+  z-index: 1;
+  bottom: -2%;
+  left: 5%;
+  font-size: 50px;
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+
+.next:focus {
+  outline: none;
+}
+
+.next:active {
+  transform: scale(1.1);
+  transition: transform 0.1s ease-in-out;
+}
+
+.prev:focus {
+  outline: none;
+}
+
+.prev:active {
+  transform: scale(1.1);
+  transition: transform 0.1s ease-in-out;
+}
+
+.buttonImage:hover {
+  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
+}
+
+.championName {
+  color: #fff;
+  position: absolute;
+  bottom: 17%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  font-size: 13px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
 }
