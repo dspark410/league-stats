@@ -23,8 +23,8 @@ function Home({ change, submit, champInfo, version, inputResponse }) {
     // Dependency, rerenders when champInfo is ready
   }, [champInfo]);
 
-  // OnClick that filters through champInfo when free champion is clicked
-  // to return details of champion and set into state
+  // onClick that makes an axios call to retrieve the specific champion json using
+  // event.target.name from mapped free champ images
   const selectChampion = (event) => {
     const getChamp = event.target.name;
     axios
