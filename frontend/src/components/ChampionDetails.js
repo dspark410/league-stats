@@ -1,73 +1,53 @@
-import React, { useState, useEffect } from 'react'
-import style from './championdetails.module.css'
-import { CgPlayTrackNextO, CgPlayTrackPrevO } from 'react-icons/cg'
-import Loader from './Loader'
-export default function ChampionDetails({
-  getChampInfo,
-  name,
-  title,
-  blurb,
-  images,
-  skins,
-}) {
-  const [current, setCurrent] = useState(0)
-  const [loading, setLoading] = useState(true)
+import React, { useState, useEffect } from "react";
+import style from "./championdetails.module.css";
+import { CgPlayTrackNextO, CgPlayTrackPrevO } from "react-icons/cg";
+import Loader from "./Loader";
+export default function ChampionDetails({ championDetails, name, skins }) {
+  const [details, setDetails] = useState();
+  const [current, setCurrent] = useState(0);
+  //const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   setLoading(true)
-  //   setCurrent(0)
-  //   setTimeout(() => {
-  //     setLoading(false)
-  //   }, 500)
-  //   return
-  // }, [skins])
-
+  // Sets loading to false and current to 0 when receiving championDetails
   useEffect(() => {
-    let mounted = true
-    setLoading(true)
-    setCurrent(0)
-    setTimeout(() => {
-      setLoading(false)
-    }, 500)
-    return function cleanup() {
-      mounted = false
-    }
-  }, [skins])
+    setCurrent(0);
 
-  const nums = skins.map((skin) => skin.num)
+    setDetails(championDetails);
+  }, [championDetails]);
 
   // onClick, increases skin + 1, to change loading
   const nextSkin = () => {
-    setCurrent(current === nums.length - 1 ? 0 : current + 1)
-    console.log('next', nums[current])
-  }
+    setCurrent(current === details.skins.length - 1 ? 0 : current + 1);
+    //console.log("next", details.skins[current]);
+  };
 
   const prevSkin = () => {
-    setCurrent(current === 0 ? nums.length - 1 : current - 1)
-    console.log('prev', nums[current])
-  }
+    setCurrent(current === 0 ? details.skins.length - 1 : current - 1);
+    //console.log("prev", details.skins[current]);
+  };
 
   return (
     <>
-      {loading ? (
+      {!details ? (
         <Loader />
       ) : (
         <div className={style.imageContainer}>
           <img
             className={style.championLoading}
-            alt={images}
+            alt={details.id}
             /////////////////////////////////////////////////////////////////////////////////////
             // SPLASH ART
             // http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${images}_${current}.jpg
-            src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${images}_${nums[current]}.jpg`}
+            src={`http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${details.id}_${details.skins[current].num}.jpg`}
           />
           <img
             className={style.championBorder}
-            alt='border'
-            src={process.env.PUBLIC_URL + '/images/challenger-border.png'}
+            alt="border"
+            src={process.env.PUBLIC_URL + "/images/challenger-border.png"}
           />
           <p className={style.championName}>
-            {skins[current].name === 'default' ? name : skins[current].name}
+            {details.skins[current].name === "default"
+              ? details.name
+              : details.skins[current].name}
           </p>
           <i className={style.next} onClick={nextSkin}>
             <CgPlayTrackNextO className={style.buttonImage} />
@@ -78,5 +58,5 @@ export default function ChampionDetails({
         </div>
       )}
     </>
-  )
+  );
 }
