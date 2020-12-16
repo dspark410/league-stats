@@ -57,8 +57,8 @@ function Home({ change, submit, champInfo, version, inputResponse }) {
           <input spellCheck='false' onChange={change} type='text' />
         </form>
         <h2>{inputResponse}</h2>
-        <h1>Free Champion for the Week</h1>
-        <h3>Click for more info</h3>
+        <h1>Champion Rotation of the Week</h1>
+
         <div className={style.screenContainer}>
           <div className={style.imageContainer}>
             {freeChamps.map((champ, i) => (
@@ -88,7 +88,6 @@ function Home({ change, submit, champInfo, version, inputResponse }) {
                     blurb={champ.blurb}
                     images={champ.id}
                     skins={champ.skins}
-                    getChampInfo={getChampInfo}
                   />
                 ))
               : ''}
