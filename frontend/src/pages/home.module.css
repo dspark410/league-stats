@@ -1,5 +1,5 @@
 .homeBackgroundContainer {
-  background-image: url('https://cdn1.dotesports.com/wp-content/uploads/2019/05/13081216/thumb-1920-913622.jpg');
+  background-image: url('https://i.pinimg.com/originals/fc/df/3d/fcdf3d7207379837c44cd0dabb44cd38.jpg');
   background-size: cover;
   position: fixed;
   top: 0;
@@ -20,6 +20,7 @@
 
 .homeContainer h1 {
   color: white;
+  text-align: center;
 }
 
 .homeContainer input {

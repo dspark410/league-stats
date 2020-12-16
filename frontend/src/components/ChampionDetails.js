@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import style from "./championdetails.module.css";
-import { CgPlayTrackNextO, CgPlayTrackPrevO } from "react-icons/cg";
 import Loader from "./Loader";
-export default function ChampionDetails({ championDetails, name, skins }) {
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+
+export default function ChampionDetails({ championDetails }) {
+  const [current, setCurrent] = useState();
   const [details, setDetails] = useState();
-  const [current, setCurrent] = useState(0);
-  //const [loading, setLoading] = useState(true);
 
   // Sets loading to false and current to 0 when receiving championDetails
   useEffect(() => {
@@ -49,12 +49,9 @@ export default function ChampionDetails({ championDetails, name, skins }) {
               ? details.name
               : details.skins[current].name}
           </p>
-          <i className={style.next} onClick={nextSkin}>
-            <CgPlayTrackNextO className={style.buttonImage} />
-          </i>
-          <button className={style.prev} onClick={prevSkin}>
-            <CgPlayTrackPrevO className={style.buttonImage} />
-          </button>
+
+          <FaAngleRight className={style.buttonImageNext} onClick={nextSkin} />
+          <FaAngleLeft className={style.buttonImagePrev} onClick={prevSkin} />
         </div>
       )}
     </>
