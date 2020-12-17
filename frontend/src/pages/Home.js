@@ -9,7 +9,8 @@ function Home({ change, submit, champInfo, version, inputResponse }) {
   const [championDetails, setChampionDetails] = useState();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/getChampionRotation").then((res) => {
+    const url = process.env.REACT_APP_API_URL;
+    axios.get(`${url}/getChampionRotation`).then((res) => {
       // Store array of numbers for free champion rotation in variable
       const championRotation = res.data.freeChampionIds;
       // Filter through champInfo to keep only the object for free champions
