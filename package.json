@@ -7,7 +7,7 @@
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
-    "start:dev": "nodemon server.js",
+    "start:dev": "node server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm start\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,6 +21,7 @@
     "axios": "^0.21.0",
     "concurrently": "^5.3.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "if-env": "^1.0.4"
   }
 }
