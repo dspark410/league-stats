@@ -21,7 +21,7 @@ function App() {
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
-    const url = process.env.REACT_APP_API_URL;
+    const url = process.env.REACT_APP_API_URL || "";
     axios.get(`${url}/getSummonerName/${summonerName}`).then((res) => {
       if (!res.data.id) {
         // Message will be displayed on Home Screen, dissapears after 3 seconds
@@ -41,7 +41,7 @@ function App() {
   };
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL;
+    const url = process.env.REACT_APP_API_URL || "";
     // Retrieve queueType list from Riot API
     axios.get(`${url}/queueType`).then((res) => setQueues(res.data));
     axios

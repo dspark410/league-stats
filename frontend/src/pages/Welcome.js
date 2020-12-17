@@ -15,7 +15,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
   const [playerMatches, setPlayerMatches] = useState([]);
   const [matchDetails, setMatchDetails] = useState([]);
 
-  const url = process.env.REACT_APP_API_URL;
+  const url = process.env.REACT_APP_API_URL || "";
 
   // Function for masteries call specific to summoner id
   const getMasteries = (id) => axios.get(`${url}/masteries/${id}`);
