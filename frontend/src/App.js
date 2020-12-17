@@ -87,13 +87,12 @@ function App() {
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
   const getPlayerName = (e) => {
     const summonerName = e.target.getAttribute('name')
-
     getAccountInfo(summonerName)
   }
 
   return (
-    <Router>
-      <div className='App'>
+    <div className='App'>
+      <Router>
         <Switch>
           <Route
             exact
@@ -130,8 +129,8 @@ function App() {
             )}
           />
         </Switch>
-      </div>
-    </Router>
+      </Router>
+    </div>
   )
 }
 

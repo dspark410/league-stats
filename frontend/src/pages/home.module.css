@@ -1,5 +1,5 @@
 .homeBackgroundContainer {
-  background-image: url('https://i.pinimg.com/originals/fc/df/3d/fcdf3d7207379837c44cd0dabb44cd38.jpg');
+  background-image: url('https://lolg-cdn.porofessor.gg/img/bg-dark.jpg');
   background-size: cover;
   position: fixed;
   top: 0;
@@ -9,6 +9,7 @@
   width: 100%;
   height: 100%;
   overflow-y: auto;
+  margin-bottom: -20px;
 }
 
 .homeContainer {

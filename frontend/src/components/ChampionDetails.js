@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-import style from "./championdetails.module.css";
-import Loader from "./Loader";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import React, { useState, useEffect } from 'react'
+import style from './championdetails.module.css'
+import Loader from './Loader'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 
 export default function ChampionDetails({ championDetails }) {
-  const [current, setCurrent] = useState();
-  const [details, setDetails] = useState();
+  const [current, setCurrent] = useState()
+  const [details, setDetails] = useState()
 
   // Sets loading to false and current to 0 when receiving championDetails
   useEffect(() => {
-    setCurrent(0);
+    setCurrent(0)
 
-    setDetails(championDetails);
-  }, [championDetails]);
+    setDetails(championDetails)
+  }, [championDetails])
 
   // onClick, increases skin + 1, to change loading
   const nextSkin = () => {
-    setCurrent(current === details.skins.length - 1 ? 0 : current + 1);
+    setCurrent(current === details.skins.length - 1 ? 0 : current + 1)
     //console.log("next", details.skins[current]);
-  };
+  }
 
   const prevSkin = () => {
-    setCurrent(current === 0 ? details.skins.length - 1 : current - 1);
+    setCurrent(current === 0 ? details.skins.length - 1 : current - 1)
     //console.log("prev", details.skins[current]);
-  };
+  }
 
   return (
     <>
@@ -41,11 +41,11 @@ export default function ChampionDetails({ championDetails }) {
           />
           <img
             className={style.championBorder}
-            alt="border"
-            src={process.env.PUBLIC_URL + "/images/challenger-border.png"}
+            alt='border'
+            src={process.env.PUBLIC_URL + '/images/challenger-border.png'}
           />
           <p className={style.championName}>
-            {details.skins[current].name === "default"
+            {details.skins[current].name === 'default'
               ? details.name
               : details.skins[current].name}
           </p>
@@ -55,5 +55,5 @@ export default function ChampionDetails({ championDetails }) {
         </div>
       )}
     </>
-  );
+  )
 }

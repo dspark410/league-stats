@@ -20,7 +20,6 @@ function MatchHistoryCard({
   const [gameDetails, setGameDetails] = useState([])
   const [runes, setRunes] = useState([])
   const [spells, setSpells] = useState([])
-
   const [loading, setLoading] = useState(true)
 
   // Get info from Session Storage
@@ -49,85 +48,6 @@ function MatchHistoryCard({
   }, [version])
 
   useEffect(() => {
-    // console.log('matchDetails', matchDetails)
-    // console.log('queue', queues)
-    // console.log('summonerInfo', summonerInfo)
-    // console.log('sessionData', sessionData)
-    // console.log('champInfo', champInfo)
-
-    // if (matchDetails.length === 6) {
-    //   ;(async function () {
-    //     const allMatch = await matchDetails.reduce((array, match) => {
-    //       // Loops through queue state, to match game type ex. 5v5 , 3v3, summoners rift, ranked
-    //       const matchObj = queues
-    //         .filter((queue) => match.queueId === queue.queueId)
-    //         .map((queue) => {
-    //           const date = new Date(match.gameCreation).toString()
-
-    //           const object = {
-    //             map: queue.map,
-    //             gameType: queue.description,
-    //             gameCreation: date,
-    //             gameDuration: match.gameDuration,
-    //             gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
-    //             players: [],
-    //           }
-
-    //           return object
-    //         })[0]
-
-    //       // loops through current account id in session or summonerInfo
-    //       // To grab the right info for match history card
-    //       let playerObj
-    //       match.participantIdentities.forEach((id) => {
-    //         if (
-    //           id.player.accountId === summonerInfo.accountId ||
-    //           id.player.accountId === sessionData.accountId
-    //         ) {
-    //           matchObj.participantId = id.participantId
-    //         }
-    //         // Champion Icon for summoner and summoner name on sixth and seventh card
-    //         match.participants.forEach((part) => {
-    //           if (id.participantId === part.participantId) {
-    //             playerObj = {
-    //               id: id.participantId,
-    //               name: id.player.summonerName,
-    //               champId: part.championId,
-    //             }
-    //           }
-    //           champInfo.forEach((key) => {
-    //             if (playerObj.champId === +key.key) {
-    //               playerObj.image = key.image.full
-    //             }
-    //           })
-    //         })
-    //         matchObj.players.push(playerObj)
-    //       })
-    //       // finds matching participantId from matchObj and keeps all data from matching participants
-    //       match.participants.forEach((data) => {
-    //         if (data.participantId === matchObj.participantId) {
-    //           const playerStats = data
-    //           matchObj.playerInfo = playerStats
-    //         }
-    //       })
-    //       // get relevant image for player's champion for that game
-    //       champInfo.forEach((champ) => {
-    //         if (matchObj.playerInfo.championId === +champ.key) {
-    //           matchObj.championName = champ.name
-    //           matchObj.championImage = champ.image.full
-    //         }
-    //       })
-
-    //       array.push(matchObj)
-    //       return array
-    //     }, [])
-    //     setGameDetails(allMatch)
-    //     setTimeout(() => {
-    //       setLoading(false)
-    //     }, 1000)
-    //   })()
-    // }
-
     const gameDetailsArr = []
     if (matchDetails.length === 6) {
       matchDetails.forEach((match) => {
@@ -145,7 +65,6 @@ function MatchHistoryCard({
               gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
               players: [],
             }
-
             return object
           })[0]
 
@@ -194,9 +113,7 @@ function MatchHistoryCard({
         setGameDetails(gameDetailsArr)
       })
 
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000)
+      setLoading(false)
     }
   }, [matchDetails])
 
