@@ -1,48 +1,48 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import Tooltip from "../components/Tooltip";
-import ChampionDetails from "../components/ChampionDetails";
-import style from "./home.module.css";
+import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import Tooltip from '../components/Tooltip'
+import ChampionDetails from '../components/ChampionDetails'
+import style from './home.module.css'
 
 function Home({ change, submit, champInfo, version, inputResponse }) {
-  const [freeChamps, setFreeChamps] = useState([]);
-  const [championDetails, setChampionDetails] = useState();
+  const [freeChamps, setFreeChamps] = useState([])
+  const [championDetails, setChampionDetails] = useState()
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL || "";
+    const url = process.env.REACT_APP_API_URL || ''
     axios.get(`${url}/getChampionRotation`).then((res) => {
       // Store array of numbers for free champion rotation in variable
-      const championRotation = res.data.freeChampionIds;
+      const championRotation = res.data.freeChampionIds
       // Filter through champInfo to keep only the object for free champions
       const rotationChamp = champInfo.filter((champ) =>
         // If chamption rotation matches key of free champs, returns true
         championRotation.includes(Number(champ.key))
-      );
+      )
       // Save free champs into state
-      setFreeChamps(rotationChamp);
-    });
+      setFreeChamps(rotationChamp)
+    })
     // Dependency, rerenders when champInfo is ready
-  }, [champInfo]);
+  }, [champInfo])
 
   // onClick that makes an axios call to retrieve the specific champion json using
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
-    const getChamp = event.target.name;
+    const getChamp = event.target.name
     axios
       .get(
         `http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
-        setChampionDetails(res.data.data[getChamp]);
-      });
-  };
+        setChampionDetails(res.data.data[getChamp])
+      })
+  }
 
   return (
     <div className={style.homeBackgroundContainer}>
       <div className={style.homeContainer}>
         <h1>Enter Summoner Name</h1>
         <form onSubmit={submit}>
-          <input spellCheck="false" onChange={change} type="text" />
+          <input spellCheck='false' onChange={change} type='text' />
         </form>
         <h2>{inputResponse}</h2>
         <h1>Champion Rotation of the Week</h1>
@@ -71,13 +71,13 @@ function Home({ change, submit, champInfo, version, inputResponse }) {
             {championDetails ? (
               <ChampionDetails championDetails={championDetails} />
             ) : (
-              ""
+              ''
             )}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

@@ -1,4 +1,4 @@
-.homeBackgroundContainer {
+/* .homeBackgroundContainer {
   background-image: url('https://lolg-cdn.porofessor.gg/img/bg-dark.jpg');
   background-size: cover;
   position: fixed;
@@ -10,7 +10,7 @@
   height: 100%;
   overflow-y: auto;
   margin-bottom: -20px;
-}
+} */
 
 .homeContainer {
   display: flex;

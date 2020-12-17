@@ -4,3 +4,17 @@
   font-family: 'IBM Plex Serif', serif !important;
   cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur), auto !important;
 }
+
+.App {
+  background-image: url('https://lolg-cdn.porofessor.gg/img/bg-dark.jpg');
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  margin-bottom: -20px;
+}

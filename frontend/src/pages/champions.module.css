@@ -1,0 +1,37 @@
+.imageContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 10px;
+  max-width: 1280px;
+  color: white;
+}
+
+.imageContainer img {
+  margin: 10px 10px;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  border: solid 2px #f0d287;
+}
+
+.imageContainer img:hover {
+  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.screenContainer {
+  display: flex;
+  direction: row;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.champName {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
