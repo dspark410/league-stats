@@ -14,7 +14,7 @@ function Loader() {
       }}
     >
       <div>
-        <Spinner name='three-bounce' color='#fff' />
+        <Spinner name='three-bounce' color='#3a4556' />
       </div>
     </div>
   )

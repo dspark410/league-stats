@@ -28,6 +28,7 @@
 
 .summonerLevel {
   position: absolute;
-  bottom: 9%;
+  bottom: 16%;
   z-index: 1;
+  font-size: 14px;
 }

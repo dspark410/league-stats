@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaBars, FaTimes, FaCaretDown, FaHome } from 'react-icons/fa'
+import { FaBars, FaTimes, FaCaretDown } from 'react-icons/fa'
 import './Navbar.css'
 import Dropdown from './Dropdown'
 
@@ -30,9 +30,12 @@ function Navbar() {
   return (
     <>
       <nav className='navbar'>
-        <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-          League Stats
-        </Link>
+        <div className='nav-header'>
+          <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+            League Stats
+          </Link>
+        </div>
+
         <div className='menu-icon' onClick={handleClick}>
           <i className='icon'>
             {click ? (
@@ -58,9 +61,9 @@ function Navbar() {
               className='nav-links'
               onClick={closeMobileMenu}
             >
-              Champions{' '}
+              Champions{''}
               <i>
-                <FaCaretDown className='fa-caret-down' />{' '}
+                <FaCaretDown className='fa-caret-down' />
               </i>
             </Link>
             {dropdown && <Dropdown />}

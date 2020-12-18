@@ -3,11 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 60vh;
 }
-
-.homeContainer h1 {
-  color: #606e83;
-  text-align: center;
+.homeImage {
+  width: 250px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 input[type='text'] {
@@ -46,28 +47,14 @@ input[type='text'] {
   justify-content: center;
 }
 
-.imageContainer {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 10px;
-  max-width: 800px;
-}
-
-.imageContainer img {
-  margin: 10px 10px;
-}
-
-.imageContainer img:hover {
-  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
-  transform: scale(1.1);
-  transition: transform 0.3s ease-in-out;
-}
-
-.screenContainer {
-  display: flex;
-  direction: row;
-  flex-flow: row wrap;
-  justify-content: center;
+@media (max-width: 400px) {
+  .homeContainer input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #b4b8be;
+    font-weight: 500;
+    color: #272d35;
+    margin-bottom: 15px;
+    border-radius: 3px;
+  }
 }

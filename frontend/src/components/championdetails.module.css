@@ -2,7 +2,7 @@
   position: relative;
   min-width: 300px;
   height: 560px;
-  margin-top: 40px;
+  margin-top: 60px;
   margin-left: 20px;
 }
 
@@ -23,11 +23,11 @@
 .championName {
   color: #fff;
   position: absolute;
-  bottom: 2%;
+  bottom: 4%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   width: 100%;
   text-align: center;
@@ -41,7 +41,7 @@
   right: -15%;
   transform: translateY(50%);
   font-size: 50px;
-  color: #fff;
+  color: #606e83;
   background: transparent;
   border: none;
 }
@@ -58,7 +58,7 @@
   left: -15.5%;
   transform: translateY(50%);
   font-size: 50px;
-  color: #fff;
+  color: #606e83;
   background: transparent;
   border: none;
 }

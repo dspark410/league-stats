@@ -45,7 +45,7 @@ input[type='text'] {
   text-align: center;
   color: #606e83;
   font-size: 50px;
-  margin-bottom: 15px;
+  margin: 20px 0;
 }
 
 .imageContainer {
@@ -84,4 +84,5 @@ input[type='text'] {
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 1px;
+  margin-top: -10px;
 }

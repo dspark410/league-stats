@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-
 import './Dropdown.css'
 import { Link } from 'react-router-dom'
 
@@ -20,7 +19,7 @@ function Dropdown() {
             to='/champions'
             onClick={() => setClick(false)}
           >
-            All Champions
+            Champion List
           </Link>
         </li>
         <li>
