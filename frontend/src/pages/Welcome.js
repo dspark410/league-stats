@@ -63,14 +63,14 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
     const matchArray = []
 
     // Slice to determine how many previous matches to render
-    playerMatches.slice(0, 8).forEach((match) => {
+    playerMatches.slice(0, 7).forEach((match) => {
       axios
         .get(`${url}/matchDetails/${match.gameId}`)
         .then((res) => matchArray.push(res.data))
         .then(() => {
           // Need this .then because setMatchDetails renders too quickly
           // Forces it to wait for matchArray to reach correct length
-          matchArray.length === 8 && setMatchDetails(matchArray)
+          matchArray.length === 7 && setMatchDetails(matchArray)
         })
     })
     // Dependent on playerMatches to be ready
@@ -124,7 +124,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
           />
         </div>
         <div className={style.appRight}>
-          <h1>Ranked</h1>
+          <h1 className={style.rankedHeader}>Ranked</h1>
 
           <div className={style.rankCardContainer}>
             {!rank.length ? (

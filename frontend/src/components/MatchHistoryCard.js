@@ -49,7 +49,7 @@ function MatchHistoryCard({
 
   useEffect(() => {
     const gameDetailsArr = []
-    if (matchDetails.length === 8) {
+    if (matchDetails.length === 7) {
       matchDetails.forEach((match) => {
         // Loops through queue state, to match game type ex. 5v5 , 3v3, summoners rift, ranked
         const matchObj = queues
@@ -124,7 +124,7 @@ function MatchHistoryCard({
       {loading ? (
         <Loader />
       ) : (
-        gameDetails.length === 8 &&
+        gameDetails.length === 7 &&
         gameDetails
           .sort(function (a, b) {
             return new Date(b.gameCreation) - new Date(a.gameCreation)
