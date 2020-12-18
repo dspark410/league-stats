@@ -1,55 +1,58 @@
-import React, { useState, useEffect } from 'react'
-import style from './champions.module.css'
-import axios from 'axios'
-import Tooltip from '../components/Tooltip'
-import { AiOutlineSearch } from 'react-icons/ai'
+import React, { useState, useEffect } from "react";
+import style from "./champions.module.css";
+import axios from "axios";
+import Tooltip from "../components/Tooltip";
+import { AiOutlineSearch } from "react-icons/ai";
 
 function Champions({ champInfo, version }) {
-  const [input, setInput] = useState('')
-  //const [inputArr, setInputArr] = useState([]);
-  const [autofill, setAutofill] = useState([])
-  const [championDetails, setChampionDetails] = useState({})
+  const [input, setInput] = useState("");
+  const [autofill, setAutofill] = useState([]);
+  const [championDetails, setChampionDetails] = useState({});
 
   useEffect(() => {
-    // setInputArr(
-    //   champInfo.reduce((accu, champ) => {
-    //     accu.push(champ.name);
-    //     return accu;
-    //   }, [])
-    // );
-    setAutofill(champInfo)
-  }, [champInfo])
+    // Populates screen with all champion at start
+    setAutofill(champInfo);
+  }, [champInfo]);
 
   // Change Handler for input
   const changeHandler = (event) => {
-    setInput(event.target.value)
-    if (!event.target.value) {
-      setAutofill(champInfo)
-    }
+    setInput(event.target.value);
+
+    // Filters as user types to display only champion with matching string
     const filtered = champInfo.filter((champ) =>
       champ.name.toLowerCase().includes(event.target.value.toLowerCase())
-    )
-    setAutofill(filtered)
-  }
+    );
+    setAutofill(filtered);
+  };
 
   // SubmiteHandler for input
   const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log(champInfo)
-  }
+    event.preventDefault();
+    // When input gives back just one champion, submit would call for the champion's
+    // JSON file and store it in state
+    if (autofill.length === 1) {
+      axios
+        .get(
+          `http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${autofill[0].id}.json`
+        )
+        .then((res) => {
+          setChampionDetails(res.data.data[autofill[0].id]);
+        });
+    }
+  };
 
   // onClick that makes an axios call to retrieve the specific champion json using
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
-    const getChamp = event.target.name
+    const getChamp = event.target.name;
     axios
       .get(
         `http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
-        setChampionDetails(res.data.data[getChamp])
-      })
-  }
+        setChampionDetails(res.data.data[getChamp]);
+      });
+  };
 
   return (
     <>
@@ -57,7 +60,12 @@ function Champions({ champInfo, version }) {
         <h1 className={style.championList}>Champion List</h1>
         <div className={style.inputContainer}>
           <form onSubmit={handleSubmit}>
-            <input spellCheck='false' type='text' onChange={changeHandler} />
+            <input
+              spellCheck="false"
+              type="text"
+              onChange={changeHandler}
+              value={input}
+            />
           </form>
           <AiOutlineSearch
             className={style.searchIcon}
@@ -96,7 +104,7 @@ function Champions({ champInfo, version }) {
       </div> */}
       </div>
     </>
-  )
+  );
 }
 
-export default Champions
+export default Champions;
