@@ -12,10 +12,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World!");
-// });
-
+// Call from frontend along with summoner name to retrieve puuid/summoner_id/account_id
 app.get("/getSummonerName/:summoner", async (req, res) => {
   try {
     const summoner = encodeURIComponent(req.params.summoner);
@@ -30,6 +27,7 @@ app.get("/getSummonerName/:summoner", async (req, res) => {
   }
 });
 
+// Call from frontend with id to retrieve a summoner's masteries
 app.get("/masteries/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -43,6 +41,7 @@ app.get("/masteries/:id", async (req, res) => {
   }
 });
 
+// Call from frontend with id to retrieve a summoner's rank
 app.get("/rank/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -56,6 +55,7 @@ app.get("/rank/:id", async (req, res) => {
   }
 });
 
+// Call from frontend to retrieve free champion rotation for the week
 app.get("/getChampionRotation", async (req, res) => {
   try {
     const api = process.env.API_KEY;
@@ -68,10 +68,11 @@ app.get("/getChampionRotation", async (req, res) => {
   }
 });
 
+// Call from frontend to retrieve list of LOL maps
 app.get("/mapList", async (req, res) => {
   try {
     const mapListData = await axios.get(
-      `http://static.developer.riotgames.com/docs/lol/maps.json`
+      `https://static.developer.riotgames.com/docs/lol/maps.json`
     );
     res.json(mapListData.data);
   } catch (error) {
@@ -79,10 +80,11 @@ app.get("/mapList", async (req, res) => {
   }
 });
 
+// Call from frontend to retrieve list of game types
 app.get("/queueType", async (req, res) => {
   try {
     const queueTypeData = await axios.get(
-      `http://static.developer.riotgames.com/docs/lol/queues.json`
+      `https://static.developer.riotgames.com/docs/lol/queues.json`
     );
     res.json(queueTypeData.data);
   } catch (error) {
@@ -90,6 +92,7 @@ app.get("/queueType", async (req, res) => {
   }
 });
 
+// Call from frontend with summoner id to retrieve list of recently played matches
 app.get("/matchList/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -103,6 +106,7 @@ app.get("/matchList/:id", async (req, res) => {
   }
 });
 
+// Call from frontend with game ID to retrieve specific details of a single match
 app.get("/matchDetails/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -127,5 +131,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at https://localhost:${port}`);
 });

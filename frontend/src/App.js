@@ -55,7 +55,7 @@ function App() {
         axios
           .get(
             // Link to champion.json from Riot
-            `http://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/champion.json`
+            `https://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/champion.json`
           )
           .then((res) => {
             // Loop through Riot's champion.json array and keeps object values, in the form of an array

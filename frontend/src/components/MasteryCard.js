@@ -7,7 +7,7 @@ function MasteryCard({ masteryChamp, version }) {
       <img
         className={style.championImage}
         alt={masteryChamp.image}
-        src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${masteryChamp.image}`}
+        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${masteryChamp.image}`}
       />
 
       <img

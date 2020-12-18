@@ -33,7 +33,7 @@ function Champions({ champInfo, version }) {
     if (autofill.length === 1) {
       axios
         .get(
-          `http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${autofill[0].id}.json`
+          `https://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${autofill[0].id}.json`
         )
         .then((res) => {
           setChampionDetails(res.data.data[autofill[0].id]);
@@ -47,7 +47,7 @@ function Champions({ champInfo, version }) {
     const getChamp = event.target.name;
     axios
       .get(
-        `http://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${getChamp}.json`
+        `https://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
         setChampionDetails(res.data.data[getChamp]);
@@ -89,7 +89,7 @@ function Champions({ champInfo, version }) {
                 onClick={selectChampion}
                 name={champ.id}
                 realname={champ.name}
-                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
               />
               <div className={style.champName}>{champ.name}</div>
             </Tooltip>
