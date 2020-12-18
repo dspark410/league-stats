@@ -10,6 +10,11 @@
   text-align: center;
 }
 
+input[type='text'] {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .homeContainer input {
   padding: 10px;
   width: 400px;
