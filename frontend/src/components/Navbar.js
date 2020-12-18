@@ -1,60 +1,60 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const [click, setClick] = useState(false)
-  const [dropdown, setDropdown] = useState(false)
+  const [click, setClick] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
-  const handleClick = () => setClick(!click)
-  const closeMobileMenu = () => setClick(false)
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
-      setDropdown(false)
+      setDropdown(false);
     } else {
-      setDropdown(true)
+      setDropdown(true);
     }
-  }
+  };
 
   const onMouseLeave = () => {
     if (window.innerWidth < 960) {
-      setDropdown(false)
+      setDropdown(false);
     } else {
-      setDropdown(false)
+      setDropdown(false);
     }
-  }
+  };
 
   return (
     <>
-      <nav className='navbar'>
-        <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+      <nav className="navbar">
+        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
           League Stats
-          <i class='fab fa-firstdraft' />
+          <i className="fab fa-firstdraft" />
         </Link>
-        <div className='menu-icon' onClick={handleClick}></div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+        <div className="menu-icon" onClick={handleClick}></div>
+        <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item">
+            <Link to="/" className="nav-links" onClick={closeMobileMenu}>
               Home
             </Link>
           </li>
           <li
-            className='nav-item'
+            className="nav-item"
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
             <Link
-              to='/champions'
-              className='nav-links'
+              to="/champions"
+              className="nav-links"
               onClick={closeMobileMenu}
             >
               Champions
             </Link>
           </li>
-          <li className='nav-item'>
+          <li className="nav-item">
             <Link
-              to='/leaderboard'
-              className='nav-links'
+              to="/leaderboard"
+              className="nav-links"
               onClick={closeMobileMenu}
             >
               LeaderBoard
@@ -63,7 +63,7 @@ function Navbar() {
         </ul>
       </nav>
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

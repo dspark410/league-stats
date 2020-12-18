@@ -20,22 +20,6 @@
   border: 1px solid #b4b8be;
 }
 
-.inputContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.searchIcon {
-  display: flex;
-  color: grey;
-  font-size: 30px;
-  margin-left: -35px;
-  margin-bottom: 14px;
-  align-items: center;
-  justify-content: center;
-}
-
 .championList {
   text-align: center;
   color: white;

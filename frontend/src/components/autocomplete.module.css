@@ -1,0 +1,15 @@
+.searchIcon {
+  display: flex;
+  color: grey;
+  font-size: 30px;
+  margin-left: -35px;
+  margin-bottom: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
