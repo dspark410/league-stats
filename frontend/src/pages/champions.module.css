@@ -1,3 +1,48 @@
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchContainer input {
+  padding: 10px;
+  width: 400px;
+  border: 1px solid #b4b8be;
+  font-weight: 500;
+  color: #272d35;
+  margin-bottom: 15px;
+  border-radius: 3px;
+}
+
+.searchContainer input:focus {
+  outline: none;
+  border: 1px solid #b4b8be;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchIcon {
+  display: flex;
+  color: grey;
+  font-size: 30px;
+  margin-left: -35px;
+  margin-bottom: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+.championList {
+  text-align: center;
+  color: white;
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
 .imageContainer {
   display: flex;
   flex-flow: row wrap;

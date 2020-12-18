@@ -1,17 +1,3 @@
-/* .homeBackgroundContainer {
-  background-image: url('https://lolg-cdn.porofessor.gg/img/bg-dark.jpg');
-  background-size: cover;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  margin-bottom: -20px;
-} */
-
 .homeContainer {
   display: flex;
   flex-direction: column;
@@ -25,17 +11,34 @@
 }
 
 .homeContainer input {
-  width: auto;
   padding: 10px;
-  font-size: 32px;
-  border-radius: 8px;
-  border: none;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.7);
+  width: 400px;
+  border: 1px solid #b4b8be;
+  font-weight: 500;
+  color: #272d35;
+  margin-bottom: 15px;
+  border-radius: 3px;
 }
 
 .homeContainer input:focus {
   outline: none;
-  border: none;
+  border: 1px solid #b4b8be;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchIcon {
+  display: flex;
+  color: grey;
+  font-size: 30px;
+  margin-left: -35px;
+  margin-bottom: 14px;
+  align-items: center;
+  justify-content: center;
 }
 
 .imageContainer {

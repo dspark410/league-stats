@@ -94,7 +94,6 @@ function App() {
     <div className='App'>
       <Router>
         <Navbar />
-
         <Switch>
           <Route
             exact

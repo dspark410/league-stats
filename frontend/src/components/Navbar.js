@@ -1,47 +1,67 @@
 import React, { useState } from 'react'
-import * as FaIcons from 'react-icons/fa'
-import { AiOutlineClose, AiFillHome } from 'react-icons/ai'
-import { GiSwordman } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
-import { IconContext } from 'react-icons'
-// import Home from '../pages/Home'
-// import Champion from '../pages/Champion'
 
 function Navbar() {
-  const [sidebar, setSidebar] = useState(false)
+  const [click, setClick] = useState(false)
+  const [dropdown, setDropdown] = useState(false)
 
-  const showSidebar = () => setSidebar(!sidebar)
+  const handleClick = () => setClick(!click)
+  const closeMobileMenu = () => setClick(false)
+
+  const onMouseEnter = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(false)
+    } else {
+      setDropdown(true)
+    }
+  }
+
+  const onMouseLeave = () => {
+    if (window.innerWidth < 960) {
+      setDropdown(false)
+    } else {
+      setDropdown(false)
+    }
+  }
 
   return (
     <>
-      <IconContext.Provider value={{ color: '#fff' }}>
-        <div className='navbar'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-        </div>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={showSidebar}>
-            <li className='navbar-toggle'>
-              <Link to='#' className='menu-bars'>
-                <AiOutlineClose />
-              </Link>
-            </li>
-            <li className='nav-text'>
-              <Link to='/'>
-                <AiFillHome />
-                <span>Home</span>
-              </Link>
-            </li>
-            <li className='nav-text'>
-              <Link to='/champions'>
-                <GiSwordman />
-                <span>Champions</span>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </IconContext.Provider>
+      <nav className='navbar'>
+        <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+          League Stats
+          <i class='fab fa-firstdraft' />
+        </Link>
+        <div className='menu-icon' onClick={handleClick}></div>
+        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className='nav-item'>
+            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+              Home
+            </Link>
+          </li>
+          <li
+            className='nav-item'
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+          >
+            <Link
+              to='/champions'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              Champions
+            </Link>
+          </li>
+          <li className='nav-item'>
+            <Link
+              to='/leaderboard'
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              LeaderBoard
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </>
   )
 }

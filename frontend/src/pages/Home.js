@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Tooltip from '../components/Tooltip'
 import ChampionDetails from '../components/ChampionDetails'
 import style from './home.module.css'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 function Home({ change, submit, champInfo, version, inputResponse }) {
   const [freeChamps, setFreeChamps] = useState([])
@@ -41,9 +42,12 @@ function Home({ change, submit, champInfo, version, inputResponse }) {
     <div className={style.homeBackgroundContainer}>
       <div className={style.homeContainer}>
         <h1>Enter Summoner Name</h1>
-        <form onSubmit={submit}>
-          <input spellCheck='false' onChange={change} type='text' />
-        </form>
+        <div className={style.inputContainer}>
+          <form onSubmit={submit}>
+            <input spellCheck='false' onChange={change} type='text' />
+          </form>
+          <AiOutlineSearch className={style.searchIcon} />
+        </div>
         <h2>{inputResponse}</h2>
         <h1>Champion Rotation of the Week</h1>
 
