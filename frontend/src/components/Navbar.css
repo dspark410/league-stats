@@ -1,7 +1,3 @@
-.hide {
-  display: hidden;
-}
-
 .navbar {
   background: #3a4556;
   height: 60px;
@@ -25,7 +21,6 @@
 .navbar-logo {
   color: #fff;
   justify-self: start;
-  cursor: pointer;
   text-decoration: none;
   font-size: 20px;
   font-weight: bold;
