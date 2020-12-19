@@ -1,4 +1,4 @@
-.dropdown-menu {
+.dropdownMenu {
   width: 170px;
   position: absolute;
   top: 60px;
@@ -6,19 +6,19 @@
   text-align: start;
 }
 
-.dropdown-menu li {
+.dropdownMenu li {
   background: #3a3c3d;
 }
 
-.dropdown-menu li:hover {
+.dropdownMenu li:hover {
   background: #a1a3a5;
 }
 
-.dropdown-menu.clicked {
+.dropdownMenu.clicked {
   display: none;
 }
 
-.dropdown-link {
+.dropdownLink {
   display: block;
   text-decoration: none;
   color: #fff;

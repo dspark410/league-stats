@@ -10,7 +10,7 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
-.nav-header {
+.navHeader {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -18,7 +18,7 @@
   margin-left: 20px;
 }
 
-.navbar-logo {
+.navbarLogo {
   color: #fff;
   justify-self: start;
   text-decoration: none;
@@ -27,7 +27,7 @@
   margin: 0;
 }
 
-.nav-menu {
+.navMenu {
   display: grid;
   grid-template-columns: repeat(5, auto);
   list-style: none;
@@ -36,13 +36,13 @@
   justify-content: end;
 }
 
-.nav-item {
+.navItem {
   display: flex;
   align-items: center;
   height: 80px;
 }
 
-.nav-links {
+.navLinks {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,20 +51,20 @@
   padding: 1rem 1rem;
 }
 
-.nav-links:hover {
+.navLinks:hover {
   background-color: #3a3c3d;
   transition: all 0.2s ease-out;
 }
 
-.fa-bars {
+.faBars {
   color: #fff;
 }
 
-.fa-caret-down {
+.faCaretDown {
   margin-left: 5px;
 }
 
-.menu-icon {
+.menuIcon {
   display: none;
 }
 
@@ -128,7 +128,7 @@
     font-size: 1.8rem;
   }
 
-  .fa-times {
+  .faTimes {
     color: #fff;
     font-size: 2rem;
   }

@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
-import './Dropdown.css'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import style from "./dropdown.module.css";
+import { Link } from "react-router-dom";
 
 function Dropdown() {
-  const [click, setClick] = useState(false)
+  const [click, setClick] = useState(false);
 
-  const handleClick = () => setClick(!click)
+  const handleClick = () => setClick(!click);
 
   return (
     <>
       <ul
         onClick={handleClick}
-        className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}
+        className={
+          click ? `${style.dropdownMenu} ${style.clicked}` : style.dropdownMenu
+        }
       >
         <li>
           <Link
-            className='dropdown-link'
-            to='/champions'
+            className={style.dropdownLink}
+            to="/champions"
             onClick={() => setClick(false)}
           >
             Champion List
@@ -24,8 +26,8 @@ function Dropdown() {
         </li>
         <li>
           <Link
-            className='dropdown-link'
-            to='/championrotation'
+            className={style.dropdownLink}
+            to="/championrotation"
             onClick={() => setClick(false)}
           >
             Champion Rotation
@@ -33,7 +35,7 @@ function Dropdown() {
         </li>
       </ul>
     </>
-  )
+  );
 }
 
-export default Dropdown
+export default Dropdown;

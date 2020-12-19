@@ -1,77 +1,79 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { FaBars, FaTimes, FaCaretDown } from 'react-icons/fa'
-import './Navbar.css'
-import Dropdown from './Dropdown'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { FaBars, FaTimes, FaCaretDown } from "react-icons/fa";
+import style from "./navbar.module.css";
+import Dropdown from "./Dropdown";
 
 function Navbar() {
-  const [click, setClick] = useState(false)
-  const [dropdown, setDropdown] = useState(false)
+  const [click, setClick] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
 
-  const handleClick = () => setClick(!click)
-  const closeMobileMenu = () => setClick(false)
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
-      setDropdown(false)
+      setDropdown(false);
     } else {
-      setDropdown(true)
+      setDropdown(true);
     }
-  }
+  };
 
   const onMouseLeave = () => {
     if (window.innerWidth < 960) {
-      setDropdown(false)
+      setDropdown(false);
     } else {
-      setDropdown(false)
+      setDropdown(false);
     }
-  }
+  };
 
   return (
     <>
-      <nav className='navbar'>
-        <div className='nav-header'>
-          <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+      <nav className={style.navbar}>
+        <div className={style.navHeader}>
+          <Link to="/" className={style.navbarLogo} onClick={closeMobileMenu}>
             League Stats
           </Link>
         </div>
 
-        <div className='menu-icon' onClick={handleClick}>
-          <i className='icon'>
+        <div className={style.menuIcon} onClick={handleClick}>
+          <i className={style.icon}>
             {click ? (
-              <FaTimes className='fa-times' />
+              <FaTimes className={style.faTimes} />
             ) : (
-              <FaBars className='fa-bars' />
-            )}{' '}
+              <FaBars className={style.faBars} />
+            )}{" "}
           </i>
         </div>
-        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className='nav-item'>
-            <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+        <ul
+          className={click ? `${style.navMenu} ${style.active}` : style.navMenu}
+        >
+          <li className={style.navItem}>
+            <Link to="/" className={style.navLinks} onClick={closeMobileMenu}>
               Home
             </Link>
           </li>
           <li
-            className='nav-item'
+            className={style.navItem}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
             <Link
-              to='/champions'
-              className='nav-links'
+              to="/champions"
+              className={style.navLinks}
               onClick={closeMobileMenu}
             >
-              Champions{''}
+              Champions{""}
               <i>
-                <FaCaretDown className='fa-caret-down' />
+                <FaCaretDown className={style.faCaretDown} />
               </i>
             </Link>
             {dropdown && <Dropdown />}
           </li>
-          <li className='nav-item'>
+          <li className={style.navItem}>
             <Link
-              to='/leaderboard'
-              className='nav-links'
+              to="/leaderboard"
+              className={style.navLinks}
               onClick={closeMobileMenu}
             >
               Leaderboard
@@ -80,7 +82,7 @@ function Navbar() {
         </ul>
       </nav>
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
