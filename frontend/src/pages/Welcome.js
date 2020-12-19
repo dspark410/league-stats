@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import style from "./welcome.module.css";
 import axios from "axios";
+import { motion } from "framer-motion";
 import MasteryCard from "../components/MasteryCard";
 import RankCard from "../components/RankCard";
 import UnrankedCard from "../components/UnrankedCard";
@@ -115,7 +116,13 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
       </h1>
       <SummonerCard version={version} summonerInfo={summonerInfo} />
       <div className={style.welcomeContainer}>
-        <div className={style.appLeft}>
+        <motion.div
+          className={style.appLeft}
+          initial={{ x: -1000 }}
+          animate={{ x: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <MatchHistoryCard
             version={version}
             matchDetails={matchDetails}
@@ -124,11 +131,17 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             getPlayerName={getPlayerName}
             queues={queues}
           />
-        </div>
+        </motion.div>
         <div className={style.appRight}>
           <h1 className={style.rankedHeader}>Ranked</h1>
 
-          <div className={style.rankCardContainer}>
+          <motion.div
+            className={style.rankCardContainer}
+            initial={{ x: 1000 }}
+            animate={{ x: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             {!rank.length ? (
               <>
                 <UnrankedCard queueType="RANKED_FLEX_SR" />
@@ -147,10 +160,16 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             ) : (
               rank.map((ranking, i) => <RankCard key={i} rank={ranking} />)
             )}
-          </div>
+          </motion.div>
           <div className={style.masteryCardContainer}>
             <h1>Champion Mastery</h1>
-            <div className={style.masteryCardContainer2}>
+            <motion.div
+              className={style.masteryCardContainer2}
+              initial={{ x: 1000 }}
+              animate={{ x: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               {filteredChamps.length < 3
                 ? filteredChamps.map((champ, i) => {
                     return (
@@ -170,7 +189,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
                       />
                     );
                   })}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
