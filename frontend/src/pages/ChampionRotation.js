@@ -53,7 +53,12 @@ function ChampionRotation({ champInfo, version }) {
                 <motion.div
                   initial={{ x: -1000 }}
                   animate={{ x: 0 }}
-                  exit={{ opacity: 0 }}
+                  transition={{
+                    delay: 0.2,
+                    type: "tween",
+                    stiffness: 120,
+                    duration: 0.5,
+                  }}
                 >
                   <Tooltip
                     key={i}
@@ -77,9 +82,14 @@ function ChampionRotation({ champInfo, version }) {
             <div>
               {championDetails ? (
                 <motion.div
-                  initial={{ x: 1000 }}
+                  initial={{ x: 800 }}
                   animate={{ x: 0 }}
-                  exit={{ opacity: 0 }}
+                  transition={{
+                    delay: 0.2,
+                    type: "tween",
+                    stiffness: 120,
+                    duration: 0.5,
+                  }}
                 >
                   <ChampionDetails championDetails={championDetails} />
                 </motion.div>

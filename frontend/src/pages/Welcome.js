@@ -120,8 +120,12 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
           className={style.appLeft}
           initial={{ x: -1000 }}
           animate={{ x: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{
+            delay: 0.7,
+            type: "tween",
+            stiffness: 120,
+            duration: 0.5,
+          }}
         >
           <MatchHistoryCard
             version={version}
@@ -139,8 +143,12 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             className={style.rankCardContainer}
             initial={{ x: 1000 }}
             animate={{ x: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{
+              delay: 0.7,
+              type: "tween",
+              stiffness: 120,
+              duration: 0.5,
+            }}
           >
             {!rank.length ? (
               <>
@@ -167,8 +175,12 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
               className={style.masteryCardContainer2}
               initial={{ x: 1000 }}
               animate={{ x: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{
+                delay: 0.7,
+                type: "tween",
+                stiffness: 120,
+                duration: 0.5,
+              }}
             >
               {filteredChamps.length < 3
                 ? filteredChamps.map((champ, i) => {

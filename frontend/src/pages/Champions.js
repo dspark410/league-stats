@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import style from "./champions.module.css";
 import axios from "axios";
 import Tooltip from "../components/Tooltip";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { AiOutlineSearch } from "react-icons/ai";
 
 function Champions({ champInfo, version }) {
@@ -86,9 +86,9 @@ function Champions({ champInfo, version }) {
               moreInfo={champ.blurb}
             >
               <motion.div
-                initial={{ y: 200 }}
+                initial={{ y: 100 }}
                 animate={{ y: 0 }}
-                exit={{ opacity: 0 }}
+                //exit={{ y: -1000, opacity: 0 }}
               >
                 <img
                   className={style.freeChampsImg}
