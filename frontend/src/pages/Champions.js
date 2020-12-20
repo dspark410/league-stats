@@ -78,30 +78,32 @@ function Champions({ champInfo, version }) {
 
       <div className={style.screenContainer}>
         <div className={style.imageContainer}>
-          {autofill.map((champ, i) => (
-            <Tooltip
-              key={i}
-              name={champ.name}
-              info={champ.title}
-              moreInfo={champ.blurb}
-            >
-              <motion.div
-                initial={{ y: 100 }}
-                animate={{ y: 0 }}
-                //exit={{ y: -1000, opacity: 0 }}
+          <AnimatePresence>
+            {autofill.map((champ, i) => (
+              <Tooltip
+                key={i}
+                name={champ.name}
+                info={champ.title}
+                moreInfo={champ.blurb}
               >
-                <img
-                  className={style.freeChampsImg}
-                  alt={champ.image.full}
-                  onClick={selectChampion}
-                  name={champ.id}
-                  realname={champ.name}
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                />
-                <div className={style.champName}>{champ.name}</div>
-              </motion.div>
-            </Tooltip>
-          ))}
+                <motion.div
+                  initial={{ y: 100, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -100, opacity: 0 }}
+                >
+                  <img
+                    className={style.freeChampsImg}
+                    alt={champ.image.full}
+                    onClick={selectChampion}
+                    name={champ.id}
+                    realname={champ.name}
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                  />
+                  <div className={style.champName}>{champ.name}</div>
+                </motion.div>
+              </Tooltip>
+            ))}
+          </AnimatePresence>
         </div>
         {/* <div>
         {championDetails ? (
