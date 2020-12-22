@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import style from "./welcome.module.css";
 import axios from "axios";
 import { motion } from "framer-motion";
-import LoadingOverlay from "react-loading-overlay";
 import MasteryCard from "../components/MasteryCard";
 import RankCard from "../components/RankCard";
 import UnrankedCard from "../components/UnrankedCard";
@@ -137,20 +136,15 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             duration: 0.5,
           }}
         >
-          <LoadingOverlay
-            active={loading}
-            spinner
-            text="Loading your content..."
-          >
-            <MatchHistoryCard
-              version={version}
-              matchDetails={matchDetails}
-              summonerInfo={summonerInfo}
-              champInfo={champInfo}
-              getPlayerName={getPlayerName}
-              queues={queues}
-            />
-          </LoadingOverlay>
+          <MatchHistoryCard
+            version={version}
+            matchDetails={matchDetails}
+            summonerInfo={summonerInfo}
+            champInfo={champInfo}
+            getPlayerName={getPlayerName}
+            queues={queues}
+            overlay={loading}
+          />
         </motion.div>
         <div className={style.appRight}>
           <h1 className={style.rankedHeader}>Ranked</h1>
