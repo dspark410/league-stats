@@ -51,6 +51,7 @@ function ChampionRotation({ champInfo, version }) {
             <div className={style.imageContainer}>
               {freeChamps.map((champ, i) => (
                 <motion.div
+                  key={i}
                   initial={{ x: -1000 }}
                   animate={{ x: 0 }}
                   transition={{
@@ -61,7 +62,6 @@ function ChampionRotation({ champInfo, version }) {
                   }}
                 >
                   <Tooltip
-                    key={i}
                     name={champ.name}
                     info={champ.title}
                     moreInfo={champ.blurb}

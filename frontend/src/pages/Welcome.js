@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import style from "./welcome.module.css";
 import axios from "axios";
 import { motion } from "framer-motion";
+import LoadingOverlay from "react-loading-overlay";
 import MasteryCard from "../components/MasteryCard";
 import RankCard from "../components/RankCard";
 import UnrankedCard from "../components/UnrankedCard";
@@ -15,6 +16,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
   const [session, setSession] = useState({});
   const [playerMatches, setPlayerMatches] = useState([]);
   const [matchDetails, setMatchDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const url = process.env.REACT_APP_API_URL || "";
 
@@ -28,6 +30,8 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
   const getMatchList = (id) => axios.get(`${url}/matchList/${id}`);
 
   useEffect(() => {
+    // Sets loading to true to enable overlay, prevents user from rapidly clicking
+    setLoading(true);
     if (!summonerInfo.id) {
       // Checks if summonerInfo.id is available, if not grab identical copy from sessionStorage
       const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
@@ -73,6 +77,12 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
           // Need this .then because setMatchDetails renders too quickly
           // Forces it to wait for matchArray to reach correct length
           matchArray.length === 7 && setMatchDetails(matchArray);
+        })
+        .then(() => {
+          setTimeout(() => {
+            // Set loading to false to disable overlay
+            setLoading(false);
+          }, 1000);
         });
     });
     // Dependent on playerMatches to be ready
@@ -116,26 +126,28 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
       </h1>
       <SummonerCard version={version} summonerInfo={summonerInfo} />
       <div className={style.welcomeContainer}>
-        <motion.div
-          className={style.appLeft}
-          initial={{ x: -1000 }}
-          animate={{ x: 0 }}
-          transition={{
-            delay: 0.7,
-            type: "tween",
-            stiffness: 120,
-            duration: 0.5,
-          }}
-        >
-          <MatchHistoryCard
-            version={version}
-            matchDetails={matchDetails}
-            summonerInfo={summonerInfo}
-            champInfo={champInfo}
-            getPlayerName={getPlayerName}
-            queues={queues}
-          />
-        </motion.div>
+        <LoadingOverlay active={loading} spinner text="Loading your content...">
+          <motion.div
+            className={style.appLeft}
+            initial={{ x: -1000 }}
+            animate={{ x: 0 }}
+            transition={{
+              delay: 0.7,
+              type: "tween",
+              stiffness: 120,
+              duration: 0.5,
+            }}
+          >
+            <MatchHistoryCard
+              version={version}
+              matchDetails={matchDetails}
+              summonerInfo={summonerInfo}
+              champInfo={champInfo}
+              getPlayerName={getPlayerName}
+              queues={queues}
+            />
+          </motion.div>
+        </LoadingOverlay>
         <div className={style.appRight}>
           <h1 className={style.rankedHeader}>Ranked</h1>
 
