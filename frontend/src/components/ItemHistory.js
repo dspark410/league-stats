@@ -45,7 +45,15 @@ export default function ItemHistory({ details, version }) {
           <div className={style.itemRow1}>
             {details.item0 ? (
               details.item0 > 7000 ? (
-                <div>An Ornn was Found</div>
+                <Tooltip
+                  name={"An Ornn Pooped Here"}
+                  description={"We promise to clean up this Ornn poop soon!"}
+                >
+                  <img
+                    alt="An Ornn was Found"
+                    src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                  />
+                </Tooltip>
               ) : (
                 <Tooltip
                   name={items[details.item0].name}
@@ -69,7 +77,15 @@ export default function ItemHistory({ details, version }) {
 
             {details.item1 ? (
               details.item1 > 7000 ? (
-                <div>An Ornn was Found</div>
+                <Tooltip
+                  name={"An Ornn Pooped Here"}
+                  description={"We promise to clean up this Ornn poop soon!"}
+                >
+                  <img
+                    alt="An Ornn was Found"
+                    src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                  />
+                </Tooltip>
               ) : (
                 <Tooltip
                   name={items[details.item1].name}
@@ -93,7 +109,15 @@ export default function ItemHistory({ details, version }) {
 
             {details.item2 ? (
               details.item2 > 7000 ? (
-                <div>An Ornn was Found</div>
+                <Tooltip
+                  name={"An Ornn Pooped Here"}
+                  description={"We promise to clean up this Ornn poop soon!"}
+                >
+                  <img
+                    alt="An Ornn was Found"
+                    src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                  />
+                </Tooltip>
               ) : (
                 <Tooltip
                   name={items[details.item2].name}
@@ -135,7 +159,15 @@ export default function ItemHistory({ details, version }) {
           <div className={style.itemRow2}>
             {details.item3 ? (
               details.item3 > 7000 ? (
-                <div>An Ornn was Found</div>
+                <Tooltip
+                  name={"An Ornn Pooped Here"}
+                  description={"We promise to clean up this Ornn poop soon!"}
+                >
+                  <img
+                    alt="An Ornn was Found"
+                    src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                  />
+                </Tooltip>
               ) : (
                 <Tooltip
                   name={items[details.item3].name}
@@ -158,7 +190,15 @@ export default function ItemHistory({ details, version }) {
             )}
             {details.item4 ? (
               details.item4 > 7000 ? (
-                <div>An Ornn was Found</div>
+                <Tooltip
+                  name={"An Ornn Pooped Here"}
+                  description={"We promise to clean up this Ornn poop soon!"}
+                >
+                  <img
+                    alt="An Ornn was Found"
+                    src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                  />
+                </Tooltip>
               ) : (
                 <Tooltip
                   name={items[details.item4].name}
@@ -181,7 +221,15 @@ export default function ItemHistory({ details, version }) {
             )}
             {details.item5 ? (
               details.item5 > 7000 ? (
-                <div>An Ornn was Found</div>
+                <Tooltip
+                  name={"An Ornn Pooped Here"}
+                  description={"We promise to clean up this Ornn poop soon!"}
+                >
+                  <img
+                    alt="An Ornn was Found"
+                    src={process.env.PUBLIC_URL + "/images/emptyitem.png"}
+                  />
+                </Tooltip>
               ) : (
                 <Tooltip
                   name={items[details.item5].name}
