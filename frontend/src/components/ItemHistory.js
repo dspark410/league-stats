@@ -44,18 +44,22 @@ export default function ItemHistory({ details, version }) {
         <>
           <div className={style.itemRow1}>
             {details.item0 ? (
-              <Tooltip
-                name={items[details.item0].name}
-                info={items[details.item0].description}
-                moreInfo={`Cost: ${items[details.item0].gold.total} (${
-                  items[details.item0].gold.base
-                })`}
-              >
-                <img
-                  alt="item"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item0}.png`}
-                />
-              </Tooltip>
+              details.item0 > 7000 ? (
+                <div>An Ornn was Found</div>
+              ) : (
+                <Tooltip
+                  name={items[details.item0].name}
+                  info={items[details.item0].description}
+                  moreInfo={`Cost: ${items[details.item0].gold.total} (${
+                    items[details.item0].gold.base
+                  })`}
+                >
+                  <img
+                    alt="item"
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item0}.png`}
+                  />
+                </Tooltip>
+              )
             ) : (
               <img
                 alt="item"
@@ -64,18 +68,22 @@ export default function ItemHistory({ details, version }) {
             )}
 
             {details.item1 ? (
-              <Tooltip
-                name={items[details.item1].name}
-                info={items[details.item1].description}
-                moreInfo={`Cost: ${items[details.item1].gold.total} (${
-                  items[details.item1].gold.base
-                })`}
-              >
-                <img
-                  alt="item"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item1}.png`}
-                />
-              </Tooltip>
+              details.item1 > 7000 ? (
+                <div>An Ornn was Found</div>
+              ) : (
+                <Tooltip
+                  name={items[details.item1].name}
+                  info={items[details.item1].description}
+                  moreInfo={`Cost: ${items[details.item1].gold.total} (${
+                    items[details.item1].gold.base
+                  })`}
+                >
+                  <img
+                    alt="item"
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item1}.png`}
+                  />
+                </Tooltip>
+              )
             ) : (
               <img
                 alt="item"
@@ -84,18 +92,22 @@ export default function ItemHistory({ details, version }) {
             )}
 
             {details.item2 ? (
-              <Tooltip
-                name={items[details.item2].name}
-                info={items[details.item2].description}
-                moreInfo={`Cost: ${items[details.item2].gold.total} (${
-                  items[details.item2].gold.base
-                })`}
-              >
-                <img
-                  alt="item"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item2}.png`}
-                />
-              </Tooltip>
+              details.item2 > 7000 ? (
+                <div>An Ornn was Found</div>
+              ) : (
+                <Tooltip
+                  name={items[details.item2].name}
+                  info={items[details.item2].description}
+                  moreInfo={`Cost: ${items[details.item2].gold.total} (${
+                    items[details.item2].gold.base
+                  })`}
+                >
+                  <img
+                    alt="item"
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item2}.png`}
+                  />
+                </Tooltip>
+              )
             ) : (
               <img
                 alt="item"
@@ -122,18 +134,22 @@ export default function ItemHistory({ details, version }) {
           </div>
           <div className={style.itemRow2}>
             {details.item3 ? (
-              <Tooltip
-                name={items[details.item3].name}
-                info={items[details.item3].description}
-                moreInfo={`Cost: ${items[details.item3].gold.total} (${
-                  items[details.item3].gold.base
-                })`}
-              >
-                <img
-                  alt="item"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item3}.png`}
-                />
-              </Tooltip>
+              details.item3 > 7000 ? (
+                <div>An Ornn was Found</div>
+              ) : (
+                <Tooltip
+                  name={items[details.item3].name}
+                  info={items[details.item3].description}
+                  moreInfo={`Cost: ${items[details.item3].gold.total} (${
+                    items[details.item3].gold.base
+                  })`}
+                >
+                  <img
+                    alt="item"
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item3}.png`}
+                  />
+                </Tooltip>
+              )
             ) : (
               <img
                 alt="item"
@@ -141,18 +157,22 @@ export default function ItemHistory({ details, version }) {
               />
             )}
             {details.item4 ? (
-              <Tooltip
-                name={items[details.item4].name}
-                info={items[details.item4].description}
-                moreInfo={`Cost: ${items[details.item4].gold.total} (${
-                  items[details.item4].gold.base
-                })`}
-              >
-                <img
-                  alt="item"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item4}.png`}
-                />
-              </Tooltip>
+              details.item4 > 7000 ? (
+                <div>An Ornn was Found</div>
+              ) : (
+                <Tooltip
+                  name={items[details.item4].name}
+                  info={items[details.item4].description}
+                  moreInfo={`Cost: ${items[details.item4].gold.total} (${
+                    items[details.item4].gold.base
+                  })`}
+                >
+                  <img
+                    alt="item"
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item4}.png`}
+                  />
+                </Tooltip>
+              )
             ) : (
               <img
                 alt="item"
@@ -160,18 +180,22 @@ export default function ItemHistory({ details, version }) {
               />
             )}
             {details.item5 ? (
-              <Tooltip
-                name={items[details.item5].name}
-                info={items[details.item5].description}
-                moreInfo={`Cost: ${items[details.item5].gold.total} (${
-                  items[details.item5].gold.base
-                })`}
-              >
-                <img
-                  alt="item"
-                  src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item5}.png`}
-                />
-              </Tooltip>
+              details.item5 > 7000 ? (
+                <div>An Ornn was Found</div>
+              ) : (
+                <Tooltip
+                  name={items[details.item5].name}
+                  info={items[details.item5].description}
+                  moreInfo={`Cost: ${items[details.item5].gold.total} (${
+                    items[details.item5].gold.base
+                  })`}
+                >
+                  <img
+                    alt="item"
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}.1/img/item/${details.item5}.png`}
+                  />
+                </Tooltip>
+              )
             ) : (
               <img
                 alt="item"
