@@ -2,7 +2,7 @@
   color: #f0d287;
   /* font-weight: bold; */
   width: 770px;
-  height: 900px;
+  min-height: 900px;
   display: flex;
   flex-direction: column;
   font-size: 13px;

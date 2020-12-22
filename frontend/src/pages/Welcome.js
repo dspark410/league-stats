@@ -126,17 +126,21 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
       </h1>
       <SummonerCard version={version} summonerInfo={summonerInfo} />
       <div className={style.welcomeContainer}>
-        <LoadingOverlay active={loading} spinner text="Loading your content...">
-          <motion.div
-            className={style.appLeft}
-            initial={{ x: -1000 }}
-            animate={{ x: 0 }}
-            transition={{
-              delay: 0.7,
-              type: "tween",
-              stiffness: 120,
-              duration: 0.5,
-            }}
+        <motion.div
+          className={style.appLeft}
+          initial={{ x: -1000 }}
+          animate={{ x: 0 }}
+          transition={{
+            delay: 0.7,
+            type: "tween",
+            stiffness: 120,
+            duration: 0.5,
+          }}
+        >
+          <LoadingOverlay
+            active={loading}
+            spinner
+            text="Loading your content..."
           >
             <MatchHistoryCard
               version={version}
@@ -146,8 +150,8 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
               getPlayerName={getPlayerName}
               queues={queues}
             />
-          </motion.div>
-        </LoadingOverlay>
+          </LoadingOverlay>
+        </motion.div>
         <div className={style.appRight}>
           <h1 className={style.rankedHeader}>Ranked</h1>
 
