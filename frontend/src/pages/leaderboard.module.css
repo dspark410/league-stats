@@ -1,0 +1,48 @@
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tbody {
+  width: 70vw;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.td {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 12vw;
+}
+
+.tdWinRatio {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 10vw;
+  margin-left: -100px;
+}
+
+.winRatio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.winRatioHeader {
+  left: -100px;
+}
+
+.winRatio span:last-child {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 10px;
+}

@@ -27,6 +27,21 @@ app.get('/getSummonerName/:summoner', async (req, res) => {
   }
 })
 
+// Call from frontend along with summoner id
+app.get('/getSummonerId/:summoner', async (req, res) => {
+  try {
+    const summoner = req.params.summoner
+    const api = process.env.API_KEY
+    const summonerData = await axios.get(
+      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/${summoner}?api_key=${api}`
+    )
+    res.json(summonerData.data)
+  } catch (error) {
+    console.log(error)
+    res.send('Summoner not found')
+  }
+})
+
 // Call from frontend with id to retrieve a summoner's masteries
 app.get('/masteries/:id', async (req, res) => {
   try {
@@ -124,6 +139,7 @@ app.get('/matchDetails/:id', async (req, res) => {
 app.get('/leaderboard/solo', async (req, res) => {
   try {
     const api = process.env.API_KEY
+
     const leaderboardData = await axios.get(
       ` https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?api_key=${api}`
     )
@@ -146,17 +162,17 @@ app.get('/leaderboard/solo', async (req, res) => {
   }
 })
 
-app.get('/leaderboard/flex', async (req, res) => {
-  try {
-    const api = process.env.API_KEY
-    const leaderboardData = await axios.get(
-      ` https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_FLEX_SR?api_key=${api}`
-    )
-    res.json(leaderboardData.data)
-  } catch (error) {
-    console.log(error)
-  }
-})
+// app.get('/leaderboard/flex', async (req, res) => {
+//   try {
+//     const api = process.env.API_KEY
+//     const leaderboardData = await axios.get(
+//       ` https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_FLEX_SR?api_key=${api}`
+//     )
+//     res.json(leaderboardData.data)
+//   } catch (error) {
+//     console.log(error)
+//   }
+// })
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
