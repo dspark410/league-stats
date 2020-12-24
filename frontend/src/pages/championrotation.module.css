@@ -43,18 +43,62 @@
 
 .modalContent {
   display: flex;
+
   flex-direction: row;
 }
 
 .modalSplashImage {
-  max-width: 75%;
+  border: 5px solid rgba(238, 171, 3, 1);
+  max-width: 70%;
   max-height: auto;
-  margin-right: 10px;
 }
 
 .modalDetails {
+  border: 5px solid rgba(238, 171, 3, 1);
+  padding: 10px 10px;
+  color: #fff;
+
+  background: linear-gradient(
+    180deg,
+    rgba(30, 200, 215, 1) 0%,
+    rgba(20, 19, 148, 1) 52%
+  );
   min-width: 25%;
   display: flex;
   flex-direction: column;
   right: 10px;
+}
+
+.buttonImageNext {
+  position: absolute;
+  z-index: 1;
+  bottom: 65%;
+  right: 30%;
+  transform: translateY(50%);
+  font-size: 50px;
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+
+.buttonImageNext:active {
+  transition: transform 0.1s ease-in-out;
+  transform: translate(2px, 25px);
+}
+
+.buttonImagePrev {
+  position: absolute;
+  z-index: 1;
+  bottom: 65%;
+  left: 1%;
+  transform: translateY(50%);
+  font-size: 50px;
+  color: #fff;
+  background: transparent;
+  border: none;
+}
+
+.buttonImagePrev:active {
+  transition: transform 0.1s ease-in-out;
+  transform: translate(-2px, 25px);
 }

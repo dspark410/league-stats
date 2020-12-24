@@ -6,6 +6,7 @@ import ChampionDetails from "../components/ChampionDetails";
 import { motion } from "framer-motion";
 import Loader from "../components/Loader";
 import ReactModal from "react-modal";
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
 function ChampionRotation({ champInfo, version }) {
   const [freeChamps, setFreeChamps] = useState([]);
@@ -137,14 +138,24 @@ function ChampionRotation({ champInfo, version }) {
             <ReactModal isOpen={modalOpen} ariaHideApp={false}>
               {championDetails ? (
                 <div className={style.modalContent}>
+                  <FaAngleLeft
+                    className={style.buttonImagePrev}
+                    onClick={prevSkin}
+                  />
+
                   <img
                     className={style.modalSplashImage}
                     alt={championDetails.image.full}
                     src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
                   />
+                  <FaAngleRight
+                    className={style.buttonImageNext}
+                    onClick={nextSkin}
+                  />
                   <div className={style.modalDetails}>
                     <h2>{championDetails.name}</h2>
                     <h3>{championDetails.title}</h3>
+                    <br />
                     <h5>{championDetails.lore}</h5>
                   </div>
                 </div>
