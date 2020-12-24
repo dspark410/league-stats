@@ -9,6 +9,7 @@ import Loader from "../components/Loader";
 function ChampionRotation({ champInfo, version }) {
   const [freeChamps, setFreeChamps] = useState([]);
   const [championDetails, setChampionDetails] = useState();
+  const [modalState, setModalState] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,6 +41,17 @@ function ChampionRotation({ champInfo, version }) {
         setChampionDetails(res.data.data[getChamp]);
       });
   };
+
+  // onClick for champion details that opens up modal
+  // Will send championDetail into ModalState
+  const championModal = (event) => {
+    const getChamp = freeChamps.filter(
+      (champ) => champ.id === event.target.alt
+    )[0];
+
+    setModalState(getChamp);
+  };
+
   return (
     <>
       {loading ? (
@@ -91,7 +103,10 @@ function ChampionRotation({ champInfo, version }) {
                     duration: 0.5,
                   }}
                 >
-                  <ChampionDetails championDetails={championDetails} />
+                  <ChampionDetails
+                    championDetails={championDetails}
+                    click={championModal}
+                  />
                 </motion.div>
               ) : (
                 ""

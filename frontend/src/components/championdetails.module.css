@@ -3,10 +3,10 @@
   min-width: 300px;
   height: 560px;
   margin-top: 60px;
-  margin-left: 20px;
 }
 
 .championBorder {
+  pointer-events: none;
   position: absolute;
   max-width: 353px;
   height: 630px;

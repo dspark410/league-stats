@@ -3,7 +3,7 @@ import style from "./championdetails.module.css";
 import Loader from "./Loader";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
-export default function ChampionDetails({ championDetails }) {
+export default function ChampionDetails({ championDetails, click }) {
   const [current, setCurrent] = useState();
   const [details, setDetails] = useState();
 
@@ -32,6 +32,7 @@ export default function ChampionDetails({ championDetails }) {
       ) : (
         <div className={style.imageContainer}>
           <img
+            onClick={click}
             className={style.championLoading}
             alt={details.id}
             /////////////////////////////////////////////////////////////////////////////////////
