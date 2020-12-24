@@ -29,9 +29,6 @@ export default function ChampionDetails({
             onClick={click}
             className={style.championLoading}
             alt={details.id}
-            /////////////////////////////////////////////////////////////////////////////////////
-            // SPLASH ART
-            // https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${images}_${current}.jpg
             src={`https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${details.id}_${details.skins[number].num}.jpg`}
           />
           <img

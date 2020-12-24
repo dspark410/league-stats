@@ -134,13 +134,20 @@ function ChampionRotation({ champInfo, version }) {
                 ""
               )}
             </div>
-            <ReactModal isOpen={modalOpen}>
+            <ReactModal isOpen={modalOpen} ariaHideApp={false}>
               {championDetails ? (
-                <img
-                  className={style.modalSplashImage}
-                  alt={championDetails.image.full}
-                  src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
-                />
+                <div className={style.modalContent}>
+                  <img
+                    className={style.modalSplashImage}
+                    alt={championDetails.image.full}
+                    src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
+                  />
+                  <div className={style.modalDetails}>
+                    <h2>{championDetails.name}</h2>
+                    <h3>{championDetails.title}</h3>
+                    <h5>{championDetails.lore}</h5>
+                  </div>
+                </div>
               ) : (
                 ""
               )}
