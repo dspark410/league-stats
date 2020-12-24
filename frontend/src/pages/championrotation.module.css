@@ -40,3 +40,8 @@
   flex-flow: row wrap;
   justify-content: center;
 }
+
+.modalSplashImage {
+  max-width: 75%;
+  max-height: auto;
+}

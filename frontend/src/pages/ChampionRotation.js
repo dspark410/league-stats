@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import style from "./championrotation.module.css";
 import Tooltip from "../components/Tooltip";
 import axios from "axios";
 import ChampionDetails from "../components/ChampionDetails";
 import { motion } from "framer-motion";
 import Loader from "../components/Loader";
+import ReactModal from "react-modal";
 
 function ChampionRotation({ champInfo, version }) {
   const [freeChamps, setFreeChamps] = useState([]);
   const [championDetails, setChampionDetails] = useState();
-  const [modalState, setModalState] = useState();
+  const [current, setCurrent] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,13 +46,29 @@ function ChampionRotation({ champInfo, version }) {
 
   // onClick for champion details that opens up modal
   // Will send championDetail into ModalState
-  const championModal = (event) => {
-    const getChamp = freeChamps.filter(
-      (champ) => champ.id === event.target.alt
-    )[0];
-
-    setModalState(getChamp);
+  const championModal = () => {
+    setModalOpen(true);
   };
+
+  // onClick to close modal
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  // onClick, increases skin + 1, to change loading
+  const nextSkin = () => {
+    setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1);
+    //console.log("next", championDetails.skins[current]);
+  };
+  // onClick, increases skin - 1, to change loading
+  const prevSkin = () => {
+    setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1);
+    //console.log("prev", championDetails.skins[current]);
+  };
+
+  const refreshCurrent = useCallback(() => {
+    setCurrent(0);
+  }, [setCurrent]);
 
   return (
     <>
@@ -106,12 +124,29 @@ function ChampionRotation({ champInfo, version }) {
                   <ChampionDetails
                     championDetails={championDetails}
                     click={championModal}
+                    number={current}
+                    refresh={refreshCurrent}
+                    nextClick={nextSkin}
+                    prevClick={prevSkin}
                   />
                 </motion.div>
               ) : (
                 ""
               )}
             </div>
+            <ReactModal isOpen={modalOpen}>
+              {championDetails ? (
+                <img
+                  className={style.modalSplashImage}
+                  alt={championDetails.image.full}
+                  src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
+                />
+              ) : (
+                ""
+              )}
+
+              <button onClick={closeModal}>Close</button>
+            </ReactModal>
           </div>
         </>
       )}
