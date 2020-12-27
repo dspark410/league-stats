@@ -22,7 +22,7 @@ function Leaderboard({ version }) {
             player.icon = res.data.profileIconId;
           })
           .then(() => {
-            if (soloLeaderboard[1].icon) {
+            if (soloLeaderboard[1].icon && soloLeaderboard[0].icon) {
               setSolo(soloLeaderboard);
             }
           });
