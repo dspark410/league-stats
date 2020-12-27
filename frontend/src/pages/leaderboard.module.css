@@ -46,3 +46,9 @@
   align-items: center;
   margin-left: 10px;
 }
+
+.profileIcon {
+  width: 30px;
+  height: auto;
+  margin-right: 5px;
+}
