@@ -15,12 +15,19 @@ function Leaderboard({ version }) {
       const soloLeaderboard = res.data.entries
         .sort((a, b) => b.leaguePoints - a.leaguePoints)
         .slice(0, 2);
-      soloLeaderboard.forEach(async (player) => {
-        axios.get(`${url}/getSummonerId/${player.summonerId}`).then((res) => {
-          player.icon = res.data.profileIconId;
-        });
+      soloLeaderboard.forEach((player) => {
+        axios
+          .get(`${url}/getSummonerId/${player.summonerId}`)
+          .then((res) => {
+            player.icon = res.data.profileIconId;
+          })
+          .then(() => {
+            if (soloLeaderboard[1].icon) {
+              setSolo(soloLeaderboard);
+            }
+          });
       });
-      setSolo(soloLeaderboard);
+
       setSoloTier(res.data.tier);
     });
 
@@ -55,6 +62,7 @@ function Leaderboard({ version }) {
                   process.env.PUBLIC_URL + "/images/emptyitem.png"
                 }
               />
+
               {summoner.summonerName}
             </td>
             <td className={style.td}>{soloTier}</td>
