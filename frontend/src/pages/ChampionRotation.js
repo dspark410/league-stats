@@ -41,6 +41,7 @@ function ChampionRotation({ champInfo, version }) {
         `https://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
+        setCurrent(0);
         setChampionDetails(res.data.data[getChamp]);
       });
   };
@@ -66,10 +67,6 @@ function ChampionRotation({ champInfo, version }) {
     setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1);
     //console.log("prev", championDetails.skins[current]);
   };
-
-  const refreshCurrent = useCallback(() => {
-    setCurrent(0);
-  }, [setCurrent]);
 
   return (
     <>
@@ -126,7 +123,6 @@ function ChampionRotation({ champInfo, version }) {
                     championDetails={championDetails}
                     click={championModal}
                     number={current}
-                    refresh={refreshCurrent}
                     nextClick={nextSkin}
                     prevClick={prevSkin}
                   />

@@ -6,7 +6,7 @@ import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 export default function ChampionDetails({
   championDetails,
   click,
-  refresh,
+
   number,
   prevClick,
   nextClick,
@@ -15,7 +15,6 @@ export default function ChampionDetails({
 
   // Sets loading to false and current to 0 when receiving championDetails
   useEffect(() => {
-    refresh();
     setDetails(championDetails);
   }, [championDetails]);
 
