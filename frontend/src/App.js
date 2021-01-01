@@ -22,6 +22,8 @@ function App() {
   const [version, setVersion] = useState('')
   const [inputResponse, setInputResponse] = useState('')
   const [queues, setQueues] = useState([])
+  const [solo, setSolo] = useState([])
+  const [soloTier, setSoloTier] = useState([])
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
@@ -65,6 +67,11 @@ function App() {
             setChampInfo(Object.values(res.data.data))
           })
       })
+
+    axios.get(`${url}/leaderboard/solo`).then((res) => {
+      setSolo(res.data.entries)
+      setSoloTier(res.data.tier)
+    })
   }, [])
 
   // onChange for input field
@@ -142,7 +149,9 @@ function App() {
           />
           <Route
             path='/leaderboard'
-            render={() => <Leaderboard version={version} />}
+            render={() => (
+              <Leaderboard version={version} solo={solo} soloTier={soloTier} />
+            )}
           />
         </Switch>
       </Router>
