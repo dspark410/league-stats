@@ -38,7 +38,7 @@ function ChampionRotation({ champInfo, version }) {
     const getChamp = event.target.name;
     axios
       .get(
-        `https://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${getChamp}.json`
+        `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
         setCurrent(0);
@@ -151,8 +151,39 @@ function ChampionRotation({ champInfo, version }) {
                   <div className={style.modalDetails}>
                     <h2>{championDetails.name}</h2>
                     <h3>{championDetails.title}</h3>
+                    <p>
+                      {championDetails.tags.map((tag) => (
+                        <i>{tag} </i>
+                      ))}
+                    </p>
                     <br />
                     <h5>{championDetails.lore}</h5>
+                    <br />
+                    <h4>Spells</h4>
+                    <div>
+                      {championDetails.passive ? (
+                        <Tooltip
+                          name={championDetails.passive.name}
+                          info={championDetails.passive.description}
+                        >
+                          <img
+                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${championDetails.passive.image.full}`}
+                          />
+                        </Tooltip>
+                      ) : null}
+                      {championDetails.spells.map((spell, i) => (
+                        <Tooltip
+                          key={i}
+                          name={spell.name}
+                          info={spell.description}
+                          moreInfo={spell.tooltip}
+                        >
+                          <img
+                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
+                          />
+                        </Tooltip>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ) : (
