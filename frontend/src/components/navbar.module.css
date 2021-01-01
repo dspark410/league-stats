@@ -77,7 +77,8 @@
     align-items: center;
     display: flex;
   }
-  .nav-menu {
+
+  .navMenu {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -90,7 +91,7 @@
     font-size: 2rem;
   }
 
-  .nav-menu.active {
+  .active {
     background: #242222;
     left: 0;
     opacity: 1;
@@ -101,25 +102,25 @@
     z-index: 10;
   }
 
-  .nav-links {
+  .navLinks {
     text-align: center;
     width: 100%;
     display: table;
     font-size: 20px;
   }
 
-  .nav-links:hover {
+  .navLinks:hover {
     background-color: #3a3c3d;
   }
 
-  .navbar-logo {
+  .navbarLogo {
     position: absolute;
     top: 0;
     left: -21px;
     transform: translate(25%, 50%);
   }
 
-  .menu-icon {
+  .menuIcon {
     display: block;
     position: absolute;
     top: -12px;
@@ -133,7 +134,7 @@
     font-size: 2rem;
   }
 
-  .fa-caret-down {
+  .faCaretDown {
     display: none;
   }
 }
