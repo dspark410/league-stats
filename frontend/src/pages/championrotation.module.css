@@ -47,7 +47,10 @@
   justify-content: center;
   align-content: center;
   text-align: center;
-  width: 100%;
+  max-width: 100%;
+
+  bottom: 0;
+  overflow: auto;
   /* background-color: rgb(234, 234, 234); */
 }
 
