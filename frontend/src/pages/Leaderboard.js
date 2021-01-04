@@ -16,39 +16,41 @@ function Leaderboard({ version, solo, soloTier }) {
               Win Ratio
             </th>
           </tr>
-          {solo.map((summoner, i) => (
-            <tr className={style.row} key={i}>
-              <td className={style.td}>{i + 1}</td>
-              <td className={style.td}>
-                <img
-                  alt="profile icon"
-                  className={style.profileIcon}
-                  // Grab profile icon
-                  src={
-                    `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png` ||
-                    process.env.PUBLIC_URL + "/images/emptyitem.png"
-                  }
-                />
+          {solo
+            .sort((a, b) => b.leaguePoints - a.leaguePoints)
+            .map((summoner, i) => (
+              <tr className={style.row} key={i}>
+                <td className={style.td}>{i + 1}</td>
+                <td className={style.td}>
+                  <img
+                    alt="profile icon"
+                    className={style.profileIcon}
+                    // Grab profile icon
+                    src={
+                      `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png` ||
+                      process.env.PUBLIC_URL + "/images/emptyitem.png"
+                    }
+                  />
 
-                {summoner.summonerName}
-              </td>
-              <td className={style.td}>{soloTier}</td>
-              <td className={style.td}>{summoner.leaguePoints}</td>
-              <td className={`${style.tdWinRatio}`}>
-                <div className={style.winRatio}>
-                  <span>{summoner.wins}/</span>
-                  <span>{summoner.losses}</span>
-                  <span>
-                    {(
-                      (summoner.wins / (summoner.wins + summoner.losses)) *
-                      100
-                    ).toFixed(0)}
-                    %
-                  </span>
-                </div>
-              </td>
-            </tr>
-          ))}
+                  {summoner.summonerName}
+                </td>
+                <td className={style.td}>{soloTier}</td>
+                <td className={style.td}>{summoner.leaguePoints}</td>
+                <td className={`${style.tdWinRatio}`}>
+                  <div className={style.winRatio}>
+                    <span>{summoner.wins}/</span>
+                    <span>{summoner.losses}</span>
+                    <span>
+                      {(
+                        (summoner.wins / (summoner.wins + summoner.losses)) *
+                        100
+                      ).toFixed(0)}
+                      %
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </>
