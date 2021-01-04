@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
-import style from "./championdetails.module.css";
-import Loader from "./Loader";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import React, { useState, useEffect } from 'react'
+import style from './championdetails.module.css'
+import Loader from './Loader'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 
 export default function ChampionDetails({
   championDetails,
   click,
-
   number,
   prevClick,
   nextClick,
 }) {
-  const [details, setDetails] = useState();
+  const [details, setDetails] = useState()
 
   // Sets loading to false and current to 0 when receiving championDetails
   useEffect(() => {
-    setDetails(championDetails);
-  }, [championDetails]);
+    setDetails(championDetails)
+  }, [championDetails])
 
   return (
     <>
@@ -32,11 +31,11 @@ export default function ChampionDetails({
           />
           <img
             className={style.championBorder}
-            alt="border"
-            src={process.env.PUBLIC_URL + "/images/challenger-border.png"}
+            alt='border'
+            src={process.env.PUBLIC_URL + '/images/challenger-border.png'}
           />
           <p className={style.championName}>
-            {details.skins[number].name === "default"
+            {details.skins[number].name === 'default'
               ? details.name
               : details.skins[number].name}
           </p>
@@ -46,5 +45,5 @@ export default function ChampionDetails({
         </div>
       )}
     </>
-  );
+  )
 }

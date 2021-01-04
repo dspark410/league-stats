@@ -48,14 +48,17 @@
   align-content: center;
   text-align: center;
   max-width: 100%;
-
   bottom: 0;
-  overflow: auto;
-  /* background-color: rgb(234, 234, 234); */
+}
+
+.modalHeader {
+  background-color: #3a4556;
+  margin-bottom: 10px;
+  padding: 10px 0px;
+  color: #fff;
 }
 
 .modalSplashImage {
-  /* border: 5px solid rgba(238, 171, 3, 1); */
   max-width: 100%;
   max-height: auto;
   display: flex;
@@ -63,18 +66,12 @@
   align-content: center;
   text-align: center;
   margin: 0px auto;
+  padding: 0 10px;
 }
 
 .modalDetails {
-  /* border: 5px solid rgba(238, 171, 3, 1); */
   padding: 10px 10px;
   color: black;
-
-  /* background: linear-gradient(
-    180deg,
-    rgba(30, 200, 215, 1) 0%,
-    rgba(20, 19, 148, 1) 52%
-  ); */
   max-width: 80%;
   display: flex;
   flex-direction: column;
@@ -113,4 +110,31 @@
 .buttonImagePrev:active {
   transition: transform 0.1s ease-in-out;
   transform: translate(-2px, 25px);
+}
+
+.modalFooter {
+  background-color: #3a4556;
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.closeBtn {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.closeBtn:focus {
+  outline: none;
+}
+
+.closeBtn:hover {
+  background-color: #ddd;
 }
