@@ -43,37 +43,46 @@
 
 .modalContent {
   display: flex;
-
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  width: 100%;
+  /* background-color: rgb(234, 234, 234); */
 }
 
 .modalSplashImage {
-  border: 5px solid rgba(238, 171, 3, 1);
-  max-width: 70%;
+  /* border: 5px solid rgba(238, 171, 3, 1); */
+  max-width: 100%;
   max-height: auto;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  margin: 0px auto;
 }
 
 .modalDetails {
-  border: 5px solid rgba(238, 171, 3, 1);
+  /* border: 5px solid rgba(238, 171, 3, 1); */
   padding: 10px 10px;
-  color: #fff;
+  color: black;
 
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(30, 200, 215, 1) 0%,
     rgba(20, 19, 148, 1) 52%
-  );
-  min-width: 25%;
+  ); */
+  max-width: 80%;
   display: flex;
   flex-direction: column;
-  right: 10px;
+  margin: 0 auto;
 }
 
 .buttonImageNext {
   position: absolute;
   z-index: 1;
-  bottom: 65%;
-  right: 30%;
+  bottom: 70%;
+  right: 1%;
   transform: translateY(50%);
   font-size: 50px;
   color: #fff;
@@ -89,7 +98,7 @@
 .buttonImagePrev {
   position: absolute;
   z-index: 1;
-  bottom: 65%;
+  bottom: 70%;
   left: 1%;
   transform: translateY(50%);
   font-size: 50px;
