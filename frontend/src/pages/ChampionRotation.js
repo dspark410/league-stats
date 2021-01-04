@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Loader from "../components/Loader";
 import ReactModal from "react-modal";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import ReactTooltip from "react-tooltip";
 
 const customStyles = {
   content: {
@@ -191,19 +192,21 @@ function ChampionRotation({ champInfo, version }) {
                           />
                         </Tooltip>
                       ) : null}
-                      {championDetails.spells.map((spell, i) => (
-                        <Tooltip
-                          key={i}
-                          name={spell.name}
-                          info={spell.description}
-                          moreInfo={spell.tooltip}
-                        >
-                          <img
-                            alt="champion skills"
-                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
-                          />
-                        </Tooltip>
-                      ))}
+                      {championDetails.spells.map((spell, i) => {
+                        return (
+                          <Tooltip
+                            key={i}
+                            name={spell.name}
+                            info={spell.description}
+                            moreInfo={spell.tooltip}
+                          >
+                            <img
+                              alt="champion skills"
+                              src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
+                            />
+                          </Tooltip>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
