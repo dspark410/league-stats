@@ -363,7 +363,13 @@ function MatchHistoryCard({
                               alt={player.image}
                               src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}`}
                             />
-                            <span name={player.name}>
+                            <span
+                              className={
+                                player.name === summonerInfo.name &&
+                                style.summonerName
+                              }
+                              name={player.name}
+                            >
                               {player.name.replace(/\s/g, '')}
                             </span>
                           </div>
@@ -388,7 +394,13 @@ function MatchHistoryCard({
                               alt={player.image}
                               src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}`}
                             />
-                            <span name={player.name}>
+                            <span
+                              className={
+                                player.name === summonerInfo.name &&
+                                style.summonerName
+                              }
+                              name={player.name}
+                            >
                               {player.name.replace(/\s/g, '')}
                             </span>
                           </div>

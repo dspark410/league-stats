@@ -1,6 +1,5 @@
 .matchContainer {
   color: #f0d287;
-  /* font-weight: bold; */
   width: 770px;
   min-height: 900px;
   display: flex;
@@ -192,6 +191,10 @@
   cursor: pointer;
 }
 
+.summonerName {
+  color: rgb(212, 116, 26);
+}
+
 .sixthCard span {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -200,7 +203,8 @@
 }
 
 .sixthCard span:hover {
-  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
+  cursor: pointer;
+  color: #e6ded0;
 }
 
 .seventhCard {
@@ -229,7 +233,8 @@
 }
 
 .seventhCard span:hover {
-  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
+  cursor: pointer;
+  color: #e6ded0;
 }
 
 .col {

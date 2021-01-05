@@ -1,11 +1,16 @@
 .tableContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 10px auto;
 }
 
 .tbody {
-  width: 70vw;
+  width: 100vw;
+}
+
+.leaderHeader {
+  color: #606e83;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 50px;
 }
 
 .row {
@@ -13,21 +18,47 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+  background-color: #e6e9ed;
+  padding: 5px;
+  margin: 0;
+  border: 1px solid rgb(189, 182, 182);
+  border-radius: 1px;
+}
+
+.row:nth-child(1) {
+  background-color: #4a5566;
+  color: #fff;
+  border: 1px solid rgb(189, 182, 182);
+}
+
+.row:nth-child(even) {
+  background-color: #f6f9fc;
 }
 
 .td {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 12vw;
+  min-width: 250px;
+}
+
+.number {
+  margin-right: -100px;
+  margin-left: 15px;
+}
+
+.Tier {
+  color: rgba(221, 173, 42, 0.918);
+  font-weight: bold;
 }
 
 .tdWinRatio {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 10vw;
-  margin-left: -100px;
+  min-width: 200px;
+  margin-left: -175px;
+  margin-right: 15px;
 }
 
 .winRatio {
@@ -38,6 +69,13 @@
 
 .winRatioHeader {
   left: -100px;
+}
+
+.wins {
+  color: #009852;
+}
+.losses {
+  color: #980000;
 }
 
 .winRatio span:last-child {
@@ -51,4 +89,8 @@
   width: 30px;
   height: auto;
   margin-right: 5px;
+  border-radius: 50%;
+}
+
+@media (max-width: 960px) {
 }

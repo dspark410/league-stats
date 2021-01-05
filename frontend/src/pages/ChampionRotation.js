@@ -206,9 +206,7 @@ function ChampionRotation({ champInfo, version }) {
                                   ? 'W'
                                   : i === 2
                                   ? 'E'
-                                  : i === 3
-                                  ? 'R'
-                                  : ''}
+                                  : 'R'}
                               </span>
                             </div>
                           </Tooltip>

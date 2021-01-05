@@ -5,13 +5,11 @@
   margin: 0;
   padding: 0;
   font-family: 'IBM Plex Serif', serif !important;
-  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1340.cur), auto !important;
 }
 
 .App {
   background: #eaeaea;
   /* background-image: url('https://www.wallpapertip.com/wmimgs/55-558821_league-of-legends-backgrounds-yasuo-wallpaper-high-yasuo.jpg'); */
-
   background-size: cover;
   position: fixed;
   top: 0;

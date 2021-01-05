@@ -18,6 +18,7 @@
   position: absolute;
   max-width: 295px;
   height: 552px;
+  cursor: pointer;
 }
 
 .championName {
@@ -70,5 +71,5 @@
 
 .buttonImageNext,
 .buttonImagePrev:hover {
-  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
+  cursor: pointer;
 }

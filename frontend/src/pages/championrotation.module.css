@@ -22,7 +22,7 @@
 }
 
 .imageContainer img:hover {
-  cursor: url(https://cur.cursors-4u.net/games/gam-14/gam1334.cur), auto !important;
+  cursor: pointer;
   transform: scale(1.1);
   transition: transform 0.3s ease-in-out;
 }
@@ -120,7 +120,6 @@
   font-size: 12px;
   letter-spacing: -0.5px;
   padding: 3px 7px 3px 7px;
-
   background: rgba(0, 0, 0, 0.5);
   border-radius: 1px;
   color: #fff;
@@ -160,6 +159,10 @@
   transform: translate(-2px, 25px);
 }
 
+.buttonImageNext:hover,
+.buttonImagePrev:hover {
+  cursor: pointer;
+}
 .modalFooter {
   background-color: #3a4556;
   margin-top: 15px;
@@ -185,6 +188,7 @@
 
 .closeBtn:hover {
   background-color: #ddd;
+  cursor: pointer;
 }
 
 @media (max-width: 1024px) {

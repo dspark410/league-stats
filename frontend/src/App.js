@@ -1,61 +1,61 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import Home from "./pages/Home";
-import Welcome from "./pages/Welcome";
-import Champions from "./pages/Champions";
-import ChampionRotation from "./pages/ChampionRotation";
-import Leaderboard from "./pages/Leaderboard";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import './App.css'
+import Home from './pages/Home'
+import Welcome from './pages/Welcome'
+import Champions from './pages/Champions'
+import ChampionRotation from './pages/ChampionRotation'
+import Leaderboard from './pages/Leaderboard'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
-import Navbar from "./components/Navbar";
+} from 'react-router-dom'
+import Navbar from './components/Navbar'
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState({});
-  const [inputValue, setInputValue] = useState("");
-  const [redirect, setRedirect] = useState(false);
-  const [champInfo, setChampInfo] = useState([]);
-  const [version, setVersion] = useState("");
-  const [inputResponse, setInputResponse] = useState("");
-  const [queues, setQueues] = useState([]);
-  const [solo, setSolo] = useState([]);
-  const [soloTier, setSoloTier] = useState([]);
+  const [summonerInfo, setSummonerInfo] = useState({})
+  const [inputValue, setInputValue] = useState('')
+  const [redirect, setRedirect] = useState(false)
+  const [champInfo, setChampInfo] = useState([])
+  const [version, setVersion] = useState('')
+  const [inputResponse, setInputResponse] = useState('')
+  const [queues, setQueues] = useState([])
+  const [solo, setSolo] = useState([])
+  const [soloTier, setSoloTier] = useState([])
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
-    const url = process.env.REACT_APP_API_URL || "";
+    const url = process.env.REACT_APP_API_URL || ''
     axios.get(`${url}/getSummonerName/${summonerName}`).then((res) => {
       if (!res.data.id) {
         // Message will be displayed on Home Screen, dissapears after 3 seconds
-        setInputResponse(res.data);
+        setInputResponse(res.data)
         setTimeout(() => {
-          setInputResponse("");
-        }, 3000);
+          setInputResponse('')
+        }, 3000)
       } else {
         // Set summoner info which will be referenced by entire web app
-        setSummonerInfo(res.data);
+        setSummonerInfo(res.data)
 
         //Set session data
-        sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-        setRedirect(true);
+        sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+        setRedirect(true)
       }
-    });
-  };
+    })
+  }
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL || "";
+    const url = process.env.REACT_APP_API_URL || ''
     // Retrieve queueType list from Riot API
-    axios.get(`${url}/queueType`).then((res) => setQueues(res.data));
+    axios.get(`${url}/queueType`).then((res) => setQueues(res.data))
     axios
       // Link to version list from Riot
-      .get("https://ddragon.leagueoflegends.com/api/versions.json")
+      .get('https://ddragon.leagueoflegends.com/api/versions.json')
       .then((res) => {
         // Save current version into state
-        setVersion(res.data[0]);
+        setVersion(res.data[0])
         axios
           .get(
             // Link to champion.json from Riot
@@ -64,66 +64,66 @@ function App() {
           .then((res) => {
             // Loop through Riot's champion.json array and keeps object values, in the form of an array
             // Store championArray into state
-            setChampInfo(Object.values(res.data.data));
-          });
-      });
+            setChampInfo(Object.values(res.data.data))
+          })
+      })
 
     axios.get(`${url}/leaderboard/solo`).then(async (res) => {
-      const boardArray = [];
+      const boardArray = []
 
-      setSoloTier(res.data.tier);
+      setSoloTier(res.data.tier)
       const soloPlayer = await res.data.entries.sort(
         (a, b) => b.leaguePoints - a.leaguePoints
-      );
+      )
       const soloIcon = await soloPlayer.slice(0, 5).map(
         async (player) =>
           await axios
             .get(`${url}/getSummonerId/${player.summonerId}`)
             .then((res) => {
-              player.icon = res.data.profileIconId;
-              boardArray.push(player);
+              player.icon = res.data.profileIconId
+              boardArray.push(player)
             })
-      );
-      setSolo(boardArray);
-    });
-  }, []);
+      )
+      setSolo(boardArray)
+    })
+  }, [])
 
   // onChange for input field
   const handleOnChange = (e) => {
-    setInputValue(e.target.value);
-  };
+    setInputValue(e.target.value)
+  }
 
   // onSubmit for input form
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (inputValue.trim() === "") {
-      setInputResponse("Please Enter A Summoner Name!");
+    if (inputValue.trim() === '') {
+      setInputResponse('Please Enter A Summoner Name!')
       setTimeout(() => {
-        setInputResponse("");
-      }, 3000);
+        setInputResponse('')
+      }, 3000)
     } else {
-      getAccountInfo(inputValue);
+      getAccountInfo(inputValue)
     }
-  };
+  }
 
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
   const getPlayerName = (e) => {
-    const summonerName = e.target.getAttribute("name");
-    getAccountInfo(summonerName);
-  };
+    const summonerName = e.target.getAttribute('name')
+    getAccountInfo(summonerName)
+  }
 
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <Navbar />
         <Switch>
           <Route
             exact
-            path="/"
+            path='/'
             render={() =>
               redirect ? (
-                <Redirect to="/welcome" />
+                <Redirect to='/welcome' />
               ) : (
                 <Home
                   summonerInfo={summonerInfo}
@@ -139,7 +139,7 @@ function App() {
             }
           />
           <Route
-            path="/welcome"
+            path='/welcome'
             render={() => (
               <Welcome
                 summonerInfo={summonerInfo}
@@ -152,17 +152,17 @@ function App() {
             )}
           />
           <Route
-            path="/champions"
+            path='/champions'
             render={() => <Champions champInfo={champInfo} version={version} />}
           />
           <Route
-            path="/championrotation"
+            path='/championrotation'
             render={() => (
               <ChampionRotation champInfo={champInfo} version={version} />
             )}
           />
           <Route
-            path="/leaderboard"
+            path='/leaderboard'
             render={() => (
               <Leaderboard version={version} solo={solo} soloTier={soloTier} />
             )}
@@ -170,7 +170,7 @@ function App() {
         </Switch>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
