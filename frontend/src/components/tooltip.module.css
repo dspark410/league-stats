@@ -1,45 +1,22 @@
 .tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: auto;
-  height: auto;
-  background-color: #323332;
-  color: lightgrey;
-  font-size: 11px;
-  letter-spacing: 0.2px;
-  text-align: center;
-  padding: 10px;
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: -50%;
-  transform: translateX(15%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
+  font-size: 12px;
 }
 
 .name {
+  text-align: center;
   font-size: 13px;
   color: #f0d287;
   margin-bottom: 5px;
 }
 
 .info {
+  text-align: center;
   margin-bottom: 5px;
   min-width: 200px;
 }
 
 .moreInfo {
+  text-align: center;
   color: #f0d287;
   margin-bottom: 5px;
 }

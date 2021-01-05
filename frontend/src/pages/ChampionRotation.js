@@ -172,7 +172,7 @@ function ChampionRotation({ champInfo, version }) {
                     <h5>{championDetails.lore}</h5>
                     <br />
                     <h4 className={style.spellHeader}>Spells</h4>
-                    <div>
+                    <div className={style.pellContainer}>
                       {championDetails.passive ? (
                         <Tooltip
                           name={championDetails.passive.name}

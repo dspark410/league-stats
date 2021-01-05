@@ -29,6 +29,7 @@
 
 .champName {
   text-align: center;
+  font-size: 16px;
   color: #606e83;
   font-weight: bold;
   margin-top: -10px;
@@ -96,6 +97,12 @@
 
 .spellHeader {
   margin-bottom: 10px;
+}
+
+.spellContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .spellImage {
