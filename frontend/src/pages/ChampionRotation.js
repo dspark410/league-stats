@@ -8,19 +8,6 @@ import Loader from '../components/Loader'
 import ReactModal from 'react-modal'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    padding: '0',
-    transform: 'translate(-50%, -50%)',
-    border: 'none',
-    boxShadow: '0px 0px 6px 2px #e9e9e9',
-  },
-}
-
 function ChampionRotation({ champInfo, version }) {
   const [freeChamps, setFreeChamps] = useState([])
   const [championDetails, setChampionDetails] = useState()
@@ -147,7 +134,7 @@ function ChampionRotation({ champInfo, version }) {
 
             <ReactModal
               onRequestClose={closeModal}
-              style={customStyles}
+              className={style.modalContainer}
               isOpen={modalOpen}
               ariaHideApp={false}
             >
@@ -168,6 +155,7 @@ function ChampionRotation({ champInfo, version }) {
                     alt={championDetails.image.full}
                     src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
                   />
+
                   <FaAngleRight
                     className={style.buttonImageNext}
                     onClick={nextSkin}
@@ -183,7 +171,7 @@ function ChampionRotation({ champInfo, version }) {
                     <br />
                     <h5>{championDetails.lore}</h5>
                     <br />
-                    <h4>Spells</h4>
+                    <h4 className={style.spellHeader}>Spells</h4>
                     <div>
                       {championDetails.passive ? (
                         <Tooltip
@@ -191,6 +179,7 @@ function ChampionRotation({ champInfo, version }) {
                           info={championDetails.passive.description}
                         >
                           <img
+                            className={style.spellImage}
                             alt='champion passive'
                             src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${championDetails.passive.image.full}`}
                           />
@@ -205,6 +194,7 @@ function ChampionRotation({ champInfo, version }) {
                             moreInfo={spell.tooltip}
                           >
                             <img
+                              className={style.spellImage}
                               alt='champion skills'
                               src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
                             />

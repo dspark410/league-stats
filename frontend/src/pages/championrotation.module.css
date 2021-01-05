@@ -41,6 +41,22 @@
   justify-content: center;
 }
 
+.modalContainer {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 6px 2px #e9e9e9;
+  overflow-y: auto;
+  max-height: 900px;
+  max-width: 1024px;
+  outline: none;
+  margin: 0 10px;
+}
+
 .modalContent {
   display: flex;
   flex-direction: column;
@@ -48,7 +64,7 @@
   align-content: center;
   text-align: center;
   max-width: 100%;
-  bottom: 0;
+  background-color: rgb(229, 226, 226);
 }
 
 .modalHeader {
@@ -78,10 +94,18 @@
   margin: 0 auto;
 }
 
+.spellHeader {
+  margin-bottom: 10px;
+}
+
+.spellImage {
+  margin-right: 5px;
+}
+
 .buttonImageNext {
   position: absolute;
   z-index: 1;
-  bottom: 70%;
+  bottom: 63%;
   right: 1%;
   transform: translateY(50%);
   font-size: 50px;
@@ -98,7 +122,7 @@
 .buttonImagePrev {
   position: absolute;
   z-index: 1;
-  bottom: 70%;
+  bottom: 63%;
   left: 1%;
   transform: translateY(50%);
   font-size: 50px;
@@ -137,4 +161,257 @@
 
 .closeBtn:hover {
   background-color: #ddd;
+}
+
+@media (max-width: 1024px) {
+  .modalContainer {
+    width: 80%;
+  }
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 70%;
+    left: 1%;
+    transform: translateY(50%);
+    font-size: 42px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 70%;
+    right: 1%;
+    transform: translateY(50%);
+    font-size: 42px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+}
+@media (max-width: 960px) {
+  .modalContainer {
+    width: 80%;
+  }
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 70%;
+    left: 1%;
+    transform: translateY(50%);
+    font-size: 42px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 70%;
+    right: 1%;
+    transform: translateY(50%);
+    font-size: 42px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .modalContainer {
+    width: 80%;
+  }
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 73%;
+    left: 2%;
+    transform: translateY(80%);
+    font-size: 32px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 73%;
+    right: 2%;
+    transform: translateY(80%);
+    font-size: 32px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+}
+
+@media (max-width: 610px) {
+  .modalContainer {
+    max-height: 700px;
+    width: 80%;
+  }
+
+  .modalHeader {
+    font-size: 22px;
+  }
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 77%;
+    left: 3%;
+    transform: translateY(120%);
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 77%;
+    right: 3%;
+    transform: translateY(120%);
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .modalContainer {
+    max-height: 550px;
+    width: 80%;
+  }
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 65%;
+    left: 3%;
+    transform: translateY(50%);
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 65%;
+    right: 3%;
+    transform: translateY(50%);
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .modalContainer {
+    max-height: 550px;
+    width: 80%;
+  }
+  .modalHeader {
+    font-size: 18px;
+  }
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 77%;
+    left: 3%;
+    transform: translateY(120%);
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 77%;
+    right: 3%;
+    transform: translateY(120%);
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+}
+
+@media (max-width: 330px) {
+  .modalContainer {
+    max-height: 550px;
+    width: 80%;
+  }
+
+  .modalHeader {
+    font-size: 14px;
+  }
+
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 79%;
+    left: 3%;
+    transform: translateY(130%);
+    font-size: 18px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 79%;
+    right: 3%;
+    transform: translateY(130%);
+    font-size: 18px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+}
+
+@media (max-width: 285px) {
+  .modalContainer {
+    max-height: 550px;
+    width: 80%;
+  }
+
+  .modalHeader {
+    font-size: 14px;
+  }
+
+  .buttonImagePrev {
+    position: absolute;
+    z-index: 1;
+    bottom: 82%;
+    left: 3%;
+    transform: translateY(130%);
+    font-size: 18px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
+
+  .buttonImageNext {
+    position: absolute;
+    z-index: 1;
+    bottom: 82%;
+    right: 3%;
+    transform: translateY(130%);
+    font-size: 18px;
+    color: #fff;
+    background: transparent;
+    border: none;
+  }
 }
