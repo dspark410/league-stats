@@ -172,7 +172,7 @@ function ChampionRotation({ champInfo, version }) {
                     <h5>{championDetails.lore}</h5>
                     <br />
                     <h4 className={style.spellHeader}>Spells</h4>
-                    <div className={style.pellContainer}>
+                    <div className={style.spellContainer}>
                       {championDetails.passive ? (
                         <Tooltip
                           name={championDetails.passive.name}
@@ -193,11 +193,24 @@ function ChampionRotation({ champInfo, version }) {
                             info={spell.description}
                             moreInfo={spell.tooltip}
                           >
-                            <img
-                              className={style.spellImage}
-                              alt='champion skills'
-                              src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
-                            />
+                            <div className={style.spellImageContainer}>
+                              <img
+                                className={style.spellImage}
+                                alt='champion skills'
+                                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
+                              />
+                              <span className={style.spellKey}>
+                                {i === 0
+                                  ? 'Q'
+                                  : i === 1
+                                  ? 'W'
+                                  : i === 2
+                                  ? 'E'
+                                  : i === 3
+                                  ? 'R'
+                                  : ''}
+                              </span>
+                            </div>
                           </Tooltip>
                         )
                       })}

@@ -105,8 +105,25 @@
   align-items: center;
 }
 
+.spellImageContainer {
+  position: relative;
+}
+
 .spellImage {
   margin-right: 5px;
+}
+
+.spellKey {
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  font-size: 12px;
+  letter-spacing: -0.5px;
+  padding: 3px 7px 3px 7px;
+
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 1px;
+  color: #fff;
 }
 
 .buttonImageNext {
