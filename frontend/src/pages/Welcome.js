@@ -91,7 +91,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
 
   // Funtion for loading more matches
   const getMoreMatches = () => {
-    if (visible >= 9) {
+    if (visible >= playerMatches.length) {
       return
     }
     setVisible((prevValue) => prevValue + 1)
@@ -156,7 +156,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             visible={visible}
           />
           <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
-            {visible >= 9 ? (
+            {visible >= playerMatches.length ? (
               <div className={style.none}>Cannot Display More Matches</div>
             ) : (
               'Load More...'
