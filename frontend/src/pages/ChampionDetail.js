@@ -48,7 +48,26 @@ export default function ChampionDetail({ version, champDetail }) {
       <div>
         <h3>Recommended Build</h3>
         {champDetail.recommended.map((build) => {
-          <h4>{build.mode}</h4>;
+          return build.mode === "CLASSIC"
+            ? build.blocks.map((block) => {
+                return (
+                  <div>
+                    <h4>{block.type}</h4>
+                    {block.items.map((item) => {
+                      return <h5>{item.id}</h5>;
+                    })}
+                  </div>
+                );
+                // block.items.map((item) => {
+                //   return (
+                //     <div>
+
+                //       <h5>{item.id}</h5>
+                //     </div>
+                //   );
+                // });
+              })
+            : null;
         })}
       </div>
     </div>
