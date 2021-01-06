@@ -1,7 +1,15 @@
 import React from 'react'
+import Pagination from '../components/Pagination'
 import style from './leaderboard.module.css'
 
-function Leaderboard({ version, solo, soloTier }) {
+function Leaderboard({
+  version,
+  solo,
+  soloTier,
+  postsPerPage,
+  totalPosts,
+  paginate,
+}) {
   return (
     <>
       <div style={{ overflowX: 'auto' }}>
@@ -57,6 +65,11 @@ function Leaderboard({ version, solo, soloTier }) {
               ))}
           </tbody>
         </table>
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={totalPosts}
+          paginate={paginate}
+        />
       </div>
     </>
   )

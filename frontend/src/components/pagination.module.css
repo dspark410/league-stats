@@ -1,0 +1,18 @@
+.ul {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto;
+  list-style-type: none;
+  width: 50%;
+}
+
+.li {
+  min-width: 10px;
+  overflow: auto;
+}
+
+.li a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #606e83;
+}
