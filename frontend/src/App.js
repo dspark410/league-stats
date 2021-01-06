@@ -207,7 +207,11 @@ function App() {
           <Route
             path="/championdetail"
             render={() => (
-              <ChampionDetail version={version} champDetail={champDetail} />
+              <ChampionDetail
+                version={version}
+                champDetail={champDetail}
+                item={item}
+              />
             )}
           />
         </Switch>

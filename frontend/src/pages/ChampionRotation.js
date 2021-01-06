@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import style from "./championrotation.module.css";
 import Tooltip from "../components/Tooltip";
 import axios from "axios";
@@ -206,6 +207,9 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                     </div>
                   </div>
                   <div className={style.modalFooter}>
+                    <button className={style.moreInfoBtn}>
+                      <Link to="/championdetail">More Info</Link>
+                    </button>
                     <button className={style.closeBtn} onClick={closeModal}>
                       Close
                     </button>

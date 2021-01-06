@@ -191,6 +191,25 @@
   cursor: pointer;
 }
 
+.moreInfoBtn {
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.moreInfoBtn:focus {
+  outline: none;
+}
+
+.moreInfoBtn:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
 @media (max-width: 1024px) {
   .modalContainer {
     width: 80%;
