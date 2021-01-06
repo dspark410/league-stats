@@ -26,6 +26,7 @@ function App() {
   const [solo, setSolo] = useState([]);
   const [soloTier, setSoloTier] = useState([]);
   const [champDetail, setChampDetail] = useState();
+  const [item, setItem] = useState();
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
@@ -102,6 +103,14 @@ function App() {
       );
       setSolo(boardArray);
     });
+
+    axios
+      .get(
+        `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/item.json`
+      )
+      .then((res) => {
+        setItem(res.data.data);
+      });
   }, []);
 
   // onChange for input field
