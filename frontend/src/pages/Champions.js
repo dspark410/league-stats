@@ -34,6 +34,7 @@ function Champions({ champInfo, version, champDetail, selectChampion }) {
   // SubmiteHandler for input
   const handleSubmit = (event) => {
     event.preventDefault();
+
     // When input gives back just one champion, submit would call for the champion's
     // JSON file and store it in state
     if (autofill.length === 1) {

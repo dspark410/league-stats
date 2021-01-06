@@ -20,7 +20,7 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [champInfo, setChampInfo] = useState([]);
-  const [version, setVersion] = useState("");
+  const [version, setVersion] = useState();
   const [inputResponse, setInputResponse] = useState("");
   const [queues, setQueues] = useState([]);
   const [solo, setSolo] = useState([]);
@@ -52,8 +52,7 @@ function App() {
   // onClick that makes an axios call to retrieve the specific champion json using
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
-    const getChamp = event.target.name || event;
-    console.log(getChamp);
+    const getChamp = event.target.name;
     axios
       .get(
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
@@ -83,6 +82,13 @@ function App() {
             // Store championArray into state
             setChampInfo(Object.values(res.data.data));
           });
+        axios
+          .get(
+            `https://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/item.json`
+          )
+          .then((res) => {
+            setItem(res.data.data);
+          });
       });
 
     axios.get(`${url}/leaderboard/solo`).then(async (res) => {
@@ -92,7 +98,7 @@ function App() {
       const soloPlayer = await res.data.entries.sort(
         (a, b) => b.leaguePoints - a.leaguePoints
       );
-      const soloIcon = await soloPlayer.slice(0, 5).map(
+      await soloPlayer.slice(0, 5).map(
         async (player) =>
           await axios
             .get(`${url}/getSummonerId/${player.summonerId}`)
@@ -103,14 +109,6 @@ function App() {
       );
       setSolo(boardArray);
     });
-
-    axios
-      .get(
-        `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/item.json`
-      )
-      .then((res) => {
-        setItem(res.data.data);
-      });
   }, []);
 
   // onChange for input field

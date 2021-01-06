@@ -207,9 +207,9 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                     </div>
                   </div>
                   <div className={style.modalFooter}>
-                    <button className={style.moreInfoBtn}>
-                      <Link to="/championdetail">More Info</Link>
-                    </button>
+                    <Link to="/championdetail">
+                      <button className={style.moreInfoBtn}>More Info</button>
+                    </Link>
                     <button className={style.closeBtn} onClick={closeModal}>
                       Close
                     </button>
