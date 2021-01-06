@@ -73,6 +73,24 @@
   margin-top: -45px;
 }
 
+.moreMatchesBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 0px;
+  background-color: #c2bdbd;
+  border: 1px solid #b3afaf;
+  margin: 5px auto 20px auto;
+  border-radius: 3px;
+  color: #606e83;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.moreMatchesBtn:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 1024px) {
   .welcomeContainer {
     flex-direction: column;

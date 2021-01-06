@@ -1,63 +1,72 @@
-import React, { useState, useEffect } from "react";
-import style from "./welcome.module.css";
-import axios from "axios";
-import { motion } from "framer-motion";
-import MasteryCard from "../components/MasteryCard";
-import RankCard from "../components/RankCard";
-import UnrankedCard from "../components/UnrankedCard";
-import SummonerCard from "../components/SummonerCard";
-import MatchHistoryCard from "../components/MatchHistoryCard";
+import React, { useState, useEffect } from 'react'
+import style from './welcome.module.css'
+import axios from 'axios'
+import { motion } from 'framer-motion'
+import MasteryCard from '../components/MasteryCard'
+import RankCard from '../components/RankCard'
+import UnrankedCard from '../components/UnrankedCard'
+import SummonerCard from '../components/SummonerCard'
+import MatchHistoryCard from '../components/MatchHistoryCard'
 
 function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
-  const [mastery, setMastery] = useState([]);
-  const [rank, setRank] = useState([]);
-  const [filteredChamps, setFilteredChamps] = useState([]);
-  const [session, setSession] = useState({});
-  const [playerMatches, setPlayerMatches] = useState([]);
-  const [matchDetails, setMatchDetails] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [mastery, setMastery] = useState([])
+  const [rank, setRank] = useState([])
+  const [filteredChamps, setFilteredChamps] = useState([])
+  const [session, setSession] = useState({})
+  const [playerMatches, setPlayerMatches] = useState([])
+  const [matchDetails, setMatchDetails] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [visible, setVisible] = useState(7)
 
-  const url = process.env.REACT_APP_API_URL || "";
+  const url = process.env.REACT_APP_API_URL || ''
 
   // Function for masteries call specific to summoner id
-  const getMasteries = (id) => axios.get(`${url}/masteries/${id}`);
+  const getMasteries = (id) => axios.get(`${url}/masteries/${id}`)
 
   // Function for rank call specific to summoner id
-  const getRank = (id) => axios.get(`${url}/rank/${id}`);
+  const getRank = (id) => axios.get(`${url}/rank/${id}`)
 
   // Function for getting match list specific to the summoner
-  const getMatchList = (id) => axios.get(`${url}/matchList/${id}`);
+  const getMatchList = (id) => axios.get(`${url}/matchList/${id}`)
+
+  // Funtion for loading more matches
+  const getMoreMatches = () => {
+    if (visible === playerMatches.length) {
+      return
+    }
+    setVisible((prevValue) => prevValue + 1)
+  }
 
   useEffect(() => {
     // Sets loading to true to enable overlay, prevents user from rapidly clicking
-    setLoading(true);
+    setLoading(true)
     if (!summonerInfo.id) {
       // Checks if summonerInfo.id is available, if not grab identical copy from sessionStorage
-      const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-      setSession(sessionData);
+      const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+      setSession(sessionData)
 
       // Get masteries using sessionStorage and set into state
       getMasteries(sessionData.id).then((res) => {
-        setMastery(res.data);
-        getRank(sessionData.id).then((res) => setRank(res.data));
+        setMastery(res.data)
+        getRank(sessionData.id).then((res) => setRank(res.data))
 
         getMatchList(sessionData.accountId).then((res) =>
           setPlayerMatches(res.data.matches)
-        );
-      });
+        )
+      })
     } else {
       // Get masteries from state and set into state
       getMasteries(summonerInfo.id).then((res) => {
-        setMastery(res.data);
-        getRank(summonerInfo.id).then((res) => setRank(res.data));
+        setMastery(res.data)
+        getRank(summonerInfo.id).then((res) => setRank(res.data))
         getMatchList(summonerInfo.accountId).then((res) =>
           setPlayerMatches(res.data.matches)
-        );
-      });
+        )
+      })
     }
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summonerInfo]);
+  }, [summonerInfo])
 
   //
   // DEFINITELY CAN REFACTOR
@@ -65,41 +74,41 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
   // Match Details
   useEffect(() => {
     // Empty array to store match details
-    const matchArray = [];
+    const matchArray = []
 
     // Slice to determine how many previous matches to render
-    playerMatches.slice(0, 7).forEach((match) => {
+    playerMatches.slice(0, visible).forEach((match) => {
       axios
         .get(`${url}/matchDetails/${match.gameId}`)
         .then((res) => matchArray.push(res.data))
         .then(() => {
           // Need this .then because setMatchDetails renders too quickly
           // Forces it to wait for matchArray to reach correct length
-          matchArray.length === 7 && setMatchDetails(matchArray);
+          matchArray.length === visible && setMatchDetails(matchArray)
         })
         .then(() => {
           setTimeout(() => {
             // Set loading to false to disable overlay
-            setLoading(false);
-          }, 1000);
-        });
-    });
+            setLoading(false)
+          }, 1000)
+        })
+    })
     // Dependent on playerMatches to be ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playerMatches]);
+  }, [playerMatches, visible])
 
   useEffect(() => {
     // Array to store newly created object that matches champion key to mastery key
-    const champObject = [];
+    const champObject = []
     // Nested for loop that compares mastery array to champInfo array for matches
     mastery.forEach((champ) => {
       champInfo.forEach((champion) => {
         if (champ.championId === +champion.key) {
-          const name = champion.name;
-          const key = champ.championId;
-          const image = champion.image.full;
-          const level = champ.championLevel;
-          const points = champ.championPoints;
+          const name = champion.name
+          const key = champ.championId
+          const image = champion.image.full
+          const level = champ.championLevel
+          const points = champ.championPoints
 
           // Create our own object containing neccessary data to push to champObject
           const object = {
@@ -108,15 +117,15 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             image,
             level,
             points,
-          };
+          }
           // Push object to champObject
-          champObject.push(object);
+          champObject.push(object)
         }
-      });
-    });
+      })
+    })
     // Stores new array of object into state to be mapped
-    setFilteredChamps(champObject);
-  }, [mastery, champInfo]);
+    setFilteredChamps(champObject)
+  }, [mastery, champInfo])
 
   return (
     <div className={style.welcomeBackgroundContainer}>
@@ -131,7 +140,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
           animate={{ x: 0 }}
           transition={{
             delay: 0.7,
-            type: "tween",
+            type: 'tween',
             stiffness: 120,
             duration: 0.5,
           }}
@@ -144,7 +153,11 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             getPlayerName={getPlayerName}
             queues={queues}
             overlay={loading}
+            visible={visible}
           />
+          <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
+            Load More...
+          </div>
         </motion.div>
         <div className={style.appRight}>
           <h1 className={style.rankedHeader}>Ranked</h1>
@@ -155,25 +168,25 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             animate={{ x: 0 }}
             transition={{
               delay: 0.7,
-              type: "tween",
+              type: 'tween',
               stiffness: 120,
               duration: 0.5,
             }}
           >
             {!rank.length ? (
               <>
-                <UnrankedCard queueType="RANKED_FLEX_SR" />
-                <UnrankedCard queueType="RANKED_SOLO_5x5" />
+                <UnrankedCard queueType='RANKED_FLEX_SR' />
+                <UnrankedCard queueType='RANKED_SOLO_5x5' />
               </>
-            ) : rank.length < 2 && rank[0].queueType === "RANKED_SOLO_5x5" ? (
+            ) : rank.length < 2 && rank[0].queueType === 'RANKED_SOLO_5x5' ? (
               <>
                 <RankCard rank={rank[0]} />
-                <UnrankedCard queueType={"RANKED_FLEX_SR"} />
+                <UnrankedCard queueType={'RANKED_FLEX_SR'} />
               </>
-            ) : rank.length < 2 && rank[0].queueType === "RANKED_FLEX_SR" ? (
+            ) : rank.length < 2 && rank[0].queueType === 'RANKED_FLEX_SR' ? (
               <>
                 <RankCard rank={rank[0]} />
-                <UnrankedCard queueType={"RANKED_SOLO_5x5"} />
+                <UnrankedCard queueType={'RANKED_SOLO_5x5'} />
               </>
             ) : (
               rank.map((ranking, i) => <RankCard key={i} rank={ranking} />)
@@ -187,7 +200,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
               animate={{ x: 0 }}
               transition={{
                 delay: 0.7,
-                type: "tween",
+                type: 'tween',
                 stiffness: 120,
                 duration: 0.5,
               }}
@@ -200,7 +213,7 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
                         key={i}
                         masteryChamp={champ}
                       />
-                    );
+                    )
                   })
                 : filteredChamps.slice(0, 3).map((champ, i) => {
                     return (
@@ -209,14 +222,14 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
                         key={i}
                         masteryChamp={champ}
                       />
-                    );
+                    )
                   })}
             </motion.div>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Welcome;
+export default Welcome

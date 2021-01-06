@@ -18,6 +18,7 @@ function MatchHistoryCard({
   getPlayerName,
   queues,
   overlay,
+  visible,
 }) {
   const [gameDetails, setGameDetails] = useState([])
   const [runes, setRunes] = useState([])
@@ -51,7 +52,7 @@ function MatchHistoryCard({
 
   useEffect(() => {
     const gameDetailsArr = []
-    if (matchDetails.length === 7) {
+    if (matchDetails.length === visible) {
       matchDetails.forEach((match) => {
         // Loops through queue state, to match game type ex. 5v5 , 3v3, summoners rift, ranked
         const matchObj = queues
@@ -128,7 +129,7 @@ function MatchHistoryCard({
         <Loader />
       ) : (
         <LoadingOverlay active={overlay} spinner>
-          {gameDetails.length === 7 &&
+          {gameDetails.length === visible &&
             gameDetails
               .sort(function (a, b) {
                 return new Date(b.gameCreation) - new Date(a.gameCreation)
