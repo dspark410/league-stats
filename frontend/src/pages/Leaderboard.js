@@ -30,7 +30,9 @@ function Leaderboard({
               .sort((a, b) => b.leaguePoints - a.leaguePoints)
               .map((summoner, i) => (
                 <tr className={style.row} key={i}>
-                  <td className={`${style.td} ${style.number}`}>{i + 1}</td>
+                  <td className={`${style.td} ${style.number}`}>
+                    {summoner.number}
+                  </td>
                   <td className={style.td}>
                     <img
                       alt='profile icon'

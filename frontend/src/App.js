@@ -100,15 +100,16 @@ function App() {
       const soloPlayer = await res.data.entries.sort(
         (a, b) => b.leaguePoints - a.leaguePoints
       )
-      // await soloPlayer.slice(0, 5).map(
-      //   async (player) =>
-      //     await axios
-      //       .get(`${url}/getSummonerId/${player.summonerId}`)
-      //       .then((res) => {
-      //         player.icon = res.data.profileIconId
-      //         boardArray.push(player)
-      //       })
-      // )
+      await soloPlayer.slice(0, 5).map(
+        async (player, i) =>
+          await axios
+            .get(`${url}/getSummonerId/${player.summonerId}`)
+            .then((res) => {
+              player.icon = res.data.profileIconId
+              player.number = i + 1
+              boardArray.push(player, i)
+            })
+      )
       setSolo(soloPlayer)
     })
   }, [])
