@@ -87,6 +87,9 @@
   font-size: 20px;
 }
 
+.none {
+  color: rgb(196, 92, 92);
+}
 .moreMatchesBtn:hover {
   cursor: pointer;
 }

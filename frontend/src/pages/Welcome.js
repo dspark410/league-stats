@@ -29,14 +29,6 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
   // Function for getting match list specific to the summoner
   const getMatchList = (id) => axios.get(`${url}/matchList/${id}`)
 
-  // Funtion for loading more matches
-  const getMoreMatches = () => {
-    if (visible === playerMatches.length) {
-      return
-    }
-    setVisible((prevValue) => prevValue + 1)
-  }
-
   useEffect(() => {
     // Sets loading to true to enable overlay, prevents user from rapidly clicking
     setLoading(true)
@@ -97,6 +89,14 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerMatches, visible])
 
+  // Funtion for loading more matches
+  const getMoreMatches = () => {
+    if (visible >= 9) {
+      return
+    }
+    setVisible((prevValue) => prevValue + 1)
+  }
+
   useEffect(() => {
     // Array to store newly created object that matches champion key to mastery key
     const champObject = []
@@ -156,7 +156,11 @@ function Welcome({ summonerInfo, champInfo, version, getPlayerName, queues }) {
             visible={visible}
           />
           <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
-            Load More...
+            {visible >= 9 ? (
+              <div className={style.none}>Cannot Display More Matches</div>
+            ) : (
+              'Load More...'
+            )}
           </div>
         </motion.div>
         <div className={style.appRight}>
