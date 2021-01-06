@@ -28,7 +28,7 @@ function App() {
   const [champDetail, setChampDetail] = useState()
   const [item, setItem] = useState()
   const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage, setPostsPerPage] = useState(10)
+  const [postsPerPage, setPostsPerPage] = useState(25)
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
@@ -215,6 +215,7 @@ function App() {
                 postsPerPage={postsPerPage}
                 totalPosts={solo.length}
                 paginate={paginate}
+                currentPage={currentPage}
               />
             )}
           />

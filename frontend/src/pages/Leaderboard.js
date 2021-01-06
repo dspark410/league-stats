@@ -9,6 +9,7 @@ function Leaderboard({
   postsPerPage,
   totalPosts,
   paginate,
+  currentPage,
 }) {
   return (
     <>
@@ -69,6 +70,7 @@ function Leaderboard({
           postsPerPage={postsPerPage}
           totalPosts={totalPosts}
           paginate={paginate}
+          currentPage={currentPage}
         />
       </div>
     </>
