@@ -1,9 +1,7 @@
 import React from "react";
 import style from "./championdetail.module.css";
-import Tooltip from "../components/Tooltip";
 
-export default function ChampionDetail({ version, champDetail }) {
-  console.log(champDetail.recommended[0]);
+export default function ChampionDetail({ version, champDetail, itemObj }) {
   return champDetail ? (
     <div>
       <h2>{champDetail.name}</h2>
@@ -13,62 +11,66 @@ export default function ChampionDetail({ version, champDetail }) {
         alt={champDetail.image.full}
         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champDetail.image.full}`}
       />
+      {champDetail.tags.map((tag) => (
+        <span>{tag}</span>
+      ))}
+      <h3>Ally Tips</h3>
+      {champDetail.allytips.map((tip) => (
+        <p>{tip}</p>
+      ))}
+
+      <h3>Enemy Tips</h3>
+      {champDetail.enemytips.map((tip) => (
+        <p>{tip}</p>
+      ))}
+
+      <div>
+        <h3>Recommended Build</h3>
+        {champDetail.recommended.map((build, i) => {
+          return build.mode === "CLASSIC" ? (
+            <div key={i}>
+              <h3>{build.type.split("-")[1]}</h3>
+              {build.blocks.map((block, i) => {
+                return (
+                  <div key={i}>
+                    <h4>{block.type}</h4>
+                    {block.items.map((item, i) => {
+                      return <div>{itemObj[item.id].name}</div>;
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          ) : null;
+        })}
+      </div>
       <div>
         <h3>Skills</h3>
-        <Tooltip
-          name={champDetail.passive.name}
-          info={champDetail.passive.description}
-        >
+        <div>
+          <p>Passive</p>
           <img
             className={style.spellImage}
             alt="champion passive"
             src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${champDetail.passive.image.full}`}
           />
-        </Tooltip>
-        {champDetail.spells.map((spell, i) => (
-          <Tooltip
-            key={i}
-            name={spell.name}
-            info={spell.description}
-            moreInfo={spell.tooltip}
-          >
-            <div className={style.spellImageContainer}>
-              <img
-                className={style.spellImage}
-                alt="champion skills"
-                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
-              />
-              <span className={style.spellKey}>
-                {i === 0 ? "Q" : i === 1 ? "W" : i === 2 ? "E" : "R"}
-              </span>
-            </div>
-          </Tooltip>
-        ))}
-      </div>
-      <div>
-        <h3>Recommended Build</h3>
-        {champDetail.recommended.map((build) => {
-          return build.mode === "CLASSIC"
-            ? build.blocks.map((block) => {
-                return (
-                  <div>
-                    <h4>{block.type}</h4>
-                    {block.items.map((item) => {
-                      return <h5>{item.id}</h5>;
-                    })}
-                  </div>
-                );
-                // block.items.map((item) => {
-                //   return (
-                //     <div>
+          <p>{champDetail.passive.name}</p>
+          <p>{champDetail.passive.description}</p>
+        </div>
 
-                //       <h5>{item.id}</h5>
-                //     </div>
-                //   );
-                // });
-              })
-            : null;
-        })}
+        {champDetail.spells.map((spell, i) => (
+          <div className={style.spellImageContainer}>
+            <p className={style.spellKey}>
+              {i === 0 ? "Q" : i === 1 ? "W" : i === 2 ? "E" : "R"}
+            </p>
+            <img
+              className={style.spellImage}
+              alt="champion skills"
+              src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
+            />
+            <p>{spell.name}</p>
+            <p>{spell.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   ) : null;
