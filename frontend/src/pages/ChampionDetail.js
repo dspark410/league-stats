@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./championdetail.module.css";
+import Tooltip from "../components/Tooltip";
 
 export default function ChampionDetail({ version, champDetail, itemObj }) {
   return champDetail ? (
@@ -35,7 +36,23 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
                   <div key={i}>
                     <h4>{block.type}</h4>
                     {block.items.map((item, i) => {
-                      return <div>{itemObj[item.id].name}</div>;
+                      return (
+                        <div>
+                          <p>{itemObj[item.id].name}</p>
+                          <Tooltip
+                            name={itemObj[item.id].name}
+                            info={itemObj[item.id].description}
+                            moreInfo={itemObj[item.id].gold.total}
+                          >
+                            <img
+                              alt={itemObj[item.id].image.full}
+                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${
+                                itemObj[item.id].image.full
+                              }`}
+                            />
+                          </Tooltip>
+                        </div>
+                      );
                     })}
                   </div>
                 );
@@ -69,6 +86,10 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
             />
             <p>{spell.name}</p>
             <p>{spell.description}</p>
+            <p>Spell Cooldown: {spell.cooldownBurn} seconds</p>
+            <p>
+              Spell Cost: {spell.costBurn} {champDetail.partype}
+            </p>
           </div>
         ))}
       </div>
