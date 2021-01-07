@@ -3,6 +3,19 @@ import style from "./championdetail.module.css";
 import Tooltip from "../components/Tooltip";
 
 export default function ChampionDetail({ version, champDetail, itemObj }) {
+  let key;
+  console.log("key", champDetail.key, champDetail.key.length);
+
+  if (champDetail.key.length === 1) {
+    key = "000" + champDetail.key;
+  } else if (champDetail.key.length === 2) {
+    key = "00" + champDetail.key;
+  } else if (champDetail.key.length === 3) {
+    key = "0" + champDetail.key;
+  } else {
+    key = champDetail.key;
+  }
+
   return champDetail ? (
     <div>
       <h2>{champDetail.name}</h2>
@@ -72,26 +85,43 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
           />
           <p>{champDetail.passive.name}</p>
           <p>{champDetail.passive.description}</p>
+          <video
+            className={style.skillVideo}
+            autoPlay
+            playsInline
+            loop
+            muted
+            src={`https://d28xe8vt774jo5.cloudfront.net/champion-abilities/${key}/ability_${key}_P1.mp4`}
+          />
         </div>
 
-        {champDetail.spells.map((spell, i) => (
-          <div className={style.spellImageContainer}>
-            <p className={style.spellKey}>
-              {i === 0 ? "Q" : i === 1 ? "W" : i === 2 ? "E" : "R"}
-            </p>
-            <img
-              className={style.spellImage}
-              alt="champion skills"
-              src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
-            />
-            <p>{spell.name}</p>
-            <p>{spell.description}</p>
-            <p>Spell Cooldown: {spell.cooldownBurn} seconds</p>
-            <p>
-              Spell Cost: {spell.costBurn} {champDetail.partype}
-            </p>
-          </div>
-        ))}
+        {champDetail.spells.map((spell, i) => {
+          const buttonKey = i === 0 ? "Q" : i === 1 ? "W" : i === 2 ? "E" : "R";
+          return (
+            <div className={style.spellImageContainer}>
+              <p className={style.spellKey}>{buttonKey}</p>
+              <img
+                className={style.spellImage}
+                alt="champion skills"
+                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
+              />
+              <p>{spell.name}</p>
+              <p>{spell.description}</p>
+              <p>Spell Cooldown: {spell.cooldownBurn} seconds</p>
+              <p>
+                Spell Cost: {spell.costBurn} {champDetail.partype}
+              </p>
+              <video
+                className={style.skillVideo}
+                autoPlay
+                playsInline
+                loop
+                muted
+                src={`https://d28xe8vt774jo5.cloudfront.net/champion-abilities/${key}/ability_${key}_${buttonKey}1.mp4`}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   ) : null;
