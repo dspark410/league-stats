@@ -85,14 +85,6 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
           />
           <p>{champDetail.passive.name}</p>
           <p>{champDetail.passive.description}</p>
-          <video
-            className={style.skillVideo}
-            autoPlay
-            playsInline
-            loop
-            muted
-            src={`https://d28xe8vt774jo5.cloudfront.net/champion-abilities/${key}/ability_${key}_P1.mp4`}
-          />
         </div>
 
         {champDetail.spells.map((spell, i) => {
