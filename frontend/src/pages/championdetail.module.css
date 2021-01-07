@@ -1,9 +1,131 @@
+.champDetailContainer {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+.grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 400px 800px;
+  grid-gap: 10px;
+  margin: 20px auto;
+}
+
 .freeChampsImg {
   margin: 10px 10px;
   border-radius: 50%;
   border: solid 2px #f0d287;
 }
 
+.tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.tagSpan {
+  margin-right: 4px;
+}
+
+.row1Col1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.row1Col2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border: 1px solid black;
+  padding: 12px 15px;
+}
+
+.row1 {
+  margin-bottom: 10px;
+}
+
+.row1 h3,
+.row2 h3 {
+  margin-bottom: 5px;
+}
+
+.buildContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  margin: 0px 0px 10px 0px;
+  padding: 10px;
+}
+
+.buildHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.buildType {
+  display: flex;
+  flex-direction: row;
+}
+
+.itemContainer {
+  margin: 10px 5px;
+}
+
+.grid2 {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 700px 500px;
+  justify-content: center;
+}
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid black;
+  margin: 0px 0px 10px 0px;
+  padding: 10px;
+}
+
+.spellContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.spellImageContainer {
+  margin: 10px 5px;
+}
+
+.spellImageContainer:hover {
+  cursor: pointer;
+}
+
+.passiveImageContainer {
+  margin: 10px 5px;
+}
+
 .skillVideo {
-  width: 500px;
+  width: 90%;
+}
+
+.spellImage {
+  border: 2px solid green;
+}
+
+.spellImageActive {
+  border: 2px solid red;
 }

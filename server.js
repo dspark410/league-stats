@@ -149,31 +149,6 @@ app.get('/leaderboard/solo', async (req, res) => {
   }
 })
 
-// Call to get challenger solo ranks
-app.get('/leaderboard/solo', async (req, res) => {
-  try {
-    const api = process.env.API_KEY
-    const leaderboardData = await axios.get(
-      ` https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?api_key=${api}`
-    )
-    res.json(leaderboardData.data)
-  } catch (error) {
-    console.log(error)
-  }
-})
-
-// app.get('/leaderboard/flex', async (req, res) => {
-//   try {
-//     const api = process.env.API_KEY
-//     const leaderboardData = await axios.get(
-//       ` https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_FLEX_SR?api_key=${api}`
-//     )
-//     res.json(leaderboardData.data)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
   // Sends static folder
