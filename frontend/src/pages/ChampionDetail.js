@@ -117,6 +117,14 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
             {champDetail.spells.map((spell, i) => {
               const buttonKey =
                 i === 0 ? 'Q' : i === 1 ? 'W' : i === 2 ? 'E' : 'R'
+              const tooltipInfo = `
+                  <p>Spell Cooldown: ${spell.cooldownBurn} seconds</p>
+                  <p>
+                    Spell Cost: ${spell.costBurn} ${champDetail.partype}
+                  </p>
+                `
+
+              console.log(spell.cooldownBurn)
               return (
                 <div className={style.spellImageContainer}>
                   <span className={style.spellKey}>{buttonKey}</span>
