@@ -1,64 +1,64 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import style from "./championrotation.module.css";
-import Tooltip from "../components/Tooltip";
-import axios from "axios";
-import ChampionDetails from "../components/ChampionDetails";
-import { motion } from "framer-motion";
-import Loader from "../components/Loader";
-import ReactModal from "react-modal";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import style from './championrotation.module.css'
+import Tooltip from '../components/Tooltip'
+import axios from 'axios'
+import ChampionDetails from '../components/ChampionDetails'
+import { motion } from 'framer-motion'
+import Loader from '../components/Loader'
+import ReactModal from 'react-modal'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 
 function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
-  const [freeChamps, setFreeChamps] = useState([]);
-  const [championDetails, setChampionDetails] = useState();
-  const [current, setCurrent] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [freeChamps, setFreeChamps] = useState([])
+  const [championDetails, setChampionDetails] = useState()
+  const [current, setCurrent] = useState(0)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL || "";
+    const url = process.env.REACT_APP_API_URL || ''
     axios.get(`${url}/getChampionRotation`).then((res) => {
       // Store array of numbers for free champion rotation in variable
-      const championRotation = res.data.freeChampionIds;
+      const championRotation = res.data.freeChampionIds
       // Filter through champInfo to keep only the object for free champions
       const rotationChamp = champInfo.filter((champ) =>
         // If chamption rotation matches key of free champs, returns true
         championRotation.includes(Number(champ.key))
-      );
+      )
       // Save free champs into state
-      setFreeChamps(rotationChamp);
-      setLoading(false);
-    });
+      setFreeChamps(rotationChamp)
+      setLoading(false)
+    })
     // Dependency, rerenders when champInfo is ready
-  }, [champInfo]);
+  }, [champInfo])
 
   useEffect(() => {
-    setChampionDetails(champDetail);
-    setCurrent(0);
-  }, [champDetail]);
+    setChampionDetails(champDetail)
+    setCurrent(0)
+  }, [champDetail])
 
   // onClick for champion details that opens up modal
   // Will send championDetail into ModalState
   const championModal = () => {
-    setModalOpen(true);
-  };
+    setModalOpen(true)
+  }
 
   // onClick to close modal
   const closeModal = () => {
-    setModalOpen(false);
-  };
+    setModalOpen(false)
+  }
 
   // onClick, increases skin + 1, to change loading
   const nextSkin = () => {
-    setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1);
+    setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1)
     //console.log("next", championDetails.skins[current]);
-  };
+  }
   // onClick, increases skin - 1, to change loading
   const prevSkin = () => {
-    setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1);
+    setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1)
     //console.log("prev", championDetails.skins[current]);
-  };
+  }
 
   return (
     <>
@@ -76,7 +76,7 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                   animate={{ x: 0 }}
                   transition={{
                     delay: 0.2,
-                    type: "tween",
+                    type: 'tween',
                     stiffness: 120,
                     duration: 0.5,
                   }}
@@ -106,7 +106,7 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                   animate={{ x: 0 }}
                   transition={{
                     delay: 0.2,
-                    type: "tween",
+                    type: 'tween',
                     stiffness: 120,
                     duration: 0.5,
                   }}
@@ -120,7 +120,7 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                   />
                 </motion.div>
               ) : (
-                ""
+                ''
               )}
             </div>
 
@@ -133,7 +133,7 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
               {championDetails ? (
                 <div className={style.modalContent}>
                   <h1 className={style.modalHeader}>
-                    {championDetails.skins[current].name === "default"
+                    {championDetails.skins[current].name === 'default'
                       ? championDetails.name
                       : championDetails.skins[current].name}
                   </h1>
@@ -170,11 +170,14 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                           name={championDetails.passive.name}
                           info={championDetails.passive.description}
                         >
-                          <img
-                            className={style.spellImage}
-                            alt="champion passive"
-                            src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${championDetails.passive.image.full}`}
-                          />
+                          <div className={style.spellImageContainer}>
+                            <img
+                              className={style.spellImage}
+                              alt='champion passive'
+                              src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${championDetails.passive.image.full}`}
+                            />
+                            <span className={style.spellKey}>P</span>
+                          </div>
                         </Tooltip>
                       ) : null}
                       {championDetails.spells.map((spell, i) => {
@@ -183,31 +186,30 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                             key={i}
                             name={spell.name}
                             info={spell.description}
-                            moreInfo={spell.tooltip}
                           >
                             <div className={style.spellImageContainer}>
                               <img
                                 className={style.spellImage}
-                                alt="champion skills"
+                                alt='champion skills'
                                 src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
                               />
                               <span className={style.spellKey}>
                                 {i === 0
-                                  ? "Q"
+                                  ? 'Q'
                                   : i === 1
-                                  ? "W"
+                                  ? 'W'
                                   : i === 2
-                                  ? "E"
-                                  : "R"}
+                                  ? 'E'
+                                  : 'R'}
                               </span>
                             </div>
                           </Tooltip>
-                        );
+                        )
                       })}
                     </div>
                   </div>
                   <div className={style.modalFooter}>
-                    <Link to="/championdetail">
+                    <Link to='/championdetail'>
                       <button className={style.moreInfoBtn}>More Info</button>
                     </Link>
                     <button className={style.closeBtn} onClick={closeModal}>
@@ -216,14 +218,14 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                   </div>
                 </div>
               ) : (
-                ""
+                ''
               )}
             </ReactModal>
           </div>
         </>
       )}
     </>
-  );
+  )
 }
 
-export default ChampionRotation;
+export default ChampionRotation

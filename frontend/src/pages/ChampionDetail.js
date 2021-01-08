@@ -105,7 +105,7 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
           <h3>Skills</h3>
           <div className={style.spellContainer}>
             <div className={style.passiveImageContainer}>
-              <p>Passive</p>
+              <span className={style.spellKey}>P</span>
               <img
                 className={style.spellImage}
                 alt='champion passive'
@@ -119,7 +119,7 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
                 i === 0 ? 'Q' : i === 1 ? 'W' : i === 2 ? 'E' : 'R'
               return (
                 <div className={style.spellImageContainer}>
-                  <p className={style.spellKey}>{buttonKey}</p>
+                  <span className={style.spellKey}>{buttonKey}</span>
                   <img
                     onClick={selectVideo}
                     index={i}
