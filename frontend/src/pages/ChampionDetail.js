@@ -28,8 +28,14 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
     key = champDetail.key
   }
 
+  // const backgroundURL = `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champDetail.id}_0.jpg`
+
   return champDetail ? (
-    <div className={style.champDetailContainer}>
+    <div
+      className={style.champDetailContainer}
+      // style={{ backgroundImage: `url(${backgroundURL})` }}
+    >
+      <div className={style.overlay}></div>
       <div className={style.grid}>
         <div className={style.row1Col1}>
           <img
@@ -69,6 +75,7 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
             return build.mode === 'CLASSIC' ? (
               <div className={style.buildHeader} key={i}>
                 {/* <h3>{build.type.split('-')[1]}</h3> */}
+
                 {build.blocks.map((block, i) => {
                   return (
                     <div className={style.buildHeaderContainer} key={i}>
@@ -80,7 +87,6 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
                               <Tooltip
                                 name={itemObj[item.id].name}
                                 info={itemObj[item.id].description}
-                                moreInfo={itemObj[item.id].gold.total}
                               >
                                 <img
                                   alt={itemObj[item.id].image.full}
@@ -106,13 +112,16 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
           <div className={style.spellContainer}>
             <div className={style.passiveImageContainer}>
               <span className={style.spellKey}>P</span>
-              <img
-                className={style.spellImage}
-                alt='champion passive'
-                src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${champDetail.passive.image.full}`}
-              />
-              {/* <p>{champDetail.passive.name}</p>
-          <p>{champDetail.passive.description}</p> */}
+              <Tooltip
+                name={champDetail.passive.name}
+                info={champDetail.passive.description}
+              >
+                <img
+                  className={style.spellImage}
+                  alt='champion passive'
+                  src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${champDetail.passive.image.full}`}
+                />
+              </Tooltip>
             </div>
             {champDetail.spells.map((spell, i) => {
               const buttonKey =
@@ -124,26 +133,25 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
                   </p>
                 `
 
-              console.log(spell.cooldownBurn)
               return (
                 <div className={style.spellImageContainer}>
                   <span className={style.spellKey}>{buttonKey}</span>
-                  <img
-                    onClick={selectVideo}
-                    index={i}
-                    value={buttonKey}
-                    className={`${style.spellImage} ${
-                      video === buttonKey && style.spellImageActive
-                    }`}
-                    alt='champion skills'
-                    src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
-                  />
-                  {/* <p>{spell.name}</p>
-              <p>{spell.description}</p>
-              <p>Spell Cooldown: {spell.cooldownBurn} seconds</p>
-              <p>
-                Spell Cost: {spell.costBurn} {champDetail.partype}
-              </p> */}
+                  <Tooltip
+                    name={spell.name}
+                    info={spell.description}
+                    moreInfo={tooltipInfo}
+                  >
+                    <img
+                      onClick={selectVideo}
+                      index={i}
+                      value={buttonKey}
+                      className={`${style.spellImage} ${
+                        video === buttonKey && style.spellImageActive
+                      }`}
+                      alt='champion skills'
+                      src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
+                    />
+                  </Tooltip>
                 </div>
               )
             })}

@@ -1,79 +1,79 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import Home from "./pages/Home";
-import Welcome from "./pages/Welcome";
-import Champions from "./pages/Champions";
-import ChampionRotation from "./pages/ChampionRotation";
-import Leaderboard from "./pages/Leaderboard";
-import ChampionDetail from "./pages/ChampionDetail";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import './App.css'
+import Home from './pages/Home'
+import Welcome from './pages/Welcome'
+import Champions from './pages/Champions'
+import ChampionRotation from './pages/ChampionRotation'
+import Leaderboard from './pages/Leaderboard'
+import ChampionDetail from './pages/ChampionDetail'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
-import Navbar from "./components/Navbar";
+} from 'react-router-dom'
+import Navbar from './components/Navbar'
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState({});
-  const [inputValue, setInputValue] = useState("");
-  const [redirect, setRedirect] = useState(false);
-  const [champInfo, setChampInfo] = useState([]);
-  const [version, setVersion] = useState();
-  const [inputResponse, setInputResponse] = useState("");
-  const [queues, setQueues] = useState([]);
-  const [solo, setSolo] = useState([]);
-  const [soloTier, setSoloTier] = useState([]);
-  const [champDetail, setChampDetail] = useState();
-  const [item, setItem] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(25);
+  const [summonerInfo, setSummonerInfo] = useState({})
+  const [inputValue, setInputValue] = useState('')
+  const [redirect, setRedirect] = useState(false)
+  const [champInfo, setChampInfo] = useState([])
+  const [version, setVersion] = useState()
+  const [inputResponse, setInputResponse] = useState('')
+  const [queues, setQueues] = useState([])
+  const [solo, setSolo] = useState([])
+  const [soloTier, setSoloTier] = useState([])
+  const [champDetail, setChampDetail] = useState()
+  const [item, setItem] = useState()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postsPerPage, setPostsPerPage] = useState(25)
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
-    const url = process.env.REACT_APP_API_URL || "";
+    const url = process.env.REACT_APP_API_URL || ''
     axios.get(`${url}/getSummonerName/${summonerName}`).then((res) => {
       if (!res.data.id) {
         // Message will be displayed on Home Screen, dissapears after 3 seconds
-        setInputResponse(res.data);
+        setInputResponse(res.data)
         setTimeout(() => {
-          setInputResponse("");
-        }, 3000);
+          setInputResponse('')
+        }, 3000)
       } else {
         // Set summoner info which will be referenced by entire web app
-        setSummonerInfo(res.data);
+        setSummonerInfo(res.data)
 
         //Set session data
-        sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-        setRedirect(true);
+        sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+        setRedirect(true)
       }
-    });
-  };
+    })
+  }
 
   // onClick that makes an axios call to retrieve the specific champion json using
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
-    const getChamp = event.target.name;
+    const getChamp = event.target.name
     axios
       .get(
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
-        setChampDetail(res.data.data[getChamp]);
-      });
-  };
+        setChampDetail(res.data.data[getChamp])
+      })
+  }
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL || "";
+    const url = process.env.REACT_APP_API_URL || ''
     // Retrieve queueType list from Riot API
-    axios.get(`${url}/queueType`).then((res) => setQueues(res.data));
+    axios.get(`${url}/queueType`).then((res) => setQueues(res.data))
     axios
       // Link to version list from Riot
-      .get("https://ddragon.leagueoflegends.com/api/versions.json")
+      .get('https://ddragon.leagueoflegends.com/api/versions.json')
       .then((res) => {
         // Save current version into state
-        setVersion(res.data[0]);
+        setVersion(res.data[0])
         axios
           .get(
             // Link to champion.json from Riot
@@ -82,81 +82,81 @@ function App() {
           .then((res) => {
             // Loop through Riot's champion.json array and keeps object values, in the form of an array
             // Store championArray into state
-            setChampInfo(Object.values(res.data.data));
-          });
+            setChampInfo(Object.values(res.data.data))
+          })
         axios
           .get(
             `https://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/item.json`
           )
           .then((res) => {
-            setItem(res.data.data);
-          });
-      });
+            setItem(res.data.data)
+          })
+      })
 
     axios.get(`${url}/leaderboard/solo`).then(async (res) => {
-      const boardArray = [];
+      const boardArray = []
 
-      setSoloTier(res.data.tier);
+      setSoloTier(res.data.tier)
       const soloPlayer = await res.data.entries.sort(
         (a, b) => b.leaguePoints - a.leaguePoints
-      );
+      )
       await soloPlayer.slice(0, 5).map(
         async (player, i) =>
           await axios
             .get(`${url}/getSummonerId/${player.summonerId}`)
             .then((res) => {
-              player.icon = res.data.profileIconId;
-              player.number = i + 1;
-              boardArray.push(player, i);
+              player.icon = res.data.profileIconId
+              player.number = i + 1
+              boardArray.push(player, i)
             })
-      );
-      setSolo(soloPlayer);
-    });
-  }, []);
+      )
+      setSolo(soloPlayer)
+    })
+  }, [])
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexofFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = solo.slice(indexofFirstPost, indexOfLastPost);
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexofFirstPost = indexOfLastPost - postsPerPage
+  const currentPosts = solo.slice(indexofFirstPost, indexOfLastPost)
 
   // change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   // onChange for input field
   const handleOnChange = (e) => {
-    setInputValue(e.target.value);
-  };
+    setInputValue(e.target.value)
+  }
 
   // onSubmit for input form
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (inputValue.trim() === "") {
-      setInputResponse("Please Enter A Summoner Name!");
+    if (inputValue.trim() === '') {
+      setInputResponse('Please Enter A Summoner Name!')
       setTimeout(() => {
-        setInputResponse("");
-      }, 3000);
+        setInputResponse('')
+      }, 3000)
     } else {
-      getAccountInfo(inputValue);
+      getAccountInfo(inputValue)
     }
-  };
+  }
 
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
   const getPlayerName = (e) => {
-    const summonerName = e.target.getAttribute("name");
-    getAccountInfo(summonerName);
-  };
+    const summonerName = e.target.getAttribute('name')
+    getAccountInfo(summonerName)
+  }
 
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <Navbar />
         <Switch>
           <Route
             exact
-            path="/"
+            path='/'
             render={() =>
               redirect ? (
-                <Redirect to="/welcome" />
+                <Redirect to='/welcome' />
               ) : (
                 <Home
                   summonerInfo={summonerInfo}
@@ -172,7 +172,7 @@ function App() {
             }
           />
           <Route
-            path="/welcome"
+            path='/welcome'
             render={() => (
               <Welcome
                 summonerInfo={summonerInfo}
@@ -185,7 +185,7 @@ function App() {
             )}
           />
           <Route
-            path="/champions"
+            path='/champions'
             render={() => (
               <Champions
                 champInfo={champInfo}
@@ -196,7 +196,7 @@ function App() {
             )}
           />
           <Route
-            path="/championrotation"
+            path='/championrotation'
             render={() => (
               <ChampionRotation
                 champInfo={champInfo}
@@ -207,7 +207,7 @@ function App() {
             )}
           />
           <Route
-            path="/leaderboard"
+            path='/leaderboard'
             render={() => (
               <Leaderboard
                 version={version}
@@ -221,7 +221,7 @@ function App() {
             )}
           />
           <Route
-            path="/championdetail"
+            path='/championdetail'
             render={() => (
               <ChampionDetail
                 version={version}
@@ -233,7 +233,7 @@ function App() {
         </Switch>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

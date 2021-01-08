@@ -8,28 +8,27 @@
 }
 
 .App {
-  /* background: #eaeaea; */
-  background: hsla(0, 0%, 92%, 1);
+  background: hsla(186, 33%, 94%, 1);
 
-  background: radial-gradient(
-    circle,
-    hsla(0, 0%, 92%, 1) 0%,
-    hsla(206, 61%, 60%, 1) 100%
+  background: linear-gradient(
+    360deg,
+    hsla(186, 33%, 94%, 1) 0%,
+    hsla(216, 41%, 79%, 1) 100%
   );
 
-  background: -moz-radial-gradient(
-    circle,
-    hsla(0, 0%, 92%, 1) 0%,
-    hsla(206, 61%, 60%, 1) 100%
+  background: -moz-linear-gradient(
+    360deg,
+    hsla(186, 33%, 94%, 1) 0%,
+    hsla(216, 41%, 79%, 1) 100%
   );
 
-  background: -webkit-radial-gradient(
-    circle,
-    hsla(0, 0%, 92%, 1) 0%,
-    hsla(206, 61%, 60%, 1) 100%
+  background: -webkit-linear-gradient(
+    360deg,
+    hsla(186, 33%, 94%, 1) 0%,
+    hsla(216, 41%, 79%, 1) 100%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#eaeaea", endColorstr="#59a0d7", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#EBF4F5", endColorstr="#B5C6E0", GradientType=1 );
   /* background-image: url('https://www.wallpapertip.com/wmimgs/55-558821_league-of-legends-backgrounds-yasuo-wallpaper-high-yasuo.jpg'); */
   background-size: cover;
   position: fixed;
