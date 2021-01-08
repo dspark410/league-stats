@@ -21,7 +21,7 @@ function Champions({ champInfo, version, champDetail, selectChampion }) {
   }, [champInfo]);
 
   useEffect(() => {
-    championModal();
+    champDetail && championModal();
     setChampionDetails(champDetail);
     setCurrent(0);
   }, [champDetail]);
