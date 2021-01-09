@@ -28,7 +28,8 @@ function App() {
   const [champDetail, setChampDetail] = useState();
   const [item, setItem] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(25);
+  const [postsPerPage] = useState(25);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
@@ -61,7 +62,19 @@ function App() {
       )
       .then((res) => {
         setChampDetail(res.data.data[getChamp]);
+        setModalOpen(true);
       });
+  };
+
+  // onClick for champion details that opens up modal
+  // Will send championDetail into ModalState
+  const championModal = () => {
+    setModalOpen(true);
+  };
+
+  // onClick to close modal
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -146,6 +159,10 @@ function App() {
     getAccountInfo(summonerName);
   };
 
+  const changeRedirect = () => {
+    setRedirect(false);
+  };
+
   return (
     <div className="App">
       <Router>
@@ -175,6 +192,7 @@ function App() {
             path="/welcome"
             render={() => (
               <Welcome
+                redirect={changeRedirect}
                 summonerInfo={summonerInfo}
                 champInfo={champInfo}
                 isAuthed={true}
@@ -192,6 +210,9 @@ function App() {
                 version={version}
                 champDetail={champDetail}
                 selectChampion={selectChampion}
+                modalState={modalOpen}
+                openModal={championModal}
+                closeModal={closeModal}
               />
             )}
           />

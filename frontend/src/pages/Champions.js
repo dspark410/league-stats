@@ -8,12 +8,19 @@ import ReactModal from "react-modal";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function Champions({ champInfo, version, champDetail, selectChampion }) {
+function Champions({
+  champInfo,
+  version,
+  champDetail,
+  selectChampion,
+  modalState,
+  openModal,
+  closeModal,
+}) {
   const [input, setInput] = useState("");
   const [autofill, setAutofill] = useState([]);
   const [championDetails, setChampionDetails] = useState();
   const [current, setCurrent] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     // Populates screen with all champion at start
@@ -21,21 +28,13 @@ function Champions({ champInfo, version, champDetail, selectChampion }) {
   }, [champInfo]);
 
   useEffect(() => {
-    champDetail && championModal();
+    if (champDetail && modalState) {
+      openModal();
+    }
+
     setChampionDetails(champDetail);
     setCurrent(0);
   }, [champDetail]);
-
-  // onClick for champion details that opens up modal
-  // Will send championDetail into ModalState
-  const championModal = () => {
-    setModalOpen(true);
-  };
-
-  // onClick to close modal
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   // onClick, increases skin + 1, to change loading
   const nextSkin = () => {
@@ -130,7 +129,7 @@ function Champions({ champInfo, version, champDetail, selectChampion }) {
         <ReactModal
           onRequestClose={closeModal}
           className={style.modalContainer}
-          isOpen={modalOpen}
+          isOpen={modalState}
           ariaHideApp={false}
         >
           {championDetails ? (
@@ -212,8 +211,10 @@ function Champions({ champInfo, version, champDetail, selectChampion }) {
                 </div>
               </div>
               <div className={style.modalFooter}>
-                <Link to={"/championdetail"}>
-                  <button className={style.moreInfoBtn}>More Info</button>
+                <Link to={"/championdetail"} onClick={closeModal}>
+                  <button onClick={closeModal} className={style.moreInfoBtn}>
+                    More Info
+                  </button>
                 </Link>
                 <button className={style.closeBtn} onClick={closeModal}>
                   Close
