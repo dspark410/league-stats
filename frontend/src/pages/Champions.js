@@ -34,6 +34,7 @@ function Champions({
 
     setChampionDetails(champDetail);
     setCurrent(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champDetail]);
 
   // onClick, increases skin + 1, to change loading

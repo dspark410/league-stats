@@ -9,11 +9,18 @@ import Loader from "../components/Loader";
 import ReactModal from "react-modal";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
-function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
+function ChampionRotation({
+  champInfo,
+  version,
+  champDetail,
+  selectChampion,
+  modalState,
+  openModal,
+  closeModal,
+}) {
   const [freeChamps, setFreeChamps] = useState([]);
   const [championDetails, setChampionDetails] = useState();
   const [current, setCurrent] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,23 +42,14 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
 
   useEffect(() => {
     setCurrent(0);
-    freeChamps.filter((champ) => {
+    freeChamps.forEach((champ) => {
       if (champ.id === champDetail.id) {
         setChampionDetails(champDetail);
+        closeModal();
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champDetail]);
-
-  // onClick for champion details that opens up modal
-  // Will send championDetail into ModalState
-  const championModal = () => {
-    setModalOpen(true);
-  };
-
-  // onClick to close modal
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   // onClick, increases skin + 1, to change loading
   const nextSkin = () => {
@@ -117,7 +115,7 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                 >
                   <ChampionDetails
                     championDetails={championDetails}
-                    click={championModal}
+                    click={openModal}
                     number={current}
                     nextClick={nextSkin}
                     prevClick={prevSkin}
@@ -131,7 +129,7 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
             <ReactModal
               onRequestClose={closeModal}
               className={style.modalContainer}
-              isOpen={modalOpen}
+              isOpen={modalState}
               ariaHideApp={false}
             >
               {championDetails ? (
@@ -213,8 +211,13 @@ function ChampionRotation({ champInfo, version, champDetail, selectChampion }) {
                     </div>
                   </div>
                   <div className={style.modalFooter}>
-                    <Link to="/championdetail">
-                      <button className={style.moreInfoBtn}>More Info</button>
+                    <Link to="/championdetail" onClick={closeModal}>
+                      <button
+                        onClick={closeModal}
+                        className={style.moreInfoBtn}
+                      >
+                        More Info
+                      </button>
                     </Link>
                     <button className={style.closeBtn} onClick={closeModal}>
                       Close

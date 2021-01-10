@@ -224,6 +224,9 @@ function App() {
                 version={version}
                 champDetail={champDetail}
                 selectChampion={selectChampion}
+                modalState={modalOpen}
+                openModal={championModal}
+                closeModal={closeModal}
               />
             )}
           />
