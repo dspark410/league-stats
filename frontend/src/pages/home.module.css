@@ -35,7 +35,7 @@ input[type='text'] {
 
 .homeContainer input {
   padding: 14px 15px;
-  width: 30vw;
+  width: 550px;
   border: none;
   background-color: rgb(43, 34, 58);
   color: #fff;
@@ -81,9 +81,11 @@ input[type='text'] {
   right: 0;
   text-align: center;
   color: #fff;
-  font-size: 10px;
-  margin-bottom: 20px;
-  /* margin: 0 auto; */
+  font-size: 9px;
+
+  width: 900px;
+
+  margin: 15px auto;
 }
 /* @media (max-width: 400px) {
   .homeContainer input {
