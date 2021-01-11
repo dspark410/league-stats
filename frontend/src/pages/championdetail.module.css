@@ -112,6 +112,7 @@
   border: 1px solid black;
   margin: 0px 0px 10px 0px;
   padding: 10px;
+  min-height: 440px;
 }
 
 .spellContainer {

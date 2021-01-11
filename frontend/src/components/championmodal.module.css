@@ -67,6 +67,8 @@
 
 .spellImage {
   margin-right: 5px;
+  width: 65px;
+  height: auto;
 }
 
 .spellKey {

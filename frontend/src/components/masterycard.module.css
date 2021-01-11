@@ -7,7 +7,14 @@
   font-size: 13px;
 }
 
+.masteryFrame {
+  width: 75px;
+  height: auto;
+}
+
 .championImage {
+  width: 25px;
+  height: auto;
   position: absolute;
   border-radius: 50%;
   border: solid 4px #f0d287;

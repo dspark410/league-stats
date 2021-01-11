@@ -1,5 +1,5 @@
 .navbar {
-  /* background: #3a4556; */
+  /* background: #3a4556;
   background: hsla(216, 19%, 28%, 1);
 
   background: linear-gradient(
@@ -20,7 +20,7 @@
     hsla(206, 61%, 60%, 1) 100%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#3a4556", endColorstr="#59a0d7", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#3a4556", endColorstr="#59a0d7", GradientType=1 ); */
   height: 60px;
   display: flex;
   justify-content: center;
@@ -28,7 +28,7 @@
   font-size: 13px;
   font-weight: bold;
   letter-spacing: 1px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); */
 }
 
 .navHeader {
