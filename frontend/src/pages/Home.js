@@ -7,7 +7,7 @@ function Home({ change, submit, inputResponse }) {
   return (
     <div
       className={style.homeBackgroundContainer}
-      style={({ backgroundImage: `url(${background})` }, transform)}
+      style={{ backgroundImage: `url(${background})` }}
     >
       <div className={style.overlay}></div>
       <div className={style.footer}>
