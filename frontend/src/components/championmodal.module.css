@@ -12,6 +12,7 @@
   max-width: 1024px;
   outline: none;
   margin: 0 10px;
+  z-index: 2000;
 }
 
 .modalContent {

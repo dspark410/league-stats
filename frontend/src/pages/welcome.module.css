@@ -1,48 +1,57 @@
-/* .welcomeBackgroundContainer {
-  background-image: url('https://cdn.wallpapersafari.com/15/63/dEXqI0.jpg');
-  background-size: cover;
+.overlay {
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
-  right: 0;
-  bottom: 0;
   width: 100%;
   height: 100%;
+  background: linear-gradient(rgb(255 255 255 / 0%) 0%, rgb(88, 75, 96) 40%);
+  z-index: 1;
   overflow-y: auto;
-} */
+}
 
-.welcomeContainer {
+.row1 {
+  position: absolute;
+  top: 10%;
+  left: 25%;
   display: flex;
-  justify-content: space-evenly;
-  margin-top: -10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid black;
+  z-index: 100;
+  color: #f8f8f8;
+  padding: 2% 2%;
 }
 
 .welcomeContainer h1 {
-  color: #606e83;
   margin: 15px 0;
-}
-
-.appLeft {
-  flex: 0.1;
-}
-
-.appRight {
-  flex: 0.77;
-}
-
-.appRight h1 {
-  text-align: center;
 }
 
 .summonerName {
   letter-spacing: 2px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  text-align: center;
-  color: #606e83;
-  margin: 10px 0;
+
   font-size: 50px;
+  z-index: 100;
+  padding: 0px 10px;
+}
+
+.emblemContainer {
+  display: flex;
+}
+
+.appLeft {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+}
+
+.appRight {
+}
+
+.appRight h1 {
+  text-align: center;
 }
 
 .masteryCardContainer {
@@ -63,14 +72,7 @@
 }
 
 .rankCardContainer {
-  color: #f0d287;
-  font-weight: bold;
-  letter-spacing: 0.4px;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  margin-top: -45px;
 }
 
 .moreMatchesBtn {
@@ -94,7 +96,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .welcomeContainer {
     flex-direction: column;
   }
@@ -105,4 +107,4 @@
   .rankedHeader {
     margin-top: 70px !important;
   }
-}
+} */

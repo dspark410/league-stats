@@ -5,7 +5,6 @@ function RankCard({ rank }) {
   return (
     // Rank card to display players rank and points if available
     <div className={style.singleCardContainer}>
-      <img alt='banner' src={process.env.PUBLIC_URL + `/images/banner.png`} />
       <img
         alt={rank.tier}
         className={style.emblemImage}

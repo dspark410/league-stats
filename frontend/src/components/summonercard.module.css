@@ -1,34 +1,30 @@
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-
 .summonerCardContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  max-width: 150px;
 }
 
 .summonerBorder {
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
   z-index: 1;
 }
 
 .profileIcon {
   position: absolute;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 }
 
 .summonerLevel {
   position: absolute;
-  bottom: 16%;
   z-index: 1;
-  font-size: 14px;
+  bottom: 14.5%;
+  font-size: 9px;
+  font-weight: bold;
+  color: #fff;
 }

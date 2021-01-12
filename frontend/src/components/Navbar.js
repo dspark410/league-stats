@@ -1,37 +1,43 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaBars, FaTimes, FaCaretDown } from "react-icons/fa";
-import style from "./navbar.module.css";
-import Dropdown from "./Dropdown";
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { FaBars, FaTimes, FaCaretDown } from 'react-icons/fa'
+import style from './navbar.module.css'
+import Dropdown from './Dropdown'
 
-function Navbar() {
-  const [click, setClick] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
+function Navbar({ visibility }) {
+  const [click, setClick] = useState(false)
+  const [dropdown, setDropdown] = useState(false)
+  const [vis, setVis] = useState(visibility)
 
-  const handleClick = () => setClick(!click);
-  const closeMobileMenu = () => setClick(false);
+  const handleClick = () => setClick(!click)
+  const closeMobileMenu = () => setClick(false)
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
-      setDropdown(false);
+      setDropdown(false)
     } else {
-      setDropdown(true);
+      setDropdown(true)
     }
-  };
+  }
 
   const onMouseLeave = () => {
     if (window.innerWidth < 960) {
-      setDropdown(false);
+      setDropdown(false)
     } else {
-      setDropdown(false);
+      setDropdown(false)
     }
-  };
+  }
+
+  useEffect(() => {
+    console.log(visibility)
+    setVis(visibility)
+  }, [visibility])
 
   return (
     <>
-      <nav className={style.navbar}>
+      <nav className={style.navbar} style={{ display: !vis ? 'none' : 'flex' }}>
         <div className={style.navHeader}>
-          <Link to="/" className={style.navbarLogo} onClick={closeMobileMenu}>
+          <Link to='/' className={style.navbarLogo} onClick={closeMobileMenu}>
             League Stats
           </Link>
         </div>
@@ -42,14 +48,14 @@ function Navbar() {
               <FaTimes className={style.faTimes} />
             ) : (
               <FaBars className={style.faBars} />
-            )}{" "}
+            )}{' '}
           </i>
         </div>
         <ul
           className={click ? `${style.navMenu} ${style.active}` : style.navMenu}
         >
           <li className={style.navItem}>
-            <Link to="/" className={style.navLinks} onClick={closeMobileMenu}>
+            <Link to='/' className={style.navLinks} onClick={closeMobileMenu}>
               Home
             </Link>
           </li>
@@ -58,8 +64,8 @@ function Navbar() {
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            <Link to="" className={style.navLinks} onClick={closeMobileMenu}>
-              Champions{""}
+            <Link to='' className={style.navLinks} onClick={closeMobileMenu}>
+              Champions{''}
               <i>
                 <FaCaretDown className={style.faCaretDown} />
               </i>
@@ -68,7 +74,7 @@ function Navbar() {
           </li>
           <li className={style.navItem}>
             <Link
-              to="/leaderboard"
+              to='/leaderboard'
               className={style.navLinks}
               onClick={closeMobileMenu}
             >
@@ -78,7 +84,7 @@ function Navbar() {
         </ul>
       </nav>
     </>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

@@ -9,25 +9,15 @@
 }
 
 .emblemImage {
-  position: absolute;
-  bottom: 20%;
-  width: 172px;
+  width: 70px;
   height: auto;
-  opacity: 0.3;
 }
 
 .queue {
-  position: absolute;
-  top: 15%;
-  font-size: 20px;
 }
 
 .rank {
-  position: absolute;
-  top: 25%;
 }
 
 .ratio {
-  position: absolute;
-  top: 35%;
 }

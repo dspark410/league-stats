@@ -1,4 +1,4 @@
-.homeBackgroundContainer {
+/* .homeBackgroundContainer {
   background-size: cover;
   position: fixed;
   top: 0;
@@ -9,16 +9,16 @@
   height: 100%;
   overflow-y: auto;
   object-fit: cover;
-}
+} */
 
-.overlay {
+/* .overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(59, 43, 68, 0.85);
-}
+} */
 
 .homeContainer {
   display: flex;
@@ -82,10 +82,8 @@ input[type='text'] {
   text-align: center;
   color: #fff;
   font-size: 9px;
-
   width: 900px;
-
-  margin: 1px auto;
+  margin: 20px auto;
 }
 /* @media (max-width: 400px) {
   .homeContainer input {

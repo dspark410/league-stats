@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import style from './home.module.css'
 import { AiOutlineSearch } from 'react-icons/ai'
-import background from '../components/images/brand.jpg'
 
-function Home({ change, submit, inputResponse }) {
+function Home({ change, submit, inputResponse, hideNav }) {
+  useEffect(() => {
+    hideNav()
+  }, [])
+
   return (
-    <div
-      className={style.homeBackgroundContainer}
-      style={{ backgroundImage: `url(${background})` }}
-    >
+    <div className={style.homeBackgroundContainer}>
       <div className={style.overlay}></div>
       <div className={style.footer}>
         LeagueStats.com isn't endorsed by Riot Games and doesn't reflect the
@@ -19,11 +19,6 @@ function Home({ change, submit, inputResponse }) {
       </div>
 
       <div className={style.homeContainer}>
-        {/* <img
-          className={style.homeImage}
-          alt="teemo"
-          src={process.env.PUBLIC_URL + `/images/teemo.png`}
-        /> */}
         <div className={style.inputContainer}>
           <form onSubmit={submit}>
             <input

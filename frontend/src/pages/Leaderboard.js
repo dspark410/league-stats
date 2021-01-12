@@ -1,6 +1,6 @@
-import React from "react";
-import Pagination from "../components/Pagination";
-import style from "./leaderboard.module.css";
+import React from 'react'
+import Pagination from '../components/Pagination'
+import style from './leaderboard.module.css'
 
 function Leaderboard({
   version,
@@ -10,10 +10,12 @@ function Leaderboard({
   totalPosts,
   paginate,
   currentPage,
+  showNav,
 }) {
+  showNav()
   return (
-    <>
-      <div style={{ overflowX: "auto" }}>
+    <div className={style.overlay}>
+      <div style={{ overflowX: 'auto' }}>
         <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
         <table className={style.tableContainer}>
           <tbody className={style.tbody}>
@@ -35,12 +37,12 @@ function Leaderboard({
                   </td>
                   <td className={style.td}>
                     <img
-                      alt="profile icon"
+                      alt='profile icon'
                       className={style.profileIcon}
                       // Grab profile icon
                       src={
                         `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png` ||
-                        process.env.PUBLIC_URL + "/images/emptyitem.png"
+                        process.env.PUBLIC_URL + '/images/emptyitem.png'
                       }
                     />
 
@@ -75,8 +77,8 @@ function Leaderboard({
           currentPage={currentPage}
         />
       </div>
-    </>
-  );
+    </div>
+  )
 }
 
-export default Leaderboard;
+export default Leaderboard

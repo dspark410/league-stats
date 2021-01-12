@@ -1,9 +1,9 @@
-import React from "react";
-import style from "./championmodal.module.css";
-import ReactModal from "react-modal";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import Tooltip from "../components/Tooltip";
+import React from 'react'
+import style from './championmodal.module.css'
+import ReactModal from 'react-modal'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import Tooltip from '../components/Tooltip'
 
 export default function ChampionModal({
   championDetails,
@@ -24,7 +24,7 @@ export default function ChampionModal({
       {championDetails ? (
         <div className={style.modalContent}>
           <h1 className={style.modalHeader}>
-            {championDetails.skins[current].name === "default"
+            {championDetails.skins[current].name === 'default'
               ? championDetails.name
               : championDetails.skins[current].name}
           </h1>
@@ -58,7 +58,7 @@ export default function ChampionModal({
                   <div className={style.spellImageContainer}>
                     <img
                       className={style.spellImage}
-                      alt="champion passive"
+                      alt='champion passive'
                       src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${championDetails.passive.image.full}`}
                     />
                     <span className={style.spellKey}>P</span>
@@ -71,20 +71,20 @@ export default function ChampionModal({
                     <div className={style.spellImageContainer}>
                       <img
                         className={style.spellImage}
-                        alt="champion skills"
+                        alt='champion skills'
                         src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
                       />
                       <span className={style.spellKey}>
-                        {i === 0 ? "Q" : i === 1 ? "W" : i === 2 ? "E" : "R"}
+                        {i === 0 ? 'Q' : i === 1 ? 'W' : i === 2 ? 'E' : 'R'}
                       </span>
                     </div>
                   </Tooltip>
-                );
+                )
               })}
             </div>
           </div>
           <div className={style.modalFooter}>
-            <Link to="/championdetail" onClick={closeModal}>
+            <Link to='/championdetail' onClick={closeModal}>
               <button onClick={closeModal} className={style.moreInfoBtn}>
                 More Info
               </button>
@@ -95,8 +95,8 @@ export default function ChampionModal({
           </div>
         </div>
       ) : (
-        ""
+        ''
       )}
     </ReactModal>
-  );
+  )
 }

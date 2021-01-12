@@ -1,3 +1,13 @@
+.overlay {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: linear-gradient(rgb(255 255 255 / 0%) 0%, rgb(88, 75, 96) 40%);
+  z-index: 1;
+}
+
 .searchContainer {
   display: flex;
   flex-direction: column;
@@ -36,7 +46,7 @@
   border: 1px solid #b4b8be;
 }
 
-input[type="text"] {
+input[type='text'] {
   font-size: 18px;
   font-weight: bold;
 }

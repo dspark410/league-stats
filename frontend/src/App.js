@@ -14,6 +14,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import background from './components/images/brand.jpg'
 
 function App() {
   const [summonerInfo, setSummonerInfo] = useState({})
@@ -30,6 +31,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1)
   const [postsPerPage] = useState(25)
   const [modalOpen, setModalOpen] = useState(false)
+  const [navVisibility, setNavVisibility] = useState(false)
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
@@ -75,6 +77,14 @@ function App() {
   // onClick to close modal
   const closeModal = () => {
     setModalOpen(false)
+  }
+
+  const showNav = () => {
+    setNavVisibility(true)
+  }
+
+  const hideNav = () => {
+    setNavVisibility(false)
   }
 
   useEffect(() => {
@@ -164,99 +174,109 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <div className='overlay'></div>
-      <Router>
-        <Navbar className='navbar' />
-        <Switch>
-          <Route
-            exact
-            path='/'
-            render={() =>
-              redirect ? (
-                <Redirect to='/welcome' />
-              ) : (
-                <Home
+    <div
+      className='backgroundContainer'
+      style={{ backgroundImage: `url(${background})` }}
+    >
+      <div className='overlay'>
+        <Router>
+          <Navbar visibility={navVisibility} />
+          <Switch>
+            <Route
+              exact
+              path='/'
+              render={() =>
+                redirect ? (
+                  <Redirect to='/welcome' />
+                ) : (
+                  <Home
+                    summonerInfo={summonerInfo}
+                    inputValue={inputValue}
+                    change={handleOnChange}
+                    submit={handleSubmit}
+                    inputResponse={inputResponse}
+                    isAuthed={true}
+                    champInfo={champInfo}
+                    version={version}
+                    hideNav={hideNav}
+                  />
+                )
+              }
+            />
+            <Route
+              path='/welcome'
+              render={() => (
+                <Welcome
+                  redirect={changeRedirect}
                   summonerInfo={summonerInfo}
-                  inputValue={inputValue}
-                  change={handleOnChange}
-                  submit={handleSubmit}
-                  inputResponse={inputResponse}
+                  champInfo={champInfo}
                   isAuthed={true}
+                  version={version}
+                  getPlayerName={getPlayerName}
+                  queues={queues}
+                  showNav={showNav}
+                />
+              )}
+            />
+            <Route
+              path='/champions'
+              render={() => (
+                <Champions
                   champInfo={champInfo}
                   version={version}
+                  champDetail={champDetail}
+                  selectChampion={selectChampion}
+                  modalState={modalOpen}
+                  openModal={championModal}
+                  closeModal={closeModal}
+                  showNav={showNav}
                 />
-              )
-            }
-          />
-          <Route
-            path='/welcome'
-            render={() => (
-              <Welcome
-                redirect={changeRedirect}
-                summonerInfo={summonerInfo}
-                champInfo={champInfo}
-                isAuthed={true}
-                version={version}
-                getPlayerName={getPlayerName}
-                queues={queues}
-              />
-            )}
-          />
-          <Route
-            path='/champions'
-            render={() => (
-              <Champions
-                champInfo={champInfo}
-                version={version}
-                champDetail={champDetail}
-                selectChampion={selectChampion}
-                modalState={modalOpen}
-                openModal={championModal}
-                closeModal={closeModal}
-              />
-            )}
-          />
-          <Route
-            path='/championrotation'
-            render={() => (
-              <ChampionRotation
-                champInfo={champInfo}
-                version={version}
-                champDetail={champDetail}
-                selectChampion={selectChampion}
-                modalState={modalOpen}
-                openModal={championModal}
-                closeModal={closeModal}
-              />
-            )}
-          />
-          <Route
-            path='/leaderboard'
-            render={() => (
-              <Leaderboard
-                version={version}
-                solo={currentPosts}
-                soloTier={soloTier}
-                postsPerPage={postsPerPage}
-                totalPosts={solo.length}
-                paginate={paginate}
-                currentPage={currentPage}
-              />
-            )}
-          />
-          <Route
-            path='/championdetail'
-            render={() => (
-              <ChampionDetail
-                version={version}
-                champDetail={champDetail}
-                itemObj={item}
-              />
-            )}
-          />
-        </Switch>
-      </Router>
+              )}
+            />
+            <Route
+              path='/championrotation'
+              render={() => (
+                <ChampionRotation
+                  champInfo={champInfo}
+                  version={version}
+                  champDetail={champDetail}
+                  selectChampion={selectChampion}
+                  modalState={modalOpen}
+                  openModal={championModal}
+                  closeModal={closeModal}
+                  showNav={showNav}
+                />
+              )}
+            />
+            <Route
+              path='/leaderboard'
+              render={() => (
+                <Leaderboard
+                  version={version}
+                  solo={currentPosts}
+                  soloTier={soloTier}
+                  postsPerPage={postsPerPage}
+                  totalPosts={solo.length}
+                  paginate={paginate}
+                  currentPage={currentPage}
+                  showNav={showNav}
+                />
+              )}
+            />
+            <Route
+              path='/championdetail'
+              render={() => (
+                <ChampionDetail
+                  version={version}
+                  champDetail={champDetail}
+                  itemObj={item}
+                  showNav={showNav}
+                />
+              )}
+            />
+          </Switch>
+        </Router>
+      </div>
     </div>
   )
 }

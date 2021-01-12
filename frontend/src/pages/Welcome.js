@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import style from "./welcome.module.css";
-import axios from "axios";
-import { motion } from "framer-motion";
-import MasteryCard from "../components/MasteryCard";
-import RankCard from "../components/RankCard";
-import UnrankedCard from "../components/UnrankedCard";
-import SummonerCard from "../components/SummonerCard";
-import MatchHistoryCard from "../components/MatchHistoryCard";
+import React, { useState, useEffect } from 'react'
+import style from './welcome.module.css'
+import axios from 'axios'
+import { motion } from 'framer-motion'
+import MasteryCard from '../components/MasteryCard'
+import RankCard from '../components/RankCard'
+import UnrankedCard from '../components/UnrankedCard'
+import SummonerCard from '../components/SummonerCard'
+import MatchHistoryCard from '../components/MatchHistoryCard'
+import background from '../components/images/brand.jpg'
 
 function Welcome({
   summonerInfo,
@@ -15,58 +16,61 @@ function Welcome({
   getPlayerName,
   queues,
   redirect,
+  showNav,
 }) {
-  const [mastery, setMastery] = useState([]);
-  const [rank, setRank] = useState([]);
-  const [filteredChamps, setFilteredChamps] = useState([]);
-  const [session, setSession] = useState({});
-  const [playerMatches, setPlayerMatches] = useState([]);
-  const [matchDetails, setMatchDetails] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [visible, setVisible] = useState(7);
+  const [mastery, setMastery] = useState([])
+  const [rank, setRank] = useState([])
+  const [filteredChamps, setFilteredChamps] = useState([])
+  const [session, setSession] = useState({})
+  const [playerMatches, setPlayerMatches] = useState([])
+  const [matchDetails, setMatchDetails] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [visible, setVisible] = useState(7)
 
-  const url = process.env.REACT_APP_API_URL || "";
+  const url = process.env.REACT_APP_API_URL || ''
 
   // Function for masteries call specific to summoner id
-  const getMasteries = (id) => axios.get(`${url}/masteries/${id}`);
+  const getMasteries = (id) => axios.get(`${url}/masteries/${id}`)
 
   // Function for rank call specific to summoner id
-  const getRank = (id) => axios.get(`${url}/rank/${id}`);
+  const getRank = (id) => axios.get(`${url}/rank/${id}`)
 
   // Function for getting match list specific to the summoner
-  const getMatchList = (id) => axios.get(`${url}/matchList/${id}`);
+  const getMatchList = (id) => axios.get(`${url}/matchList/${id}`)
 
   useEffect(() => {
+    // Show nav on the welcome screen
+    showNav()
     // Sets loading to true to enable overlay, prevents user from rapidly clicking
-    setLoading(true);
+    setLoading(true)
     if (!summonerInfo.id) {
       // Checks if summonerInfo.id is available, if not grab identical copy from sessionStorage
-      const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-      setSession(sessionData);
+      const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+      setSession(sessionData)
 
       // Get masteries using sessionStorage and set into state
       getMasteries(sessionData.id).then((res) => {
-        setMastery(res.data);
-        getRank(sessionData.id).then((res) => setRank(res.data));
+        setMastery(res.data)
+        getRank(sessionData.id).then((res) => setRank(res.data))
 
         getMatchList(sessionData.accountId).then((res) =>
           setPlayerMatches(res.data.matches)
-        );
-      });
+        )
+      })
     } else {
       // Get masteries from state and set into state
       getMasteries(summonerInfo.id).then((res) => {
-        setMastery(res.data);
-        getRank(summonerInfo.id).then((res) => setRank(res.data));
+        setMastery(res.data)
+        getRank(summonerInfo.id).then((res) => setRank(res.data))
         getMatchList(summonerInfo.accountId).then((res) =>
           setPlayerMatches(res.data.matches)
-        );
-      });
+        )
+      })
     }
-    redirect();
+    redirect()
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summonerInfo]);
+  }, [summonerInfo])
 
   //
   // DEFINITELY CAN REFACTOR
@@ -74,7 +78,7 @@ function Welcome({
   // Match Details
   useEffect(() => {
     // Empty array to store match details
-    const matchArray = [];
+    const matchArray = []
 
     // Slice to determine how many previous matches to render
     playerMatches.slice(0, visible).forEach((match) => {
@@ -84,39 +88,39 @@ function Welcome({
         .then(() => {
           // Need this .then because setMatchDetails renders too quickly
           // Forces it to wait for matchArray to reach correct length
-          matchArray.length === visible && setMatchDetails(matchArray);
+          matchArray.length === visible && setMatchDetails(matchArray)
         })
         .then(() => {
           setTimeout(() => {
             // Set loading to false to disable overlay
-            setLoading(false);
-          }, 1000);
-        });
-    });
+            setLoading(false)
+          }, 1000)
+        })
+    })
     // Dependent on playerMatches to be ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playerMatches, visible]);
+  }, [playerMatches, visible])
 
   // Funtion for loading more matches
   const getMoreMatches = () => {
     if (visible >= playerMatches.length) {
-      return;
+      return
     }
-    setVisible((prevValue) => prevValue + 1);
-  };
+    setVisible((prevValue) => prevValue + 1)
+  }
 
   useEffect(() => {
     // Array to store newly created object that matches champion key to mastery key
-    const champObject = [];
+    const champObject = []
     // Nested for loop that compares mastery array to champInfo array for matches
     mastery.forEach((champ) => {
       champInfo.forEach((champion) => {
         if (champ.championId === +champion.key) {
-          const name = champion.name;
-          const key = champ.championId;
-          const image = champion.image.full;
-          const level = champ.championLevel;
-          const points = champ.championPoints;
+          const name = champion.name
+          const key = champ.championId
+          const image = champion.image.full
+          const level = champ.championLevel
+          const points = champ.championPoints
 
           // Create our own object containing neccessary data to push to champObject
           const object = {
@@ -125,34 +129,59 @@ function Welcome({
             image,
             level,
             points,
-          };
+          }
           // Push object to champObject
-          champObject.push(object);
+          champObject.push(object)
         }
-      });
-    });
+      })
+    })
     // Stores new array of object into state to be mapped
-    setFilteredChamps(champObject);
-  }, [mastery, champInfo]);
+    setFilteredChamps(champObject)
+  }, [mastery, champInfo])
 
   return (
-    <div className={style.welcomeBackgroundContainer}>
-      <h1 className={style.summonerName}>
-        Welcome, {summonerInfo.name || session.name}
-      </h1>
-      <SummonerCard version={version} summonerInfo={summonerInfo} />
-      <div className={style.welcomeContainer}>
-        <motion.div
-          className={style.appLeft}
-          initial={{ x: -1000 }}
-          animate={{ x: 0 }}
-          transition={{
-            delay: 0.7,
-            type: "tween",
-            stiffness: 120,
-            duration: 0.5,
-          }}
-        >
+    <div>
+      <div className={style.overlay}>
+        <div className={style.row1}>
+          <h1 className={style.summonerName}>
+            {summonerInfo.name || session.name}
+          </h1>
+          <div className={style.emblemContainer}>
+            <SummonerCard version={version} summonerInfo={summonerInfo} />
+            <div
+              className={style.rankCardContainer}
+              // initial={{ x: 1000 }}
+              // animate={{ x: 0 }}
+              // transition={{
+              //   delay: 0.7,
+              //   type: 'tween',
+              //   stiffness: 120,
+              //   duration: 0.5,
+              // }}
+            >
+              {!rank.length ? (
+                <>
+                  <UnrankedCard queueType='RANKED_FLEX_SR' />
+                  <UnrankedCard queueType='RANKED_SOLO_5x5' />
+                </>
+              ) : rank.length < 2 && rank[0].queueType === 'RANKED_SOLO_5x5' ? (
+                <>
+                  <RankCard rank={rank[0]} />
+                  <UnrankedCard queueType={'RANKED_FLEX_SR'} />
+                </>
+              ) : rank.length < 2 && rank[0].queueType === 'RANKED_FLEX_SR' ? (
+                <>
+                  <RankCard rank={rank[0]} />
+                  <UnrankedCard queueType={'RANKED_SOLO_5x5'} />
+                </>
+              ) : (
+                rank.map((ranking, i) => <RankCard key={i} rank={ranking} />)
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className={style.appLeft}>
           <MatchHistoryCard
             version={version}
             matchDetails={matchDetails}
@@ -163,85 +192,53 @@ function Welcome({
             overlay={loading}
             visible={visible}
           />
-          <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
+          {/* <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
             {visible >= playerMatches.length ? (
               <div className={style.none}>Cannot Display More Matches</div>
             ) : (
-              "Load More..."
+              'Load More...'
             )}
-          </div>
-        </motion.div>
-        <div className={style.appRight}>
-          <h1 className={style.rankedHeader}>Ranked</h1>
-
-          <motion.div
-            className={style.rankCardContainer}
-            initial={{ x: 1000 }}
-            animate={{ x: 0 }}
-            transition={{
-              delay: 0.7,
-              type: "tween",
-              stiffness: 120,
-              duration: 0.5,
-            }}
-          >
-            {!rank.length ? (
-              <>
-                <UnrankedCard queueType="RANKED_FLEX_SR" />
-                <UnrankedCard queueType="RANKED_SOLO_5x5" />
-              </>
-            ) : rank.length < 2 && rank[0].queueType === "RANKED_SOLO_5x5" ? (
-              <>
-                <RankCard rank={rank[0]} />
-                <UnrankedCard queueType={"RANKED_FLEX_SR"} />
-              </>
-            ) : rank.length < 2 && rank[0].queueType === "RANKED_FLEX_SR" ? (
-              <>
-                <RankCard rank={rank[0]} />
-                <UnrankedCard queueType={"RANKED_SOLO_5x5"} />
-              </>
-            ) : (
-              rank.map((ranking, i) => <RankCard key={i} rank={ranking} />)
-            )}
-          </motion.div>
-          <div className={style.masteryCardContainer}>
-            <h1>Champion Mastery</h1>
-            <motion.div
-              className={style.masteryCardContainer2}
-              initial={{ x: 1000 }}
-              animate={{ x: 0 }}
-              transition={{
-                delay: 0.7,
-                type: "tween",
-                stiffness: 120,
-                duration: 0.5,
-              }}
-            >
-              {filteredChamps.length < 3
-                ? filteredChamps.map((champ, i) => {
-                    return (
-                      <MasteryCard
-                        version={version}
-                        key={i}
-                        masteryChamp={champ}
-                      />
-                    );
-                  })
-                : filteredChamps.slice(0, 3).map((champ, i) => {
-                    return (
-                      <MasteryCard
-                        version={version}
-                        key={i}
-                        masteryChamp={champ}
-                      />
-                    );
-                  })}
-            </motion.div>
-          </div>
+          </div> */}
         </div>
+        {/* <div className={style.appRight}>
+        <div className={style.masteryCardContainer}>
+          <h1>Champion Mastery</h1>
+          <motion.div
+            className={style.masteryCardContainer2}
+            // initial={{ x: 1000 }}
+            // animate={{ x: 0 }}
+            // transition={{
+            //   delay: 0.7,
+            //   type: 'tween',
+            //   stiffness: 120,
+            //   duration: 0.5,
+            // }}
+          >
+            {filteredChamps.length < 3
+              ? filteredChamps.map((champ, i) => {
+                  return (
+                    <MasteryCard
+                      version={version}
+                      key={i}
+                      masteryChamp={champ}
+                    />
+                  )
+                })
+              : filteredChamps.slice(0, 3).map((champ, i) => {
+                  return (
+                    <MasteryCard
+                      version={version}
+                      key={i}
+                      masteryChamp={champ}
+                    />
+                  )
+                })}
+          </motion.div>
+        </div>
+      </div> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default Welcome;
+export default Welcome
