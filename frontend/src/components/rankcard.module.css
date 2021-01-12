@@ -2,22 +2,82 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin: 0 10px;
-  position: relative;
-  font-size: 13px;
+  font-size: 16px;
+}
+
+.emblemContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .emblemImage {
-  width: 70px;
-  height: auto;
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 50%;
 }
 
-.queue {
+.rankInfoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .rank {
+  color: #617c7a;
+  font-size: 32px;
+  font-weight: bold;
+  margin-left: 7px;
 }
 
+.points {
+  margin-left: 10px;
+  color: #fff;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.queue {
+  background-color: #72617c;
+  padding: 8px 10px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.queue:hover {
+  cursor: pointer;
+  background-color: #867491;
+}
 .ratio {
+  background-color: #72617c;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin: 5px 10px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+.record {
+  color: #fff;
+}
+
+.win {
+  color: #4ba71a;
+  margin: 0px 5px;
+}
+
+.loss {
+  color: #7e2b4a;
+  margin-left: 5px;
 }

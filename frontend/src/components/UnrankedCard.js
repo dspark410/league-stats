@@ -12,9 +12,9 @@ export default function UnrankedCard({ queueType }) {
         src={process.env.PUBLIC_URL + `/images/emblems/UNRANKED.png`}
       />
       <span className={style.queue}>
-        {queueType.split('_').slice(0, 2).join(' ')}
+        {queueType.split('_').slice(1, 2).join(' ')}
       </span>
-      <span className={style.rank}>Unranked</span>
+      <span className={style.rank}>UNRANKED</span>
       <span className={style.ratio}>0 wins / 0 losses</span>
     </div>
   )

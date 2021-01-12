@@ -123,8 +123,6 @@ function MatchHistoryCard({
 
   return (
     <div className={style.matchContainer}>
-      <h1>Match History</h1>
-
       {loading ? (
         <Loader />
       ) : (

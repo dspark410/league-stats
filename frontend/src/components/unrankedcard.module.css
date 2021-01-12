@@ -5,7 +5,7 @@
   align-items: center;
   margin: 0 10px;
   position: relative;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .emblemImage {
@@ -14,6 +14,10 @@
 }
 
 .queue {
+  background-color: #72617c;
+  padding: 8px 8px;
+  border-radius: 5px;
+  margin: 5px 0px;
 }
 
 .rank {

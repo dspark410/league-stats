@@ -7,7 +7,6 @@ import RankCard from '../components/RankCard'
 import UnrankedCard from '../components/UnrankedCard'
 import SummonerCard from '../components/SummonerCard'
 import MatchHistoryCard from '../components/MatchHistoryCard'
-import background from '../components/images/brand.jpg'
 
 function Welcome({
   summonerInfo,
@@ -159,7 +158,10 @@ function Welcome({
               //   duration: 0.5,
               // }}
             >
-              {!rank.length ? (
+              {rank.map((ranking, i) => (
+                <RankCard key={i} rank={ranking} />
+              ))}
+              {/* {!rank.length ? (
                 <>
                   <UnrankedCard queueType='RANKED_FLEX_SR' />
                   <UnrankedCard queueType='RANKED_SOLO_5x5' />
@@ -176,7 +178,7 @@ function Welcome({
                 </>
               ) : (
                 rank.map((ranking, i) => <RankCard key={i} rank={ranking} />)
-              )}
+              )} */}
             </div>
           </div>
         </div>

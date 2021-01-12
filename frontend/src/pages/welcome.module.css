@@ -4,22 +4,23 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgb(255 255 255 / 0%) 0%, rgb(88, 75, 96) 40%);
+  background: linear-gradient(rgb(255 255 255 / 0%) 0%, #584b60 80%);
   z-index: 1;
   overflow-y: auto;
 }
-
 .row1 {
-  position: absolute;
+  /* position: absolute;
   top: 10%;
-  left: 25%;
+  left: 25%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border: 1px solid black;
   z-index: 100;
-  color: #f8f8f8;
+  color: #fff;
   padding: 2% 2%;
+  /* background-color: #4c5461; */
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .welcomeContainer h1 {
@@ -31,8 +32,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
   font-size: 50px;
+  font-weight: bold;
   z-index: 100;
   padding: 0px 10px;
 }
@@ -42,9 +43,11 @@
 }
 
 .appLeft {
-  position: absolute;
-  top: 50%;
-  left: 25%;
+  /* position: absolute;
+  top: 40%;
+  left: 25%; */
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .appRight {
@@ -92,6 +95,7 @@
 .none {
   color: rgb(196, 92, 92);
 }
+
 .moreMatchesBtn:hover {
   cursor: pointer;
 }
