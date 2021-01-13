@@ -1,13 +1,22 @@
-.overlay {
-  position: fixed;
+.welcomeOverlay {
+  position: absolute;
   top: 60px;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgb(255 255 255 / 0%) 0%, #584b60 80%);
-  z-index: 1;
-  overflow-y: auto;
+  background: rgba(59, 43, 68, 0.85);
 }
+
+.overlay {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: linear-gradient(rgb(255 255 255 / 0%) 0%, #584b60 25%);
+  z-index: 1;
+}
+
 .row1 {
   /* position: absolute;
   top: 10%;
@@ -47,6 +56,7 @@
   top: 40%;
   left: 25%; */
   width: 1200px;
+  height: auto;
   margin: 0 auto;
 }
 
@@ -76,28 +86,6 @@
 
 .rankCardContainer {
   display: flex;
-}
-
-.moreMatchesBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 0px;
-  background-color: #c2bdbd;
-  border: 1px solid #b3afaf;
-  margin: 5px auto 20px auto;
-  border-radius: 3px;
-  color: #606e83;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.none {
-  color: rgb(196, 92, 92);
-}
-
-.moreMatchesBtn:hover {
-  cursor: pointer;
 }
 
 /* @media (max-width: 1024px) {

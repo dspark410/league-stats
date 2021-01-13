@@ -19,6 +19,8 @@ function MatchHistoryCard({
   queues,
   overlay,
   visible,
+  getMoreMatches,
+  playerMatches,
 }) {
   const [gameDetails, setGameDetails] = useState([])
   const [runes, setRunes] = useState([])
@@ -276,8 +278,8 @@ function MatchHistoryCard({
                   <span className={style.cardContainer}>
                     <div className={style.thirdCard}>
                       <div className={style.killDeathAssists}>
-                        <span>{game.playerInfo.stats.kills} / </span>
-                        <span>{game.playerInfo.stats.deaths} / </span>
+                        <span>{game.playerInfo.stats.kills}/</span>
+                        <span>{game.playerInfo.stats.deaths}/</span>
                         <span>{game.playerInfo.stats.assists}</span>
                       </div>
                       <div className={style.kdaRatio}>
@@ -313,7 +315,7 @@ function MatchHistoryCard({
                       <Tooltip
                         moreInfo={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}
                       >
-                        <span>
+                        <span className={style.minions}>
                           {game.playerInfo.stats.totalMinionsKilled +
                             game.playerInfo.stats.neutralMinionsKilled}{' '}
                           cs
@@ -364,8 +366,9 @@ function MatchHistoryCard({
                             />
                             <span
                               className={
-                                player.name === summonerInfo.name &&
-                                style.summonerName
+                                player.name === summonerInfo.name ||
+                                (player.name === sessionData.name &&
+                                  style.summonerName)
                               }
                               name={player.name}
                             >
@@ -395,8 +398,9 @@ function MatchHistoryCard({
                             />
                             <span
                               className={
-                                player.name === summonerInfo.name &&
-                                style.summonerName
+                                player.name === summonerInfo.name ||
+                                (player.name === sessionData.name &&
+                                  style.summonerName)
                               }
                               name={player.name}
                             >
@@ -408,6 +412,13 @@ function MatchHistoryCard({
                   </span>
                 </div>
               ))}
+          <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
+            {visible >= playerMatches.length ? (
+              <div className={style.none}>Cannot Display More Matches</div>
+            ) : (
+              'Load More'
+            )}
+          </div>
         </LoadingOverlay>
       )}
     </div>

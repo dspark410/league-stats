@@ -139,7 +139,7 @@ function Welcome({
   }, [mastery, champInfo])
 
   return (
-    <div>
+    <div className={style.welcomeOverlay}>
       <div className={style.overlay}>
         <div className={style.row1}>
           <h1 className={style.summonerName}>
@@ -158,27 +158,7 @@ function Welcome({
               //   duration: 0.5,
               // }}
             >
-              {rank.map((ranking, i) => (
-                <RankCard key={i} rank={ranking} />
-              ))}
-              {/* {!rank.length ? (
-                <>
-                  <UnrankedCard queueType='RANKED_FLEX_SR' />
-                  <UnrankedCard queueType='RANKED_SOLO_5x5' />
-                </>
-              ) : rank.length < 2 && rank[0].queueType === 'RANKED_SOLO_5x5' ? (
-                <>
-                  <RankCard rank={rank[0]} />
-                  <UnrankedCard queueType={'RANKED_FLEX_SR'} />
-                </>
-              ) : rank.length < 2 && rank[0].queueType === 'RANKED_FLEX_SR' ? (
-                <>
-                  <RankCard rank={rank[0]} />
-                  <UnrankedCard queueType={'RANKED_SOLO_5x5'} />
-                </>
-              ) : (
-                rank.map((ranking, i) => <RankCard key={i} rank={ranking} />)
-              )} */}
+              {!rank.length ? <UnrankedCard /> : <RankCard rank={rank} />}
             </div>
           </div>
         </div>
@@ -193,14 +173,9 @@ function Welcome({
             queues={queues}
             overlay={loading}
             visible={visible}
+            getMoreMatches={getMoreMatches}
+            playerMatches={playerMatches}
           />
-          {/* <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
-            {visible >= playerMatches.length ? (
-              <div className={style.none}>Cannot Display More Matches</div>
-            ) : (
-              'Load More...'
-            )}
-          </div> */}
         </div>
         {/* <div className={style.appRight}>
         <div className={style.masteryCardContainer}>

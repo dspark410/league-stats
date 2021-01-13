@@ -8,7 +8,6 @@ export default function Tooltip(props) {
       animation='fade'
       content={
         <div className={style.tooltip}>
-          {/* {props.children} */}
           <div className={style.tooltiptext}>
             <div className={style.name}>{props.name}</div>
             <div
@@ -27,24 +26,7 @@ export default function Tooltip(props) {
         </div>
       }
     >
-      <div className={style.tooltip}>
-        {props.children}
-        {/* <div className={style.tooltiptext}>
-          <div className={style.name}>{props.name}</div>
-          <div
-            className={style.info}
-            dangerouslySetInnerHTML={{
-              __html: props.info,
-            }}
-          />
-          <div
-            className={style.moreInfo}
-            dangerouslySetInnerHTML={{
-              __html: props.moreInfo,
-            }}
-          />
-        </div> */}
-      </div>
+      <div className={style.tooltip}>{props.children}</div>
     </Tippy>
   )
 }

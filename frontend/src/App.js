@@ -178,7 +178,7 @@ function App() {
       className='backgroundContainer'
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className='overlay'>
+      <div>
         <Router>
           <Navbar visibility={navVisibility} />
           <Switch>

@@ -78,65 +78,67 @@ function Champions({
   }
 
   return (
-    <div className={style.overlay}>
-      <div className={style.searchContainer}>
-        <h1 className={style.championList}>Champion List</h1>
-        <div className={style.inputContainer}>
-          <form onSubmit={handleSubmit}>
-            <input
-              spellCheck='false'
-              type='text'
-              onChange={changeHandler}
-              value={input}
-              placeholder='search champion...'
+    <div className={style.championsOverlay}>
+      <div className={style.overlay}>
+        <div className={style.searchContainer}>
+          <h1 className={style.championList}>Champion List</h1>
+          <div className={style.inputContainer}>
+            <form onSubmit={handleSubmit}>
+              <input
+                spellCheck='false'
+                type='text'
+                onChange={changeHandler}
+                value={input}
+                placeholder='search champion...'
+              />
+            </form>
+            <AiOutlineSearch
+              className={style.searchIcon}
+              onClick={handleSubmit}
             />
-          </form>
-          <AiOutlineSearch
-            className={style.searchIcon}
-            onClick={handleSubmit}
+          </div>
+        </div>
+
+        <div className={style.screenContainer}>
+          <div className={style.imageContainer}>
+            <AnimatePresence>
+              {autofill.map((champ, i) => (
+                <Tooltip
+                  key={i}
+                  name={champ.name}
+                  info={champ.title}
+                  moreInfo={champ.blurb}
+                >
+                  <motion.div
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -100, opacity: 0 }}
+                  >
+                    <img
+                      className={style.freeChampsImg}
+                      alt={champ.image.full}
+                      onClick={selectChampion}
+                      name={champ.id}
+                      realname={champ.name}
+                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                    />
+                    <div className={style.champName}>{champ.name}</div>
+                  </motion.div>
+                </Tooltip>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          <ChampionModal
+            championDetails={championDetails}
+            modalState={modalState}
+            closeModal={closeModal}
+            current={current}
+            prevSkin={prevSkin}
+            nextSkin={nextSkin}
+            version={version}
           />
         </div>
-      </div>
-
-      <div className={style.screenContainer}>
-        <div className={style.imageContainer}>
-          <AnimatePresence>
-            {autofill.map((champ, i) => (
-              <Tooltip
-                key={i}
-                name={champ.name}
-                info={champ.title}
-                moreInfo={champ.blurb}
-              >
-                <motion.div
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -100, opacity: 0 }}
-                >
-                  <img
-                    className={style.freeChampsImg}
-                    alt={champ.image.full}
-                    onClick={selectChampion}
-                    name={champ.id}
-                    realname={champ.name}
-                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                  />
-                  <div className={style.champName}>{champ.name}</div>
-                </motion.div>
-              </Tooltip>
-            ))}
-          </AnimatePresence>
-        </div>
-
-        <ChampionModal
-          championDetails={championDetails}
-          modalState={modalState}
-          closeModal={closeModal}
-          current={current}
-          prevSkin={prevSkin}
-          nextSkin={nextSkin}
-          version={version}
-        />
       </div>
     </div>
   )

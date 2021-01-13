@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   font-size: 13px;
+  font-weight: 600;
 }
 
 .matchContainer h1 {
@@ -21,10 +22,10 @@
   background-image: linear-gradient(
     90deg,
     rgba(1, 97, 28, 0.3) 0%,
-    #554361 45%
+    #5f5466 45%
   );
   border-radius: 8px;
-  margin: 10px 0;
+  margin: 15px 0;
   padding: 5px;
 }
 
@@ -37,10 +38,10 @@
   background-image: linear-gradient(
     90deg,
     rgba(140, 0, 0, 0.3) 0%,
-    #554361 45%
+    #5f5466 45%
   );
   border-radius: 8px;
-  margin: 10px 0;
+  margin: 15px 0;
   padding: 5px;
 }
 
@@ -99,6 +100,12 @@
   min-width: 110px;
 }
 
+.gameDuration {
+  color: #2c70be;
+  font-size: 16px;
+  font-weight: 900;
+}
+
 .win {
   color: rgb(82, 179, 82);
 }
@@ -116,6 +123,10 @@
   margin-right: 7px;
 }
 
+.championName {
+  color: #2c70be;
+  font-size: 20px;
+}
 .imageContainer {
   display: flex;
   padding-top: 6px;
@@ -129,7 +140,6 @@
 
 .championImage {
   border-radius: 8px;
-  border: solid 2px #f0d287;
   width: 50px;
   height: auto;
 }
@@ -171,6 +181,16 @@
   min-width: 80px;
 }
 
+.killDeathAssists {
+  font-weight: 600;
+  color: #2c70be;
+  font-size: 18px;
+}
+
+.kdaRatio {
+  font-weight: 600;
+}
+
 .fourthCard {
   display: flex;
   flex-direction: column;
@@ -178,6 +198,10 @@
   justify-content: center;
   text-align: center;
   margin-right: 7px;
+}
+
+.minions {
+  color: #eda746;
 }
 
 .fifthCard {
@@ -193,6 +217,7 @@
   align-items: initial;
   max-width: 100;
   margin-right: 3px;
+  font-weight: 500;
 }
 
 .sixthCard img {
@@ -203,10 +228,6 @@
 
 .sixthCard img:hover {
   cursor: pointer;
-}
-
-.summonerName {
-  color: rgb(55, 139, 223);
 }
 
 .sixthCard span {
@@ -227,6 +248,7 @@
   justify-content: center;
   align-items: initial;
   max-width: 100;
+  font-weight: 500;
 }
 
 .seventhCard img {
@@ -251,6 +273,10 @@
   color: #e6ded0;
 }
 
+.summonerName {
+  color: #3581d8;
+}
+
 .col {
   display: flex;
   justify-content: initial;
@@ -261,6 +287,30 @@
   display: flex;
   flex-direction: row;
 }
+
+.moreMatchesBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  padding: 7px 10px;
+  background-color: #665470;
+  margin: 5px auto 5px auto;
+  border-radius: 3px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.none {
+  color: rgb(196, 92, 92);
+}
+
+.moreMatchesBtn:hover {
+  cursor: pointer;
+  background-color: #4b3d53;
+}
+
 /* 
 @media (max-width: 768px) {
   .firstCard,

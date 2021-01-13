@@ -7,8 +7,7 @@
   font-weight: bold;
   letter-spacing: 1px;
   z-index: 100;
-  background: transparent;
-  /* background-color: rgb(88, 75, 96); */
+  background: rgba(59, 43, 68, 0.85);
 }
 
 .navHeader {

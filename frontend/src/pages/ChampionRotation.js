@@ -64,81 +64,83 @@ function ChampionRotation({
   }
 
   return (
-    <div className={style.overlay}>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <h1 className={style.championRotationHeader}>Champion Rotation</h1>
-          <div className={style.screenContainer}>
-            <div className={style.imageContainer}>
-              {freeChamps.map((champ, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ x: -1000 }}
-                  animate={{ x: 0 }}
-                  transition={{
-                    delay: 0.2,
-                    type: 'tween',
-                    stiffness: 120,
-                    duration: 0.5,
-                  }}
-                >
-                  <Tooltip
-                    name={champ.name}
-                    info={champ.title}
-                    moreInfo={champ.blurb}
+    <div className={style.rotationOverlay}>
+      <div className={style.overlay}>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <h1 className={style.championRotationHeader}>Champion Rotation</h1>
+            <div className={style.screenContainer}>
+              <div className={style.imageContainer}>
+                {freeChamps.map((champ, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ x: -1000 }}
+                    animate={{ x: 0 }}
+                    transition={{
+                      delay: 0.2,
+                      type: 'tween',
+                      stiffness: 120,
+                      duration: 0.5,
+                    }}
                   >
-                    <img
-                      className={style.freeChampsImg}
-                      alt={champ.image.full}
-                      onClick={selectChampion}
-                      name={champ.id}
-                      realname={champ.name}
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                    <Tooltip
+                      name={champ.name}
+                      info={champ.title}
+                      moreInfo={champ.blurb}
+                    >
+                      <img
+                        className={style.freeChampsImg}
+                        alt={champ.image.full}
+                        onClick={selectChampion}
+                        name={champ.id}
+                        realname={champ.name}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                      />
+                      <div className={style.champName}>{champ.name}</div>
+                    </Tooltip>
+                  </motion.div>
+                ))}
+              </div>
+              <div>
+                {championDetails ? (
+                  <motion.div
+                    initial={{ x: 800 }}
+                    animate={{ x: 0 }}
+                    transition={{
+                      delay: 0.2,
+                      type: 'tween',
+                      stiffness: 120,
+                      duration: 0.5,
+                    }}
+                  >
+                    <ChampionDetails
+                      championDetails={championDetails}
+                      click={openModal}
+                      number={current}
+                      nextClick={nextSkin}
+                      prevClick={prevSkin}
                     />
-                    <div className={style.champName}>{champ.name}</div>
-                  </Tooltip>
-                </motion.div>
-              ))}
-            </div>
-            <div>
-              {championDetails ? (
-                <motion.div
-                  initial={{ x: 800 }}
-                  animate={{ x: 0 }}
-                  transition={{
-                    delay: 0.2,
-                    type: 'tween',
-                    stiffness: 120,
-                    duration: 0.5,
-                  }}
-                >
-                  <ChampionDetails
-                    championDetails={championDetails}
-                    click={openModal}
-                    number={current}
-                    nextClick={nextSkin}
-                    prevClick={prevSkin}
-                  />
-                </motion.div>
-              ) : (
-                ''
-              )}
-            </div>
+                  </motion.div>
+                ) : (
+                  ''
+                )}
+              </div>
 
-            <ChampionModal
-              championDetails={championDetails}
-              modalState={modalState}
-              closeModal={closeModal}
-              current={current}
-              prevSkin={prevSkin}
-              nextSkin={nextSkin}
-              version={version}
-            />
-          </div>
-        </>
-      )}
+              <ChampionModal
+                championDetails={championDetails}
+                modalState={modalState}
+                closeModal={closeModal}
+                current={current}
+                prevSkin={prevSkin}
+                nextSkin={nextSkin}
+                version={version}
+              />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   )
 }
