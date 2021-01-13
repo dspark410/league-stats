@@ -41,7 +41,7 @@
 }
 
 .queue {
-  background-color: #72617c;
+  background-color: #7a6b83;
   padding: 8px 10px;
   border-radius: 5px;
   margin: 5px 0px;
@@ -54,10 +54,10 @@
 
 .queue:hover {
   cursor: pointer;
-  background-color: #867491;
+  background-color: #836894;
 }
 .ratio {
-  background-color: #72617c;
+  background-color: #7a6b83;
   padding: 8px 12px;
   border-radius: 5px;
   margin: 5px 10px;

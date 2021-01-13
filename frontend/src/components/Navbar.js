@@ -64,7 +64,10 @@ function Navbar({ visibility }) {
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            <Link to='' className={style.navLinks} onClick={closeMobileMenu}>
+            <Link
+              className={`${style.navLinks} ${style.noLink}`}
+              onClick={closeMobileMenu}
+            >
               Champions{''}
               <i>
                 <FaCaretDown className={style.faCaretDown} />

@@ -1,6 +1,6 @@
 .matchContainer {
   color: #fff;
-  width: 770px;
+  width: 835px;
   min-height: 1200px;
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@
   background-image: linear-gradient(
     90deg,
     rgba(1, 97, 28, 0.3) 0%,
-    #5f5466 45%
+    #7a6b83 45%
   );
   border-radius: 8px;
   margin: 15px 0;
@@ -40,7 +40,7 @@
   background-image: linear-gradient(
     90deg,
     rgba(140, 0, 0, 0.3) 0%,
-    #5f5466 45%
+    #7a6b83 45%
   );
   border-radius: 8px;
   margin: 15px 0;
@@ -94,7 +94,7 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin: 0 7px;
+  margin: 0 15px;
 }
 
 .firstCard p {
@@ -122,7 +122,7 @@
   text-align: center;
   align-items: center;
   justify-content: center;
-  margin-right: 7px;
+  margin-right: 15px;
 }
 
 .championName {
@@ -179,7 +179,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-right: 7px;
+  margin-right: 15px;
   min-width: 80px;
 }
 
@@ -199,7 +199,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-right: 7px;
+  margin-right: 15px;
 }
 
 .minions {
@@ -209,7 +209,7 @@
 .fifthCard {
   display: flex;
   flex-direction: column;
-  margin-right: 7px;
+  margin-right: 15px;
 }
 
 .sixthCard {
@@ -296,7 +296,7 @@
   justify-content: center;
   width: 20%;
   padding: 7px 10px;
-  background-color: #665470;
+  background-color: #7a6b83;
   margin: 5px auto 5px auto;
   border-radius: 3px;
   color: #fff;
@@ -310,7 +310,7 @@
 
 .moreMatchesBtn:hover {
   cursor: pointer;
-  background-color: #4b3d53;
+  background-color: #836894;
 }
 
 /* 

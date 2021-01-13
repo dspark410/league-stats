@@ -18,7 +18,7 @@ function UnrankedCard() {
             strokeWidth={4}
             styles={buildStyles({
               pathColor: 'transparent',
-              trailColor: '#736485',
+              trailColor: '#7a6b83',
             })}
           >
             <img

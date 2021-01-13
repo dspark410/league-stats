@@ -6,18 +6,19 @@ function MasteryCard({ version, filteredChamps }) {
     <div className={style.masteryCard}>
       <div className={style.header}>
         <img src={process.env.PUBLIC_URL + '/images/icons/mastery.png'} />
-        Champion Mastery
+        CHAMPION MASTERY
       </div>
+
       <div className={style.masteryHeader}>
-        <div className={style.championHeader}>Champion</div>
-        <div className={style.levelHeader}>Level</div>
-        <div className={style.pointsHeader}>Points</div>
+        <div className={style.championHeader}>CHAMPION</div>
+        <div className={style.levelHeader}>LEVEL</div>
+        <div className={style.pointsHeader}>POINTS</div>
       </div>
 
       {filteredChamps.length < 5
         ? filteredChamps.map((champ, i) => {
             return (
-              <li>
+              <li className={style.listContainer}>
                 <div className={style.masteryRow}>
                   <div>{i + 1}.</div>
                   <div className={style.champImgContainer}>
@@ -87,25 +88,6 @@ function MasteryCard({ version, filteredChamps }) {
               </li>
             )
           })}
-
-      {/* 
-
-      <img
-        className={style.masteryFrame}
-        alt={'mastery level border'}
-        src={
-          masteryChamp.level
-            ? process.env.PUBLIC_URL +
-              `/images/masteryicons/level${masteryChamp.level}.png`
-            : process.env.PUBLIC_URL + '/images/masteryicons/level1.png'
-        }
-      />
-
-      <div className={style.name}>{masteryChamp.name}</div>
-      <div className={style.points}>
-        {masteryChamp.points.toLocaleString('en')}pts
-      </div>
-      <div className={style.level}>Mastery lvl {masteryChamp.level}</div> */}
     </div>
   )
 }

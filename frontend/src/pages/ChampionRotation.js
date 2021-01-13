@@ -106,7 +106,7 @@ function ChampionRotation({
               <div>
                 {championDetails ? (
                   <motion.div
-                    initial={{ x: 800 }}
+                    initial={{ x: 200 }}
                     animate={{ x: 0 }}
                     transition={{
                       delay: 0.2,

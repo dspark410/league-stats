@@ -67,7 +67,7 @@ function RankCard({ rank }) {
                   strokeWidth={4}
                   styles={buildStyles({
                     pathColor: color,
-                    trailColor: '#736485',
+                    trailColor: '#7a6b83',
                   })}
                 >
                   <img

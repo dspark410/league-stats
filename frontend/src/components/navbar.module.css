@@ -52,8 +52,12 @@
 }
 
 .navLinks:hover {
-  background-color: #3a3c3d;
+  background-color: #7a6b83;
   transition: all 0.2s ease-out;
+}
+
+.noLink:hover {
+  cursor: default;
 }
 
 .faBars {
@@ -73,7 +77,7 @@
     position: relative;
   }
 
-  .navbars {
+  .navbar {
     align-items: center;
     display: flex;
   }
