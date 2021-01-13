@@ -163,7 +163,7 @@ function Welcome({
           </div>
         </div>
 
-        <div className={style.appLeft}>
+        <div className={style.row2}>
           <MatchHistoryCard
             version={version}
             matchDetails={matchDetails}
@@ -176,43 +176,39 @@ function Welcome({
             getMoreMatches={getMoreMatches}
             playerMatches={playerMatches}
           />
+
+          {/* <motion.div
+           initial={{ x: 1000 }}
+           animate={{ x: 0 }}
+            transition={{
+              delay: 0.7,
+              type: 'tween',
+              stiffness: 120,
+              duration: 0.5,
+             }}
+            > */}
+          {/* {filteredChamps.length < 5
+                  ? filteredChamps.map((champ, i) => {
+                      return (
+                        <MasteryCard
+                          version={version}
+                          key={i}
+                          masteryChamp={champ}
+                        />
+                      )
+                    })
+                  : filteredChamps.slice(0, 5).map((champ, i) => {
+                      return (
+                        <MasteryCard
+                          version={version}
+                          key={i}
+                          masteryChamp={champ}
+                        />
+                      )
+                    })} */}
+          <MasteryCard version={version} filteredChamps={filteredChamps} />
+          {/* </motion.div> */}
         </div>
-        {/* <div className={style.appRight}>
-        <div className={style.masteryCardContainer}>
-          <h1>Champion Mastery</h1>
-          <motion.div
-            className={style.masteryCardContainer2}
-            // initial={{ x: 1000 }}
-            // animate={{ x: 0 }}
-            // transition={{
-            //   delay: 0.7,
-            //   type: 'tween',
-            //   stiffness: 120,
-            //   duration: 0.5,
-            // }}
-          >
-            {filteredChamps.length < 3
-              ? filteredChamps.map((champ, i) => {
-                  return (
-                    <MasteryCard
-                      version={version}
-                      key={i}
-                      masteryChamp={champ}
-                    />
-                  )
-                })
-              : filteredChamps.slice(0, 3).map((champ, i) => {
-                  return (
-                    <MasteryCard
-                      version={version}
-                      key={i}
-                      masteryChamp={champ}
-                    />
-                  )
-                })}
-          </motion.div>
-        </div>
-      </div> */}
       </div>
     </div>
   )

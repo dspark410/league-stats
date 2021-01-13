@@ -1,52 +1,104 @@
 .masteryCard {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 13px;
+  width: 400px;
+  margin: 15px 0px;
+  background-color: #584b60;
+  color: #fff;
+  font-weight: 500;
+
+  border-radius: 0.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5f5466;
+  width: 100%;
+  padding: 10px 0px;
+  font-size: 18px;
+}
+
+.masteryHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #48404d;
+  width: 100%;
+  padding: 10px 0px;
+}
+
+.championHeader,
+.levelHeader,
+.pointsHeader {
+  text-align: center;
+  font-size: 14px;
+  min-width: 100px;
+}
+
+.championHeader {
+  margin-left: 18px;
+}
+
+.levelHeader {
+  margin-left: 42px;
+}
+
+.pointsHeader {
+}
+.masteryCard li {
+  list-style-type: none;
+}
+
+.masteryCard li:nth-child(even) {
+  background-color: #48404d;
+  width: 100%;
+}
+.masteryCard li:nth-child(odd) {
+  background-color: #5f5466;
+  width: 100%;
+}
+
+.masteryRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.champImgContainer {
+  min-width: 30px;
+}
+
+.champLvlContainer,
+.name,
+.points {
+  min-width: 80px;
 }
 
 .masteryFrame {
-  width: 75px;
+  width: 35px;
   height: auto;
 }
 
 .championImage {
-  width: 25px;
+  width: 35px;
   height: auto;
-  position: absolute;
   border-radius: 50%;
-  border: solid 4px #f0d287;
-  bottom: 39%;
 }
 
 .name {
-  position: absolute;
-  display: flex;
-  flex-direction: initial;
-  width: 60%;
-  align-items: center;
-  top: 3%;
-  letter-spacing: 1px;
 }
 
 .points {
-  position: absolute;
-  display: flex;
-  flex-direction: initial;
-  width: 60%;
-  align-items: center;
-  top: 13%;
-  letter-spacing: 0.4px;
 }
 
 .level {
-  position: absolute;
-  display: flex;
-  flex-direction: initial;
-  width: 60%;
-  align-items: center;
-  top: 23%;
   letter-spacing: 0.4px;
 }

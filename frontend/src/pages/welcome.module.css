@@ -26,7 +26,6 @@
   justify-content: flex-start;
   z-index: 100;
   color: #fff;
-  padding: 2% 2%;
   /* background-color: #4c5461; */
   width: 1200px;
   margin: 0 auto;
@@ -51,38 +50,21 @@
   display: flex;
 }
 
-.appLeft {
-  /* position: absolute;
-  top: 40%;
-  left: 25%; */
+.row2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   width: 1200px;
   height: auto;
   margin: 0 auto;
 }
 
-.appRight {
-}
-
-.appRight h1 {
-  text-align: center;
-}
-
-.masteryCardContainer {
-  width: 100%;
-  color: #f0d287;
-  font-weight: bold;
-}
-
-.masteryCardContainer h1 {
-  margin-bottom: 15px;
-}
-
-.masteryCardContainer2 {
+/* .masteryCardContainer2 {
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-flow: row wrap;
-}
+} */
 
 .rankCardContainer {
   display: flex;

@@ -366,8 +366,8 @@ function MatchHistoryCard({
                             />
                             <span
                               className={
-                                player.name === summonerInfo.name ||
-                                (player.name === sessionData.name &&
+                                player.name === sessionData.name ||
+                                (player.name === summonerInfo.name &&
                                   style.summonerName)
                               }
                               name={player.name}
