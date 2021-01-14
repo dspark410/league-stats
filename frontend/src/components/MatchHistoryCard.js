@@ -38,6 +38,7 @@ function MatchHistoryCard({
         const newMatch = await createGameObject(res.data, queues, champInfo);
         setGameDetails((prevGames) => [...prevGames, newMatch]);
       });
+    setIndex((prevIndex) => prevIndex + 1);
   };
 
   const createGameObject = (match, queues, champInfo) => {
@@ -172,9 +173,9 @@ function MatchHistoryCard({
         <LoadingOverlay active={loading} spinner>
           {gameDetails.length >= visible &&
             gameDetails
-              //   .sort(function (a, b) {
-              //     return new Date(b.gameCreation) - new Date(a.gameCreation);
-              //   })
+              .sort(function (a, b) {
+                return new Date(b.gameCreation) - new Date(a.gameCreation);
+              })
               .map((game, i) => (
                 <div
                   className={
