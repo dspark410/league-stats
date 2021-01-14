@@ -141,43 +141,57 @@ function Welcome({
   return (
     <div className={style.welcomeOverlay}>
       <div className={style.overlay}>
-        <div className={style.row1}>
-          <h1 className={style.summonerName}>
-            {summonerInfo.name || session.name}
-          </h1>
-          <div className={style.emblemContainer}>
-            <SummonerCard version={version} summonerInfo={summonerInfo} />
-            <div
-              className={style.rankCardContainer}
-              // initial={{ x: 1000 }}
-              // animate={{ x: 0 }}
-              // transition={{
-              //   delay: 0.7,
-              //   type: 'tween',
-              //   stiffness: 120,
-              //   duration: 0.5,
-              // }}
-            >
-              {!rank.length ? <UnrankedCard /> : <RankCard rank={rank} />}
+        <div className={style.rowContainer}>
+          <div className={style.row1}>
+            <h1 className={style.summonerName}>
+              {summonerInfo.name || session.name}
+            </h1>
+            <div className={style.emblemContainer}>
+              <SummonerCard version={version} summonerInfo={summonerInfo} />
+              <div
+                className={style.rankCardContainer}
+                // initial={{ x: 1000 }}
+                // animate={{ x: 0 }}
+                // transition={{
+                //   delay: 0.7,
+                //   type: 'tween',
+                //   stiffness: 120,
+                //   duration: 0.5,
+                // }}
+              >
+                {!rank.length ? <UnrankedCard /> : <RankCard rank={rank} />}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className={style.row2}>
-          <MatchHistoryCard
-            version={version}
-            matchDetails={matchDetails}
-            summonerInfo={summonerInfo}
-            champInfo={champInfo}
-            getPlayerName={getPlayerName}
-            queues={queues}
-            overlay={loading}
-            visible={visible}
-            getMoreMatches={getMoreMatches}
-            playerMatches={playerMatches}
-          />
+          <div className={style.row2}>
+            <div className={style.linksContainer}>
+              <a href='#' className={style.overview}>
+                Overview
+              </a>
+              <a href='#' className={style.champions}>
+                Champions
+              </a>
+              <a href='#' className={style.live}>
+                Live Game
+              </a>
+            </div>
+          </div>
+          <div className={style.row3}>
+            <MatchHistoryCard
+              version={version}
+              matchDetails={matchDetails}
+              summonerInfo={summonerInfo}
+              champInfo={champInfo}
+              getPlayerName={getPlayerName}
+              queues={queues}
+              overlay={loading}
+              visible={visible}
+              getMoreMatches={getMoreMatches}
+              playerMatches={playerMatches}
+            />
 
-          {/* <motion.div
+            {/* <motion.div
            initial={{ x: 1000 }}
            animate={{ x: 0 }}
             transition={{
@@ -187,7 +201,7 @@ function Welcome({
               duration: 0.5,
              }}
             > */}
-          {/* {filteredChamps.length < 5
+            {/* {filteredChamps.length < 5
                   ? filteredChamps.map((champ, i) => {
                       return (
                         <MasteryCard
@@ -206,8 +220,9 @@ function Welcome({
                         />
                       )
                     })} */}
-          <MasteryCard version={version} filteredChamps={filteredChamps} />
-          {/* </motion.div> */}
+            <MasteryCard version={version} filteredChamps={filteredChamps} />
+            {/* </motion.div> */}
+          </div>
         </div>
       </div>
     </div>

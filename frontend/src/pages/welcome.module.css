@@ -19,6 +19,11 @@
   z-index: 1;
 }
 
+.rowContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .row1 {
   display: flex;
   flex-direction: column;
@@ -46,9 +51,35 @@
 
 .emblemContainer {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .row2 {
+  display: flex;
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.linksContainer {
+  color: #fff;
+}
+
+.linksContainer a {
+  text-decoration: none;
+  color: rgb(169, 158, 180);
+  font-weight: 500;
+}
+
+.champions {
+  margin-left: 15px;
+}
+
+.live {
+  margin-left: 15px;
+}
+
+.row3 {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
