@@ -6,7 +6,7 @@ import MasteryCard from "../components/MasteryCard";
 import RankCard from "../components/RankCard";
 import UnrankedCard from "../components/UnrankedCard";
 import SummonerCard from "../components/SummonerCard";
-import MatchHistoryCard from "../components/MatchHistoryCard-backup";
+import MatchHistoryCard from "../components/MatchHistoryCard";
 import { Link } from "react-router-dom";
 
 function Welcome({

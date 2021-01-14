@@ -18,22 +18,87 @@ function MatchHistoryCard({
   queues,
   playerMatches,
 }) {
+  const visible = 7;
   const [gameDetails, setGameDetails] = useState([]);
   const [runes, setRunes] = useState([]);
   const [spells, setSpells] = useState([]);
   const [loading, setLoading] = useState(true);
   const [matchDetails, setMatchDetails] = useState([]);
-  const [visible, setVisible] = useState(7);
+  const [index, setIndex] = useState(visible);
 
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
+  const url = process.env.REACT_APP_API_URL || "";
 
   // Funtion for loading more matches
-  const getMoreMatches = () => {
-    if (visible >= playerMatches.length) {
-      return;
-    }
-    setVisible((prevValue) => prevValue + 1);
+  const getMoreMatches = async () => {
+    axios
+      .get(`${url}/matchDetails/${playerMatches[index].gameId}`)
+      .then(async (res) => {
+        const newMatch = await createGameObject(res.data, queues, champInfo);
+        setGameDetails((prevGames) => [...prevGames, newMatch]);
+      });
+  };
+
+  const createGameObject = (match, queues, champInfo) => {
+    const matchObj = queues
+      .filter((queue) => match.queueId === queue.queueId)
+      .map((queue) => {
+        const date = new Date(match.gameCreation).toString();
+
+        const object = {
+          map: queue.map,
+          gameType: queue.description,
+          gameCreation: date,
+          gameDuration: match.gameDuration,
+          gameVersion: match.gameVersion.split(".").slice(0, 2).join("."),
+          players: [],
+        };
+        return object;
+      })[0];
+
+    // loops through current account id in session or summonerInfo
+    // To grab the right info for match history card
+    let playerObj;
+    match.participantIdentities.forEach((id) => {
+      if (
+        id.player.accountId === summonerInfo.accountId ||
+        id.player.accountId === sessionData.accountId
+      ) {
+        matchObj.participantId = id.participantId;
+      }
+      // Champion Icon for summoner and summoner name on sixth and seventh card
+      match.participants.forEach((part) => {
+        if (id.participantId === part.participantId) {
+          playerObj = {
+            id: id.participantId,
+            name: id.player.summonerName,
+            champId: part.championId,
+          };
+        }
+        champInfo.forEach((key) => {
+          if (playerObj.champId === +key.key) {
+            playerObj.image = key.image.full;
+          }
+        });
+      });
+      matchObj.players.push(playerObj);
+    });
+    // finds matching participantId from matchObj and keeps all data from matching participants
+    match.participants.forEach((data) => {
+      if (data.participantId === matchObj.participantId) {
+        const playerStats = data;
+        matchObj.playerInfo = playerStats;
+      }
+    });
+    // get relevant image for player's champion for that game
+    champInfo.forEach((champ) => {
+      if (matchObj.playerInfo.championId === +champ.key) {
+        matchObj.championName = champ.name;
+        matchObj.championImage = champ.image.full;
+      }
+    });
+    return matchObj;
   };
 
   useEffect(() => {
@@ -89,64 +154,8 @@ function MatchHistoryCard({
     if (matchDetails.length === visible) {
       matchDetails.forEach((match) => {
         // Loops through queue state, to match game type ex. 5v5 , 3v3, summoners rift, ranked
-        const matchObj = queues
-          .filter((queue) => match.queueId === queue.queueId)
-          .map((queue) => {
-            const date = new Date(match.gameCreation).toString();
-
-            const object = {
-              map: queue.map,
-              gameType: queue.description,
-              gameCreation: date,
-              gameDuration: match.gameDuration,
-              gameVersion: match.gameVersion.split(".").slice(0, 2).join("."),
-              players: [],
-            };
-            return object;
-          })[0];
-
-        // loops through current account id in session or summonerInfo
-        // To grab the right info for match history card
-        let playerObj;
-        match.participantIdentities.forEach((id) => {
-          if (
-            id.player.accountId === summonerInfo.accountId ||
-            id.player.accountId === sessionData.accountId
-          ) {
-            matchObj.participantId = id.participantId;
-          }
-          // Champion Icon for summoner and summoner name on sixth and seventh card
-          match.participants.forEach((part) => {
-            if (id.participantId === part.participantId) {
-              playerObj = {
-                id: id.participantId,
-                name: id.player.summonerName,
-                champId: part.championId,
-              };
-            }
-            champInfo.forEach((key) => {
-              if (playerObj.champId === +key.key) {
-                playerObj.image = key.image.full;
-              }
-            });
-          });
-          matchObj.players.push(playerObj);
-        });
-        // finds matching participantId from matchObj and keeps all data from matching participants
-        match.participants.forEach((data) => {
-          if (data.participantId === matchObj.participantId) {
-            const playerStats = data;
-            matchObj.playerInfo = playerStats;
-          }
-        });
-        // get relevant image for player's champion for that game
-        champInfo.forEach((champ) => {
-          if (matchObj.playerInfo.championId === +champ.key) {
-            matchObj.championName = champ.name;
-            matchObj.championImage = champ.image.full;
-            gameDetailsArr.push(matchObj);
-          }
-        });
+        const matchObj = createGameObject(match, queues, champInfo);
+        gameDetailsArr.push(matchObj);
         setGameDetails(gameDetailsArr);
       });
 
@@ -161,11 +170,11 @@ function MatchHistoryCard({
         <Loader />
       ) : (
         <LoadingOverlay active={loading} spinner>
-          {gameDetails.length === visible &&
+          {gameDetails.length >= visible &&
             gameDetails
-              .sort(function (a, b) {
-                return new Date(b.gameCreation) - new Date(a.gameCreation);
-              })
+              //   .sort(function (a, b) {
+              //     return new Date(b.gameCreation) - new Date(a.gameCreation);
+              //   })
               .map((game, i) => (
                 <div
                   className={
