@@ -11,30 +11,24 @@ import { runeDescriptions } from "../utils/constant";
 // https://na1.api.riotgames.com/lol/match/v4/timelines/by-match/3630397822?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
 
 function MatchHistoryCard({
+  matchDetails,
   summonerInfo,
   champInfo,
   version,
   getPlayerName,
   queues,
+  overlay,
+  visible,
+  getMoreMatches,
   playerMatches,
 }) {
   const [gameDetails, setGameDetails] = useState([]);
   const [runes, setRunes] = useState([]);
   const [spells, setSpells] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [matchDetails, setMatchDetails] = useState([]);
-  const [visible, setVisible] = useState(7);
 
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-
-  // Funtion for loading more matches
-  const getMoreMatches = () => {
-    if (visible >= playerMatches.length) {
-      return;
-    }
-    setVisible((prevValue) => prevValue + 1);
-  };
 
   useEffect(() => {
     // Validation to check if version is populated in props
@@ -57,32 +51,6 @@ function MatchHistoryCard({
         });
     }
   }, [version]);
-
-  //
-  // DEFINITELY CAN REFACTOR
-  //
-  // Match Details
-  useEffect(() => {
-    // Empty array to store match details
-    const matchArray = [];
-
-    // Slice to determine how many previous matches to render
-    playerMatches.slice(0, visible).forEach((match) => {
-      axios
-        .get(`${url}/matchDetails/${match.gameId}`)
-        .then((res) => matchArray.push(res.data))
-        .then(() => {
-          // Need this .then because setMatchDetails renders too quickly
-          // Forces it to wait for matchArray to reach correct length
-          matchArray.length === visible && setMatchDetails(matchArray);
-        })
-        .then(() => {
-          setTimeout(() => {}, 1000);
-        });
-    });
-    // Dependent on playerMatches to be ready
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playerMatches, visible]);
 
   useEffect(() => {
     const gameDetailsArr = [];
@@ -160,7 +128,7 @@ function MatchHistoryCard({
       {loading ? (
         <Loader />
       ) : (
-        <LoadingOverlay active={loading} spinner>
+        <LoadingOverlay active={overlay} spinner>
           {gameDetails.length === visible &&
             gameDetails
               .sort(function (a, b) {

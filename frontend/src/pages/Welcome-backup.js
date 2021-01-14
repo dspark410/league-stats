@@ -23,6 +23,9 @@ function Welcome({
   const [filteredChamps, setFilteredChamps] = useState([]);
   const [session, setSession] = useState({});
   const [playerMatches, setPlayerMatches] = useState([]);
+  const [matchDetails, setMatchDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(7);
 
   const url = process.env.REACT_APP_API_URL || "";
 
@@ -38,7 +41,8 @@ function Welcome({
   useEffect(() => {
     // Show nav on the welcome screen
     showNav();
-
+    // Sets loading to true to enable overlay, prevents user from rapidly clicking
+    setLoading(true);
     if (!summonerInfo.id) {
       // Checks if summonerInfo.id is available, if not grab identical copy from sessionStorage
       const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
@@ -67,6 +71,43 @@ function Welcome({
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [summonerInfo]);
+
+  //
+  // DEFINITELY CAN REFACTOR
+  //
+  // Match Details
+  useEffect(() => {
+    // Empty array to store match details
+    const matchArray = [];
+
+    // Slice to determine how many previous matches to render
+    playerMatches.slice(0, visible).forEach((match) => {
+      axios
+        .get(`${url}/matchDetails/${match.gameId}`)
+        .then((res) => matchArray.push(res.data))
+        .then(() => {
+          // Need this .then because setMatchDetails renders too quickly
+          // Forces it to wait for matchArray to reach correct length
+          matchArray.length === visible && setMatchDetails(matchArray);
+        })
+        .then(() => {
+          setTimeout(() => {
+            // Set loading to false to disable overlay
+            setLoading(false);
+          }, 1000);
+        });
+    });
+    // Dependent on playerMatches to be ready
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playerMatches, visible]);
+
+  // Funtion for loading more matches
+  const getMoreMatches = () => {
+    if (visible >= playerMatches.length) {
+      return;
+    }
+    setVisible((prevValue) => prevValue + 1);
+  };
 
   useEffect(() => {
     // Array to store newly created object that matches champion key to mastery key
@@ -126,24 +167,22 @@ function Welcome({
 
           <div className={style.row2}>
             <div className={style.linksContainer}>
-              <Link to="#" className={style.overview}>
-                Overview
-              </Link>
-              <Link to="#" className={style.champions}>
-                Champions
-              </Link>
-              <Link to="#" className={style.live}>
-                Live Game
-              </Link>
+              <Link className={style.overview}>Overview</Link>
+              <Link className={style.champions}>Champions</Link>
+              <Link className={style.live}>Live Game</Link>
             </div>
           </div>
           <div className={style.row3}>
             <MatchHistoryCard
               version={version}
+              matchDetails={matchDetails}
               summonerInfo={summonerInfo}
               champInfo={champInfo}
               getPlayerName={getPlayerName}
               queues={queues}
+              overlay={loading}
+              visible={visible}
+              getMoreMatches={getMoreMatches}
               playerMatches={playerMatches}
             />
 
