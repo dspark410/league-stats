@@ -132,8 +132,8 @@ function App() {
               player.number = i + 1
               boardArray.push(player, i)
             })
+            .then(() => setSolo(soloPlayer))
       )
-      setSolo(soloPlayer)
     })
   }, [])
 

@@ -366,9 +366,12 @@ function MatchHistoryCard({
                             />
                             <span
                               className={
-                                player.name === sessionData.name ||
-                                (player.name === summonerInfo.name &&
-                                  style.summonerName)
+                                player.name === summonerInfo.name
+                                  ? style.summonerName
+                                  : null ||
+                                    (player.name === sessionData.name
+                                      ? style.summonerName
+                                      : null)
                               }
                               name={player.name}
                             >
@@ -398,9 +401,12 @@ function MatchHistoryCard({
                             />
                             <span
                               className={
-                                player.name === summonerInfo.name ||
-                                (player.name === sessionData.name &&
-                                  style.summonerName)
+                                player.name === summonerInfo.name
+                                  ? style.summonerName
+                                  : null ||
+                                    (player.name === sessionData.name
+                                      ? style.summonerName
+                                      : null)
                               }
                               name={player.name}
                             >

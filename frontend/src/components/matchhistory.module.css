@@ -27,7 +27,7 @@
     #7a6b83 45%
   );
   border-radius: 8px;
-  margin: 15px 0;
+  margin: 7px 0;
   padding: 5px;
 }
 
@@ -43,7 +43,7 @@
     #7a6b83 45%
   );
   border-radius: 8px;
-  margin: 15px 0;
+  margin: 7px 0;
   padding: 5px;
 }
 
@@ -94,7 +94,7 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin: 0 15px;
+  margin: 0 10px;
 }
 
 .firstCard p {
@@ -123,6 +123,7 @@
   align-items: center;
   justify-content: center;
   margin-right: 15px;
+  min-width: 137px;
 }
 
 .championName {
@@ -180,7 +181,7 @@
   justify-content: center;
   text-align: center;
   margin-right: 15px;
-  min-width: 80px;
+  min-width: 90px;
 }
 
 .killDeathAssists {
@@ -200,6 +201,7 @@
   justify-content: center;
   text-align: center;
   margin-right: 15px;
+  min-width: 50px;
 }
 
 .minions {

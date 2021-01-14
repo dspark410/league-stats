@@ -86,7 +86,7 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
                         {block.items.map((item, i) => {
                           return (
                             <div key={i} className={style.itemContainer}>
-                              <Tooltip
+                              {/* <Tooltip
                                 name={itemObj[item.id].name}
                                 info={itemObj[item.id].description}
                               >
@@ -96,7 +96,7 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
                                     itemObj[item.id].image.full
                                   }`}
                                 />
-                              </Tooltip>
+                              </Tooltip> */}
                             </div>
                           )
                         })}

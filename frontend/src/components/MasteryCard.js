@@ -5,7 +5,10 @@ function MasteryCard({ version, filteredChamps }) {
   return (
     <div className={style.masteryCard}>
       <div className={style.header}>
-        <img src={process.env.PUBLIC_URL + '/images/icons/mastery.png'} />
+        <img
+          alt='mastery icon'
+          src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
+        />
         CHAMPION MASTERY
       </div>
 
@@ -18,7 +21,7 @@ function MasteryCard({ version, filteredChamps }) {
       {filteredChamps.length < 5
         ? filteredChamps.map((champ, i) => {
             return (
-              <li className={style.listContainer}>
+              <li key={i} className={style.listContainer}>
                 <div className={style.masteryRow}>
                   <div>{i + 1}.</div>
                   <div className={style.champImgContainer}>
@@ -34,7 +37,7 @@ function MasteryCard({ version, filteredChamps }) {
                   <div className={style.champLvlContainer}>
                     <img
                       className={style.masteryFrame}
-                      alt={'mastery level border'}
+                      alt={champ.level}
                       src={
                         champ.level
                           ? process.env.PUBLIC_URL +
@@ -54,7 +57,7 @@ function MasteryCard({ version, filteredChamps }) {
           })
         : filteredChamps.slice(0, 5).map((champ, i) => {
             return (
-              <li>
+              <li key={i}>
                 <div className={style.masteryRow}>
                   <div>{i + 1}.</div>
                   <div className={style.champImgContainer}>
@@ -70,7 +73,7 @@ function MasteryCard({ version, filteredChamps }) {
                   <div className={style.champLvlContainer}>
                     <img
                       className={style.masteryFrame}
-                      alt={'mastery level border'}
+                      alt={champ.level}
                       src={
                         champ.level
                           ? process.env.PUBLIC_URL +

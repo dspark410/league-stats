@@ -8,7 +8,6 @@ import 'react-circular-progressbar/dist/styles.css'
 
 function RankCard({ rank }) {
   const [select, setSelect] = useState([])
-  const [selectDefault, setSelectDefault] = useState('')
 
   useEffect(() => {
     rank.length === 2
@@ -21,14 +20,13 @@ function RankCard({ rank }) {
 
   const handleChange = (e) => {
     setSelect(e.target.value)
-    setSelectDefault(e.target.value)
   }
 
   return (
     // Rank card to display players rank and points if available
 
     <div className={style.singleCardContainer}>
-      {rank.map((ranking) => {
+      {rank.map((ranking, i) => {
         let color
         if (ranking.tier === 'IRON') {
           color = '#483938'
@@ -60,7 +58,7 @@ function RankCard({ rank }) {
 
         return (
           select === ranking.queueType && (
-            <div className={style.emblemContainer}>
+            <div key={i} className={style.emblemContainer}>
               <div style={{ width: '55px' }}>
                 <CircularProgressbarWithChildren
                   value={ranking.leaguePoints}
@@ -97,8 +95,9 @@ function RankCard({ rank }) {
               ranking.queueType === 'RANKED_SOLO_5x5' ? 'Solo/Duo' : 'Flex'
             return (
               <option
+                key={i}
                 value={ranking.queueType}
-                selected={select === ranking.queueType}
+                defaultValue={select === ranking.queueType}
                 className={style.option}
               >
                 {display}
@@ -108,9 +107,9 @@ function RankCard({ rank }) {
         </select>
 
         {rank.map(
-          (ranking) =>
+          (ranking, i) =>
             select === ranking.queueType && (
-              <div className={style.ratio}>
+              <div key={i} className={style.ratio}>
                 <span>RECORD</span>
                 <span className={style.win}>{ranking.wins}</span>
                 <span>-</span>

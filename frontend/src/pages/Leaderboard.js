@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Pagination from '../components/Pagination'
 import style from './leaderboard.module.css'
 
@@ -12,7 +12,11 @@ function Leaderboard({
   currentPage,
   showNav,
 }) {
-  showNav()
+  useEffect(() => {
+    showNav()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className={style.leaderboardOverlay}>
       <div className={style.overlay}>

@@ -29,7 +29,6 @@ function Navbar({ visibility }) {
   }
 
   useEffect(() => {
-    console.log(visibility)
     setVis(visibility)
   }, [visibility])
 
@@ -65,6 +64,7 @@ function Navbar({ visibility }) {
             onMouseLeave={onMouseLeave}
           >
             <Link
+              to='#'
               className={`${style.navLinks} ${style.noLink}`}
               onClick={closeMobileMenu}
             >
