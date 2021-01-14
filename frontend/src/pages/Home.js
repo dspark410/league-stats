@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
-import style from './home.module.css'
-import { AiOutlineSearch } from 'react-icons/ai'
+import React, { useEffect } from "react";
+import style from "./home.module.css";
+import { AiOutlineSearch } from "react-icons/ai";
 
 function Home({ change, submit, inputResponse, hideNav }) {
   useEffect(() => {
-    hideNav()
-  }, [])
+    hideNav();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={style.homeBackgroundContainer}>
@@ -22,10 +23,10 @@ function Home({ change, submit, inputResponse, hideNav }) {
         <div className={style.inputContainer}>
           <form onSubmit={submit}>
             <input
-              spellCheck='false'
+              spellCheck="false"
               onChange={change}
-              type='text'
-              placeholder='search summoner...'
+              type="text"
+              placeholder="search summoner..."
             />
           </form>
           <AiOutlineSearch className={style.searchIcon} />
@@ -33,7 +34,7 @@ function Home({ change, submit, inputResponse, hideNav }) {
         <h2>{inputResponse}</h2>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
