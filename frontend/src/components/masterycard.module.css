@@ -29,7 +29,9 @@
   align-items: center;
   background-color: #755c83;
   width: 100%;
-  padding: 10px 0px;
+  padding-top: 18px;
+  padding-bottom: 6px;
+  font-size: 14px;
 }
 
 .championHeader,
@@ -39,9 +41,11 @@
 }
 
 .championHeader {
+  margin-right: 18px;
 }
 
 .levelHeader {
+  margin-left: -22px;
 }
 
 .pointsHeader {
@@ -92,6 +96,7 @@
 }
 
 .points {
+  color: #e2c0f7;
 }
 
 .level {

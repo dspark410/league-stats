@@ -59,7 +59,7 @@ function MasteryCard({ version, filteredChamps }) {
             return (
               <li key={i}>
                 <div className={style.masteryRow}>
-                  <div>{i + 1}.</div>
+                  <div className={style.number}>{i + 1}.</div>
                   <div className={style.champImgContainer}>
                     <img
                       key={i}

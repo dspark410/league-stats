@@ -138,11 +138,27 @@ function App() {
     })
   }, [])
 
+  // const changeLeaderBoard = (rank, division, page) => {
+  //   axios
+  //     .get(`${url}/leaderboard/${rank}/${division}/${page}`)
+  //     .then(async (res) => {
+  //       setLeaderBoard(res.data)
+  //     })
+  // }
+
   const changeLeaderBoard = (rank, division, page) => {
     axios
       .get(`${url}/leaderboard/${rank}/${division}/${page}`)
       .then(async (res) => {
-        setLeaderBoard(res.data)
+        const leaderboardData = await res.data
+        await leaderboardData.slice(0, 5).map((player) => {
+          axios
+            .get(`${url}/getSummonerId/${player.summonerId}`)
+            .then((res) => {
+              player.icon = res.data.profileIconId
+            })
+            .then(() => setLeaderBoard(leaderboardData))
+        })
       })
   }
 

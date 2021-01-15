@@ -38,41 +38,43 @@ function Leaderboard({
       <div className={style.overlay}>
         <div style={{ overflowX: 'auto' }}>
           <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
-          <select
-            onChange={(e) => {
-              setRank(e.target.value)
-            }}
-          >
-            <option defaultValue value='CHALLENGER'>
-              Challenger
-            </option>
-            <option value='GRANDMASTER'>Grandmaster</option>
-            <option value='MASTER'>Master</option>
-            <option value='DIAMOND'>Diamond</option>
-            <option value='PLATINUM'>Platinum</option>
-            <option value='GOLD'>Gold</option>
-            <option value='SILVER'>Silver</option>
-            <option value='BRONZE'>Bronze</option>
-            <option value='IRON'>Iron</option>
-          </select>
-          <select onChange={(e) => setDivision(e.target.value)}>
-            {mapDivision.map((div) => (
-              <option defaultValue={div === 'I'} value={div}>
-                {div}
+          <div className={style.selectContainer}>
+            <select
+              onChange={(e) => {
+                setRank(e.target.value)
+              }}
+            >
+              <option defaultValue value='CHALLENGER'>
+                Challenger
               </option>
-            ))}
-          </select>
-          <p>page:{page}</p>
-          <button onClick={() => setPage((prevPage) => prevPage - 1)}>
-            prev
-          </button>
-          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
-            next
-          </button>
+              <option value='GRANDMASTER'>GRANDMASTER</option>
+              <option value='MASTER'>MASTER</option>
+              <option value='DIAMOND'>DIAMOND</option>
+              <option value='PLATINUM'>PLATINUM</option>
+              <option value='GOLD'>GOLD</option>
+              <option value='SILVER'>SILVER</option>
+              <option value='BRONZE'>BRONZE</option>
+              <option value='IRON'>IRON</option>
+            </select>
+            <select onChange={(e) => setDivision(e.target.value)}>
+              {mapDivision.map((div) => (
+                <option defaultValue={div === 'I'} value={div}>
+                  {div}
+                </option>
+              ))}
+            </select>
 
+            <button onClick={() => setPage((prevPage) => prevPage - 1)}>
+              &lt;
+            </button>
+            <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+              &gt;
+            </button>
+            <p>PAGE: {page}</p>
+          </div>
           <table className={style.tableContainer}>
             <tbody className={style.tbody}>
-              <tr className={style.row}>
+              <tr className={`${style.row} ${style.rowHeader}`}>
                 <th className={`${style.td} ${style.number}`}>#</th>
                 <th className={style.td}>Summoners</th>
                 <th className={style.td}>Tier</th>
@@ -84,8 +86,8 @@ function Leaderboard({
               {leaderboard
                 .sort((a, b) => b.leaguePoints - a.leaguePoints)
                 .map((summoner, i) => (
-                  <tr className={style.row} key={i}>
-                    <td className={`${style.td} ${style.number}`}>{i + 1}</td>
+                  <tr className={`${style.row}`} key={i}>
+                    <td className={`${style.td} ${style.number}`}>{i + 1}.</td>
                     <td className={style.td}>
                       <img
                         alt='profile icon'
@@ -102,7 +104,9 @@ function Leaderboard({
                     <td className={`${style.td} ${style.Tier}`}>
                       {`${summoner.tier} ${summoner.rank}`}
                     </td>
-                    <td className={style.td}>{summoner.leaguePoints}</td>
+                    <td className={`${style.td} ${style.points}`}>
+                      {summoner.leaguePoints}
+                    </td>
                     <td className={`${style.tdWinRatio}`}>
                       <div className={style.winRatio}>
                         <span className={style.wins}>{summoner.wins} </span>

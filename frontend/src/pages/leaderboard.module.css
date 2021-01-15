@@ -1,11 +1,12 @@
 /* .leaderboardOverlay {
   position: absolute;
-  top: 60px;
+  top: 0;
   left: 0;
   width: 100%;
   height: auto;
   min-height: 100%;
   background: rgba(59, 43, 68, 0.85) 100%;
+ 
 } */
 
 .overlay {
@@ -19,8 +20,61 @@
   z-index: 1;
 }
 
+.selectContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.selectContainer select {
+  border: none;
+  outline: none;
+  background-color: #7a6b83;
+  padding: 8px 10px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 15px;
+}
+.selectContainer select:hover {
+  cursor: pointer;
+  background-color: #836894;
+}
+
+.selectContainer button {
+  border: none;
+  outline: none;
+  background-color: #7a6b83;
+  padding: 4px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 15px;
+}
+
+.selectContainer button:hover {
+  cursor: pointer;
+  background-color: #836894;
+}
+
+.selectContainer p {
+  background-color: #7a6b83;
+  padding: 4px 15px;
+  border-radius: 5px;
+}
+
 .tableContainer {
   margin: 10px auto;
+  color: #fff;
+  font-weight: 600;
 }
 
 .tbody {
@@ -28,11 +82,14 @@
 }
 
 .leaderHeader {
-  color: #606e83;
+  color: #fff;
   text-align: center;
   margin: 30px 0px;
   font-size: 50px;
-  position: relative;
+}
+.rowHeader {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .row {
@@ -40,23 +97,26 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
-  background-color: #e6e9ed;
+  background-color: #7a6b83;
   padding: 5px;
   margin: 0;
-  border: 1px solid rgb(189, 182, 182);
-  border-radius: 1px;
+  border: none;
 }
 
 .row:nth-child(1) {
-  background-color: #4a5566;
+  background-color: #7a6b83;
   color: #fff;
-  border: 1px solid rgb(189, 182, 182);
+  border: none;
 }
 
 .row:nth-child(even) {
-  background-color: #f6f9fc;
+  background-color: #755c83;
 }
 
+.row:nth-child(last) {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
 .td {
   display: flex;
   justify-content: flex-start;
@@ -70,10 +130,12 @@
 }
 
 .Tier {
-  color: rgba(221, 173, 42, 0.918);
-  font-weight: bold;
+  color: #3788e4;
 }
 
+.points {
+  color: #e2c0f7;
+}
 .tdWinRatio {
   display: flex;
   justify-content: flex-end;
@@ -94,10 +156,10 @@
 }
 
 .wins {
-  color: #009852;
+  color: rgb(94, 204, 94);
 }
 .losses {
-  color: #980000;
+  color: rgb(219, 101, 101);
 }
 
 .winRatio span:last-child {
