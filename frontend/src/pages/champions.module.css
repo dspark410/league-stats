@@ -84,7 +84,6 @@ input[type='text'] {
   width: 75px;
   border-radius: 50%;
   border: solid 2px #f0d287;
-  opacity: 0.75;
 }
 
 .imageContainer img:hover {

@@ -27,7 +27,7 @@
 }
 
 .modalHeader {
-  background-color: #614272;
+  background-color: #755c83;
   margin-bottom: 10px;
   padding: 10px 0px;
   color: #fff;
@@ -124,8 +124,7 @@
   cursor: pointer;
 }
 .modalFooter {
-  background-color: #614272;
-  margin-top: 15px;
+  background-color: #755c83;
   display: flex;
   justify-content: flex-end;
   align-items: center;
