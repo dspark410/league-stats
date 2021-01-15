@@ -32,10 +32,12 @@ function App() {
   const [postsPerPage] = useState(25)
   const [modalOpen, setModalOpen] = useState(false)
   const [navVisibility, setNavVisibility] = useState(false)
+  const [leaderboard, setLeaderBoard] = useState([])
+
+  const url = process.env.REACT_APP_API_URL || ''
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName) => {
-    const url = process.env.REACT_APP_API_URL || ''
     axios.get(`${url}/getSummonerName/${summonerName}`).then((res) => {
       if (!res.data.id) {
         // Message will be displayed on Home Screen, dissapears after 3 seconds
@@ -88,7 +90,6 @@ function App() {
   }
 
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL || ''
     // Retrieve queueType list from Riot API
     axios.get(`${url}/queueType`).then((res) => setQueues(res.data))
     axios
@@ -123,19 +124,27 @@ function App() {
       const soloPlayer = await res.data.entries.sort(
         (a, b) => b.leaguePoints - a.leaguePoints
       )
-      await soloPlayer.slice(0, 5).map(
-        async (player, i) =>
-          await axios
-            .get(`${url}/getSummonerId/${player.summonerId}`)
-            .then((res) => {
-              player.icon = res.data.profileIconId
-              player.number = i + 1
-              boardArray.push(player, i)
-            })
-            .then(() => setSolo(soloPlayer))
-      )
+      // await soloPlayer.slice(0, 5).map(
+      //   async (player, i) =>
+      //     await axios
+      //       .get(`${url}/getSummonerId/${player.summonerId}`)
+      //       .then((res) => {
+      //         player.icon = res.data.profileIconId
+      //         player.number = i + 1
+      //         boardArray.push(player, i)
+      //       })
+      //       .then(() => setSolo(soloPlayer))
+      // )
     })
   }, [])
+
+  const changeLeaderBoard = (rank, division, page) => {
+    axios
+      .get(`${url}/leaderboard/${rank}/${division}/${page}`)
+      .then(async (res) => {
+        setLeaderBoard(res.data)
+      })
+  }
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexofFirstPost = indexOfLastPost - postsPerPage
@@ -260,6 +269,8 @@ function App() {
                   paginate={paginate}
                   currentPage={currentPage}
                   showNav={showNav}
+                  changeLeaderBoard={changeLeaderBoard}
+                  leaderboard={leaderboard}
                 />
               )}
             />
