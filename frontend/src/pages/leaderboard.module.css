@@ -113,7 +113,7 @@
   background-color: #755c83;
 }
 
-.row:nth-child(last) {
+.row:last-child {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
