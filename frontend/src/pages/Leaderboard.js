@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import Pagination from '../components/Pagination'
-import style from './leaderboard.module.css'
+import React, { useState, useEffect } from "react";
+import Pagination from "../components/Pagination";
+import style from "./leaderboard.module.css";
 
 function Leaderboard({
   version,
-  solo,
-  soloTier,
   postsPerPage,
   totalPosts,
   paginate,
@@ -14,51 +12,51 @@ function Leaderboard({
   changeLeaderBoard,
   leaderboard,
 }) {
-  const [rank, setRank] = useState('CHALLENGER')
-  const [division, setDivision] = useState('I')
-  const [page, setPage] = useState(1)
-  const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
+  const [rank, setRank] = useState("CHALLENGER");
+  const [division, setDivision] = useState("I");
+  const [page, setPage] = useState(1);
+  const [mapDivision, setMapDivision] = useState(["I", "II", "III", "IV"]);
 
   useEffect(() => {
-    showNav()
+    showNav();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   useEffect(() => {
-    changeLeaderBoard(rank, division, page)
-    if (rank === 'CHALLENGER' || rank === 'GRANDMASTER' || rank === 'MASTER') {
-      setMapDivision(['I'])
+    changeLeaderBoard(rank, division, page);
+    if (rank === "CHALLENGER" || rank === "GRANDMASTER" || rank === "MASTER") {
+      setMapDivision(["I"]);
     } else {
-      setMapDivision(['I', 'II', 'III', 'IV'])
+      setMapDivision(["I", "II", "III", "IV"]);
     }
-  }, [rank, division, page])
+  }, [rank, division, page]);
 
   return (
     <div className={style.leaderboardOverlay}>
       <div className={style.overlay}>
-        <div style={{ overflowX: 'auto' }}>
+        <div style={{ overflowX: "auto" }}>
           <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
           <div className={style.selectContainer}>
             <select
               onChange={(e) => {
-                setRank(e.target.value)
+                setRank(e.target.value);
               }}
             >
-              <option defaultValue value='CHALLENGER'>
+              <option defaultValue value="CHALLENGER">
                 Challenger
               </option>
-              <option value='GRANDMASTER'>GRANDMASTER</option>
-              <option value='MASTER'>MASTER</option>
-              <option value='DIAMOND'>DIAMOND</option>
-              <option value='PLATINUM'>PLATINUM</option>
-              <option value='GOLD'>GOLD</option>
-              <option value='SILVER'>SILVER</option>
-              <option value='BRONZE'>BRONZE</option>
-              <option value='IRON'>IRON</option>
+              <option value="GRANDMASTER">GRANDMASTER</option>
+              <option value="MASTER">MASTER</option>
+              <option value="DIAMOND">DIAMOND</option>
+              <option value="PLATINUM">PLATINUM</option>
+              <option value="GOLD">GOLD</option>
+              <option value="SILVER">SILVER</option>
+              <option value="BRONZE">BRONZE</option>
+              <option value="IRON">IRON</option>
             </select>
             <select onChange={(e) => setDivision(e.target.value)}>
-              {mapDivision.map((div) => (
-                <option defaultValue={div === 'I'} value={div}>
+              {mapDivision.map((div, i) => (
+                <option key={i} defaultValue={div === "I"} value={div}>
                   {div}
                 </option>
               ))}
@@ -90,12 +88,12 @@ function Leaderboard({
                     <td className={`${style.td} ${style.number}`}>{i + 1}.</td>
                     <td className={style.td}>
                       <img
-                        alt='profile icon'
+                        alt="profile icon"
                         className={style.profileIcon}
                         // Grab profile icon
                         src={
                           `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png` ||
-                          process.env.PUBLIC_URL + '/images/emptyitem.png'
+                          process.env.PUBLIC_URL + "/images/emptyitem.png"
                         }
                       />
 
@@ -137,7 +135,7 @@ function Leaderboard({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Leaderboard
+export default Leaderboard;
