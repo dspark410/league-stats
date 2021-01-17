@@ -29,6 +29,7 @@ function Leaderboard({
     } else {
       setMapDivision(["I", "II", "III", "IV"]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rank, division, page]);
 
   return (

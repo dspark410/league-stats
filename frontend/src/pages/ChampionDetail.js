@@ -85,7 +85,7 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
                         <h4>{block.type}</h4>
                         <div className={style.buildType}>
                           {block.items.map((item, i) => {
-                            if (!itemObj[item.id]) {
+                            if (!itemObj[item.id] && !backupItem[item.id]) {
                               console.log(item.id);
                             }
                             return (
