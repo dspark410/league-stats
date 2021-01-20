@@ -35,7 +35,7 @@ function Leaderboard({
   return (
     <div className={style.leaderboardOverlay}>
       <div className={style.overlay}>
-        <div style={{ overflowX: "auto" }}>
+        <div>
           <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
           <div className={style.selectContainer}>
             <select
