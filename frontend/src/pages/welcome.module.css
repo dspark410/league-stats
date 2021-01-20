@@ -8,7 +8,7 @@
 } */
 
 .overlay {
-  position: absolute;
+  position: fixed;
   top: 60px;
   left: 0;
   width: auto;
