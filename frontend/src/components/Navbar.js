@@ -13,19 +13,11 @@ function Navbar({ visibility }) {
   const closeMobileMenu = () => setClick(false)
 
   const onMouseEnter = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false)
-    } else {
-      setDropdown(true)
-    }
+    setDropdown(true)
   }
 
   const onMouseLeave = () => {
-    if (window.innerWidth < 960) {
-      setDropdown(false)
-    } else {
-      setDropdown(false)
-    }
+    setDropdown(false)
   }
 
   useEffect(() => {
