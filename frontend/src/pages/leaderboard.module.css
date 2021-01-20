@@ -1,4 +1,4 @@
-.leaderboardOverlay {
+/* .leaderboardOverlay {
   position: absolute;
   top: 60px;
   left: 0;
@@ -6,7 +6,7 @@
   height: auto;
   min-height: 100%;
   background: rgba(59, 43, 68, 0.85) 100%;
-}
+} */
 
 .overlay {
   position: absolute;
@@ -15,7 +15,7 @@
   width: 100%;
   height: auto;
   min-height: 100%;
-  background: linear-gradient(rgb(59, 43, 68, 0.85) 0%, rgb(88, 75, 96) 25%);
+  background: linear-gradient(rgb(59, 43, 68, 0.85) 0%, rgb(88, 75, 96) 5%);
   z-index: 1;
 }
 

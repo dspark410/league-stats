@@ -15,6 +15,7 @@ import {
 } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import background from './components/images/brand.jpg'
+import Footer from './components/Footer'
 
 function App() {
   const [summonerInfo, setSummonerInfo] = useState({})
@@ -302,6 +303,7 @@ function App() {
               )}
             />
           </Switch>
+          <Footer />
         </Router>
       </div>
     </div>

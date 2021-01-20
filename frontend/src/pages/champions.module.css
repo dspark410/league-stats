@@ -1,6 +1,6 @@
 .championsOverlay {
-  position: fixed;
-  overflow: scroll;
+  position: absolute;
+  /* overflow: scroll; */
   top: 60px;
   left: 0;
   width: 100%;
@@ -58,7 +58,7 @@
   border: 1px solid #b4b8be;
 }
 
-input[type="text"] {
+input[type='text'] {
   font-size: 18px;
   font-weight: bold;
 }
