@@ -179,7 +179,7 @@ function App() {
     e.preventDefault()
 
     if (inputValue.trim() === '') {
-      setInputResponse('Please Enter A Summoner Name!')
+      setInputResponse('Please enter a summoner name...')
       setTimeout(() => {
         setInputResponse('')
       }, 3000)

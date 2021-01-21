@@ -25,7 +25,7 @@ function Home({ change, submit, inputResponse, hideNav }) {
             <AiOutlineSearch onClick={submit} className={style.searchIcon} />
           </div>
         </div>
-        <h2>{inputResponse}</h2>
+        <p className={style.inputResponse}>{inputResponse}</p>
       </div>
     </div>
   )

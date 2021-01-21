@@ -76,42 +76,11 @@ input[type='text'] {
 .searchIcon:hover {
   cursor: pointer;
 }
-/* 
-.footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
+.inputResponse {
   color: #fff;
-  font-size: 9px;
-  width: 50vw;
-  margin: 20px auto;
-} */
-
-/* @media (max-width: 1280px) {
-  .homeContainer input {
-    width: 40vw;
-  }
-  .footer {
-    width: 60vw;
-  }
+  margin-top: 15px;
+  /* padding: 8px 10px;
+  background-color: #836894;
+  border-radius: 5px;
+  font-weight: 500; */
 }
-
-@media (max-width: 960px) {
-  .homeContainer input {
-    width: 60vw;
-  }
-  .footer {
-    width: 70vw;
-  }
-}
-
-@media (max-width: 768px) {
-  .homeContainer input {
-    width: 50vw;
-  }
-  .footer {
-    width: 80vw;
-  }
-} */
