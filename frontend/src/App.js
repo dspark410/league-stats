@@ -200,7 +200,7 @@ function App() {
 
   return (
     <div className='backgroundContainer'>
-      <div className='overlay' visibility={navVisibility}>
+      <div className={navVisibility ? 'overlay' : null}>
         <div>
           <Router>
             <Navbar visibility={navVisibility} />
