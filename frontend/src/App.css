@@ -8,26 +8,18 @@
 }
 
 .backgroundContainer {
+  background-image: url('./components/images/brand.jpg');
   background-size: cover;
   background-position: 50%;
   position: absolute;
-  /* top: 0;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 0; */
+  bottom: 0;
   width: 100%;
   min-width: 1200px;
   height: auto;
   min-height: 100%;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(59, 43, 68, 0.85);
 }
 
 .Overlay {
@@ -50,4 +42,24 @@
 .ReactModal__Overlay--before-close {
   opacity: 0;
   transform: translateX(-100px);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-track {
+  background: rgba(59, 43, 68, 0.85);
+}
+
+.light-scrollbar::-webkit-scrollbar,
+.light-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(227, 194, 254, 0.6);
+  border-radius: 8px;
 }

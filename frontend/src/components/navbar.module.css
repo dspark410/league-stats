@@ -1,7 +1,6 @@
 .navbar {
   width: auto;
   min-width: 1200px;
-
   height: 60px;
   display: flex;
   justify-content: center;
@@ -11,6 +10,9 @@
   letter-spacing: 1px;
   z-index: 100;
   background: rgba(59, 43, 68, 0.85);
+  /* border-bottom: 1px solid #bfa1d1;
+  box-shadow: 0 0 0px 1px #bfa1d1;
+  position: fixed; */
 }
 
 .navHeader {
@@ -52,6 +54,7 @@
   color: white;
   text-decoration: none;
   padding: 1rem 1rem;
+  margin-right: 15px;
 }
 
 .navLinks:hover {

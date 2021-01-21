@@ -200,10 +200,7 @@ function App() {
   }
 
   return (
-    <div
-      className='backgroundContainer'
-      style={{ backgroundImage: `url(${background})` }}
-    >
+    <div className='backgroundContainer'>
       <div>
         <Router>
           <Navbar visibility={navVisibility} />
