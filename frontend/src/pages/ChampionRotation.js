@@ -65,7 +65,7 @@ function ChampionRotation({
   }
 
   return (
-    <div className={style.overlay}>
+    <>
       {loading ? (
         <Loader />
       ) : (
@@ -140,7 +140,7 @@ function ChampionRotation({
           </div>
         </>
       )}
-    </div>
+    </>
   )
 }
 

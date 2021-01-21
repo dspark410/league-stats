@@ -79,7 +79,7 @@ function Champions({
   }
 
   return (
-    <div className={style.overlay}>
+    <>
       <div className={style.searchContainer}>
         <h1 className={style.championList}>Champion List</h1>
         <div className={style.inputContainer}>
@@ -139,7 +139,7 @@ function Champions({
           version={version}
         />
       </div>
-    </div>
+    </>
   )
 }
 

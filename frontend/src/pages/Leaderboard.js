@@ -33,7 +33,7 @@ function Leaderboard({
   }, [rank, division, page])
 
   return (
-    <div className={style.overlay}>
+    <>
       <div>
         <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
         <div className={style.selectContainer}>
@@ -132,7 +132,7 @@ function Leaderboard({
           currentPage={currentPage}
         />
       </div>
-    </div>
+    </>
   )
 }
 

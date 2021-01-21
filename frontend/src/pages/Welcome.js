@@ -99,7 +99,7 @@ function Welcome({
   }, [mastery, champInfo])
 
   return (
-    <div className={style.overlay}>
+    <>
       <div className={style.rowContainer}>
         <div className={style.row1}>
           <h1 className={style.summonerName}>
@@ -139,7 +139,7 @@ function Welcome({
           <MasteryCard version={version} filteredChamps={filteredChamps} />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

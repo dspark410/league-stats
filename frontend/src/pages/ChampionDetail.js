@@ -30,7 +30,7 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
   }
 
   return champDetail ? (
-    <div className={style.overlay}>
+    <>
       <div className={style.grid}>
         <div className={style.row1Col1}>
           <img
@@ -188,6 +188,6 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
           )}
         </div>
       </div>
-    </div>
+    </>
   ) : null
 }
