@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Pagination from '../components/Pagination'
 import style from './leaderboard.module.css'
 
-function Leaderboard({
-  version,
-  postsPerPage,
-  totalPosts,
-  paginate,
-  currentPage,
-  showNav,
-  changeLeaderBoard,
-  leaderboard,
-}) {
+function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
   const [rank, setRank] = useState('CHALLENGER')
   const [division, setDivision] = useState('I')
   const [page, setPage] = useState(1)
@@ -34,7 +24,7 @@ function Leaderboard({
 
   return (
     <>
-      <div>
+      <div className={style.leaderboardContainer}>
         <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
         <div className={style.selectContainer}>
           <select
@@ -125,12 +115,6 @@ function Leaderboard({
               ))}
           </tbody>
         </table>
-        <Pagination
-          postsPerPage={postsPerPage}
-          totalPosts={totalPosts}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
       </div>
     </>
   )

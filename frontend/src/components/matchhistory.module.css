@@ -8,7 +8,7 @@
   font-weight: 600;
   border-collapse: separate;
   border-radius: 8px;
-  border-bottom: 100px;
+  margin-bottom: 100px;
 }
 
 .matchContainer h1 {

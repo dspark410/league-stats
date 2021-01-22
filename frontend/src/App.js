@@ -24,12 +24,8 @@ function App() {
   const [version, setVersion] = useState()
   const [inputResponse, setInputResponse] = useState('')
   const [queues, setQueues] = useState([])
-  const [solo, setSolo] = useState([])
-  const [soloTier, setSoloTier] = useState([])
   const [champDetail, setChampDetail] = useState()
   const [item, setItem] = useState()
-  const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage] = useState(25)
   const [modalOpen, setModalOpen] = useState(false)
   const [navVisibility, setNavVisibility] = useState(false)
   const [leaderboard, setLeaderBoard] = useState([])
@@ -60,13 +56,16 @@ function App() {
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
     const getChamp = event.target.name
+
+    sessionStorage.setItem('champion', getChamp)
+
     axios
       .get(
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
         setChampDetail(res.data.data[getChamp])
-        setModalOpen(true)
+        // setModalOpen(true)
       })
   }
 
@@ -116,35 +115,23 @@ function App() {
             setItem(res.data.data)
           })
       })
-
-    axios.get(`${url}/leaderboard/solo`).then(async (res) => {
-      const boardArray = []
-
-      setSoloTier(res.data.tier)
-      const soloPlayer = await res.data.entries.sort(
-        (a, b) => b.leaguePoints - a.leaguePoints
-      )
-      // await soloPlayer.slice(0, 5).map(
-      //   async (player, i) =>
-      //     await axios
-      //       .get(`${url}/getSummonerId/${player.summonerId}`)
-      //       .then((res) => {
-      //         player.icon = res.data.profileIconId
-      //         player.number = i + 1
-      //         boardArray.push(player, i)
-      //       })
-      //       .then(() => setSolo(soloPlayer))
-      // )
-    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // const changeLeaderBoard = (rank, division, page) => {
-  //   axios
-  //     .get(`${url}/leaderboard/${rank}/${division}/${page}`)
-  //     .then(async (res) => {
-  //       setLeaderBoard(res.data)
-  //     })
-  // }
+  useEffect(() => {
+    const getChamp = sessionStorage.getItem('champion')
+
+    if (version) {
+      axios
+        .get(
+          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
+        )
+        .then((res) => {
+          console.log(getChamp)
+          setChampDetail(res.data.data[getChamp])
+        })
+    }
+  }, [version])
 
   const changeLeaderBoard = (rank, division, page) => {
     axios
@@ -152,7 +139,7 @@ function App() {
       .then(async (res) => {
         const leaderboardData = await res.data
         await leaderboardData.slice(0, 5).map((player) => {
-          axios
+          return axios
             .get(`${url}/getSummonerId/${player.summonerId}`)
             .then((res) => {
               player.icon = res.data.profileIconId
@@ -161,13 +148,6 @@ function App() {
         })
       })
   }
-
-  const indexOfLastPost = currentPage * postsPerPage
-  const indexofFirstPost = indexOfLastPost - postsPerPage
-  const currentPosts = solo.slice(indexofFirstPost, indexOfLastPost)
-
-  // change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   // onChange for input field
   const handleOnChange = (e) => {
@@ -276,12 +256,6 @@ function App() {
                 render={() => (
                   <Leaderboard
                     version={version}
-                    solo={currentPosts}
-                    soloTier={soloTier}
-                    postsPerPage={postsPerPage}
-                    totalPosts={solo.length}
-                    paginate={paginate}
-                    currentPage={currentPage}
                     showNav={showNav}
                     changeLeaderBoard={changeLeaderBoard}
                     leaderboard={leaderboard}

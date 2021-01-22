@@ -1,12 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import style from './championdetail.module.css'
 import Tooltip from '../components/Tooltip'
 import Loader from '../components/Loader'
 import { backupItem } from '../utils/constant'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 
-export default function ChampionDetail({ version, champDetail, itemObj }) {
+export default function ChampionDetail({
+  version,
+  champDetail,
+  itemObj,
+  showNav,
+}) {
   const [video, setVideo] = useState('Q')
   const [loading, setLoading] = useState(false)
+  const [championDetails, setChampionDetails] = useState()
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    showNav()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    setChampionDetails(champDetail)
+    setCurrent(0)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [champDetail])
 
   const selectVideo = (e) => {
     setLoading(true)
@@ -16,20 +35,32 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
       setLoading(false)
     }, 2000)
   }
+  // onClick, increases skin + 1, to change loading
+  const nextSkin = () => {
+    setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1)
+    //console.log("next", championDetails.skins[current]);
+  }
+  // onClick, increases skin - 1, to change loading
+  const prevSkin = () => {
+    setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1)
+    //console.log("prev", championDetails.skins[current]);
+  }
 
   let key
 
-  if (champDetail.key.length === 1) {
-    key = '000' + champDetail.key
-  } else if (champDetail.key.length === 2) {
-    key = '00' + champDetail.key
-  } else if (champDetail.key.length === 3) {
-    key = '0' + champDetail.key
-  } else {
-    key = champDetail.key
+  if (champDetail) {
+    if (champDetail.key.length === 1) {
+      key = '000' + champDetail.key
+    } else if (champDetail.key.length === 2) {
+      key = '00' + champDetail.key
+    } else if (champDetail.key.length === 3) {
+      key = '0' + champDetail.key
+    } else {
+      key = champDetail.key
+    }
   }
 
-  return champDetail ? (
+  return champDetail && itemObj ? (
     <>
       <div className={style.grid}>
         <div className={style.row1Col1}>
@@ -187,7 +218,40 @@ export default function ChampionDetail({ version, champDetail, itemObj }) {
             />
           )}
         </div>
+        <div>
+          {championDetails && (
+            <div className={style.modalContent}>
+              <h1 className={style.modalHeader}>
+                {championDetails.skins[current].name === 'default'
+                  ? championDetails.name
+                  : championDetails.skins[current].name}
+              </h1>
+              <FaAngleLeft
+                className={style.buttonImagePrev}
+                onClick={prevSkin}
+              />
+
+              <img
+                className={style.modalSplashImage}
+                alt={championDetails.image.full}
+                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
+              />
+
+              <FaAngleRight
+                className={style.buttonImageNext}
+                onClick={nextSkin}
+              />
+              <div className={style.modalDetails}>
+                <h5>{championDetails.lore}</h5>
+
+                <h4 className={style.spellHeader}>Spells</h4>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
-  ) : null
+  ) : (
+    ''
+  )
 }
