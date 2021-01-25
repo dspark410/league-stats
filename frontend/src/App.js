@@ -142,9 +142,13 @@ function App() {
           return axios
             .get(`${url}/getSummonerId/${player.summonerId}`)
             .then((res) => {
+              console.log('profileicon', res.data)
               player.icon = res.data.profileIconId
             })
-            .then(() => setLeaderBoard(leaderboardData))
+            .then(() => {
+              console.log(leaderboardData)
+              setLeaderBoard(leaderboardData)
+            })
         })
       })
   }

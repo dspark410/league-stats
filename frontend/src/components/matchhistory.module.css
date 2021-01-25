@@ -1,7 +1,6 @@
 .matchContainer {
   color: #fff;
   width: 835px;
-  min-height: 1200px;
   display: flex;
   flex-direction: column;
   font-size: 13px;
@@ -43,6 +42,7 @@
     rgba(140, 0, 0, 0.3) 0%,
     #7a6b83 45%
   );
+
   border-radius: 8px;
   margin: 7px 0;
   padding: 5px;
@@ -267,6 +267,19 @@
 
 .none {
   color: rgb(196, 92, 92);
+
+  padding: 7px 0px;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  background-color: #7a6b83;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 3px;
+}
+
+.none:hover {
+  cursor: no-drop;
 }
 
 .moreMatchesBtn:hover {

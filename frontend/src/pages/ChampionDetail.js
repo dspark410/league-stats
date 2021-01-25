@@ -100,56 +100,62 @@ export default function ChampionDetail({
         <div className={style.buildContainer}>
           <h3>Recommended Build</h3>
           {champDetail.recommended.map((build, i) => {
-            return build.mode === 'CLASSIC' ? (
+            return build.mode === 'CLASSIC' && build.type === 'riot' ? (
               <div className={style.buildHeader} key={i}>
                 {/* <h3>{build.type.split('-')[1]}</h3> */}
 
                 {build.blocks.map((block, i) => {
-                  return (
-                    <div className={style.buildHeaderContainer} key={i}>
-                      <h4>{block.type}</h4>
-                      <div className={style.buildType}>
-                        {block.items.map((item, i) => {
-                          if (!itemObj[item.id] && !backupItem[item.id]) {
-                            console.log(item.id)
-                          }
-                          return (
-                            <div key={i} className={style.itemContainer}>
-                              <Tooltip
-                                name={
-                                  !itemObj[item.id]
-                                    ? backupItem[item.id].name
-                                    : itemObj[item.id].name
-                                }
-                                info={
-                                  !itemObj[item.id]
-                                    ? backupItem[item.id].description
-                                    : itemObj[item.id].description
-                                }
-                              >
-                                <img
-                                  alt={
+                  if (
+                    block.type === 'starting' ||
+                    block.type === 'early' ||
+                    block.type === 'essential'
+                  ) {
+                    return (
+                      <div className={style.buildHeaderContainer} key={i}>
+                        <h4>{block.type}</h4>
+                        <div className={style.buildType}>
+                          {block.items.map((item, i) => {
+                            if (!itemObj[item.id] && !backupItem[item.id]) {
+                              console.log(item.id)
+                            }
+                            return (
+                              <div key={i} className={style.itemContainer}>
+                                <Tooltip
+                                  name={
                                     !itemObj[item.id]
-                                      ? backupItem[item.id].image.full
-                                      : itemObj[item.id].image.full
+                                      ? backupItem[item.id].name
+                                      : itemObj[item.id].name
                                   }
-                                  src={`https://ddragon.leagueoflegends.com/cdn/${
+                                  info={
                                     !itemObj[item.id]
-                                      ? backupItem[item.id].version
-                                      : version
-                                  }/img/item/${
-                                    !itemObj[item.id]
-                                      ? backupItem[item.id].image.full
-                                      : itemObj[item.id].image.full
-                                  }`}
-                                />
-                              </Tooltip>
-                            </div>
-                          )
-                        })}
+                                      ? backupItem[item.id].description
+                                      : itemObj[item.id].description
+                                  }
+                                >
+                                  <img
+                                    alt={
+                                      !itemObj[item.id]
+                                        ? backupItem[item.id].image.full
+                                        : itemObj[item.id].image.full
+                                    }
+                                    src={`https://ddragon.leagueoflegends.com/cdn/${
+                                      !itemObj[item.id]
+                                        ? backupItem[item.id].version
+                                        : version
+                                    }/img/item/${
+                                      !itemObj[item.id]
+                                        ? backupItem[item.id].image.full
+                                        : itemObj[item.id].image.full
+                                    }`}
+                                  />
+                                </Tooltip>
+                              </div>
+                            )
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  )
+                    )
+                  }
                 })}
               </div>
             ) : null

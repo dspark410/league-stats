@@ -127,14 +127,18 @@ function Welcome({
           </div>
         </div>
         <div className={style.row3}>
-          <MatchHistoryCard
-            version={version}
-            summonerInfo={summonerInfo}
-            champInfo={champInfo}
-            getPlayerName={getPlayerName}
-            queues={queues}
-            playerMatches={playerMatches}
-          />
+          {playerMatches.length === 0 ? (
+            'No Matches Available'
+          ) : (
+            <MatchHistoryCard
+              version={version}
+              summonerInfo={summonerInfo}
+              champInfo={champInfo}
+              getPlayerName={getPlayerName}
+              queues={queues}
+              playerMatches={playerMatches}
+            />
+          )}
 
           <MasteryCard version={version} filteredChamps={filteredChamps} />
         </div>

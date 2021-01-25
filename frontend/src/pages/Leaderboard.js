@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import style from './leaderboard.module.css'
 
 function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
@@ -12,7 +12,7 @@ function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     changeLeaderBoard(rank, division, page)
     if (rank === 'CHALLENGER' || rank === 'GRANDMASTER' || rank === 'MASTER') {
       setMapDivision(['I'])
@@ -52,10 +52,18 @@ function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
             ))}
           </select>
 
-          <button onClick={() => setPage((prevPage) => prevPage - 1)}>
+          <button
+            className={page === 1 ? style.none : style.Btn}
+            onClick={() =>
+              page === 1 ? setPage(1) : setPage((prevPage) => prevPage - 1)
+            }
+          >
             &lt;
           </button>
-          <button onClick={() => setPage((prevPage) => prevPage + 1)}>
+          <button
+            className={style.Btn}
+            onClick={() => setPage((prevPage) => prevPage + 1)}
+          >
             &gt;
           </button>
           <p>PAGE: {page}</p>

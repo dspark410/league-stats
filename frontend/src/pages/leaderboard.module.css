@@ -28,7 +28,7 @@
   background-color: #836894;
 }
 
-.selectContainer button {
+.Btn {
   border: none;
   outline: none;
   background-color: #7a6b83;
@@ -42,9 +42,27 @@
   margin-right: 15px;
 }
 
-.selectContainer button:hover {
+.Btn:hover {
   cursor: pointer;
   background-color: #836894;
+}
+
+.none {
+  border: none;
+  outline: none;
+  background-color: #7a6b83;
+  padding: 4px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 15px;
+}
+
+.none:hover {
+  cursor: no-drop;
 }
 
 .selectContainer p {

@@ -18,7 +18,9 @@ function MasteryCard({ version, filteredChamps }) {
         <div className={style.pointsHeader}>POINTS</div>
       </div>
 
-      {filteredChamps.length < 5
+      {filteredChamps.length === 0
+        ? 'No Info'
+        : filteredChamps.length < 5
         ? filteredChamps.map((champ, i) => {
             return (
               <li key={i} className={style.listContainer}>

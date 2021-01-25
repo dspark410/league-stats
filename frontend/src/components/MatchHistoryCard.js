@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
 import style from './matchhistory.module.css'
 import Tooltip from './Tooltip'
 import axios from 'axios'
@@ -156,7 +156,7 @@ function MatchHistoryCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerMatches, visible])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const gameDetailsArr = []
     if (matchDetails.length === visible) {
       matchDetails.forEach((match) => {
@@ -466,9 +466,16 @@ function MatchHistoryCard({
                   </span>
                 </div>
               ))}
-          <div className={style.moreMatchesBtn} onClick={getMoreMatches}>
-            {visible >= playerMatches.length ? (
-              <div className={style.none}>Cannot Display More Matches</div>
+          <div
+            className={
+              index < playerMatches.length ? style.moreMatchesBtn : style.none
+            }
+            onClick={index < playerMatches.length ? getMoreMatches : null}
+          >
+            {index >= playerMatches.length ? (
+              <div disabled className={style.none}>
+                More Matches Unavailable
+              </div>
             ) : (
               'Load More'
             )}
