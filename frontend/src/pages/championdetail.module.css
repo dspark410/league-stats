@@ -75,12 +75,12 @@
 .row1Col2 {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-size: 14px;
   border-radius: 8px;
   padding: 12px 15px;
-  margin: 15px auto;
+  margin: 15px 0;
 }
 
 .row1Col2 h2 {
@@ -112,6 +112,20 @@
   padding: 15px 0px;
 }
 
+.noBuild {
+  background-color: #755c83;
+  width: 100%;
+  font-size: 14px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.blocksContainer {
+  width: 100%;
+}
+
 .type {
   background-color: #755c83;
   width: 100%;
@@ -127,6 +141,8 @@
   justify-content: center;
   background-color: #7a6b83;
   width: 100%;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .itemContainer {
@@ -179,6 +195,7 @@
   background-color: #755c83;
   width: 100%;
   margin-bottom: 15px;
+  padding: 6px 0px 0px 0px;
 }
 
 .spellImageContainer {
