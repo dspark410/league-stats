@@ -18,81 +18,83 @@ function MasteryCard({ version, filteredChamps }) {
         <div className={style.pointsHeader}>POINTS</div>
       </div>
 
-      {filteredChamps.length === 0
-        ? 'No Info'
-        : filteredChamps.length < 5
-        ? filteredChamps.map((champ, i) => {
-            return (
-              <li key={i} className={style.listContainer}>
-                <div className={style.masteryRow}>
-                  <div>{i + 1}.</div>
-                  <div className={style.champImgContainer}>
-                    <img
-                      key={i}
-                      className={style.championImage}
-                      alt={champ.image}
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
-                    />
-                  </div>
-
-                  <div className={style.name}>{champ.name}</div>
-                  <div className={style.champLvlContainer}>
-                    <img
-                      className={style.masteryFrame}
-                      alt={champ.level}
-                      src={
-                        champ.level
-                          ? process.env.PUBLIC_URL +
-                            `/images/masteryicons/level${champ.level}.png`
-                          : process.env.PUBLIC_URL +
-                            '/images/masteryicons/level1.png'
-                      }
-                    />
-                  </div>
-
-                  <div className={style.points}>
-                    {champ.points.toLocaleString('en')}
-                  </div>
+      {filteredChamps.length === 0 ? (
+        <div className={style.noChamps}>No Champions Found.</div>
+      ) : filteredChamps.length < 5 ? (
+        filteredChamps.map((champ, i) => {
+          return (
+            <li key={i} className={style.listContainer}>
+              <div className={style.masteryRow}>
+                <div>{i + 1}.</div>
+                <div className={style.champImgContainer}>
+                  <img
+                    key={i}
+                    className={style.championImage}
+                    alt={champ.image}
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
+                  />
                 </div>
-              </li>
-            )
-          })
-        : filteredChamps.slice(0, 5).map((champ, i) => {
-            return (
-              <li key={i}>
-                <div className={style.masteryRow}>
-                  <div className={style.number}>{i + 1}.</div>
-                  <div className={style.champImgContainer}>
-                    <img
-                      key={i}
-                      className={style.championImage}
-                      alt={champ.image}
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
-                    />
-                  </div>
 
-                  <div className={style.name}>{champ.name}</div>
-                  <div className={style.champLvlContainer}>
-                    <img
-                      className={style.masteryFrame}
-                      alt={champ.level}
-                      src={
-                        champ.level
-                          ? process.env.PUBLIC_URL +
-                            `/images/masteryicons/level${champ.level}.png`
-                          : process.env.PUBLIC_URL +
-                            '/images/masteryicons/level1.png'
-                      }
-                    />
-                  </div>
-
-                  <div className={style.points}>
-                    {champ.points.toLocaleString('en')}
-                  </div>
+                <div className={style.name}>{champ.name}</div>
+                <div className={style.champLvlContainer}>
+                  <img
+                    className={style.masteryFrame}
+                    alt={champ.level}
+                    src={
+                      champ.level
+                        ? process.env.PUBLIC_URL +
+                          `/images/masteryicons/level${champ.level}.png`
+                        : process.env.PUBLIC_URL +
+                          '/images/masteryicons/level1.png'
+                    }
+                  />
                 </div>
-              </li>
-            )
-          })}
+
+                <div className={style.points}>
+                  {champ.points.toLocaleString('en')}
+                </div>
+              </div>
+            </li>
+          )
+        })
+      ) : (
+        filteredChamps.slice(0, 5).map((champ, i) => {
+          return (
+            <li key={i}>
+              <div className={style.masteryRow}>
+                <div className={style.number}>{i + 1}.</div>
+                <div className={style.champImgContainer}>
+                  <img
+                    key={i}
+                    className={style.championImage}
+                    alt={champ.image}
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
+                  />
+                </div>
+
+                <div className={style.name}>{champ.name}</div>
+                <div className={style.champLvlContainer}>
+                  <img
+                    className={style.masteryFrame}
+                    alt={champ.level}
+                    src={
+                      champ.level
+                        ? process.env.PUBLIC_URL +
+                          `/images/masteryicons/level${champ.level}.png`
+                        : process.env.PUBLIC_URL +
+                          '/images/masteryicons/level1.png'
+                    }
+                  />
+                </div>
+
+                <div className={style.points}>
+                  {champ.points.toLocaleString('en')}
+                </div>
+              </div>
+            </li>
+          )
+        })
+      )}
     </div>
   )
 }
