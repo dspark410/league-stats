@@ -1,35 +1,32 @@
-import React, { useState, useEffect } from 'react'
-import style from './champions.module.css'
-import axios from 'axios'
-import Tooltip from '../components/Tooltip'
-import ChampionModal from '../components/ChampionModal'
-import { motion, AnimatePresence } from 'framer-motion'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import style from "./champions.module.css";
+import Tooltip from "../components/Tooltip";
+import { motion, AnimatePresence } from "framer-motion";
+import { AiOutlineSearch } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function Champions({ champInfo, version, selectChampion, showNav }) {
-  const [input, setInput] = useState('')
-  const [autofill, setAutofill] = useState([])
-  const [championDetails, setChampionDetails] = useState()
+  const [input, setInput] = useState("");
+  const [autofill, setAutofill] = useState([]);
 
   useEffect(() => {
     //show nav
-    showNav()
+    showNav();
     // Populates screen with all champion at start
-    setAutofill(champInfo)
+    setAutofill(champInfo);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [champInfo])
+  }, [champInfo]);
 
   // Change Handler for input
   const changeHandler = (event) => {
-    setInput(event.target.value)
+    setInput(event.target.value);
 
     // Filters as user types to display only champion with matching string
     const filtered = champInfo.filter((champ) =>
       champ.name.toLowerCase().includes(event.target.value.toLowerCase())
-    )
-    setAutofill(filtered)
-  }
+    );
+    setAutofill(filtered);
+  };
 
   // // SubmiteHandler for input
   // const handleSubmit = (event) => {
@@ -55,11 +52,11 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
         <div className={style.inputContainer}>
           {/* <form onSubmit={handleSubmit}> */}
           <input
-            spellCheck='false'
-            type='text'
+            spellCheck="false"
+            type="text"
             onChange={changeHandler}
             value={input}
-            placeholder='search champion...'
+            placeholder="search champion..."
           />
           {/* </form> */}
           <AiOutlineSearch
@@ -84,7 +81,7 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -10, opacity: 0 }}
                 >
-                  <Link to='/championdetail'>
+                  <Link to="/championdetail">
                     <img
                       className={style.freeChampsImg}
                       alt={champ.image.full}
@@ -100,11 +97,9 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
             ))}
           </AnimatePresence>
         </div>
-
-        <ChampionModal championDetails={championDetails} version={version} />
       </div>
     </>
-  )
+  );
 }
 
-export default Champions
+export default Champions;

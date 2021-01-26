@@ -1,62 +1,75 @@
-import React, { useState, useEffect } from 'react'
-import style from './championdetail.module.css'
-import Tooltip from '../components/Tooltip'
-import Loader from '../components/Loader'
-import { backupItem } from '../utils/constant'
-import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
+import React, { useState, useEffect } from "react";
+import style from "./championdetail.module.css";
+import Tooltip from "../components/Tooltip";
+import Loader from "../components/Loader";
+import { backupItem } from "../utils/constant";
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import BrandBackground from "../components/images/brand.jpg";
 
 export default function ChampionDetail({
   version,
   champDetail,
   itemObj,
   showNav,
+  changeBackground,
 }) {
-  const [video, setVideo] = useState('Q')
-  const [loading, setLoading] = useState(false)
-  const [championDetails, setChampionDetails] = useState()
-  const [current, setCurrent] = useState(0)
+  const [video, setVideo] = useState("Q");
+  const [loading, setLoading] = useState(false);
+  const [championDetails, setChampionDetails] = useState();
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    showNav()
+    showNav();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   useEffect(() => {
-    setChampionDetails(champDetail)
-    setCurrent(0)
+    setChampionDetails(champDetail);
+    setCurrent(0);
+    return () => {
+      changeBackground(BrandBackground);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [champDetail])
+  }, [champDetail]);
+
+  useEffect(() => {
+    if (championDetails) {
+      changeBackground(
+        `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`
+      );
+    }
+  }, [championDetails]);
 
   const selectVideo = (e) => {
-    setLoading(true)
-    const key = e.target.getAttribute('value')
-    setVideo(key)
+    setLoading(true);
+    const key = e.target.getAttribute("value");
+    setVideo(key);
     setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-  }
+      setLoading(false);
+    }, 2000);
+  };
   // onClick, increases skin + 1, to change loading
   const nextSkin = () => {
-    setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1)
+    setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1);
     //console.log("next", championDetails.skins[current]);
-  }
+  };
   // onClick, increases skin - 1, to change loading
   const prevSkin = () => {
-    setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1)
+    setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1);
     //console.log("prev", championDetails.skins[current]);
-  }
+  };
 
-  let key
+  let key;
 
   if (champDetail) {
     if (champDetail.key.length === 1) {
-      key = '000' + champDetail.key
+      key = "000" + champDetail.key;
     } else if (champDetail.key.length === 2) {
-      key = '00' + champDetail.key
+      key = "00" + champDetail.key;
     } else if (champDetail.key.length === 3) {
-      key = '0' + champDetail.key
+      key = "0" + champDetail.key;
     } else {
-      key = champDetail.key
+      key = champDetail.key;
     }
   }
 
@@ -79,18 +92,18 @@ export default function ChampionDetail({
               ))}
             </div>
             <div className={style.infoContainer}>
-              <span>Attack:&nbsp; </span>{' '}
+              <span>Attack:&nbsp; </span>{" "}
               <div className={style.attack}>{champDetail.info.attack}</div>
               <span> &nbsp;|&nbsp;</span>
-              <span>Defense:&nbsp; </span>{' '}
+              <span>Defense:&nbsp; </span>{" "}
               <div className={style.defense}>{champDetail.info.defense}</div>
               <span> &nbsp;|&nbsp;</span>
-              <span> Difficulty:&nbsp; </span>{' '}
+              <span> Difficulty:&nbsp; </span>{" "}
               <div className={style.difficulty}>
                 {champDetail.info.difficulty}
               </div>
               <span>&nbsp; |&nbsp;</span>
-              <span> Magic:&nbsp; </span>{' '}
+              <span> Magic:&nbsp; </span>{" "}
               <div className={style.magic}>{champDetail.info.magic} </div>
             </div>
           </div>
@@ -120,65 +133,59 @@ export default function ChampionDetail({
         <div className={style.buildContainer}>
           <div className={style.recBuild}>RECOMMENDED ITEM BUILD</div>
           {champDetail.recommended.map((build, i) => {
-            return build.mode === 'CLASSIC' && build.type === 'riot' ? (
-              <>
+            return build.mode === "CLASSIC" && build.type === "riot" ? (
+              <div key={i}>
                 {build.blocks.map((block, i) => {
-                  if (
-                    block.type === 'starting' ||
-                    block.type === 'early' ||
-                    block.type === 'essential'
-                  ) {
-                    return (
-                      <>
-                        <div key={i} className={style.type}>
-                          {block.type}
-                        </div>
-                        <div className={style.buildType}>
-                          {block.items.map((item, i) => {
-                            if (!itemObj[item.id] && !backupItem[item.id]) {
-                              console.log(item.id)
-                            }
-                            return (
-                              <div key={i} className={style.itemContainer}>
-                                <Tooltip
-                                  name={
+                  return block.type === "starting" ||
+                    block.type === "early" ||
+                    block.type === "essential" ? (
+                    <div key={i}>
+                      <div className={style.type}>{block.type}</div>
+                      <div className={style.buildType}>
+                        {block.items.map((item, i) => {
+                          if (!itemObj[item.id] && !backupItem[item.id]) {
+                            console.log(item.id);
+                          }
+                          return (
+                            <div key={i} className={style.itemContainer}>
+                              <Tooltip
+                                name={
+                                  !itemObj[item.id]
+                                    ? backupItem[item.id].name
+                                    : itemObj[item.id].name
+                                }
+                                info={
+                                  !itemObj[item.id]
+                                    ? backupItem[item.id].description
+                                    : itemObj[item.id].description
+                                }
+                              >
+                                <img
+                                  alt={
                                     !itemObj[item.id]
-                                      ? backupItem[item.id].name
-                                      : itemObj[item.id].name
+                                      ? backupItem[item.id].image.full
+                                      : itemObj[item.id].image.full
                                   }
-                                  info={
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${
                                     !itemObj[item.id]
-                                      ? backupItem[item.id].description
-                                      : itemObj[item.id].description
-                                  }
-                                >
-                                  <img
-                                    alt={
-                                      !itemObj[item.id]
-                                        ? backupItem[item.id].image.full
-                                        : itemObj[item.id].image.full
-                                    }
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${
-                                      !itemObj[item.id]
-                                        ? backupItem[item.id].version
-                                        : version
-                                    }/img/item/${
-                                      !itemObj[item.id]
-                                        ? backupItem[item.id].image.full
-                                        : itemObj[item.id].image.full
-                                    }`}
-                                  />
-                                </Tooltip>
-                              </div>
-                            )
-                          })}
-                        </div>
-                      </>
-                    )
-                  }
+                                      ? backupItem[item.id].version
+                                      : version
+                                  }/img/item/${
+                                    !itemObj[item.id]
+                                      ? backupItem[item.id].image.full
+                                      : itemObj[item.id].image.full
+                                  }`}
+                                />
+                              </Tooltip>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : null;
                 })}
-              </>
-            ) : null
+              </div>
+            ) : null;
           })}
         </div>
 
@@ -193,20 +200,20 @@ export default function ChampionDetail({
               >
                 <img
                   className={style.spellImage}
-                  alt='champion passive'
+                  alt="champion passive"
                   src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/passive/${champDetail.passive.image.full}`}
                 />
               </Tooltip>
             </div>
             {champDetail.spells.map((spell, i) => {
               const buttonKey =
-                i === 0 ? 'Q' : i === 1 ? 'W' : i === 2 ? 'E' : 'R'
+                i === 0 ? "Q" : i === 1 ? "W" : i === 2 ? "E" : "R";
               const tooltipInfo = `
                   <p>Spell Cooldown: ${spell.cooldownBurn} seconds</p>
                   <p>
                     Spell Cost: ${spell.costBurn} ${champDetail.partype}
                   </p>
-                `
+                `;
 
               return (
                 <div key={i} className={style.spellImageContainer}>
@@ -223,12 +230,12 @@ export default function ChampionDetail({
                       className={`${style.spellImage} ${
                         video === buttonKey ? style.spellImageActive : null
                       }`}
-                      alt='champion skills'
+                      alt="champion skills"
                       src={`http://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.image.full}`}
                     />
                   </Tooltip>
                 </div>
-              )
+              );
             })}
           </div>
           {loading ? (
@@ -262,7 +269,7 @@ export default function ChampionDetail({
               onClick={nextSkin}
             />
             <h3 className={style.splashHeader}>
-              {championDetails.skins[current].name === 'default'
+              {championDetails.skins[current].name === "default"
                 ? championDetails.name
                 : championDetails.skins[current].name}
             </h3>
@@ -271,6 +278,6 @@ export default function ChampionDetail({
       </div>
     </>
   ) : (
-    ''
-  )
+    ""
+  );
 }
