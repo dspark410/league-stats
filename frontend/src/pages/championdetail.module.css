@@ -38,7 +38,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 400px;
+  min-width: 400px;
   margin: 0 50px 10px 0;
 }
 
@@ -68,7 +68,6 @@
 }
 
 .loreContainer {
-  width: 800px;
   color: #e2c0f7;
   font-size: 13px;
 }
@@ -82,7 +81,6 @@
   border-radius: 8px;
   padding: 12px 15px;
   margin: 15px auto;
-  width: 800px;
 }
 
 .row1Col2 h2 {
@@ -142,7 +140,7 @@
 }
 
 .grid2 {
-  width: 1250px;
+  width: 1200px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -221,7 +219,7 @@
 }
 
 .spellImageActive {
-  border: solid 2px #9865b6;
+  border: solid 2px #883ab6;
 }
 
 .grid3 {
