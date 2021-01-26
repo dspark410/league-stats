@@ -60,37 +60,57 @@ export default function ChampionDetail({
     }
   }
 
-  return champDetail && itemObj ? (
+  return champDetail && itemObj && championDetails ? (
     <>
       <div className={style.grid}>
-        <div className={style.row1Col1}>
-          <img
-            className={style.freeChampsImg}
-            alt={champDetail.image.full}
-            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champDetail.image.full}`}
-          />
-          <h2>{champDetail.name}</h2>
-          <h3>{champDetail.title}</h3>
-          <div className={style.tag}>
-            {champDetail.tags.map((tag, i) => (
-              <span key={i} className={style.tagSpan}>
-                {tag}
-              </span>
-            ))}
+        <div className={style.firstCard}>
+          <div className={style.row1Col1}>
+            <img
+              className={style.freeChampsImg}
+              alt={champDetail.image.full}
+              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champDetail.image.full}`}
+            />
+            <h1 className={style.name}>{champDetail.name}</h1>
+            <div className={style.tag}>
+              {champDetail.tags.map((tag, i) => (
+                <span key={i} className={style.tagSpan}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className={style.infoContainer}>
+              <span>Attack:&nbsp; </span>{' '}
+              <div className={style.attack}>{champDetail.info.attack}</div>
+              <span> &nbsp;|&nbsp;</span>
+              <span>Defense:&nbsp; </span>{' '}
+              <div className={style.defense}>{champDetail.info.defense}</div>
+              <span> &nbsp;|&nbsp;</span>
+              <span> Difficulty:&nbsp; </span>{' '}
+              <div className={style.difficulty}>
+                {champDetail.info.difficulty}
+              </div>
+              <span>&nbsp; |&nbsp;</span>
+              <span> Magic:&nbsp; </span>{' '}
+              <div className={style.magic}>{champDetail.info.magic} </div>
+            </div>
+          </div>
+          <div className={style.loreContainer}>
+            <p>"{championDetails.lore}"</p>
           </div>
         </div>
+
         <div className={style.row1Col2}>
           <div className={style.row1}>
-            <h3>Ally Tips</h3>
+            <h2>Ally Tips</h2>
             {champDetail.allytips.map((tip, i) => (
-              <span key={i}>{tip}</span>
+              <span key={i}>{tip}&nbsp;</span>
             ))}
           </div>
 
           <div className={style.row2}>
-            <h3>Enemy Tips</h3>
+            <h2>Enemy Tips</h2>
             {champDetail.enemytips.map((tip, i) => (
-              <span key={i}>{tip}</span>
+              <span key={i}>{tip}&nbsp;</span>
             ))}
           </div>
         </div>
@@ -98,12 +118,10 @@ export default function ChampionDetail({
 
       <div className={style.grid2}>
         <div className={style.buildContainer}>
-          <h3>Recommended Build</h3>
+          <div className={style.recBuild}>RECOMMENDED ITEM BUILD</div>
           {champDetail.recommended.map((build, i) => {
             return build.mode === 'CLASSIC' && build.type === 'riot' ? (
-              <div className={style.buildHeader} key={i}>
-                {/* <h3>{build.type.split('-')[1]}</h3> */}
-
+              <>
                 {build.blocks.map((block, i) => {
                   if (
                     block.type === 'starting' ||
@@ -111,8 +129,10 @@ export default function ChampionDetail({
                     block.type === 'essential'
                   ) {
                     return (
-                      <div className={style.buildHeaderContainer} key={i}>
-                        <h4>{block.type}</h4>
+                      <>
+                        <div key={i} className={style.type}>
+                          {block.type}
+                        </div>
                         <div className={style.buildType}>
                           {block.items.map((item, i) => {
                             if (!itemObj[item.id] && !backupItem[item.id]) {
@@ -153,17 +173,17 @@ export default function ChampionDetail({
                             )
                           })}
                         </div>
-                      </div>
+                      </>
                     )
                   }
                 })}
-              </div>
+              </>
             ) : null
           })}
         </div>
 
         <div className={style.Container}>
-          <h3>Skills</h3>
+          <div className={style.skillsHeader}>Champion Skills</div>
           <div className={style.spellContainer}>
             <div className={style.passiveImageContainer}>
               <span className={style.spellKey}>P</span>
@@ -224,37 +244,30 @@ export default function ChampionDetail({
             />
           )}
         </div>
-        <div>
-          {championDetails && (
-            <div className={style.modalContent}>
-              <h1 className={style.modalHeader}>
-                {championDetails.skins[current].name === 'default'
-                  ? championDetails.name
-                  : championDetails.skins[current].name}
-              </h1>
-              <FaAngleLeft
-                className={style.buttonImagePrev}
-                onClick={prevSkin}
-              />
+      </div>
+      <div className={style.grid3}>
+        {championDetails && (
+          <div className={style.skinContent}>
+            <h1 className={style.skins}> Champion Skins</h1>
+            <FaAngleLeft className={style.buttonImagePrev} onClick={prevSkin} />
 
-              <img
-                className={style.modalSplashImage}
-                alt={championDetails.image.full}
-                src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
-              />
+            <img
+              className={style.splashImage}
+              alt={championDetails.image.full}
+              src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
+            />
 
-              <FaAngleRight
-                className={style.buttonImageNext}
-                onClick={nextSkin}
-              />
-              <div className={style.modalDetails}>
-                <h5>{championDetails.lore}</h5>
-
-                <h4 className={style.spellHeader}>Spells</h4>
-              </div>
-            </div>
-          )}
-        </div>
+            <FaAngleRight
+              className={style.buttonImageNext}
+              onClick={nextSkin}
+            />
+            <h3 className={style.splashHeader}>
+              {championDetails.skins[current].name === 'default'
+                ? championDetails.name
+                : championDetails.skins[current].name}
+            </h3>
+          </div>
+        )}
       </div>
     </>
   ) : (

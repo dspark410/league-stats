@@ -113,7 +113,7 @@ function Welcome({
           </div>
         </div>
 
-        <div className={style.row2}>
+        {/* <div className={style.row2}>
           <div className={style.linksContainer}>
             <Link to='#' className={style.overview}>
               Overview
@@ -125,7 +125,7 @@ function Welcome({
               Live Game
             </Link>
           </div>
-        </div>
+        </div> */}
         <div className={style.row3}>
           {playerMatches.length === 0 ? (
             'No Matches Available'

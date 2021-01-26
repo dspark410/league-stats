@@ -76,7 +76,7 @@ function ChampionRotation({
               {freeChamps.map((champ, i) => (
                 <motion.div
                   key={i}
-                  initial={{ x: -1000 }}
+                  initial={{ x: -500 }}
                   animate={{ x: 0 }}
                   transition={{
                     delay: 0.2,
