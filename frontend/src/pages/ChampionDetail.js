@@ -38,6 +38,7 @@ export default function ChampionDetail({
         `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [championDetails]);
 
   const selectVideo = (e) => {
