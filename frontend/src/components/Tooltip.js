@@ -1,11 +1,14 @@
 import React from 'react'
 import style from './tooltip.module.css'
-import Tippy from '@tippyjs/react'
+import Tippy, { tippy } from '@tippyjs/react'
 
 export default function Tooltip(props) {
+  tippy('.tomato')
+
   return (
     <Tippy
       animation='fade'
+      theme='custom'
       content={
         <div className={style.tooltip}>
           <div className={style.tooltiptext}>

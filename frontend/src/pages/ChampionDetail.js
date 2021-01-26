@@ -148,7 +148,7 @@ export default function ChampionDetail({
           ) : (
             champDetail.recommended.map((build, i) => {
               return build.mode === 'CLASSIC' &&
-                build.title === champDetail.id + 'SR' ? (
+                build.type.split('-').find((type) => type === 'riot') ? (
                 <div className={style.blocksContainer} key={i}>
                   {build.blocks.map((block, i) => {
                     return block.type === 'starting' ||
@@ -263,7 +263,7 @@ export default function ChampionDetail({
               playsInline
               loop
               muted
-              src={`https://d28xe8vt774jo5.cloudfront.net/champion-abilities/${key}/ability_${key}_${video}1.mp4`}
+              src={`https://d28xe8vt774jo5.cloudfront.net/champion-abilities/${key}/ability_${key}_${video}1.webm`}
             />
           )}
         </div>

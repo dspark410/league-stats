@@ -7,6 +7,7 @@ import RankCard from '../components/RankCard'
 import UnrankedCard from '../components/UnrankedCard'
 import SummonerCard from '../components/SummonerCard'
 import MatchHistoryCard from '../components/MatchHistoryCard'
+import { Link } from 'react-router-dom'
 
 function Welcome({
   summonerInfo,
@@ -112,19 +113,16 @@ function Welcome({
           </div>
         </div>
 
-        {/* <div className={style.row2}>
+        <div className={style.row2}>
           <div className={style.linksContainer}>
             <Link to='#' className={style.overview}>
               Overview
             </Link>
-            <Link to='#' className={style.champions}>
-              Champions
-            </Link>
-            <Link to='#' className={style.live}>
+            <Link to='/live' className={style.live}>
               Live Game
             </Link>
           </div>
-        </div> */}
+        </div>
         <div className={style.row3}>
           {playerMatches.length === 0 ? (
             <div className={style.noMatchContainer}>
