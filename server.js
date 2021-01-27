@@ -163,6 +163,20 @@ app.get('/leaderboard/:rank/:division/:page', async (req, res) => {
   }
 })
 
+//Call for live game for summoner
+app.get('/live/:summonerId', async (req, res) => {
+  try {
+    const api = process.env.API_KEY
+
+    const liveData = await axios.get(
+      `https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${req.params.summonerId}?api_key=${api}`
+    )
+    res.json(liveData.data)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
   // Sends static folder

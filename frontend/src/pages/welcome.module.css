@@ -27,6 +27,13 @@
   margin: 0 auto;
 }
 
+.summonerNameContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .welcomeContainer h1 {
   margin: 15px 0;
 }
@@ -43,6 +50,16 @@
   margin-top: 70px;
 }
 
+.inGame {
+  margin-top: 70px;
+  padding: 5px 12px;
+  background-color: #225591;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: solid 2px #3076c7;
+}
+
 .emblemContainer {
   display: flex;
   justify-content: flex-start;
@@ -57,12 +74,11 @@
 
 .linksContainer {
   color: #fff;
+  font-weight: 500;
 }
 
-.linksContainer a {
-  text-decoration: none;
-  color: rgb(169, 158, 180);
-  font-weight: 500;
+.linksContainer:hover {
+  cursor: pointer;
 }
 
 .champions {
@@ -71,6 +87,12 @@
 
 .live {
   margin-left: 15px;
+}
+
+.underline {
+  margin-left: 15px;
+  padding-bottom: 5px;
+  border-bottom: solid 2px #e2c0f7;
 }
 
 .row3 {

@@ -7,7 +7,7 @@ import RankCard from '../components/RankCard'
 import UnrankedCard from '../components/UnrankedCard'
 import SummonerCard from '../components/SummonerCard'
 import MatchHistoryCard from '../components/MatchHistoryCard'
-import { Link } from 'react-router-dom'
+import Live from '../components/Live'
 
 function Welcome({
   summonerInfo,
@@ -23,7 +23,8 @@ function Welcome({
   const [filteredChamps, setFilteredChamps] = useState([])
   const [session, setSession] = useState({})
   const [playerMatches, setPlayerMatches] = useState([])
-
+  const [display, setDisplay] = useState('overview')
+  const [live, setLive] = useState()
   const url = process.env.REACT_APP_API_URL || ''
 
   // Function for masteries call specific to summoner id
@@ -53,6 +54,11 @@ function Welcome({
           setPlayerMatches(res.data.matches)
         )
       })
+
+      // Get live game data for summoner
+      axios
+        .get(`${url}/live/${sessionData.id}`)
+        .then((res) => setLive(res.data))
     } else {
       // Get masteries from state and set into state
       getMasteries(summonerInfo.id).then((res) => {
@@ -62,7 +68,13 @@ function Welcome({
           setPlayerMatches(res.data.matches)
         )
       })
+
+      // Get live game data for summoner
+      axios
+        .get(`${url}/live/${summonerInfo.id}`)
+        .then((res) => setLive(res.data))
     }
+
     redirect()
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,9 +114,13 @@ function Welcome({
     <>
       <div className={style.rowContainer}>
         <div className={style.row1}>
-          <h1 className={style.summonerName}>
-            {summonerInfo.name || session.name}
-          </h1>
+          <div className={style.summonerNameContainer}>
+            <h1 className={style.summonerName}>
+              {summonerInfo.name || session.name}
+            </h1>
+            {live ? <div className={style.inGame}>In Game</div> : ''}
+          </div>
+
           <div className={style.emblemContainer}>
             <SummonerCard version={version} summonerInfo={summonerInfo} />
             <div className={style.rankCardContainer}>
@@ -115,12 +131,20 @@ function Welcome({
 
         <div className={style.row2}>
           <div className={style.linksContainer}>
-            <Link to='#' className={style.overview}>
+            <span
+              onClick={() => setDisplay('overview')}
+              to='#'
+              className={display === 'overview' ? style.underline : style.live}
+            >
               Overview
-            </Link>
-            <Link to='/live' className={style.live}>
+            </span>
+            <span
+              onClick={() => setDisplay('live')}
+              to='/live'
+              className={display === 'live' ? style.underline : style.live}
+            >
               Live Game
-            </Link>
+            </span>
           </div>
         </div>
         <div className={style.row3}>
@@ -129,7 +153,7 @@ function Welcome({
               <div className={style.matchHeader}>Match History</div>
               <div className={style.noMatches}>No Matches Found.</div>
             </div>
-          ) : (
+          ) : display === 'overview' ? (
             <MatchHistoryCard
               version={version}
               summonerInfo={summonerInfo}
@@ -138,9 +162,17 @@ function Welcome({
               queues={queues}
               playerMatches={playerMatches}
             />
+          ) : (
+            display === 'live' && (
+              <Live live={live} champInfo={champInfo} version={version} />
+            )
           )}
 
-          <MasteryCard version={version} filteredChamps={filteredChamps} />
+          <MasteryCard
+            version={version}
+            filteredChamps={filteredChamps}
+            champInfo={champInfo}
+          />
         </div>
       </div>
     </>
