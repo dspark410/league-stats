@@ -263,14 +263,14 @@
   padding: 10px 0px;
   color: #fff;
   text-align: center;
-  width: 30%;
+  width: 39%;
   border-radius: 8px;
   margin: 0 auto 15px auto;
 }
 
 .splashImage {
-  width: 800px;
-  max-height: auto;
+  max-width: 800px;
+  max-height: 460px;
   display: flex;
   justify-content: center;
   align-content: center;

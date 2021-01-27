@@ -70,7 +70,10 @@ function ChampionRotation({
         <Loader />
       ) : (
         <>
-          <h1 className={style.championRotationHeader}>Champion Rotation</h1>
+          <h1 className={style.championRotationHeader}>
+            {' '}
+            Free Champion Rotation
+          </h1>
           <div className={style.screenContainer}>
             <div className={style.imageContainer}>
               {freeChamps.map((champ, i) => (

@@ -154,25 +154,31 @@ function Welcome({
               <div className={style.noMatches}>No Matches Found.</div>
             </div>
           ) : display === 'overview' ? (
-            <MatchHistoryCard
-              version={version}
-              summonerInfo={summonerInfo}
-              champInfo={champInfo}
-              getPlayerName={getPlayerName}
-              queues={queues}
-              playerMatches={playerMatches}
-            />
+            <>
+              <MatchHistoryCard
+                version={version}
+                summonerInfo={summonerInfo}
+                champInfo={champInfo}
+                getPlayerName={getPlayerName}
+                queues={queues}
+                playerMatches={playerMatches}
+              />
+              <MasteryCard
+                version={version}
+                filteredChamps={filteredChamps}
+                champInfo={champInfo}
+              />
+            </>
           ) : (
             display === 'live' && (
-              <Live live={live} champInfo={champInfo} version={version} />
+              <Live
+                live={live}
+                champInfo={champInfo}
+                version={version}
+                queues={queues}
+              />
             )
           )}
-
-          <MasteryCard
-            version={version}
-            filteredChamps={filteredChamps}
-            champInfo={champInfo}
-          />
         </div>
       </div>
     </>
