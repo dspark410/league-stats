@@ -52,6 +52,51 @@ input[type='text'] {
   font-size: 18px;
 }
 
+.rolesContainer {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.currentRole {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(43, 34, 58);
+  margin: 0px 5px 15px 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.roleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #7a6b83;
+  margin: 0px 5px 15px 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.roleContainer:hover {
+  cursor: pointer;
+}
+
+.roleImage {
+  width: 35px;
+  height: auto;
+}
+
+.roleLabel {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 5px;
+}
+
+.roleContainer label:hover {
+  cursor: pointer;
+}
+
 .championList {
   text-align: center;
 
@@ -97,4 +142,5 @@ input[type='text'] {
   font-weight: bold;
   letter-spacing: 1px;
   margin-top: -10px;
+  text-transform: uppercase;
 }

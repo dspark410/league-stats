@@ -1,32 +1,33 @@
-import React, { useState, useEffect } from "react";
-import style from "./champions.module.css";
-import Tooltip from "../components/Tooltip";
-import { motion, AnimatePresence } from "framer-motion";
-import { AiOutlineSearch } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import style from './champions.module.css'
+import Tooltip from '../components/Tooltip'
+import { motion, AnimatePresence } from 'framer-motion'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 function Champions({ champInfo, version, selectChampion, showNav }) {
-  const [input, setInput] = useState("");
-  const [autofill, setAutofill] = useState([]);
+  const [input, setInput] = useState('')
+  const [autofill, setAutofill] = useState([])
+  const [role, setRole] = useState('all')
 
   useEffect(() => {
     //show nav
-    showNav();
+    showNav()
     // Populates screen with all champion at start
-    setAutofill(champInfo);
+    setAutofill(champInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [champInfo]);
+  }, [champInfo])
 
   // Change Handler for input
   const changeHandler = (event) => {
-    setInput(event.target.value);
+    setInput(event.target.value)
 
     // Filters as user types to display only champion with matching string
     const filtered = champInfo.filter((champ) =>
       champ.name.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setAutofill(filtered);
-  };
+    )
+    setAutofill(filtered)
+  }
 
   // // SubmiteHandler for input
   // const handleSubmit = (event) => {
@@ -49,14 +50,89 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
     <>
       <div className={style.searchContainer}>
         <h1 className={style.championList}>Champion List</h1>
+        <div className={style.rolesContainer}>
+          <div
+            onClick={() => setRole('all')}
+            className={role === 'all' ? style.currentRole : style.roleContainer}
+          >
+            <img
+              className={style.roleImage}
+              alt='Role-Top'
+              src={process.env.PUBLIC_URL + '/images/roles/all.png'}
+            />
+            <label className={style.roleLabel}>All</label>
+          </div>
+          <div
+            onClick={() => setRole('top')}
+            className={role === 'top' ? style.currentRole : style.roleContainer}
+          >
+            <img
+              className={style.roleImage}
+              alt='Role-Top'
+              src={process.env.PUBLIC_URL + '/images/roles/top.png'}
+            />
+            <label className={style.roleLabel}>Top</label>
+          </div>
+          <div
+            onClick={() => setRole('jungle')}
+            className={
+              role === 'jungle' ? style.currentRole : style.roleContainer
+            }
+          >
+            <img
+              className={style.roleImage}
+              alt='Role-Jungle'
+              src={process.env.PUBLIC_URL + '/images/roles/jungle.png'}
+            />
+            <label className={style.roleLabel}>Jungler</label>
+          </div>
+          <div
+            onClick={() => setRole('mid')}
+            className={role === 'mid' ? style.currentRole : style.roleContainer}
+          >
+            <img
+              className={style.roleImage}
+              alt='Role-Mid'
+              src={process.env.PUBLIC_URL + '/images/roles/mid.png'}
+            />
+            <label className={style.roleLabel}>Mid</label>
+          </div>
+          <div
+            onClick={() => setRole('adcarry')}
+            className={
+              role === 'adcarry' ? style.currentRole : style.roleContainer
+            }
+          >
+            <img
+              className={style.roleImage}
+              alt='Role-AD Carry'
+              src={process.env.PUBLIC_URL + '/images/roles/adcarry.png'}
+            />
+            <label className={style.roleLabel}>AD Carry</label>
+          </div>
+          <div
+            onClick={() => setRole('support')}
+            className={
+              role === 'support' ? style.currentRole : style.roleContainer
+            }
+          >
+            <img
+              className={style.roleImage}
+              alt='Role-Support'
+              src={process.env.PUBLIC_URL + '/images/roles/support.png'}
+            />
+            <label className={style.roleLabel}>Support</label>
+          </div>
+        </div>
+
         <div className={style.inputContainer}>
           {/* <form onSubmit={handleSubmit}> */}
           <input
-            spellCheck="false"
-            type="text"
+            spellCheck='false'
+            type='text'
             onChange={changeHandler}
             value={input}
-            placeholder="search champion..."
+            placeholder='search champion...'
           />
           {/* </form> */}
           <AiOutlineSearch
@@ -81,7 +157,7 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -10, opacity: 0 }}
                 >
-                  <Link to="/championdetail">
+                  <Link to='/championdetail'>
                     <img
                       className={style.freeChampsImg}
                       alt={champ.image.full}
@@ -99,7 +175,7 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Champions;
+export default Champions
