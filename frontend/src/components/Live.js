@@ -4,10 +4,9 @@ import axios from 'axios'
 import Tooltip from './Tooltip'
 import { runeDescriptions } from '../utils/constant'
 
-function Live({ live, champInfo, version, queues }) {
+function Live({ live, champInfo, version, queues, length }) {
   const [runes, setRunes] = useState([])
   const [spells, setSpells] = useState([])
-  const [length, setLength] = useState()
 
   useEffect(() => {
     if (version !== '') {
@@ -29,19 +28,6 @@ function Live({ live, champInfo, version, queues }) {
     }
   }, [version])
 
-  useEffect(() => {
-    const startTimer = async () => {
-      setLength(await live.gameLength)
-
-      if (length) {
-        setInterval(() => {
-          setLength((prevValue) => prevValue + 1)
-        }, 1000)
-      }
-    }
-    startTimer()
-  }, [live])
-
   return (
     <div>
       {live === undefined ? (
@@ -60,14 +46,16 @@ function Live({ live, champInfo, version, queues }) {
           </div>
           <div>
             {live.participants.map(
-              (player) =>
+              (player, i) =>
                 player.teamId === 100 && (
                   <div>
                     <div>
-                      {champInfo.map((champ) => {
+                      {champInfo.map((champ, i) => {
                         return (
                           +champ.key === player.championId && (
                             <img
+                              alt={champ.name}
+                              key={i}
                               src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                             />
                           )
@@ -76,61 +64,67 @@ function Live({ live, champInfo, version, queues }) {
                     </div>
                     <div>
                       <div>
-                        {runes
-                          .filter((rune) => {
-                            return player.perks.perkStyle === rune.id
-                          })
-                          .map((rune, i) => (
-                            <Tooltip
-                              name={rune.name}
-                              info={runeDescriptions
-                                .filter(
-                                  (runeDescription) =>
-                                    runeDescription.key === rune.name &&
-                                    runeDescription.description
-                                )
-                                .map((rune) => rune.description)}
-                              key={i}
-                            >
-                              <img
-                                src={`https://raw.communitydragon.org/${version
-                                  .split('.')
-                                  .slice(0, 2)
-                                  .join(
-                                    '.'
-                                  )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
-                              />
-                            </Tooltip>
-                          ))}
+                        {player.perks
+                          ? runes
+                              .filter((rune) => {
+                                return player.perks.perkStyle === rune.id
+                              })
+                              .map((rune, i) => (
+                                <Tooltip
+                                  name={rune.name}
+                                  info={runeDescriptions
+                                    .filter(
+                                      (runeDescription) =>
+                                        runeDescription.key === rune.name &&
+                                        runeDescription.description
+                                    )
+                                    .map((rune) => rune.description)}
+                                  key={i}
+                                >
+                                  <img
+                                    alt={rune.name}
+                                    key={i}
+                                    src={`https://raw.communitydragon.org/${version
+                                      .split('.')
+                                      .slice(0, 2)
+                                      .join(
+                                        '.'
+                                      )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
+                                  />
+                                </Tooltip>
+                              ))
+                          : ''}
                       </div>
                       <div>
-                        {' '}
-                        {runes
-                          .filter((rune) => {
-                            return player.perks.perkSubStyle === rune.id
-                          })
-                          .map((rune, i) => (
-                            <Tooltip
-                              name={rune.name}
-                              info={runeDescriptions
-                                .filter(
-                                  (runeDescription) =>
-                                    runeDescription.key === rune.name &&
-                                    runeDescription.description
-                                )
-                                .map((rune) => rune.description)}
-                              key={i}
-                            >
-                              <img
-                                src={`https://raw.communitydragon.org/${version
-                                  .split('.')
-                                  .slice(0, 2)
-                                  .join(
-                                    '.'
-                                  )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
-                              />
-                            </Tooltip>
-                          ))}
+                        {player.perks
+                          ? runes
+                              .filter((rune) => {
+                                return player.perks.perkSubStyle === rune.id
+                              })
+                              .map((rune, i) => (
+                                <Tooltip
+                                  name={rune.name}
+                                  info={runeDescriptions
+                                    .filter(
+                                      (runeDescription) =>
+                                        runeDescription.key === rune.name &&
+                                        runeDescription.description
+                                    )
+                                    .map((rune) => rune.description)}
+                                  key={i}
+                                >
+                                  <img
+                                    alt={rune.name}
+                                    src={`https://raw.communitydragon.org/${version
+                                      .split('.')
+                                      .slice(0, 2)
+                                      .join(
+                                        '.'
+                                      )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
+                                  />
+                                </Tooltip>
+                              ))
+                          : ''}
                       </div>
                     </div>
 
@@ -191,6 +185,7 @@ function Live({ live, champInfo, version, queues }) {
                               key={i}
                             >
                               <img
+                                alt={rune.name}
                                 src={`https://raw.communitydragon.org/${version
                                   .split('.')
                                   .slice(0, 2)
@@ -220,6 +215,7 @@ function Live({ live, champInfo, version, queues }) {
                               key={i}
                             >
                               <img
+                                alt={rune.name}
                                 src={`https://raw.communitydragon.org/${version
                                   .split('.')
                                   .slice(0, 2)
@@ -234,7 +230,6 @@ function Live({ live, champInfo, version, queues }) {
                     <img
                       alt='profile icon'
                       className={style.profileIcon}
-                      // Grab profile icon
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
                     />
                     <div>{player.summonerName}</div>
@@ -243,6 +238,7 @@ function Live({ live, champInfo, version, queues }) {
                         (spell, i) =>
                           +spell.key === player.spell1Id && (
                             <img
+                              alt={spell.id}
                               src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
                             />
                           )
@@ -253,6 +249,7 @@ function Live({ live, champInfo, version, queues }) {
                         (spell, i) =>
                           +spell.key === player.spell2Id && (
                             <img
+                              alt={spell.id}
                               src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
                             />
                           )

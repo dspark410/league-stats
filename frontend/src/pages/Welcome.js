@@ -25,6 +25,8 @@ function Welcome({
   const [playerMatches, setPlayerMatches] = useState([])
   const [display, setDisplay] = useState('overview')
   const [live, setLive] = useState()
+  const [length, setLength] = useState(0)
+
   const url = process.env.REACT_APP_API_URL || ''
 
   // Function for masteries call specific to summoner id
@@ -59,6 +61,14 @@ function Welcome({
       axios
         .get(`${url}/live/${sessionData.id}`)
         .then((res) => setLive(res.data))
+        .then(() => {
+          if (live) {
+            setLength(live.gameLength)
+          }
+          setInterval(() => {
+            setLength((seconds) => seconds + 1)
+          }, 1000)
+        })
     } else {
       // Get masteries from state and set into state
       getMasteries(summonerInfo.id).then((res) => {
@@ -176,6 +186,7 @@ function Welcome({
                 champInfo={champInfo}
                 version={version}
                 queues={queues}
+                length={length}
               />
             )
           )}
