@@ -1,0 +1,129 @@
+.notInGame {
+  color: #fff;
+  background-color: #755c83;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.liveContainer {
+  width: 1200px;
+  color: #fff;
+}
+
+.timerQueueContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin: -15px 0px 15px 0px;
+}
+
+.timerQueueContainerBorder {
+  display: flex;
+  background-color: #755c83;
+  border-radius: 8px;
+  padding: 5px 12px;
+}
+
+.queue {
+  margin-right: 5px;
+}
+
+.timer {
+  margin-left: 5px;
+}
+
+.ally {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: #fff;
+  /* background-color: blue; */
+}
+
+.enemy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: #fff;
+  /* background-color: red; */
+}
+.champImageRuneSpellNameContainerAlly {
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(
+    90deg,
+    rgba(1, 39, 97, 0.3) 0%,
+    #7a6b83 75%
+  );
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+}
+
+.champImageRuneSpellNameContainerEnemy {
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(
+    90deg,
+    rgba(140, 0, 0, 0.3) 0%,
+    #7a6b83 75%
+  );
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+}
+
+.champImageRuneSpellContainerAlly {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.champImageRuneSpellContainerEnemy {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.champImage {
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+
+.runeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.runeImage {
+  width: 25px;
+  height: auto;
+  margin-right: 5px;
+}
+
+.spellContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.spellimage {
+  width: 23px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.summonerName {
+  font-size: 14px;
+  font-weight: 500;
+}
