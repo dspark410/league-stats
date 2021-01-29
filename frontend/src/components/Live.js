@@ -49,14 +49,21 @@ function Live({ live, champInfo, version, queues, length }) {
             </div>
           </div>
         </div>
-        {/* <div>{live.gameMode}</div> */}
+
         <div className={style.allyBannedContainer}>
           <h3 className={style.allyTeam}>Ally Team</h3>
           <div className={style.banContainer}>
             <span className={style.allyBans}>Bans</span>
-            {live.bannedChampions.map((banned) =>
-              banned.teamId === 100
-                ? champInfo.map((champ, i) => {
+
+            {live.bannedChampions.length === 0 ? (
+              <span className={style.noBans}>
+                -&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-
+              </span>
+            ) : (
+              live.bannedChampions.map(
+                (banned) =>
+                  banned.teamId === 100 &&
+                  champInfo.map((champ, i) => {
                     return (
                       +champ.key === banned.championId && (
                         <img
@@ -68,7 +75,7 @@ function Live({ live, champInfo, version, queues, length }) {
                       )
                     )
                   })
-                : ''
+              )
             )}
           </div>
         </div>
@@ -77,7 +84,10 @@ function Live({ live, champInfo, version, queues, length }) {
           {live.participants.map(
             (player, i) =>
               player.teamId === 100 && (
-                <div className={style.champImageRuneSpellNameContainerAlly}>
+                <div
+                  key={i}
+                  className={style.champImageRuneSpellNameContainerAlly}
+                >
                   <div className={style.summonerName}>
                     <img
                       alt='profile icon'
@@ -155,6 +165,7 @@ function Live({ live, champInfo, version, queues, length }) {
                                   key={i}
                                 >
                                   <img
+                                    key={i}
                                     className={style.runeImage}
                                     alt={rune.name}
                                     src={`https://raw.communitydragon.org/${version
@@ -175,6 +186,7 @@ function Live({ live, champInfo, version, queues, length }) {
                           (spell, i) =>
                             +spell.key === player.spell1Id && (
                               <img
+                                key={i}
                                 className={style.spellimage}
                                 alt={spell.id}
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
@@ -187,6 +199,7 @@ function Live({ live, champInfo, version, queues, length }) {
                           (spell, i) =>
                             +spell.key === player.spell2Id && (
                               <img
+                                key={i}
                                 className={style.spellimage}
                                 alt={spell.id}
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
@@ -204,9 +217,15 @@ function Live({ live, champInfo, version, queues, length }) {
           <h3 className={style.enemyTeam}>Enemy Team</h3>
           <div className={style.banContainer}>
             <span className={style.enemyBans}>Bans</span>
-            {live.bannedChampions.map((banned) =>
-              banned.teamId === 200
-                ? champInfo.map((champ, i) => {
+            {live.bannedChampions.length === 0 ? (
+              <span className={style.noBans}>
+                -&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-
+              </span>
+            ) : (
+              live.bannedChampions.map(
+                (banned) =>
+                  banned.teamId === 200 &&
+                  champInfo.map((champ, i) => {
                     return (
                       +champ.key === banned.championId && (
                         <img
@@ -218,7 +237,7 @@ function Live({ live, champInfo, version, queues, length }) {
                       )
                     )
                   })
-                : ''
+              )
             )}
           </div>
         </div>
@@ -226,7 +245,10 @@ function Live({ live, champInfo, version, queues, length }) {
           {live.participants.map(
             (player, i) =>
               player.teamId === 200 && (
-                <div className={style.champImageRuneSpellNameContainerEnemy}>
+                <div
+                  key={i}
+                  className={style.champImageRuneSpellNameContainerEnemy}
+                >
                   <div className={style.summonerName}>
                     <img
                       alt='profile icon'
@@ -304,6 +326,7 @@ function Live({ live, champInfo, version, queues, length }) {
                                   key={i}
                                 >
                                   <img
+                                    key={i}
                                     className={style.runeImage}
                                     alt={rune.name}
                                     src={`https://raw.communitydragon.org/${version
@@ -324,6 +347,7 @@ function Live({ live, champInfo, version, queues, length }) {
                           (spell, i) =>
                             +spell.key === player.spell1Id && (
                               <img
+                                key={i}
                                 className={style.spellimage}
                                 alt={spell.id}
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
@@ -336,6 +360,7 @@ function Live({ live, champInfo, version, queues, length }) {
                           (spell, i) =>
                             +spell.key === player.spell2Id && (
                               <img
+                                key={i}
                                 className={style.spellimage}
                                 alt={spell.id}
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
@@ -350,7 +375,6 @@ function Live({ live, champInfo, version, queues, length }) {
           )}
         </div>
       </>
-      )}
     </div>
   )
 }

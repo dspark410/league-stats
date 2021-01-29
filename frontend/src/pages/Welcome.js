@@ -154,7 +154,7 @@ function Welcome({
           {playerMatches.length === 0 ? (
             <div className={style.noMatchContainer}>
               <div className={style.matchHeader}>Match History</div>
-              <div className={style.noMatches}>No Matches Found.</div>
+              <div className={style.noMatches}>No Matches Were Found.</div>
             </div>
           ) : display === 'overview' ? (
             <>
@@ -166,6 +166,7 @@ function Welcome({
                 queues={queues}
                 playerMatches={playerMatches}
               />
+
               <MasteryCard
                 version={version}
                 filteredChamps={filteredChamps}
@@ -173,7 +174,7 @@ function Welcome({
               />
             </>
           ) : live === undefined ? (
-            <div className={style.notInGame}>Summoner Not In Game.</div>
+            <div className={style.notInGame}>Summoner Is Not In Game.</div>
           ) : (
             display === 'live' && (
               <Live
@@ -181,7 +182,9 @@ function Welcome({
                 champInfo={champInfo}
                 version={version}
                 queues={queues}
-                length={live.gameLength}
+                length={
+                  live.gameLength < 0 ? live.gameLength * -1 : live.gameLength
+                }
               />
             )
           )}
