@@ -127,7 +127,7 @@ function App() {
   useEffect(() => {
     const getChamp = sessionStorage.getItem("champion");
 
-    if (version) {
+    if (version && getChamp) {
       axios
         .get(
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`

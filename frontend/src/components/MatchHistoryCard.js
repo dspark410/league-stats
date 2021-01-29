@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
-import style from './matchhistory.module.css'
-import Tooltip from './Tooltip'
-import axios from 'axios'
-import Loader from './Loader'
-import LoadingOverlay from 'react-loading-overlay'
-import ItemHistory from './ItemHistory'
-import { runeDescriptions } from '../utils/constant'
+import React, { useState, useEffect, useLayoutEffect } from "react";
+import style from "./matchhistory.module.css";
+import Tooltip from "./Tooltip";
+import axios from "axios";
+import Loader from "./Loader";
+import LoadingOverlay from "react-loading-overlay";
+import ItemHistory from "./ItemHistory";
+import { runeDescriptions } from "../utils/constant";
 
 // MATCH TIMESLINES API
 // https://na1.api.riotgames.com/lol/match/v4/timelines/by-match/3630397822?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
@@ -18,63 +18,63 @@ function MatchHistoryCard({
   queues,
   playerMatches,
 }) {
-  const visible = 7
-  const [gameDetails, setGameDetails] = useState([])
-  const [runes, setRunes] = useState([])
-  const [spells, setSpells] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [matchDetails, setMatchDetails] = useState([])
-  const [index, setIndex] = useState(visible)
+  const visible = 7;
+  const [gameDetails, setGameDetails] = useState([]);
+  const [runes, setRunes] = useState([]);
+  const [spells, setSpells] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [matchDetails, setMatchDetails] = useState([]);
+  const [index, setIndex] = useState(visible);
 
   // Get info from Session Storage
-  const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
-  const url = process.env.REACT_APP_API_URL || ''
+  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
+  const url = process.env.REACT_APP_API_URL || "";
 
   // Funtion for loading more matches
   const getMoreMatches = async () => {
     axios
       .get(`${url}/matchDetails/${playerMatches[index].gameId}`)
       .then(async (res) => {
-        const newMatch = await createGameObject(res.data, queues, champInfo)
-        setGameDetails((prevGames) => [...prevGames, newMatch])
-      })
-    setIndex((prevIndex) => prevIndex + 1)
-  }
+        const newMatch = await createGameObject(res.data, queues, champInfo);
+        setGameDetails((prevGames) => [...prevGames, newMatch]);
+      });
+    setIndex((prevIndex) => prevIndex + 1);
+  };
 
   const createGameObject = (match, queues, champInfo) => {
     const matchObj = queues
       .filter((queue) => match.queueId === queue.queueId)
       .map((queue) => {
-        const date = new Date(match.gameCreation).toString()
+        const date = new Date(match.gameCreation).toString();
 
         const object = {
           map: queue.map,
           gameType: queue.description,
           gameCreation: date,
           gameDuration: match.gameDuration,
-          gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
+          gameVersion: match.gameVersion.split(".").slice(0, 2).join("."),
           players: [],
-        }
-        return object
-      })[0]
+        };
+        return object;
+      })[0];
 
     // loops through current account id in session or summonerInfo
     // To grab the right info for match history card
-    let playerObj
+    let playerObj;
     match.participantIdentities.forEach((id) => {
-      // console.log(
-      //   "id from participantIdentities",
-      //   id.player.accountId,
-      //   "summonerInfo.accountId",
-      //   summonerInfo.accountId,
-      //   "sessionData.accountId",
-      //   sessionData.accountId
-      // );
+      console.log(
+        "id from participantIdentities",
+        id.player.accountId,
+        "summonerInfo.accountId",
+        summonerInfo.accountId
+      );
       if (
         id.player.accountId === summonerInfo.accountId ||
-        id.player.accountId === sessionData.accountId
+        id.player.accountId === sessionData.accountId ||
+        id.player.summonerId === summonerInfo.id ||
+        id.player.summonerId === sessionData.id
       ) {
-        matchObj.participantId = id.participantId
+        matchObj.participantId = id.participantId;
       }
       // Champion Icon for summoner and summoner name on sixth and seventh card
       match.participants.forEach((part) => {
@@ -83,58 +83,58 @@ function MatchHistoryCard({
             id: id.participantId,
             name: id.player.summonerName,
             champId: part.championId,
-          }
+          };
         }
         champInfo.forEach((key) => {
           if (playerObj.champId === +key.key) {
-            playerObj.image = key.image.full
+            playerObj.image = key.image.full;
           }
-        })
-      })
-      matchObj.players.push(playerObj)
-    })
+        });
+      });
+      matchObj.players.push(playerObj);
+    });
     // finds matching participantId from matchObj and keeps all data from matching participants
     match.participants.forEach((data) => {
       if (data.participantId === matchObj.participantId) {
-        const playerStats = data
-        matchObj.playerInfo = playerStats
+        const playerStats = data;
+        matchObj.playerInfo = playerStats;
       }
-    })
+    });
     // get relevant image for player's champion for that game
     champInfo.forEach((champ) => {
       if (matchObj.playerInfo.championId === +champ.key) {
-        matchObj.championName = champ.name
-        matchObj.championImage = champ.image.full
+        matchObj.championName = champ.name;
+        matchObj.championImage = champ.image.full;
       }
-    })
-    return matchObj
-  }
+    });
+    return matchObj;
+  };
 
   useEffect(() => {
     // Validation to check if version is populated in props
-    if (version !== '') {
+    if (version !== "") {
       // Retrieve list of summoner spells from Riot API
       axios
         .get(
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
         )
         .then((res) => {
-          setSpells(Object.values(res.data.data))
-        })
+          setSpells(Object.values(res.data.data));
+        });
       // Retrieve list of runes from Riot APIf
       axios
         .get(
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
         )
         .then((res) => {
-          setRunes(res.data)
-        })
+          setRunes(res.data);
+        });
     }
-  }, [version])
+  }, [version]);
 
   useEffect(() => {
-    setLoading(true)
-  }, [summonerInfo])
+    setLoading(true);
+  }, [summonerInfo]);
 
   //
   // DEFINITELY CAN REFACTOR
@@ -142,7 +142,7 @@ function MatchHistoryCard({
   // Match Details
   useEffect(() => {
     // Empty array to store match details
-    const matchArray = []
+    const matchArray = [];
 
     // Slice to determine how many previous matches to render
     playerMatches.slice(0, visible).forEach((match) => {
@@ -152,32 +152,32 @@ function MatchHistoryCard({
         .then(() => {
           // Need this .then because setMatchDetails renders too quickly
           // Forces it to wait for matchArray to reach correct length
-          matchArray.length === visible && setMatchDetails(matchArray)
+          matchArray.length === visible && setMatchDetails(matchArray);
         })
         .then(() => {
           setTimeout(() => {
-            setLoading(false)
-          }, 2000)
-        })
-    })
+            setLoading(false);
+          }, 2000);
+        });
+    });
     // Dependent on playerMatches to be ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playerMatches, visible])
+  }, [playerMatches, visible]);
 
   useLayoutEffect(() => {
-    const gameDetailsArr = []
+    const gameDetailsArr = [];
     if (matchDetails.length === visible) {
       matchDetails.forEach((match) => {
         // Loops through queue state, to match game type ex. 5v5 , 3v3, summoners rift, ranked
-        const matchObj = createGameObject(match, queues, champInfo)
-        gameDetailsArr.push(matchObj)
-        setGameDetails(gameDetailsArr)
-      })
+        const matchObj = createGameObject(match, queues, champInfo);
+        gameDetailsArr.push(matchObj);
+        setGameDetails(gameDetailsArr);
+      });
 
-      setLoading(false)
+      setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matchDetails])
+  }, [matchDetails]);
 
   return (
     <div className={style.matchContainer}>
@@ -188,7 +188,7 @@ function MatchHistoryCard({
           {gameDetails.length >= visible &&
             gameDetails
               .sort(function (a, b) {
-                return new Date(b.gameCreation) - new Date(a.gameCreation)
+                return new Date(b.gameCreation) - new Date(a.gameCreation);
               })
               .map((game, i) => (
                 <div
@@ -202,17 +202,17 @@ function MatchHistoryCard({
                   <span className={style.cardContainer}>
                     <div className={style.firstCard}>
                       <p className={style.gameType}>
-                        {game.gameType.split(' ').slice(0, 3).join(' ')}
+                        {game.gameType.split(" ").slice(0, 3).join(" ")}
                       </p>
                       <p className={style.gameCreation}>
-                        {game.gameCreation.split(' ').slice(0, 4).join(' ')}
+                        {game.gameCreation.split(" ").slice(0, 4).join(" ")}
                       </p>
                       <p
                         className={
                           game.playerInfo.stats.win ? style.win : style.loss
                         }
                       >
-                        {game.playerInfo.stats.win ? 'Victory' : 'Defeat'}
+                        {game.playerInfo.stats.win ? "Victory" : "Defeat"}
                       </p>
                       <p className={style.gameDuration}>{`${Math.floor(
                         game.gameDuration / 60
@@ -274,15 +274,15 @@ function MatchHistoryCard({
                               return (
                                 rune.id ===
                                 game.playerInfo.stats.perkPrimaryStyle
-                              )
+                              );
                             })
                             .map((rune, i) => {
-                              const perk0 = game.playerInfo.stats.perk0
+                              const perk0 = game.playerInfo.stats.perk0;
                               const perkImage = rune.slots[0].runes.filter(
                                 (perk) => {
-                                  return perk.id === perk0
+                                  return perk.id === perk0;
                                 }
-                              )
+                              );
                               return (
                                 <Tooltip
                                   key={i}
@@ -290,21 +290,21 @@ function MatchHistoryCard({
                                   info={perkImage[0].longDesc}
                                 >
                                   <img
-                                    alt='runes'
+                                    alt="runes"
                                     className={style.summonerSpell}
                                     src={`https://raw.communitydragon.org/${
                                       game.gameVersion
                                     }/plugins/rcp-be-lol-game-data/global/default/v1/${perkImage[0].icon.toLowerCase()}`}
                                   />
                                 </Tooltip>
-                              )
+                              );
                             })}
 
                           {runes
                             .filter((rune) => {
                               return (
                                 game.playerInfo.stats.perkSubStyle === rune.id
-                              )
+                              );
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -319,7 +319,7 @@ function MatchHistoryCard({
                                 key={i}
                               >
                                 <img
-                                  alt='summoner spell'
+                                  alt="summoner spell"
                                   className={style.summonerSpell2}
                                   src={`https://raw.communitydragon.org/${
                                     game.gameVersion
@@ -353,14 +353,14 @@ function MatchHistoryCard({
                           <span>
                             {game.playerInfo.stats.largestMultiKill === 0 ||
                             game.playerInfo.stats.largestMultiKill === 1
-                              ? ''
+                              ? ""
                               : game.playerInfo.stats.largestMultiKill === 2
-                              ? 'Double Kill'
+                              ? "Double Kill"
                               : game.playerInfo.stats.largestMultiKill === 3
-                              ? 'Triple Kill'
+                              ? "Triple Kill"
                               : game.playerInfo.stats.largestMultiKill === 4
-                              ? 'Quadra Kill'
-                              : 'Penta Kill'}
+                              ? "Quadra Kill"
+                              : "Penta Kill"}
                           </span>
                         </div>
                       </div>
@@ -373,7 +373,7 @@ function MatchHistoryCard({
                       >
                         <span className={style.minions}>
                           {game.playerInfo.stats.totalMinionsKilled +
-                            game.playerInfo.stats.neutralMinionsKilled}{' '}
+                            game.playerInfo.stats.neutralMinionsKilled}{" "}
                           cs
                         </span>
                       </Tooltip>
@@ -431,7 +431,7 @@ function MatchHistoryCard({
                               }
                               name={player.name}
                             >
-                              {player.name.replace(/\s/g, '')}
+                              {player.name.replace(/\s/g, "")}
                             </span>
                           </div>
                         ))}
@@ -466,7 +466,7 @@ function MatchHistoryCard({
                               }
                               name={player.name}
                             >
-                              {player.name.replace(/\s/g, '')}
+                              {player.name.replace(/\s/g, "")}
                             </span>
                           </div>
                         ))}
@@ -485,13 +485,13 @@ function MatchHistoryCard({
                 More Matches Unavailable
               </div>
             ) : (
-              'Load More'
+              "Load More"
             )}
           </div>
         </LoadingOverlay>
       )}
     </div>
-  )
+  );
 }
 
-export default MatchHistoryCard
+export default MatchHistoryCard;
