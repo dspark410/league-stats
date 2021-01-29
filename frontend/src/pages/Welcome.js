@@ -172,6 +172,8 @@ function Welcome({
                 champInfo={champInfo}
               />
             </>
+          ) : live === undefined ? (
+            <div className={style.notInGame}>Summoner Not In Game.</div>
           ) : (
             display === 'live' && (
               <Live
@@ -179,7 +181,7 @@ function Welcome({
                 champInfo={champInfo}
                 version={version}
                 queues={queues}
-                length={live.gamelength}
+                length={live.gameLength}
               />
             )
           )}
