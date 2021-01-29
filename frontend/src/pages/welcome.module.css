@@ -50,9 +50,38 @@
   margin-top: 70px;
 }
 
+.circlePulse {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: #3076c7;
+  animation: pulse 2.5s infinite;
+  margin-right: 10px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(82, 163, 255, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(82, 99, 255, 0);
+  }
+
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 0 0 rgba(82, 99, 255, 0);
+  }
+}
+
 .inGame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 70px;
-  padding: 5px 12px;
+  padding: 5px 15px;
   background-color: #225591;
   border-radius: 20px;
   font-size: 14px;

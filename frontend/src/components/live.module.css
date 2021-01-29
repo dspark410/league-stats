@@ -1,5 +1,9 @@
+.liveWidthContainer {
+  margin: 0 auto;
+}
+
 .liveContainer {
-  width: 1200px;
+  width: 1100px;
   color: #fff;
 }
 
@@ -11,9 +15,12 @@
 
 .timerQueueContainerBorder {
   display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #755c83;
   border-radius: 8px;
   padding: 5px 12px;
+  width: 250px;
 }
 
 .queue {
@@ -31,10 +38,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 15px 0px 10px 0px;
 }
 
 .champImageBanned {
-  width: 50px;
+  width: 40px;
   height: auto;
   border-radius: 50%;
   border: 3px solid rgb(45, 81, 121);
@@ -52,7 +60,7 @@
 
 .allyTeam {
   color: rgb(63, 112, 168);
-  margin-bottom: 10px;
+
   font-weight: 700;
 }
 
@@ -66,7 +74,7 @@
 
 .enemyTeam {
   color: rgb(211, 81, 81);
-  margin: 25px 0px 10px 0px;
+
   font-weight: 700;
 }
 
@@ -76,13 +84,22 @@
   align-items: center;
 }
 
+.solo {
+  color: #e2c0f7;
+  font-weight: 700;
+}
+.flex {
+  color: #e2c0f7;
+  font-weight: 700;
+}
+
 .allyBans {
-  color: rgb(60, 106, 160);
+  color: #e2c0f7;
   font-weight: 700;
 }
 
 .enemyBans {
-  color: rgb(192, 71, 71);
+  color: #e2c0f7;
   font-weight: 700;
 }
 
@@ -124,12 +141,14 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  min-width: 100px;
 }
 
 .champImageRuneSpellContainerEnemy {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  min-width: 100px;
 }
 
 .champImageAlly {

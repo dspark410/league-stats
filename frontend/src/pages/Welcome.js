@@ -121,7 +121,15 @@ function Welcome({
             <h1 className={style.summonerName}>
               {summonerInfo.name || session.name}
             </h1>
-            {live ? <div className={style.inGame}>In Game</div> : ''}
+
+            {live ? (
+              <div className={style.inGame}>
+                {' '}
+                <div className={style.circlePulse}></div>In Game
+              </div>
+            ) : (
+              ''
+            )}
           </div>
 
           <div className={style.emblemContainer}>
