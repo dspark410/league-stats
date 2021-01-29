@@ -5,6 +5,7 @@ const express = require("express");
 const axios = require("axios");
 const app = express();
 const path = require("path");
+const backupItem = require("./items/backupItems.json");
 const port = process.env.PORT || 5000;
 
 app.use((req, res, next) => {
@@ -172,6 +173,15 @@ app.get("/live/:summonerId", async (req, res) => {
       `https://na1.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${req.params.summonerId}?api_key=${api}`
     );
     res.json(liveData.data);
+  } catch (error) {
+    console.log("Not in Live Game");
+  }
+});
+
+//Call for live game for summoner
+app.get("/backupjson", async (req, res) => {
+  try {
+    res.json(backupItem);
   } catch (error) {
     console.log("Not in Live Game");
   }
