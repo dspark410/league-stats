@@ -58,17 +58,10 @@ function Welcome({
       })
 
       // Get live game data for summoner
-      axios
-        .get(`${url}/live/${sessionData.id}`)
-        .then((res) => setLive(res.data))
-        .then(() => {
-          if (live) {
-            setLength(live.gameLength)
-          }
-          setInterval(() => {
-            setLength((seconds) => seconds + 1)
-          }, 1000)
-        })
+      axios.get(`${url}/live/${sessionData.id}`).then((res) => {
+        setLive(res.data)
+        // setLength(res.data.gameLength)
+      })
     } else {
       // Get masteries from state and set into state
       getMasteries(summonerInfo.id).then((res) => {
@@ -186,7 +179,7 @@ function Welcome({
                 champInfo={champInfo}
                 version={version}
                 queues={queues}
-                length={length}
+                length={live.gamelength}
               />
             )
           )}

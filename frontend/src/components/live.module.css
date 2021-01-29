@@ -28,8 +28,26 @@
   margin-right: 5px;
 }
 
-.timer {
-  margin-left: 5px;
+.allyBannedContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.enemyBannedContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.champImageBanned {
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid rgb(45, 81, 121);
+  margin-right: 5px;
+  filter: grayscale(1);
 }
 
 .ally {
@@ -38,7 +56,12 @@
   align-items: flex-start;
   justify-content: center;
   color: #fff;
-  /* background-color: blue; */
+}
+
+.allyTeam {
+  color: rgb(63, 112, 168);
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
 .enemy {
@@ -47,11 +70,36 @@
   align-items: flex-start;
   justify-content: center;
   color: #fff;
-  /* background-color: red; */
 }
+
+.enemyTeam {
+  color: rgb(211, 81, 81);
+  margin: 25px 0px 10px 0px;
+  font-weight: 700;
+}
+
+.banContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.allyBans {
+  color: rgb(60, 106, 160);
+  font-weight: 700;
+}
+
+.enemyBans {
+  color: rgb(192, 71, 71);
+  font-weight: 700;
+}
+
+.banContainer span {
+  margin-right: 5px;
+}
+
 .champImageRuneSpellNameContainerAlly {
   display: flex;
-  flex-direction: column;
   background-image: linear-gradient(
     90deg,
     rgba(1, 39, 97, 0.3) 0%,
@@ -65,7 +113,6 @@
 
 .champImageRuneSpellNameContainerEnemy {
   display: flex;
-  flex-direction: column;
   background-image: linear-gradient(
     90deg,
     rgba(140, 0, 0, 0.3) 0%,
@@ -89,11 +136,19 @@
   align-items: center;
 }
 
-.champImage {
+.champImageAlly {
   width: 50px;
   height: auto;
   border-radius: 50%;
-  border: 1px solid black;
+  border: 3px solid rgb(60, 106, 160);
+  margin-right: 5px;
+}
+
+.champImageEnemy {
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+  border: 3px solid rgb(192, 71, 71);
   margin-right: 5px;
 }
 
@@ -105,7 +160,7 @@
 }
 
 .runeImage {
-  width: 25px;
+  width: 22px;
   height: auto;
   margin-right: 5px;
 }
@@ -118,12 +173,25 @@
 }
 
 .spellimage {
-  width: 23px;
+  width: 20px;
   height: auto;
   border-radius: 5px;
 }
 
 .summonerName {
-  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 13px;
   font-weight: 500;
+  margin-right: 8px;
+  min-width: 150px;
+}
+
+.profileIcon {
+  width: 35px;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 3px;
 }

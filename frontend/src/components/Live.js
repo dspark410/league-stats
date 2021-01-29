@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import style from './live.module.css'
 import axios from 'axios'
 import Tooltip from './Tooltip'
+import Timer from './Timer'
+
 import { runeDescriptions } from '../utils/constant'
 
 function Live({ live, champInfo, version, queues, length }) {
@@ -46,26 +48,55 @@ function Live({ live, champInfo, version, queues, length }) {
                   })}
                 </div>
                 <span>-</span>
-                <div className={style.timer}>{`${Math.floor(
-                  length / 60
-                )}m ${Math.ceil(length % 60)}s `}</div>
+                <Timer length={length} />
               </div>
             </div>
           </div>
           {/* <div>{live.gameMode}</div> */}
+          <div className={style.allyBannedContainer}>
+            <h3 className={style.allyTeam}>Ally Team</h3>
+            <div className={style.banContainer}>
+              <span className={style.allyBans}>Bans</span>
+              {live.bannedChampions.map((banned) =>
+                banned.teamId === 100
+                  ? champInfo.map((champ, i) => {
+                      return (
+                        +champ.key === banned.championId && (
+                          <img
+                            className={style.champImageBanned}
+                            alt={champ.name}
+                            key={i}
+                            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                          />
+                        )
+                      )
+                    })
+                  : ''
+              )}
+            </div>
+          </div>
 
           <div className={style.ally}>
             {live.participants.map(
               (player, i) =>
                 player.teamId === 100 && (
                   <div className={style.champImageRuneSpellNameContainerAlly}>
+                    <div className={style.summonerName}>
+                      <img
+                        alt='profile icon'
+                        className={style.profileIcon}
+                        // Grab profile icon
+                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
+                      />
+                      {player.summonerName}
+                    </div>
                     <div className={style.champImageRuneSpellContainerAlly}>
                       <div>
                         {champInfo.map((champ, i) => {
                           return (
                             +champ.key === player.championId && (
                               <img
-                                className={style.champImage}
+                                className={style.champImageAlly}
                                 alt={champ.name}
                                 key={i}
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
@@ -168,32 +199,53 @@ function Live({ live, champInfo, version, queues, length }) {
                         </div>
                       </div>
                     </div>
-                    <div className={style.summonerName}>
-                      {player.summonerName}
-                    </div>
-
-                    {/* <img
-                      alt='profile icon'
-                      className={style.profileIcon}
-                      // Grab profile icon
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
-                    /> */}
                   </div>
                 )
             )}
+          </div>
+          <div className={style.enemyBannedContainer}>
+            <h3 className={style.enemyTeam}>Enemy Team</h3>
+            <div className={style.banContainer}>
+              <span className={style.enemyBans}>Bans</span>
+              {live.bannedChampions.map((banned) =>
+                banned.teamId === 200
+                  ? champInfo.map((champ, i) => {
+                      return (
+                        +champ.key === banned.championId && (
+                          <img
+                            className={style.champImageBanned}
+                            alt={champ.name}
+                            key={i}
+                            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                          />
+                        )
+                      )
+                    })
+                  : ''
+              )}
+            </div>
           </div>
           <div className={style.enemy}>
             {live.participants.map(
               (player, i) =>
                 player.teamId === 200 && (
                   <div className={style.champImageRuneSpellNameContainerEnemy}>
+                    <div className={style.summonerName}>
+                      <img
+                        alt='profile icon'
+                        className={style.profileIcon}
+                        // Grab profile icon
+                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
+                      />
+                      {player.summonerName}
+                    </div>
                     <div className={style.champImageRuneSpellContainerEnemy}>
                       <div>
                         {champInfo.map((champ, i) => {
                           return (
                             +champ.key === player.championId && (
                               <img
-                                className={style.champImage}
+                                className={style.champImageEnemy}
                                 alt={champ.name}
                                 key={i}
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
@@ -295,16 +347,6 @@ function Live({ live, champInfo, version, queues, length }) {
                           )}
                         </div>
                       </div>
-                    </div>
-
-                    {/* <img
-                      alt='profile icon'
-                      className={style.profileIcon}
-                      // Grab profile icon
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
-                    /> */}
-                    <div className={style.summonerName}>
-                      {player.summonerName}
                     </div>
                   </div>
                 )
