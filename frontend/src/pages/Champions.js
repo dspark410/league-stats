@@ -7,15 +7,14 @@ import { Link } from "react-router-dom";
 
 function Champions({ champInfo, version, selectChampion, showNav }) {
   const [input, setInput] = useState("");
-  const [autofill, setAutofill] = useState([]);
   const [role, setRole] = useState("all");
   const [champs, setChamps] = useState([]);
+  const [autofill, setAutofill] = useState([]);
 
   useEffect(() => {
     //show nav
     showNav();
-    // Populates screen with all champion at start
-    setAutofill(champInfo);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champInfo]);
 
@@ -26,7 +25,37 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
         break;
       case "top":
         setChamps(
-          champInfo.filter((champ) => champ.tags.includes("Fighter" || "Tank"))
+          champInfo.filter((champ) => {
+            return (
+              champ.tags.includes("Tank" || "Fighter") &&
+              !champ.tags.includes("Support")
+            );
+          })
+        );
+        break;
+      case "mid":
+        setChamps(
+          champInfo.filter((champ) => {
+            return (
+              champ.tags.includes("Mage" || "Assassin") &&
+              !champ.tags.includes("Support") &&
+              !champ.tags.includes("Marksman")
+            );
+          })
+        );
+        break;
+      case "adcarry":
+        setChamps(
+          champInfo.filter((champ) => {
+            return champ.tags.includes("Marksman");
+          })
+        );
+        break;
+      case "support":
+        setChamps(
+          champInfo.filter((champ) => {
+            return champ.tags.includes("Support");
+          })
         );
         break;
       default:
@@ -39,7 +68,7 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
     setInput(event.target.value);
 
     // Filters as user types to display only champion with matching string
-    const filtered = champInfo.filter((champ) =>
+    const filtered = champs.filter((champ) =>
       champ.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setAutofill(filtered);
