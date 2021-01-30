@@ -27,6 +27,7 @@ function App() {
   const [queues, setQueues] = useState([]);
   const [champDetail, setChampDetail] = useState();
   const [item, setItem] = useState();
+  const [backupItem, setBackupItem] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [navVisibility, setNavVisibility] = useState(false);
   const [leaderboard, setLeaderBoard] = useState([]);
@@ -120,6 +121,7 @@ function App() {
           .then((res) => {
             setItem(res.data.data);
           });
+        axios.get(`${url}/backupjson`).then((res) => setBackupItem(res.data));
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -280,7 +282,7 @@ function App() {
                   <ChampionDetail
                     version={version}
                     champDetail={champDetail}
-                    itemObj={item}
+                    itemObj={backupItem}
                     showNav={showNav}
                     changeBackground={changeBackground}
                   />
