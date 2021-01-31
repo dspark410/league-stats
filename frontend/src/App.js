@@ -22,11 +22,11 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [champInfo, setChampInfo] = useState([]);
+  const [prevChampInfo, setPrevChampInfo] = useState([]);
   const [version, setVersion] = useState();
   const [inputResponse, setInputResponse] = useState("");
   const [queues, setQueues] = useState([]);
   const [champDetail, setChampDetail] = useState();
-  const [item, setItem] = useState();
   const [backupItem, setBackupItem] = useState({});
   const [modalOpen, setModalOpen] = useState(false);
   const [navVisibility, setNavVisibility] = useState(false);
@@ -114,12 +114,16 @@ function App() {
             // Store championArray into state
             setChampInfo(Object.values(res.data.data));
           });
+
         axios
           .get(
-            `https://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/item.json`
+            // Link to PREVIOUS champion.json from Riot
+            `https://ddragon.leagueoflegends.com/cdn/${res.data[1]}/data/en_US/champion.json`
           )
           .then((res) => {
-            setItem(res.data.data);
+            // Loop through Riot's champion.json array and keeps object values, in the form of an array
+            // Store championArray into state
+            setPrevChampInfo(Object.values(res.data.data));
           });
         axios.get(`${url}/backupjson`).then((res) => setBackupItem(res.data));
       });
