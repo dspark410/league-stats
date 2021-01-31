@@ -7,6 +7,10 @@
   color: #fff;
 }
 
+.timer {
+  margin-left: 5px;
+}
+
 .timerQueueContainer {
   display: flex;
   justify-content: flex-end;
