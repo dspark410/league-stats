@@ -157,9 +157,6 @@ export default function ChampionDetail({
                         <div className={style.type}>{block.type}</div>
                         <div className={style.buildType}>
                           {block.items.map((item, i) => {
-                            // if (!itemObj[item.id] && !backupItem[item.id]) {
-                            //   console.log(item.id)
-                            // }
                             return (
                               <div key={i} className={style.itemContainer}>
                                 <Tooltip

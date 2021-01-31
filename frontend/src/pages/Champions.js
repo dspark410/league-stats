@@ -4,6 +4,7 @@ import Tooltip from "../components/Tooltip";
 import { motion, AnimatePresence } from "framer-motion";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { laneChamp } from "../utils/constant";
 
 function Champions({ champInfo, version, selectChampion, showNav }) {
   const [input, setInput] = useState("");
@@ -24,39 +25,80 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
         setChamps(champInfo);
         break;
       case "top":
-        setChamps(
-          champInfo.filter((champ) => {
-            return (
-              champ.tags.includes("Tank" || "Fighter") &&
-              !champ.tags.includes("Support")
-            );
-          })
-        );
+        const topS = laneChamp.Top.s.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const topA = laneChamp.Top.a.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const topB = laneChamp.Top.b.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        setChamps(topS.concat(topA).concat(topB));
+
         break;
       case "mid":
-        setChamps(
-          champInfo.filter((champ) => {
-            return (
-              champ.tags.includes("Mage" || "Assassin") &&
-              !champ.tags.includes("Support") &&
-              !champ.tags.includes("Marksman")
-            );
-          })
-        );
+        const midS = laneChamp.Mid.s.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const midA = laneChamp.Mid.a.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const midB = laneChamp.Mid.b.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        setChamps(midS.concat(midA).concat(midB));
         break;
       case "adcarry":
-        setChamps(
-          champInfo.filter((champ) => {
-            return champ.tags.includes("Marksman");
-          })
-        );
+        const adcS = laneChamp.Adc.s.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const adcA = laneChamp.Adc.a.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const adcB = laneChamp.Adc.b.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        setChamps(adcS.concat(adcA).concat(adcB));
         break;
       case "support":
-        setChamps(
-          champInfo.filter((champ) => {
-            return champ.tags.includes("Support");
-          })
-        );
+        const supportS = laneChamp.Support.s.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const supportA = laneChamp.Support.a.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const supportB = laneChamp.Support.b.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        setChamps(supportS.concat(supportA).concat(supportB));
+        break;
+      case "jungle":
+        const jungleS = laneChamp.Jungle.s.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const jungleA = laneChamp.Jungle.a.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        const jungleB = laneChamp.Jungle.b.map((champion) => {
+          return champInfo.filter((champ) => champ.name === champion)[0];
+        });
+
+        setChamps(jungleS.concat(jungleA).concat(jungleB));
         break;
       default:
         setChamps(champInfo);
@@ -188,6 +230,43 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
       </div>
 
       <div className={style.screenContainer}>
+        <div className={style.latestContainer}>
+          <h2>Latest Champ</h2>
+          <AnimatePresence>
+            {laneChamp.Latest.map((latest, i) =>
+              champInfo.map((champ) => {
+                return (
+                  champ.name === latest && (
+                    <Tooltip
+                      key={i}
+                      name={champ.name}
+                      info={champ.title}
+                      moreInfo={champ.blurb}
+                    >
+                      <motion.div
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: -10, opacity: 0 }}
+                        className={style.latestImage}
+                      >
+                        <Link to="/championdetail">
+                          <img
+                            alt={champ.image.full}
+                            onClick={selectChampion}
+                            name={champ.id}
+                            realname={champ.name}
+                            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                          />
+                        </Link>
+                        <div className={style.champName}>{champ.name}</div>
+                      </motion.div>
+                    </Tooltip>
+                  )
+                );
+              })
+            )}
+          </AnimatePresence>
+        </div>
         <div className={style.imageContainer}>
           <AnimatePresence>
             {input === ""
@@ -205,7 +284,6 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
                     >
                       <Link to="/championdetail">
                         <img
-                          className={style.freeChampsImg}
                           alt={champ.image.full}
                           onClick={selectChampion}
                           name={champ.id}
@@ -231,7 +309,6 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
                     >
                       <Link to="/championdetail">
                         <img
-                          className={style.freeChampsImg}
                           alt={champ.image.full}
                           onClick={selectChampion}
                           name={champ.id}
