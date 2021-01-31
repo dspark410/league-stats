@@ -1,34 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import style from './live.module.css'
-import axios from 'axios'
-import Tooltip from './Tooltip'
-import Timer from './Timer'
+import React, { useState, useEffect } from "react";
+import style from "./live.module.css";
+import axios from "axios";
+import Tooltip from "./Tooltip";
 
-import { runeDescriptions } from '../utils/constant'
+import { runeDescriptions } from "../utils/constant";
 
-function Live({ live, champInfo, version, queues, length }) {
-  const [runes, setRunes] = useState([])
-  const [spells, setSpells] = useState([])
+function Live({ live, champInfo, version, queues, time }) {
+  const [runes, setRunes] = useState([]);
+  const [spells, setSpells] = useState([]);
 
   useEffect(() => {
-    if (version !== '') {
+    if (version !== "") {
       // Retrieve list of summoner spells from Riot API
       axios
         .get(
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
         )
         .then((res) => {
-          setSpells(Object.values(res.data.data))
-        })
+          setSpells(Object.values(res.data.data));
+        });
       axios
         .get(
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
         )
         .then((res) => {
-          setRunes(res.data)
-        })
+          setRunes(res.data);
+        });
     }
-  }, [version])
+  }, [version]);
 
   return (
     <div className={style.liveWidthContainer}>
@@ -39,12 +38,14 @@ function Live({ live, champInfo, version, queues, length }) {
               {queues.map((queue) => {
                 return (
                   live.gameQueueConfigId === queue.queueId &&
-                  queue.description.split(' ').slice(0, 3).join(' ')
-                )
+                  queue.description.split(" ").slice(0, 3).join(" ")
+                );
               })}
             </div>
             <span>-</span>
-            <Timer length={length} />
+            <div className={style.timer}>{`${Math.floor(
+              time / 60
+            )}m ${Math.ceil(time % 60)}s `}</div>
           </div>
         </div>
       </div>
@@ -74,7 +75,7 @@ function Live({ live, champInfo, version, queues, length }) {
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                       />
                     )
-                  )
+                  );
                 })
             )
           )}
@@ -91,7 +92,7 @@ function Live({ live, champInfo, version, queues, length }) {
               >
                 <div className={style.summonerName}>
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
@@ -110,7 +111,7 @@ function Live({ live, champInfo, version, queues, length }) {
                             src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                           />
                         )
-                      )
+                      );
                     })}
                   </div>
                   <div className={style.runeContainer}>
@@ -118,7 +119,7 @@ function Live({ live, champInfo, version, queues, length }) {
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkStyle === rune.id
+                              return player.perks.perkStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -137,21 +138,21 @@ function Live({ live, champInfo, version, queues, length }) {
                                   alt={rune.name}
                                   key={i}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                     <div>
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkSubStyle === rune.id
+                              return player.perks.perkSubStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -170,15 +171,15 @@ function Live({ live, champInfo, version, queues, length }) {
                                   className={style.runeImage}
                                   alt={rune.name}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                   </div>
                   <div className={style.spellContainer}>
@@ -238,7 +239,7 @@ function Live({ live, champInfo, version, queues, length }) {
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                       />
                     )
-                  )
+                  );
                 })
             )
           )}
@@ -254,7 +255,7 @@ function Live({ live, champInfo, version, queues, length }) {
               >
                 <div className={style.summonerName}>
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
@@ -273,7 +274,7 @@ function Live({ live, champInfo, version, queues, length }) {
                             src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                           />
                         )
-                      )
+                      );
                     })}
                   </div>
                   <div className={style.runeContainer}>
@@ -281,7 +282,7 @@ function Live({ live, champInfo, version, queues, length }) {
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkStyle === rune.id
+                              return player.perks.perkStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -300,21 +301,21 @@ function Live({ live, champInfo, version, queues, length }) {
                                   alt={rune.name}
                                   key={i}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                     <div>
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkSubStyle === rune.id
+                              return player.perks.perkSubStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -333,15 +334,15 @@ function Live({ live, champInfo, version, queues, length }) {
                                   className={style.runeImage}
                                   alt={rune.name}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                   </div>
                   <div className={style.spellContainer}>
@@ -378,7 +379,7 @@ function Live({ live, champInfo, version, queues, length }) {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default Live
+export default Live;
