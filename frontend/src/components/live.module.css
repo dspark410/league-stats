@@ -64,7 +64,7 @@
 
 .allyTeam {
   color: rgb(63, 112, 168);
-
+  min-width: 125px;
   font-weight: 700;
 }
 
@@ -78,7 +78,7 @@
 
 .enemyTeam {
   color: rgb(211, 81, 81);
-
+  min-width: 125px;
   font-weight: 700;
 }
 
@@ -86,11 +86,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 271px;
 }
 
 .solo {
   color: #e2c0f7;
   font-weight: 700;
+  margin-left: 100px;
 }
 .flex {
   color: #e2c0f7;
@@ -213,4 +215,36 @@
   height: auto;
   border-radius: 5px;
   margin-bottom: 3px;
+}
+
+.emblemContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emblemImage {
+  width: 25px;
+  height: auto;
+}
+
+.soloRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 130px;
+  margin-left: 86px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.flexRank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  margin-left: 25px;
+  font-size: 13px;
+  font-weight: 500;
 }
