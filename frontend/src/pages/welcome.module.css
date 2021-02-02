@@ -82,6 +82,7 @@
   align-items: center;
   margin-top: 70px;
   padding: 5px 15px;
+  min-width: 114px;
   background-color: #225591;
   border-radius: 20px;
   font-size: 14px;
@@ -230,4 +231,14 @@
   padding: 8px 12px;
   border-radius: 8px;
   margin-top: 15px;
+}
+
+.skeletonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeletonInnerContainer {
+  display: flex;
+  align-items: center;
 }

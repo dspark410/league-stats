@@ -8,6 +8,7 @@ import UnrankedCard from '../components/UnrankedCard'
 import SummonerCard from '../components/SummonerCard'
 import MatchHistoryCard from '../components/MatchHistoryCard'
 import Live from '../components/Live'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 function Welcome({
   summonerInfo,
@@ -27,6 +28,7 @@ function Welcome({
   const [display, setDisplay] = useState('overview')
   const [live, setLive] = useState()
   const [time, setTime] = useState()
+  const [loading, setLoading] = useState(true)
 
   const url = process.env.REACT_APP_API_URL || ''
 
@@ -38,6 +40,20 @@ function Welcome({
 
   // Function for getting match list specific to the summoner
   const getMatchList = (id) => axios.get(`${url}/matchList/${id}`)
+
+  useEffect(() => {
+    let timer
+
+    if (playerMatches.length > 0 && mastery.length > 0) {
+      timer = setTimeout(() => {
+        setLoading(false)
+      }, 3000)
+    }
+    return () => {
+      setLoading(true)
+      clearTimeout(timer)
+    }
+  }, [playerMatches, rank, mastery])
 
   useEffect(() => {
     // Show nav on the welcome screen
@@ -138,21 +154,77 @@ function Welcome({
     <>
       <div className={style.rowContainer}>
         <div className={style.row1}>
+          {/* <SkeletonTheme
+            className={style.skeleton}
+            duration={2}
+            color='#7a6b83'
+            highlightColor='#e2c0f7'
+          >
+            <div className={style.skeletonContainer}>
+              <Skeleton
+                height={50}
+                width={400}
+                style={{ marginBottom: '15px' }}
+              />
+              <div className={style.skeletonInnerContainer}>
+                <Skeleton circle={true} height={100} width={100} />
+                <div style={{ marginLeft: '25px' }}>
+                  <div style={{ marginBottom: '10px' }}>
+                    <Skeleton circle={true} height={50} width={50} />
+                    <Skeleton
+                      style={{ marginLeft: '15px' }}
+                      height={50}
+                      width={200}
+                    />
+                  </div>
+                  <div>
+                    <Skeleton height={40} width={125} />
+                    <Skeleton
+                      style={{ marginLeft: '15px' }}
+                      height={40}
+                      width={125}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SkeletonTheme> */}
           <div className={style.summonerNameContainer}>
             <h1 className={style.summonerName}>
-              {summonerInfo.name || session.name}
+              {!loading ? (
+                summonerInfo.name || session.name
+              ) : (
+                <SkeletonTheme
+                  className={style.skeleton}
+                  duration={2}
+                  color='#7a6b83'
+                  highlightColor='#e2c0f7'
+                >
+                  <Skeleton
+                    height={50}
+                    width={400}
+                    style={{ marginBottom: '15px' }}
+                  />
+                </SkeletonTheme>
+              )}
             </h1>
 
-            {live ? (
+            {!loading && live ? (
               <div className={style.inGame}>
-                {' '}
-                <div className={style.circlePulse}></div>In Game
+                <div className={style.circlePulse} />
+                In Game
               </div>
             ) : (
-              ''
+              <SkeletonTheme
+                className={`${style.skeletonLive} ${style.inGame} `}
+                duration={2}
+                color='#7a6b83'
+                highlightColor='#e2c0f7'
+              >
+                <Skeleton height={50} width={114} />
+              </SkeletonTheme>
             )}
           </div>
-
           <div className={style.emblemContainer}>
             <SummonerCard version={version} summonerInfo={summonerInfo} />
             <div className={style.rankCardContainer}>
