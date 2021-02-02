@@ -160,6 +160,65 @@
   margin-top: 2px;
   font-size: 14px;
 }
+.masteryCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  width: 350px;
+  margin: 7px 0px;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: #7a6b83;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  width: 100%;
+  padding: 10px 0px;
+  font-size: 18px;
+  border-radius: 12px;
+}
+
+.masteryHeader {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #755c83;
+  width: 100%;
+  padding-top: 18px;
+  padding-bottom: 6px;
+  font-size: 14px;
+}
+
+.noChamps {
+  background-color: #7a6b83;
+  padding: 15px 0px;
+  font-size: 14px;
+}
+
+.championHeader,
+.levelHeader,
+.pointsHeader {
+  text-align: center;
+}
+
+.championHeader {
+  margin-right: 18px;
+}
+
+.levelHeader {
+  margin-left: -22px;
+}
+
+.pointsHeader {
+  margin-right: 15px;
+}
 
 .rankCardContainer {
   display: flex;

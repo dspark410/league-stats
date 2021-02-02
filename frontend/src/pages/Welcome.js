@@ -91,16 +91,16 @@ function Welcome({
         setTime((seconds) => seconds + 1)
       }, 1000)
 
-      const liveRankArray = []
-      live.participants.forEach(async (player) => {
-        const res = await getRank(player.summonerId)
+      // const liveRankArray = []
+      // live.participants.forEach(async (player) => {
+      //   const res = await getRank(player.summonerId)
 
-        liveRankArray.push(res.data)
+      //   liveRankArray.push(res.data)
 
-        if (liveRankArray.length === 10) {
-          setLiveRank(liveRankArray)
-        }
-      })
+      //   if (liveRankArray.length === 10) {
+      //     setLiveRank(liveRankArray)
+      //   }
+      // })
     }
   }, [live])
 
@@ -180,22 +180,44 @@ function Welcome({
           </div>
         </div>
         <div className={style.row3}>
-          {playerMatches.length === 0 ? (
-            <div className={style.noMatchContainer}>
-              <div className={style.matchHeader}>Match History</div>
-              <div className={style.noMatches}>No Matches Were Found.</div>
-            </div>
+          {display === 'overview' && playerMatches.length === 0 ? (
+            <>
+              <div className={style.noMatchContainer}>
+                <div className={style.matchHeader}>Match History</div>
+                <div className={style.noMatches}>No Matches Were Found.</div>
+              </div>
+
+              <div className={style.masteryCard}>
+                <div className={style.header}>
+                  <img
+                    alt='mastery icon'
+                    src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
+                  />
+                  CHAMPION MASTERY
+                </div>
+                <div className={style.masteryHeader}>
+                  <div className={style.championHeader}>CHAMPION</div>
+                  <div className={style.levelHeader}>LEVEL</div>
+                  <div className={style.pointsHeader}>POINTS</div>
+                </div>
+                {filteredChamps.length === 0 && (
+                  <div className={style.noChamps}>No Champions Found.</div>
+                )}
+              </div>
+              {live === undefined && display === 'live' && (
+                <div className={style.notInGame}>Summoner Is Not In Game.</div>
+              )}
+            </>
           ) : display === 'overview' ? (
             <>
-              {/* <MatchHistoryCard
+              <MatchHistoryCard
                 version={version}
                 summonerInfo={summonerInfo}
                 champInfo={champInfo}
                 getPlayerName={getPlayerName}
                 queues={queues}
                 playerMatches={playerMatches}
-              /> */}
-
+              />
               <MasteryCard
                 version={version}
                 filteredChamps={filteredChamps}

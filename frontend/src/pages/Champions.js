@@ -236,7 +236,8 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
             {laneChamp.Latest.map((latest, i) =>
               champInfo.map((champ) => {
                 return (
-                  champ.name === latest && (
+                  champ.name === latest &&
+                  +(
                     <Tooltip
                       key={i}
                       name={champ.name}
@@ -291,6 +292,7 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
                         initial={{ y: 10, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -10, opacity: 0 }}
+                        className={style.latestImage}
                       >
                         <Link to='/championdetail'>
                           <img
@@ -316,6 +318,7 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
                       initial={{ y: 10, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -10, opacity: 0 }}
+                      className={style.latestImage}
                     >
                       <Link to='/championdetail'>
                         <img

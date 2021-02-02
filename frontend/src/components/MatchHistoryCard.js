@@ -18,7 +18,7 @@ function MatchHistoryCard({
   queues,
   playerMatches,
 }) {
-  const visible = 7
+  const visible = playerMatches.length < 7 ? playerMatches.length : 7
   const [gameDetails, setGameDetails] = useState([])
   const [runes, setRunes] = useState([])
   const [spells, setSpells] = useState([])
