@@ -83,6 +83,7 @@
   margin-top: 70px;
   padding: 5px 15px;
   min-width: 114px;
+  min-height: 35px;
   background-color: #225591;
   border-radius: 20px;
   font-size: 14px;
@@ -117,12 +118,16 @@
 
 .live {
   margin-left: 15px;
+  min-width: 85px;
+  min-height: 30px;
 }
 
 .underline {
   margin-left: 15px;
   padding-bottom: 5px;
   border-bottom: solid 2px #e2c0f7;
+  min-width: 74px;
+  min-height: 30px;
 }
 
 .row3 {
@@ -231,14 +236,4 @@
   padding: 8px 12px;
   border-radius: 8px;
   margin-top: 15px;
-}
-
-.skeletonContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.skeletonInnerContainer {
-  display: flex;
-  align-items: center;
 }
