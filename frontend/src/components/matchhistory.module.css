@@ -15,6 +15,19 @@
   font-size: 32px;
 }
 
+.skeletonContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  justify-content: initial;
+  align-items: center;
+  background-color: #7a6b83;
+  border-radius: 8px;
+  margin: 7px 0;
+  padding: 5px;
+  max-height: 122px;
+}
+
 .cardContainerWin {
   display: flex;
   flex-direction: row;
@@ -29,6 +42,7 @@
   border-radius: 8px;
   margin: 7px 0;
   padding: 5px;
+  max-height: 122px;
 }
 
 .cardContainerLose {
@@ -46,6 +60,7 @@
   border-radius: 8px;
   margin: 7px 0;
   padding: 5px;
+  max-height: 122px;
 }
 
 .firstCard {
@@ -58,7 +73,7 @@
 
 .firstCard p {
   margin: 0;
-  min-width: 110px;
+  min-width: 115px;
 }
 
 .gameDuration {
@@ -193,14 +208,14 @@
   cursor: pointer;
 }
 
-.sixthCard span {
+.name {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 80px;
   max-height: 20px;
 }
 
-.sixthCard span:hover {
+.name:hover {
   cursor: pointer;
   color: #e6ded0;
 }
@@ -224,20 +239,24 @@
   cursor: pointer;
 }
 
-.seventhCard span {
+.name {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 80px;
   max-height: 20px;
 }
 
-.seventhCard span:hover {
+.name:hover {
   cursor: pointer;
   color: #e6ded0;
 }
 
 .summonerName {
   color: #3581d8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80px;
+  max-height: 20px;
 }
 
 .col {

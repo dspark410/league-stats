@@ -178,16 +178,14 @@ function MatchHistoryCard({
   return (
     <SkeletonTheme duration={2} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.matchContainer}>
-        {skeleton ? (
-          <Skeleton height={959} width={835} />
-        ) : (
-          <>
-            {gameDetails.length >= visible &&
-              gameDetails
-                .sort(function (a, b) {
-                  return new Date(b.gameCreation) - new Date(a.gameCreation)
-                })
-                .map((game, i) => (
+        <>
+          {gameDetails.length >= visible &&
+            gameDetails
+              .sort(function (a, b) {
+                return new Date(b.gameCreation) - new Date(a.gameCreation)
+              })
+              .map((game, i) => {
+                return !skeleton ? (
                   <div
                     className={
                       game.playerInfo.stats.win
@@ -421,10 +419,10 @@ function MatchHistoryCard({
                                 className={
                                   player.name === summonerInfo.name
                                     ? style.summonerName
-                                    : null ||
+                                    : style.name ||
                                       (player.name === sessionData.name
                                         ? style.summonerName
-                                        : null)
+                                        : style.name)
                                 }
                                 name={player.name}
                               >
@@ -456,10 +454,10 @@ function MatchHistoryCard({
                                 className={
                                   player.name === summonerInfo.name
                                     ? style.summonerName
-                                    : null ||
+                                    : style.name ||
                                       (player.name === sessionData.name
                                         ? style.summonerName
-                                        : null)
+                                        : style.name)
                                 }
                                 name={player.name}
                               >
@@ -470,7 +468,205 @@ function MatchHistoryCard({
                       </div>
                     </span>
                   </div>
-                ))}
+                ) : (
+                  <div className={style.skeletonContainer} key={i}>
+                    <span className={style.cardContainer}>
+                      <div className={style.firstCard}>
+                        <p className={style.gameType}>
+                          <Skeleton width={115} />
+                        </p>
+                        <p className={style.gameCreation}>
+                          <Skeleton width={115} />
+                        </p>
+                        <p
+                          className={
+                            game.playerInfo.stats.win ? style.win : style.loss
+                          }
+                        >
+                          <Skeleton width={80} />
+                        </p>
+                        <p className={style.gameDuration}>
+                          <Skeleton width={90} />
+                        </p>
+                      </div>
+
+                      <div className={style.secondCard}>
+                        <div className={style.championName}>
+                          <Skeleton width={105} />
+                        </div>
+                        <div className={style.imageContainer}>
+                          <div className={style.championImg}>
+                            <Skeleton
+                              style={{ marginRight: '3px' }}
+                              width={50}
+                              height={50}
+                            />
+                          </div>
+
+                          <div className={style.summonerSpellContainer}>
+                            {spells.map(
+                              (spell, i) =>
+                                +spell.key === game.playerInfo.spell1Id && (
+                                  <Skeleton
+                                    style={{ margin: '3px' }}
+                                    width={30}
+                                    height={30}
+                                  />
+                                )
+                            )}
+
+                            {spells.map(
+                              (spell, i) =>
+                                +spell.key === game.playerInfo.spell2Id && (
+                                  <Skeleton
+                                    style={{ margin: '3px' }}
+                                    width={30}
+                                    height={30}
+                                  />
+                                )
+                            )}
+                          </div>
+                          <div className={style.summonerSpellContainer}>
+                            {runes
+                              .filter((rune) => {
+                                return (
+                                  rune.id ===
+                                  game.playerInfo.stats.perkPrimaryStyle
+                                )
+                              })
+                              .map((rune, i) => {
+                                const perk0 = game.playerInfo.stats.perk0
+                                const perkImage = rune.slots[0].runes.filter(
+                                  (perk) => {
+                                    return perk.id === perk0
+                                  }
+                                )
+                                return (
+                                  <Skeleton
+                                    style={{ margin: '3px' }}
+                                    width={30}
+                                    height={30}
+                                  />
+                                )
+                              })}
+
+                            {runes
+                              .filter((rune) => {
+                                return (
+                                  game.playerInfo.stats.perkSubStyle === rune.id
+                                )
+                              })
+                              .map((rune, i) => (
+                                <Skeleton
+                                  style={{ margin: '3px' }}
+                                  width={30}
+                                  height={30}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                    <span className={style.cardContainer}>
+                      <div className={style.thirdCard}>
+                        <div className={style.killDeathAssists}>
+                          <span>
+                            <Skeleton width={56} />
+                          </span>
+                        </div>
+                        <div className={style.kdaRatio}>
+                          <span>
+                            <Skeleton width={65} />
+                          </span>
+                          <div>
+                            <span>
+                              <Skeleton width={70} />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={style.fourthCard}>
+                        <span>
+                          <Skeleton width={46} />
+                        </span>
+                        <Skeleton width={31} />
+                        <Skeleton width={30} />
+                      </div>
+
+                      <div className={style.fifthCard}>
+                        <ItemHistory
+                          details={game.playerInfo.stats}
+                          version={game.gameVersion}
+                          skeleton={skeleton}
+                        />
+                      </div>
+                    </span>
+
+                    <span className={style.cardContainer}>
+                      <div className={style.sixthCard}>
+                        {game.players
+                          .slice(0, Math.ceil(game.players.length / 2))
+                          .map((player, i) => (
+                            <div
+                              onClick={getPlayerName}
+                              name={player.name}
+                              className={style.col}
+                              key={i}
+                            >
+                              <Skeleton
+                                style={{ width: '20px' }}
+                                width={20}
+                                height={20}
+                              />
+
+                              <Skeleton
+                                style={{ marginLeft: '3px' }}
+                                width={70}
+                              />
+                            </div>
+                          ))}
+                      </div>
+
+                      <div className={style.seventhCard}>
+                        {game.players
+                          .slice(
+                            Math.ceil(game.players.length / 2),
+                            game.players.length
+                          )
+                          .map((player, i) => (
+                            <div
+                              onClick={getPlayerName}
+                              name={player.name}
+                              className={style.col}
+                              key={i}
+                            >
+                              <Skeleton width={20} height={20} />
+                              <span
+                                className={
+                                  player.name === summonerInfo.name
+                                    ? style.summonerName
+                                    : null ||
+                                      (player.name === sessionData.name
+                                        ? style.summonerName
+                                        : null)
+                                }
+                                name={player.name}
+                              >
+                                <Skeleton
+                                  style={{ marginLeft: '3px' }}
+                                  width={70}
+                                />
+                              </span>
+                            </div>
+                          ))}
+                      </div>
+                    </span>
+                  </div>
+                )
+              })}
+
+          {!skeleton && gameDetails.length >= visible ? (
             <div
               className={
                 index < playerMatches.length ? style.moreMatchesBtn : style.none
@@ -485,8 +681,14 @@ function MatchHistoryCard({
                 'Load More'
               )}
             </div>
-          </>
-        )}
+          ) : (
+            <Skeleton
+              style={{ display: 'flex', margin: '0 auto' }}
+              height={44}
+              width={167}
+            />
+          )}
+        </>
       </div>
     </SkeletonTheme>
   )

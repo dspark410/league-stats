@@ -249,6 +249,8 @@ function Welcome({
         </div>
         <div className={style.row3}>
           {display === 'overview' && playerMatches.length === 0 ? (
+            // setTimeout(() => {
+            //   return (
             <>
               <div className={style.noMatchContainer}>
                 <div className={style.matchHeader}>Match History</div>
@@ -276,7 +278,9 @@ function Welcome({
                 <div className={style.notInGame}>Summoner Is Not In Game.</div>
               )}
             </>
-          ) : display === 'overview' ? (
+          ) : //   )
+          // }, 500)
+          display === 'overview' ? (
             <>
               <MatchHistoryCard
                 version={version}
@@ -292,6 +296,7 @@ function Welcome({
                 version={version}
                 filteredChamps={filteredChamps}
                 champInfo={champInfo}
+                skeleton={loading}
               />
             </>
           ) : live === undefined ? (
