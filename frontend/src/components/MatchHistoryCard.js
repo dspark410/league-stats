@@ -176,7 +176,11 @@ function MatchHistoryCard({
   }, [matchDetails])
 
   return (
-    <SkeletonTheme duration={2} color='#7a6b83' highlightColor='#e2c0f7'>
+    <SkeletonTheme
+      duration={2}
+      color=' rgba(59, 43, 68)'
+      highlightColor='rgb(91, 66, 105)'
+    >
       <div className={style.matchContainer}>
         <>
           {gameDetails.length >= visible &&

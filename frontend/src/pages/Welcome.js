@@ -197,11 +197,33 @@ function Welcome({
                   <RankCard rank={rank} />
                 )
               ) : (
-                <Skeleton
-                  style={{ marginLeft: '30px' }}
-                  width={285}
-                  height={111}
-                />
+                <div style={{ marginLeft: '10px' }}>
+                  <div>
+                    <Skeleton
+                      style={{ marginLeft: '10px' }}
+                      circle={true}
+                      width={50}
+                      height={50}
+                    />
+                    <Skeleton
+                      style={{ marginLeft: '10px' }}
+                      width={200}
+                      height={48}
+                    />
+                  </div>
+                  <div>
+                    <Skeleton
+                      style={{ marginLeft: '10px' }}
+                      width={125}
+                      height={41}
+                    />
+                    <Skeleton
+                      style={{ marginLeft: '10px' }}
+                      width={115}
+                      height={41}
+                    />
+                  </div>
+                </div>
               )}
             </div>
           </div>
