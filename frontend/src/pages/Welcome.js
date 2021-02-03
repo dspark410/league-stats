@@ -151,7 +151,7 @@ function Welcome({
   }, [mastery, champInfo])
 
   return (
-    <SkeletonTheme duration={2} color='#7a6b83' highlightColor='#e2c0f7'>
+    <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.rowContainer}>
         <div className={style.row1}>
           <div className={style.summonerNameContainer}>

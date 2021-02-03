@@ -77,7 +77,7 @@
 }
 
 .gameDuration {
-  color: #2c70be;
+  color: #4797f1;
   font-size: 16px;
   font-weight: 900;
 }
@@ -101,7 +101,7 @@
 }
 
 .championName {
-  color: #2c70be;
+  color: #4797f1;
   font-size: 20px;
 }
 .imageContainer {
@@ -160,7 +160,7 @@
 
 .killDeathAssists {
   font-weight: 600;
-  color: #2c70be;
+  color: #4797f1;
   font-size: 18px;
 }
 
@@ -217,7 +217,7 @@
 
 .name:hover {
   cursor: pointer;
-  color: #e6ded0;
+  color: #e2c0f7;
 }
 
 .seventhCard {
@@ -239,20 +239,8 @@
   cursor: pointer;
 }
 
-.name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 80px;
-  max-height: 20px;
-}
-
-.name:hover {
-  cursor: pointer;
-  color: #e6ded0;
-}
-
 .summonerName {
-  color: #3581d8;
+  color: #e2c0f7;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 80px;

@@ -5,7 +5,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 function MasteryCard({ version, filteredChamps, skeleton }) {
   return (
     <SkeletonTheme
-      duration={2}
+      duration={3}
       color=' rgba(59, 43, 68)'
       highlightColor='rgb(91, 66, 105)'
     >

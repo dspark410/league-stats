@@ -38,7 +38,7 @@ export default function ItemHistory({ details, version, skeleton }) {
   }, [versionState])
 
   return (
-    <SkeletonTheme duration={2} color='#7a6b83' highlightColor='#e2c0f7'>
+    <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       {!skeleton && !loading && versionState === version && items ? (
         <>
           <div className={style.itemRow1}>
