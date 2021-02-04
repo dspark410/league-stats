@@ -101,7 +101,8 @@
   border-radius: 50%;
 }
 
-.name {
+.none {
+  display: none !important;
 }
 
 .points {
