@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import style from './matchhistory.module.css'
 import Tooltip from './Tooltip'
 import axios from 'axios'
@@ -101,7 +101,7 @@ function MatchHistoryCard({
     return matchObj
   }
 
-  useEffect(() => {
+  useMemo(() => {
     // Validation to check if version is populated in props
     if (version !== '') {
       // Retrieve list of summoner spells from Riot API
@@ -127,7 +127,7 @@ function MatchHistoryCard({
   // DEFINITELY CAN REFACTOR
   //
   // Match Details
-  useEffect(() => {
+  useMemo(() => {
     // Empty array to store match details
     const matchArray = []
 
@@ -146,7 +146,7 @@ function MatchHistoryCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerMatches, visible])
 
-  useLayoutEffect(() => {
+  useMemo(() => {
     const gameDetailsArr = []
     if (matchDetails.length === visible) {
       matchDetails.forEach((match) => {
@@ -492,4 +492,4 @@ function MatchHistoryCard({
 }
 
 export default MatchHistoryCard
-export const memoHistory = React.memo(MatchHistoryCard)
+// export const memoHistory = React.memo(MatchHistoryCard)
