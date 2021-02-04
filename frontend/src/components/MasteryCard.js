@@ -3,6 +3,7 @@ import style from './masterycard.module.css'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 function MasteryCard({ version, filteredChamps, skeleton }) {
+  const masteryArr = [1, 2, 3, 4, 5]
   return (
     <SkeletonTheme
       duration={3}
@@ -111,69 +112,37 @@ function MasteryCard({ version, filteredChamps, skeleton }) {
             <Skeleton width={70} height={21} />
           </div>
 
-          {filteredChamps.length < 5
-            ? filteredChamps.map((champ, i) => {
-                return (
-                  <li key={i} className={style.skeletonListContainer}>
-                    <div className={style.masteryRow}>
-                      <div className={style.champImgContainer}>
-                        <Skeleton circle={true} width={35} height={35} />
-                      </div>
+          {masteryArr.map((champ, i) => {
+            return (
+              <li key={i} className={style.skeletonListContainer}>
+                <div className={style.masteryRow}>
+                  <div className={style.champImgContainer}>
+                    <Skeleton circle={true} width={35} height={35} />
+                  </div>
 
-                      <div className={style.name}>
-                        {' '}
-                        <Skeleton width={70} height={20} />
-                      </div>
-                      <div className={style.champLvlContainer}>
-                        <Skeleton
-                          style={{ marginLeft: '19px' }}
-                          width={30}
-                          height={30}
-                        />
-                      </div>
+                  <div className={style.name}>
+                    {' '}
+                    <Skeleton width={70} height={20} />
+                  </div>
+                  <div className={style.champLvlContainer}>
+                    <Skeleton
+                      style={{ marginLeft: '19px' }}
+                      width={30}
+                      height={30}
+                    />
+                  </div>
 
-                      <div className={style.points}>
-                        <Skeleton
-                          style={{ marginLeft: '14px' }}
-                          width={70}
-                          height={20}
-                        />
-                      </div>
-                    </div>
-                  </li>
-                )
-              })
-            : filteredChamps.slice(0, 5).map((champ, i) => {
-                return (
-                  <li key={i} className={style.skeletonListContainer}>
-                    <div className={style.masteryRow}>
-                      <div className={style.champImgContainer}>
-                        <Skeleton circle={true} width={35} height={35} />
-                      </div>
-
-                      <div className={style.name}>
-                        {' '}
-                        <Skeleton width={70} height={20} />
-                      </div>
-                      <div className={style.champLvlContainer}>
-                        <Skeleton
-                          style={{ marginLeft: '19px' }}
-                          width={30}
-                          height={30}
-                        />
-                      </div>
-
-                      <div className={style.points}>
-                        <Skeleton
-                          style={{ marginLeft: '14px' }}
-                          width={70}
-                          height={20}
-                        />
-                      </div>
-                    </div>
-                  </li>
-                )
-              })}
+                  <div className={style.points}>
+                    <Skeleton
+                      style={{ marginLeft: '14px' }}
+                      width={70}
+                      height={20}
+                    />
+                  </div>
+                </div>
+              </li>
+            )
+          })}
         </div>
       )}
     </SkeletonTheme>

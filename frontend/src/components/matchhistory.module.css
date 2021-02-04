@@ -193,7 +193,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: initial;
-  max-width: 100;
+  max-width: 100px;
   margin-right: 3px;
   font-weight: 500;
 }
@@ -211,7 +211,7 @@
 .name {
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 80px;
+  min-width: 80px;
   max-height: 20px;
 }
 
@@ -225,7 +225,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: initial;
-  max-width: 100;
+  max-width: 100px;
   font-weight: 500;
 }
 
@@ -243,7 +243,7 @@
   color: #e2c0f7;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 80px;
+  max-width: 80px;
   max-height: 20px;
 }
 
@@ -273,7 +273,7 @@
 }
 
 .none {
-  color: rgb(196, 92, 92);
+  color: rgb(240, 113, 113);
 
   padding: 7px 0px;
   font-weight: bold;

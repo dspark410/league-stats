@@ -2,11 +2,8 @@ import React, { useState, useEffect, useLayoutEffect } from 'react'
 import style from './matchhistory.module.css'
 import Tooltip from './Tooltip'
 import axios from 'axios'
-import Loader from './Loader'
-import LoadingOverlay from 'react-loading-overlay'
 import ItemHistory from './ItemHistory'
 import { runeDescriptions } from '../utils/constant'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 // MATCH TIMESLINES API
 // https://na1.api.riotgames.com/lol/match/v4/timelines/by-match/3630397822?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
@@ -18,13 +15,11 @@ function MatchHistoryCard({
   getPlayerName,
   queues,
   playerMatches,
-  skeleton,
 }) {
   const visible = playerMatches.length < 7 ? playerMatches.length : 7
   const [gameDetails, setGameDetails] = useState([])
   const [runes, setRunes] = useState([])
   const [spells, setSpells] = useState([])
-  const [loading, setLoading] = useState(true)
   const [matchDetails, setMatchDetails] = useState([])
   const [index, setIndex] = useState(visible)
 
@@ -128,10 +123,6 @@ function MatchHistoryCard({
     }
   }, [version])
 
-  useEffect(() => {
-    setLoading(true)
-  }, [summonerInfo])
-
   //
   // DEFINITELY CAN REFACTOR
   //
@@ -150,11 +141,6 @@ function MatchHistoryCard({
           // Forces it to wait for matchArray to reach correct length
           matchArray.length === visible && setMatchDetails(matchArray)
         })
-        .then(() => {
-          setTimeout(() => {
-            setLoading(false)
-          }, 2000)
-        })
     })
     // Dependent on playerMatches to be ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -169,8 +155,6 @@ function MatchHistoryCard({
         gameDetailsArr.push(matchObj)
         setGameDetails(gameDetailsArr)
       })
-
-      setLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDetails])
@@ -184,7 +168,7 @@ function MatchHistoryCard({
               return new Date(b.gameCreation) - new Date(a.gameCreation)
             })
             .map((game, i) => {
-              return !skeleton ? (
+              return (
                 <div
                   className={
                     game.playerInfo.stats.win
@@ -404,7 +388,12 @@ function MatchHistoryCard({
                         .slice(0, Math.ceil(game.players.length / 2))
                         .map((player, i) => (
                           <div
-                            onClick={getPlayerName}
+                            onClick={
+                              player.name === summonerInfo.name ||
+                              player.name === sessionData.name
+                                ? null
+                                : getPlayerName
+                            }
                             name={player.name}
                             className={style.col}
                             key={i}
@@ -416,12 +405,15 @@ function MatchHistoryCard({
                             />
                             <span
                               className={
-                                player.name === summonerInfo.name
-                                  ? style.summonerName
-                                  : style.name ||
-                                    (player.name === sessionData.name
-                                      ? style.summonerName
-                                      : style.name)
+                                summonerInfo.name
+                                  ? player.name === summonerInfo.name
+                                    ? style.summonerName
+                                    : style.name
+                                  : style.name || sessionData.name
+                                  ? player.name === sessionData.name
+                                    ? style.summonerName
+                                    : style.name
+                                  : style.name
                               }
                               name={player.name}
                             >
@@ -439,7 +431,12 @@ function MatchHistoryCard({
                         )
                         .map((player, i) => (
                           <div
-                            onClick={getPlayerName}
+                            onClick={
+                              player.name === summonerInfo.name ||
+                              player.name === sessionData.name
+                                ? null
+                                : getPlayerName
+                            }
                             name={player.name}
                             className={style.col}
                             key={i}
@@ -451,12 +448,15 @@ function MatchHistoryCard({
                             />
                             <span
                               className={
-                                player.name === summonerInfo.name
-                                  ? style.summonerName
-                                  : style.name ||
-                                    (player.name === sessionData.name
-                                      ? style.summonerName
-                                      : style.name)
+                                summonerInfo.name
+                                  ? player.name === summonerInfo.name
+                                    ? style.summonerName
+                                    : style.name
+                                  : style.name || sessionData.name
+                                  ? player.name === sessionData.name
+                                    ? style.summonerName
+                                    : style.name
+                                  : style.name
                               }
                               name={player.name}
                             >
@@ -467,211 +467,10 @@ function MatchHistoryCard({
                     </div>
                   </span>
                 </div>
-              ) : (
-                <SkeletonTheme
-                  duration={3}
-                  color=' rgba(59, 43, 68)'
-                  highlightColor='rgb(91, 66, 105)'
-                >
-                  <div className={style.skeletonContainer} key={i}>
-                    <span className={style.cardContainer}>
-                      <div className={style.firstCard}>
-                        <p className={style.gameType}>
-                          <Skeleton width={115} />
-                        </p>
-                        <p className={style.gameCreation}>
-                          <Skeleton width={115} />
-                        </p>
-                        <p
-                          className={
-                            game.playerInfo.stats.win ? style.win : style.loss
-                          }
-                        >
-                          <Skeleton width={80} />
-                        </p>
-                        <p className={style.gameDuration}>
-                          <Skeleton width={90} />
-                        </p>
-                      </div>
-
-                      <div className={style.secondCard}>
-                        <div className={style.championName}>
-                          <Skeleton width={105} />
-                        </div>
-                        <div className={style.imageContainer}>
-                          <div className={style.championImg}>
-                            <Skeleton
-                              style={{ marginRight: '3px' }}
-                              width={50}
-                              height={50}
-                            />
-                          </div>
-
-                          <div className={style.summonerSpellContainer}>
-                            {spells.map(
-                              (spell, i) =>
-                                +spell.key === game.playerInfo.spell1Id && (
-                                  <Skeleton
-                                    style={{ margin: '3px' }}
-                                    width={30}
-                                    height={30}
-                                  />
-                                )
-                            )}
-
-                            {spells.map(
-                              (spell, i) =>
-                                +spell.key === game.playerInfo.spell2Id && (
-                                  <Skeleton
-                                    style={{ margin: '3px' }}
-                                    width={30}
-                                    height={30}
-                                  />
-                                )
-                            )}
-                          </div>
-                          <div className={style.summonerSpellContainer}>
-                            {runes
-                              .filter((rune) => {
-                                return (
-                                  rune.id ===
-                                  game.playerInfo.stats.perkPrimaryStyle
-                                )
-                              })
-                              .map((rune, i) => {
-                                const perk0 = game.playerInfo.stats.perk0
-                                const perkImage = rune.slots[0].runes.filter(
-                                  (perk) => {
-                                    return perk.id === perk0
-                                  }
-                                )
-                                return (
-                                  <Skeleton
-                                    style={{ margin: '3px' }}
-                                    width={30}
-                                    height={30}
-                                  />
-                                )
-                              })}
-
-                            {runes
-                              .filter((rune) => {
-                                return (
-                                  game.playerInfo.stats.perkSubStyle === rune.id
-                                )
-                              })
-                              .map((rune, i) => (
-                                <Skeleton
-                                  style={{ margin: '3px' }}
-                                  width={30}
-                                  height={30}
-                                />
-                              ))}
-                          </div>
-                        </div>
-                      </div>
-                    </span>
-                    <span className={style.cardContainer}>
-                      <div className={style.thirdCard}>
-                        <div className={style.killDeathAssists}>
-                          <span>
-                            <Skeleton width={56} />
-                          </span>
-                        </div>
-                        <div className={style.kdaRatio}>
-                          <span>
-                            <Skeleton width={65} />
-                          </span>
-                          <div>
-                            <span>
-                              <Skeleton width={70} />
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className={style.fourthCard}>
-                        <span>
-                          <Skeleton width={46} />
-                        </span>
-                        <Skeleton width={31} />
-                        <Skeleton width={30} />
-                      </div>
-
-                      <div className={style.fifthCard}>
-                        <ItemHistory
-                          details={game.playerInfo.stats}
-                          version={game.gameVersion}
-                          skeleton={skeleton}
-                        />
-                      </div>
-                    </span>
-
-                    <span className={style.cardContainer}>
-                      <div className={style.sixthCard}>
-                        {game.players
-                          .slice(0, Math.ceil(game.players.length / 2))
-                          .map((player, i) => (
-                            <div
-                              onClick={getPlayerName}
-                              name={player.name}
-                              className={style.col}
-                              key={i}
-                            >
-                              <Skeleton
-                                style={{ width: '20px' }}
-                                width={20}
-                                height={20}
-                              />
-
-                              <Skeleton
-                                style={{ marginLeft: '3px' }}
-                                width={70}
-                              />
-                            </div>
-                          ))}
-                      </div>
-
-                      <div className={style.seventhCard}>
-                        {game.players
-                          .slice(
-                            Math.ceil(game.players.length / 2),
-                            game.players.length
-                          )
-                          .map((player, i) => (
-                            <div
-                              onClick={getPlayerName}
-                              name={player.name}
-                              className={style.col}
-                              key={i}
-                            >
-                              <Skeleton width={20} height={20} />
-                              <span
-                                className={
-                                  player.name === summonerInfo.name
-                                    ? style.summonerName
-                                    : null ||
-                                      (player.name === sessionData.name
-                                        ? style.summonerName
-                                        : null)
-                                }
-                                name={player.name}
-                              >
-                                <Skeleton
-                                  style={{ marginLeft: '3px' }}
-                                  width={70}
-                                />
-                              </span>
-                            </div>
-                          ))}
-                      </div>
-                    </span>
-                  </div>
-                </SkeletonTheme>
               )
             })}
 
-        {!skeleton && gameDetails.length >= visible ? (
+        {gameDetails.length >= visible && (
           <div
             className={
               index < playerMatches.length ? style.moreMatchesBtn : style.none
@@ -686,12 +485,6 @@ function MatchHistoryCard({
               'Load More'
             )}
           </div>
-        ) : (
-          <Skeleton
-            style={{ display: 'flex', margin: '0 auto' }}
-            height={44}
-            width={167}
-          />
         )}
       </div>
     </div>
@@ -699,3 +492,4 @@ function MatchHistoryCard({
 }
 
 export default MatchHistoryCard
+export const memoHistory = React.memo(MatchHistoryCard)

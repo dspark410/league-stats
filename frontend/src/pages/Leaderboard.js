@@ -85,7 +85,7 @@ function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
                 <tr className={`${style.row}`} key={i}>
                   <td className={`${style.td} ${style.number}`}>{i + 1}.</td>
                   <td className={style.td}>
-                    <img
+                    {/* <img
                       alt='profile icon'
                       className={style.profileIcon}
                       // Grab profile icon
@@ -93,7 +93,7 @@ function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
                         `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png` ||
                         process.env.PUBLIC_URL + '/images/emptyitem.png'
                       }
-                    />
+                    /> */}
 
                     {summoner.summonerName}
                   </td>

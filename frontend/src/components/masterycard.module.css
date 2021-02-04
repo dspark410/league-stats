@@ -144,3 +144,7 @@
   width: 100%;
   list-style-type: none;
 }
+
+.skeletonListContainer {
+  border-radius: 8px;
+}

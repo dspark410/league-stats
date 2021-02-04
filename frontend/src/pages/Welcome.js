@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import style from './welcome.module.css'
 import axios from 'axios'
 //import { motion } from "framer-motion";
@@ -9,6 +9,7 @@ import SummonerCard from '../components/SummonerCard'
 import MatchHistoryCard from '../components/MatchHistoryCard'
 import Live from '../components/Live'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
 
 function Welcome({
   summonerInfo,
@@ -44,10 +45,10 @@ function Welcome({
   useEffect(() => {
     let timer
 
-    if (playerMatches.length > 0 && mastery.length > 0) {
+    if (playerMatches.length >= 0 && mastery.length >= 0) {
       timer = setTimeout(() => {
         setLoading(false)
-      }, 3000)
+      }, 4000)
     }
     return () => {
       setLoading(true)
@@ -270,9 +271,7 @@ function Welcome({
           </div>
         </div>
         <div className={style.row3}>
-          {display === 'overview' && playerMatches.length === 0 ? (
-            // setTimeout(() => {
-            //   return (
+          {display === 'overview' && playerMatches.length === 0 && !loading ? (
             <>
               <div className={style.noMatchContainer}>
                 <div className={style.matchHeader}>Match History</div>
@@ -300,19 +299,21 @@ function Welcome({
                 <div className={style.notInGame}>Summoner Is Not In Game.</div>
               )}
             </>
-          ) : //   )
-          // }, 500)
-          display === 'overview' ? (
+          ) : display === 'overview' ? (
             <>
-              <MatchHistoryCard
-                version={version}
-                summonerInfo={summonerInfo}
-                champInfo={champInfo}
-                getPlayerName={getPlayerName}
-                queues={queues}
-                playerMatches={playerMatches}
-                skeleton={loading}
-              />
+              {loading ? (
+                <MatchHistoryCardSkeleton />
+              ) : (
+                <MatchHistoryCard
+                  version={version}
+                  summonerInfo={summonerInfo}
+                  champInfo={champInfo}
+                  getPlayerName={getPlayerName}
+                  queues={queues}
+                  playerMatches={playerMatches}
+                  skeleton={loading}
+                />
+              )}
 
               <MasteryCard
                 version={version}

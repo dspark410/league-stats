@@ -255,7 +255,7 @@ export default function ItemHistory({ details, version, skeleton }) {
         <div>
           <div>
             <Skeleton
-              style={{ margin: '3px' }}
+              style={{ margin: '2px' }}
               count={4}
               width={30}
               height={30}
@@ -263,7 +263,7 @@ export default function ItemHistory({ details, version, skeleton }) {
           </div>
           <div>
             <Skeleton
-              style={{ margin: '3px' }}
+              style={{ margin: '2px' }}
               count={3}
               width={30}
               height={30}
