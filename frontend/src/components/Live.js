@@ -187,12 +187,18 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                       {spells.map(
                         (spell, i) =>
                           +spell.key === player.spell1Id && (
-                            <img
+                            <Tooltip
                               key={i}
-                              className={style.spellimage}
-                              alt={spell.id}
-                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
-                            />
+                              name={spell.name}
+                              info={spell.description}
+                            >
+                              <img
+                                key={i}
+                                className={style.spellimage}
+                                alt={spell.id}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
+                              />
+                            </Tooltip>
                           )
                       )}
                     </div>
@@ -200,12 +206,18 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                       {spells.map(
                         (spell, i) =>
                           +spell.key === player.spell2Id && (
-                            <img
+                            <Tooltip
                               key={i}
-                              className={style.spellimage}
-                              alt={spell.id}
-                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
-                            />
+                              name={spell.name}
+                              info={spell.description}
+                            >
+                              <img
+                                key={i}
+                                className={style.spellimage}
+                                alt={spell.id}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
+                              />
+                            </Tooltip>
                           )
                       )}
                     </div>
@@ -490,12 +502,18 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                       {spells.map(
                         (spell, i) =>
                           +spell.key === player.spell1Id && (
-                            <img
+                            <Tooltip
                               key={i}
-                              className={style.spellimage}
-                              alt={spell.id}
-                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
-                            />
+                              name={spell.name}
+                              info={spell.description}
+                            >
+                              <img
+                                key={i}
+                                className={style.spellimage}
+                                alt={spell.id}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
+                              />
+                            </Tooltip>
                           )
                       )}
                     </div>
@@ -503,12 +521,18 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                       {spells.map(
                         (spell, i) =>
                           +spell.key === player.spell2Id && (
-                            <img
+                            <Tooltip
                               key={i}
-                              className={style.spellimage}
-                              alt={spell.id}
-                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
-                            />
+                              name={spell.name}
+                              info={spell.description}
+                            >
+                              <img
+                                key={i}
+                                className={style.spellimage}
+                                alt={spell.id}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${spell.id}.png`}
+                              />
+                            </Tooltip>
                           )
                       )}
                     </div>

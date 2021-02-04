@@ -6,13 +6,14 @@ function MatchHistoryCardSkeleton() {
   const playerArr = [1, 2, 3, 4, 5]
   const matchArr = [1, 2, 3, 4, 5, 6, 7]
   return (
-    <SkeletonTheme
-      duration={3}
-      color=' rgba(59, 43, 68)'
-      highlightColor='rgb(91, 66, 105)'
-    >
-      <div className={style.matchContainer}>
-        {matchArr.map((match) => (
+    <div className={style.matchContainer}>
+      {matchArr.map((match, i) => (
+        <SkeletonTheme
+          key={i}
+          duration={3}
+          color=' rgba(59, 43, 68)'
+          highlightColor='rgb(91, 66, 105)'
+        >
           <div className={style.skeletonContainer}>
             <span className={style.cardContainer}>
               <div className={style.firstCard}>
@@ -145,14 +146,14 @@ function MatchHistoryCardSkeleton() {
               </div>
             </span>
           </div>
-        ))}
-        <Skeleton
-          style={{ display: 'flex', margin: '0 auto' }}
-          height={44}
-          width={167}
-        />
-      </div>
-    </SkeletonTheme>
+        </SkeletonTheme>
+      ))}
+      <Skeleton
+        style={{ display: 'flex', margin: '0 auto' }}
+        height={44}
+        width={167}
+      />
+    </div>
   )
 }
 
