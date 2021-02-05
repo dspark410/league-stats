@@ -1,12 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
+  "proxy": "http://localhost:5000/",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start": "if-env NODE_ENV=production && npm run start:prod",
     "start:prod": "node server.js",
-    "start:dev": "node server.js",
+    "start:dev": "nodemon server.js",
     "install": "cd frontend && npm install",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run start:dev\" \"npm run client\"",
