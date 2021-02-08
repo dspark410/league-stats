@@ -1,5 +1,5 @@
 .matchContainer {
-  color: #fff;
+  color: #e1e1e1;
   width: 835px;
   display: flex;
   flex-direction: column;
@@ -267,7 +267,7 @@
   background-color: #7a6b83;
   margin: 5px auto 5px auto;
   border-radius: 3px;
-  color: #fff;
+  color: #e1e1e1;
   font-weight: bold;
   font-size: 20px;
 }

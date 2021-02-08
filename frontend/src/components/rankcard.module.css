@@ -35,7 +35,7 @@
 
 .points {
   margin-left: 10px;
-  color: #fff;
+  color: #e1e1e1;
   font-size: 23px;
   font-weight: bold;
 }
@@ -47,7 +47,7 @@
   margin: 5px 0px;
   outline: none;
   border: none;
-  color: #fff;
+  color: #e1e1e1;
   font-size: 16px;
   font-weight: 600;
 }
@@ -64,12 +64,12 @@
   margin: 5px 10px;
   outline: none;
   border: none;
-  color: #fff;
+  color: #e1e1e1;
   font-size: 16px;
   font-weight: 600;
 }
 .record {
-  color: #fff;
+  color: #e1e1e1;
 }
 
 .win {

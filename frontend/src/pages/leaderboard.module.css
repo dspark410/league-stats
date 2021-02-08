@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
-  color: #fff;
+  color: #e1e1e1;
 }
 
 .selectContainer select {
@@ -18,7 +18,7 @@
   border-radius: 5px;
   outline: none;
   border: none;
-  color: #fff;
+  color: #e1e1e1;
   font-size: 16px;
   font-weight: 600;
   margin-right: 15px;
@@ -36,7 +36,7 @@
   border-radius: 5px;
   outline: none;
   border: none;
-  color: #fff;
+  color: #e1e1e1;
   font-size: 18px;
   font-weight: 600;
   margin-right: 15px;
@@ -55,7 +55,7 @@
   border-radius: 5px;
   outline: none;
   border: none;
-  color: #fff;
+  color: #e1e1e1;
   font-size: 18px;
   font-weight: 600;
   margin-right: 15px;
@@ -73,7 +73,7 @@
 
 .tableContainer {
   margin: 10px auto;
-  color: #fff;
+  color: #e1e1e1;
   font-weight: 600;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .leaderHeader {
-  color: #fff;
+  color: #e1e1e1;
   text-align: center;
   margin: 100px 0px 30px 0px;
   font-size: 50px;
@@ -105,7 +105,7 @@
 
 .row:nth-child(1) {
   background-color: #7a6b83;
-  color: #fff;
+  color: #e1e1e1;
   border: none;
 }
 

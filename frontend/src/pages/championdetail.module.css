@@ -4,7 +4,7 @@
   align-items: flex-start;
   flex-direction: column;
   margin: 100px auto 10px auto;
-  color: #fff;
+  color: #e1e1e1;
   width: 1200px;
 }
 
@@ -160,7 +160,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  color: #fff;
+  color: #e1e1e1;
   margin: 0 auto 20px auto;
   padding-bottom: 15px;
   border-bottom: 1px solid #bfa1d1;
@@ -221,7 +221,7 @@
   padding: 3px 7px 3px 7px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 1px;
-  color: #fff;
+  color: #e1e1e1;
   z-index: 10;
 }
 .skillVideo {
@@ -240,7 +240,7 @@
 }
 
 .grid3 {
-  color: #fff;
+  color: #e1e1e1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -261,7 +261,7 @@
 .splashHeader {
   background-color: #755c83;
   padding: 10px 0px;
-  color: #fff;
+  color: #e1e1e1;
   text-align: center;
   width: 39%;
   border-radius: 8px;

@@ -13,7 +13,7 @@
   outline: none;
   margin: 0 10px;
   z-index: 2000;
-  color: #fff;
+  color: #e1e1e1;
 }
 
 .modalContent {
@@ -30,7 +30,7 @@
   background-color: #755c83;
   margin-bottom: 10px;
   padding: 10px 0px;
-  color: #fff;
+  color: #e1e1e1;
 }
 
 .modalSplashImage {
@@ -81,7 +81,7 @@
   padding: 3px 7px 3px 7px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 1px;
-  color: #fff;
+  color: #e1e1e1;
 }
 
 .buttonImageNext {
@@ -91,7 +91,7 @@
   right: 1%;
   transform: translateY(50%);
   font-size: 50px;
-  color: #fff;
+  color: #e1e1e1;
   background: transparent;
   border: none;
 }
@@ -108,7 +108,7 @@
   left: 1%;
   transform: translateY(50%);
   font-size: 50px;
-  color: #fff;
+  color: #e1e1e1;
   background: transparent;
   border: none;
 }

@@ -155,7 +155,7 @@ function Welcome({
       <div className={style.rowContainer}>
         <div className={style.row1}>
           <div className={style.summonerNameContainer}>
-            <h1 className={style.summonerName}>
+            {/* <h1 className={style.summonerName}>
               {!loading ? (
                 summonerInfo.name || session.name
               ) : (
@@ -165,7 +165,7 @@ function Welcome({
                   style={{ marginBottom: '15px' }}
                 />
               )}
-            </h1>
+            </h1> */}
 
             {live ? (
               !loading ? (
@@ -191,11 +191,43 @@ function Welcome({
             )}
             <div className={style.rankCardContainer}>
               {!loading ? (
-                !rank.length ? (
-                  <UnrankedCard />
-                ) : (
-                  <RankCard rank={rank} />
-                )
+                <div className={style.rankContainer}>
+                  {
+                    !rank.length && <UnrankedCard queue='Solo/Duo' />
+                      ? rank.length === 1 &&
+                        rank.queueType === 'RANKED_FLEX_SR' && (
+                          <UnrankedCard queue='Solo/Duo' />
+                        )
+                      : ''
+                    // rank.map((ranking, i) => {
+                    //     return ranking.queueType === 'RANKED_SOLO_5x5' ? (
+                    //       <RankCard rank={ranking} />
+                    //     ) : (
+                    //       ranking.queueType === 'RANKED_FLEX_SR' && ''
+                    //     )
+                    //   })
+                  }
+
+                  <img
+                    alt='Unranked'
+                    className={style.rectangle}
+                    src={process.env.PUBLIC_URL + `/images/icons/rectangle.png`}
+                  />
+
+                  {!rank.length ||
+                  (rank.length === 1 &&
+                    rank.queueType === 'RANKED_SOLO_5x5') ? (
+                    <UnrankedCard queue='Flex' />
+                  ) : (
+                    rank.map((ranking, i) => {
+                      return ranking.queueType === 'RANKED_FLEX_SR' ? (
+                        <RankCard rank={ranking} />
+                      ) : (
+                        ranking.queueType === 'RANKED_SOLO_5x5' && ''
+                      )
+                    })
+                  )}
+                </div>
               ) : (
                 <div style={{ marginLeft: '10px' }}>
                   <div>

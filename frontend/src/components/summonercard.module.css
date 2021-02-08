@@ -1,10 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
 .summonerCardContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   max-width: 150px;
+  margin-left: -30px;
+}
+
+.summonerName {
+  letter-spacing: 2px;
+  font-size: 50px;
+  font-weight: bold;
+  z-index: 100;
+  margin: auto 0;
+  color: #e1e1e1;
 }
 
 .summonerBorder {
@@ -26,5 +42,5 @@
   bottom: 14.5%;
   font-size: 9px;
   font-weight: 500;
-  color: #fff;
+  color: #e1e1e1;
 }

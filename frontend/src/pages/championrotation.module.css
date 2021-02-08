@@ -12,7 +12,7 @@
   text-align: center;
   margin: 50px 0 -10px 0;
   font-size: 50px;
-  color: #fff;
+  color: #e1e1e1;
 }
 
 .imageContainer img {
@@ -40,5 +40,5 @@
   direction: row;
   flex-flow: row wrap;
   justify-content: center;
-  color: #fff;
+  color: #e1e1e1;
 }

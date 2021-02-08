@@ -22,7 +22,7 @@
 }
 
 .championName {
-  color: #fff;
+  color: #e1e1e1;
   position: absolute;
   bottom: 4%;
   left: 50%;
@@ -41,7 +41,7 @@
   right: -14%;
   transform: translateY(50%);
   font-size: 50px;
-  color: #fff;
+  color: #e1e1e1;
   background: transparent;
   border: none;
 }
@@ -58,7 +58,7 @@
   left: -15.5%;
   transform: translateY(50%);
   font-size: 50px;
-  color: #fff;
+  color: #e1e1e1;
   background: transparent;
   border: none;
 }

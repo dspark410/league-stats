@@ -28,7 +28,7 @@
 .liveContainer {
   margin: 0 auto;
   width: 1100px;
-  color: #fff;
+  color: #e1e1e1;
 }
 
 .row1 {
@@ -36,9 +36,9 @@
   flex-direction: column;
   justify-content: flex-start;
   z-index: 100;
-  color: #fff;
+  color: #e1e1e1;
   width: 1200px;
-  margin: 0 auto;
+  margin: 60px auto 0px auto;
 }
 
 .summonerNameContainer {
@@ -107,8 +107,22 @@
 
 .emblemContainer {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.rankContainer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: 40px 0px;
+}
+
+.rectangle {
+  height: 20px;
+  width: 20px;
+  margin: auto 40px;
 }
 
 .row2 {
@@ -118,7 +132,7 @@
 }
 
 .linksContainer {
-  color: #fff;
+  color: #e1e1e1;
   font-weight: 500;
 }
 
@@ -163,7 +177,7 @@
 }
 
 .matchHeader {
-  color: #fff;
+  color: #e1e1e1;
   width: 100%;
   text-transform: uppercase;
   padding: 15px 0px;
@@ -174,7 +188,7 @@
   background-color: #755c83;
   padding: 15px 0px;
   border-radius: 8px;
-  color: #fff;
+  color: #e1e1e1;
   font-weight: 500;
   text-align: center;
   margin-top: 2px;
@@ -188,7 +202,7 @@
   font-size: 13px;
   width: 350px;
   margin: 7px 0px;
-  color: #fff;
+  color: #e1e1e1;
   font-weight: 500;
   border-radius: 8px;
   background-color: #7a6b83;
@@ -198,7 +212,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #e1e1e1;
   width: 100%;
   padding: 10px 0px;
   font-size: 18px;
@@ -245,7 +259,7 @@
 }
 
 .notInGame {
-  color: #fff;
+  color: #e1e1e1;
   background-color: #755c83;
   padding: 8px 12px;
   border-radius: 8px;
