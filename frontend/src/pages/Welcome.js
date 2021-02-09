@@ -149,7 +149,6 @@ function Welcome({
     // Stores new array of object into state to be mapped
     setFilteredChamps(champObject)
   }, [mastery, champInfo])
-
   return (
     <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.rowContainer}>
@@ -192,21 +191,19 @@ function Welcome({
             <div className={style.rankCardContainer}>
               {!loading ? (
                 <div className={style.rankContainer}>
-                  {
-                    !rank.length && <UnrankedCard queue='Solo/Duo' />
-                      ? rank.length === 1 &&
-                        rank.queueType === 'RANKED_FLEX_SR' && (
-                          <UnrankedCard queue='Solo/Duo' />
-                        )
-                      : ''
-                    // rank.map((ranking, i) => {
-                    //     return ranking.queueType === 'RANKED_SOLO_5x5' ? (
-                    //       <RankCard rank={ranking} />
-                    //     ) : (
-                    //       ranking.queueType === 'RANKED_FLEX_SR' && ''
-                    //     )
-                    //   })
-                  }
+                  {!rank.length ||
+                  (rank.length === 1 &&
+                    rank[0].queueType === 'RANKED_FLEX_SR') ? (
+                    <UnrankedCard queue='Solo' />
+                  ) : (
+                    rank.map((ranking, i) => {
+                      return ranking.queueType === 'RANKED_SOLO_5x5' ? (
+                        <RankCard rank={ranking} queue='Solo' />
+                      ) : (
+                        ranking.queueType === 'RANKED_FLEX_SR' && ''
+                      )
+                    })
+                  )}
 
                   <img
                     alt='Unranked'
@@ -216,12 +213,12 @@ function Welcome({
 
                   {!rank.length ||
                   (rank.length === 1 &&
-                    rank.queueType === 'RANKED_SOLO_5x5') ? (
+                    rank[0].queueType === 'RANKED_SOLO_5x5') ? (
                     <UnrankedCard queue='Flex' />
                   ) : (
                     rank.map((ranking, i) => {
                       return ranking.queueType === 'RANKED_FLEX_SR' ? (
-                        <RankCard rank={ranking} />
+                        <RankCard rank={ranking} queue='Flex' />
                       ) : (
                         ranking.queueType === 'RANKED_SOLO_5x5' && ''
                       )

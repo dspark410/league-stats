@@ -6,7 +6,7 @@ import {
 } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
-function RankCard({ rank }) {
+function RankCard({ rank, queue }) {
   let color
   if (rank.tier === 'IRON') {
     color = '#483938'
@@ -39,30 +39,28 @@ function RankCard({ rank }) {
     // Rank card to display players rank and points if available
 
     <div className={style.singleCardContainer}>
+      <div style={{ width: '70px' }}>
+        <CircularProgressbarWithChildren
+          value={rank.leaguePoints}
+          strokeWidth={6}
+          styles={buildStyles({
+            pathColor: color,
+            trailColor: '#7a6b83',
+          })}
+        >
+          <img
+            alt={rank.tier}
+            className={style.emblemImage}
+            src={process.env.PUBLIC_URL + `/images/emblems/${rank.tier}.png`}
+          />
+        </CircularProgressbarWithChildren>
+      </div>
       <div className={style.emblemContainer}>
-        <div style={{ width: '55px' }}>
-          <CircularProgressbarWithChildren
-            value={rank.leaguePoints}
-            strokeWidth={6}
-            styles={buildStyles({
-              pathColor: color,
-              trailColor: '#7a6b83',
-            })}
-          >
-            <img
-              alt={rank.tier}
-              className={style.emblemImage}
-              src={process.env.PUBLIC_URL + `/images/emblems/${rank.tier}.png`}
-            />
-          </CircularProgressbarWithChildren>
-        </div>
+        <span className={style.queue}>{queue}</span>
         <span className={style.rank}>{`${rank.tier} ${rank.rank} `}</span>{' '}
         <span className={style.points}>{`${rank.leaguePoints} LP`} </span>
-      </div>
-
-      <div className={style.rankInfoContainer}>
         <div className={style.ratio}>
-          <span>RECORD</span>
+          <span> W/L RECORD</span>
           <span className={style.win}>{rank.wins}</span>
           <span>-</span>
           <span className={style.loss}>{rank.losses}</span>
