@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import style from "./champions.module.css";
 import Tooltip from "../components/Tooltip";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,10 +12,24 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
   const [role, setRole] = useState("all");
   const [champs, setChamps] = useState([]);
   const [autofill, setAutofill] = useState([]);
+  const [freeChamps, setFreeChamps] = useState([]);
+
+  const url = process.env.REACT_APP_API_URL || "";
 
   useEffect(() => {
     //show nav
     showNav();
+    axios.get(`${url}/getChampionRotation`).then((res) => {
+      // Store array of numbers for free champion rotation in variable
+      const championRotation = res.data.freeChampionIds;
+      // Filter through champInfo to keep only the object for free champions
+      const rotationChamp = champInfo.filter((champ) =>
+        // If chamption rotation matches key of free champs, returns true
+        championRotation.includes(Number(champ.key))
+      );
+      // Save free champs into state
+      setFreeChamps(rotationChamp);
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champInfo]);
@@ -23,6 +38,9 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
     switch (role) {
       case "all":
         setChamps(champInfo);
+        break;
+      case "free":
+        setChamps(freeChamps);
         break;
       case "top":
         const topS = laneChamp.Top.s.map((champion) => {
@@ -103,6 +121,7 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
       default:
         setChamps(champInfo);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role, champInfo]);
 
   // Change Handler for input
@@ -148,6 +167,19 @@ function Champions({ champInfo, version, selectChampion, showNav }) {
               src={process.env.PUBLIC_URL + "/images/roles/all.png"}
             />
             <label className={style.roleLabel}>All</label>
+          </div>
+          <div
+            onClick={() => setRole("free")}
+            className={
+              role === "free" ? style.currentRole : style.roleContainer
+            }
+          >
+            <img
+              className={`${style.roleImage} ${style.rotateImage}`}
+              alt="Role-Top"
+              src={process.env.PUBLIC_URL + "/images/roles/all.png"}
+            />
+            <label className={style.roleLabel}>Free</label>
           </div>
           <div
             onClick={() => setRole("top")}
