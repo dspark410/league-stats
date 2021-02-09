@@ -157,10 +157,12 @@ function Welcome({
             {!loading ? (
               <div className={style.nameLive}>
                 <SummonerCard version={version} summonerInfo={summonerInfo} />
-                <div className={style.inGame}>
-                  <div className={style.circlePulse} />
-                  In Game
-                </div>
+                {live && (
+                  <div className={style.inGame}>
+                    <div className={style.circlePulse} />
+                    In Game
+                  </div>
+                )}
               </div>
             ) : (
               <div className={style.nameLive}>
