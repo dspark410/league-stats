@@ -94,10 +94,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 70px;
+  margin: auto 20px;
   padding: 5px 15px;
-  min-width: 114px;
-  min-height: 35px;
+  max-width: 114px;
+  max-height: 35px;
   background-color: #225591;
   border-radius: 20px;
   font-size: 14px;
@@ -264,4 +264,8 @@
   padding: 8px 12px;
   border-radius: 8px;
   margin-top: 15px;
+}
+
+.nameLive {
+  display: flex;
 }
