@@ -17,6 +17,8 @@ export default function ChampionDetail({
   const [championDetails, setChampionDetails] = useState();
   const [current, setCurrent] = useState(0);
 
+  const sessionData = JSON.parse(sessionStorage.getItem("backupjson"));
+
   useEffect(() => {
     showNav();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -160,14 +162,16 @@ export default function ChampionDetail({
                             return (
                               <div key={i} className={style.itemContainer}>
                                 <Tooltip
-                                  name={itemObj[item.id].name}
-                                  info={itemObj[item.id].description}
+                                  name={sessionData[item.id].name}
+                                  info={sessionData[item.id].description}
                                 >
                                   <img
-                                    alt={itemObj[item.id].image.full}
+                                    alt={sessionData[item.id].image.full}
                                     src={`https://ddragon.leagueoflegends.com/cdn/${
-                                      itemObj[item.id].version
-                                    }/img/item/${itemObj[item.id].image.full}`}
+                                      sessionData[item.id].version
+                                    }/img/item/${
+                                      sessionData[item.id].image.full
+                                    }`}
                                   />
                                 </Tooltip>
                               </div>

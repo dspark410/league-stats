@@ -7,7 +7,13 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { laneChamp } from "../utils/constant";
 
-function Champions({ champInfo, version, selectChampion, showNav }) {
+function Champions({
+  champInfo,
+  version,
+  selectChampion,
+  showNav,
+  prevChampInfo,
+}) {
   const [input, setInput] = useState("");
   const [role, setRole] = useState("all");
   const [champs, setChamps] = useState([]);
