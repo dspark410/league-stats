@@ -41,27 +41,27 @@
 }
 
 .historyCardLoss {
-  background: hsla(0, 58%, 26%, 1);
+  background: hsla(0, 74%, 27%, 1);
 
   background: linear-gradient(
     360deg,
-    hsla(0, 58%, 26%, 0.6) 18%,
-    hsla(0, 40%, 57%, 0.6) 92%
+    hsla(0, 74%, 27%, 0.61) 0%,
+    hsla(0, 40%, 57%, 0.48) 100%
   );
 
   background: -moz-linear-gradient(
     360deg,
-    hsla(0, 58%, 26%, 0.6) 18%,
-    hsla(0, 40%, 57%, 0.6) 92%
+    hsla(0, 74%, 27%, 0.61) 0%,
+    hsla(0, 40%, 57%, 0.48) 100%
   );
 
   background: -webkit-linear-gradient(
     360deg,
-    hsla(0, 58%, 26%, 0.6) 18%,
-    hsla(0, 40%, 57%, 0.6) 92%
+    hsla(0, 74%, 27%, 0.61) 0%,
+    hsla(0, 40%, 57%, 0.48) 100%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#681C1C", endColorstr="#BD6565", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#791212", endColorstr="#BD6565", GradientType=1 );
 }
 
 .subTextWin {
@@ -258,7 +258,7 @@
   width: 95%;
   height: 10px;
   border-radius: 25px;
-  background-color: rgba(44, 107, 55);
+  background-color: rgba(16, 85, 37, 0.47);
 }
 
 .lineLoss {
@@ -269,7 +269,7 @@
   width: 95%;
   height: 10px;
   border-radius: 25px;
-  background-color: rgb(107, 44, 49);
+  background-color: rgb(85, 16, 16, 0.47);
 }
 
 .sixthCard {
