@@ -162,15 +162,31 @@ export default function ChampionDetail({
                             return (
                               <div key={i} className={style.itemContainer}>
                                 <Tooltip
-                                  name={sessionData[item.id].name}
-                                  info={sessionData[item.id].description}
+                                  name={
+                                    itemObj
+                                      ? itemObj[item.id].name
+                                      : sessionData[item.id].name
+                                  }
+                                  info={
+                                    itemObj
+                                      ? itemObj[item.id].description
+                                      : sessionData[item.id].description
+                                  }
                                 >
                                   <img
-                                    alt={sessionData[item.id].image.full}
+                                    alt={
+                                      itemObj
+                                        ? itemObj[item.id].image.full
+                                        : sessionData[item.id].image.full
+                                    }
                                     src={`https://ddragon.leagueoflegends.com/cdn/${
-                                      sessionData[item.id].version
+                                      itemObj
+                                        ? itemObj[item.id].version
+                                        : sessionData[item.id].version
                                     }/img/item/${
-                                      sessionData[item.id].image.full
+                                      itemObj
+                                        ? itemObj[item.id].image.full
+                                        : sessionData[item.id].image.full
                                     }`}
                                   />
                                 </Tooltip>

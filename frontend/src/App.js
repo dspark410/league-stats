@@ -22,12 +22,12 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [redirect, setRedirect] = useState(false);
   const [champInfo, setChampInfo] = useState([]);
-  const [prevChampInfo, setPrevChampInfo] = useState([]);
+  const [latest, setLatest] = useState([]);
   const [version, setVersion] = useState();
   const [inputResponse, setInputResponse] = useState("");
   const [queues, setQueues] = useState([]);
   const [champDetail, setChampDetail] = useState();
-  const [backupItem, setBackupItem] = useState({});
+  const [backupItem, setBackupItem] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const [navVisibility, setNavVisibility] = useState(false);
   const [leaderboard, setLeaderBoard] = useState([]);
@@ -109,22 +109,22 @@ function App() {
             // Link to champion.json from Riot
             `https://ddragon.leagueoflegends.com/cdn/${res.data[0]}/data/en_US/champion.json`
           )
-          .then((res) => {
+          .then((result) => {
             // Loop through Riot's champion.json array and keeps object values, in the form of an array
             // Store championArray into state
-            setChampInfo(Object.values(res.data.data));
+            setChampInfo(Object.values(result.data.data));
+            axios
+              .get(
+                // Link to champion.json from Riot
+                `https://ddragon.leagueoflegends.com/cdn/${res.data[9]}/data/en_US/champion.json`
+              )
+              .then((response) => {
+                const latestArr = Object.values(result.data.data).filter(
+                  (champ) => !Object.keys(response.data.data).includes(champ.id)
+                );
+                setLatest(latestArr);
+              });
           });
-        axios
-          .get(
-            // Link to champion.json from Riot
-            `https://ddragon.leagueoflegends.com/cdn/${res.data[9]}/data/en_US/champion.json`
-          )
-          .then((res) => {
-            // Loop through Riot's champion.json array and keeps object values, in the form of an array
-            // Store championArray into state
-            setPrevChampInfo(Object.values(res.data.data));
-          });
-
         axios.get(`${url}/backupjson`).then((res) => {
           setBackupItem(res.data);
           sessionStorage.setItem("backupjson", JSON.stringify(res.data));
@@ -247,7 +247,7 @@ function App() {
                 render={() => (
                   <Champions
                     champInfo={champInfo}
-                    prevChampInfo={prevChampInfo}
+                    latest={latest}
                     version={version}
                     champDetail={champDetail}
                     selectChampion={selectChampion}

@@ -7,13 +7,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { laneChamp } from "../utils/constant";
 
-function Champions({
-  champInfo,
-  version,
-  selectChampion,
-  showNav,
-  prevChampInfo,
-}) {
+function Champions({ champInfo, version, selectChampion, showNav, latest }) {
   const [input, setInput] = useState("");
   const [role, setRole] = useState("all");
   const [champs, setChamps] = useState([]);
@@ -268,41 +262,37 @@ function Champions({
       </div>
 
       <div className={style.screenContainer}>
+        <h2>Latest Champ</h2>
         <div className={style.latestContainer}>
-          <h2>Latest Champ</h2>
           <AnimatePresence>
-            {laneChamp.Latest.map((latest, i) =>
-              champInfo.map((champ) => {
-                return (
-                  champ.name === latest && (
-                    <Tooltip
-                      key={i}
-                      name={champ.name}
-                      info={champ.title}
-                      moreInfo={champ.blurb}
-                    >
-                      <motion.div
-                        initial={{ y: 2, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -2, opacity: 0 }}
-                        className={style.latestImage}
-                      >
-                        <Link to="/championdetail">
-                          <img
-                            alt={champ.image.full}
-                            onClick={selectChampion}
-                            name={champ.id}
-                            realname={champ.name}
-                            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                          />
-                        </Link>
-                        <div className={style.champName}>{champ.name}</div>
-                      </motion.div>
-                    </Tooltip>
-                  )
-                );
-              })
-            )}
+            {latest.map((latest, i) => {
+              return (
+                <Tooltip
+                  key={i}
+                  name={latest.name}
+                  info={latest.title}
+                  moreInfo={latest.blurb}
+                >
+                  <motion.div
+                    initial={{ y: 2, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -2, opacity: 0 }}
+                    className={style.latestImage}
+                  >
+                    <Link to="/championdetail">
+                      <img
+                        alt={latest.image.full}
+                        onClick={selectChampion}
+                        name={latest.id}
+                        realname={latest.name}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
+                      />
+                    </Link>
+                    <div className={style.champName}>{latest.name}</div>
+                  </motion.div>
+                </Tooltip>
+              );
+            })}
           </AnimatePresence>
         </div>
         <div className={style.imageContainer}>
