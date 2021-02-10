@@ -250,7 +250,7 @@
   font-size: 35px;
 }
 
-.line {
+.lineWin {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,10 +258,19 @@
   width: 95%;
   height: 10px;
   border-radius: 25px;
-  background-color: rgba(44, 107, 55, 0.47);
+  background-color: rgba(44, 107, 55);
 }
 
-/* background-color: rgb(107, 44, 49, 0.47); */
+.lineLoss {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 95%;
+  height: 10px;
+  border-radius: 25px;
+  background-color: rgb(107, 44, 49);
+}
 
 .sixthCard {
   display: flex;

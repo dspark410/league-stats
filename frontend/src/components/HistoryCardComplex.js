@@ -217,7 +217,9 @@ function HistoryCardComplex({
         </div>
         <IoIosArrowUp className={style.sixthCol} />
       </div>
-      <div className={style.line} />
+      <div
+        className={game.playerInfo.stats.win ? style.lineWin : style.lineLoss}
+      />
       <div className={style.historyCard2}>
         <div className={style.sixthCard}>
           {game.players
