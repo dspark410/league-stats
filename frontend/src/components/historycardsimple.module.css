@@ -1,0 +1,155 @@
+.historyCard {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 835px;
+  height: 90px;
+  border-radius: 8px;
+  margin: 20px 0px;
+}
+
+.historyCardWin {
+  background: hsla(101, 58%, 26%, 1);
+
+  background: linear-gradient(
+    360deg,
+    hsla(101, 58%, 26%, 0.6) 18%,
+    hsla(130, 40%, 57%, 0.6) 92%
+  );
+
+  background: -moz-linear-gradient(
+    360deg,
+    hsla(101, 58%, 26%, 0.6) 18%,
+    hsla(130, 40%, 57%, 0.6) 92%
+  );
+
+  background: -webkit-linear-gradient(
+    360deg,
+    hsla(101, 58%, 26%, 0.6) 18%,
+    hsla(130, 40%, 57%, 0.6) 92%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#34681C", endColorstr="#65BD73", GradientType=1 );
+}
+
+.historyCardLoss {
+  background: hsla(0, 58%, 26%, 1);
+
+  background: linear-gradient(
+    360deg,
+    hsla(0, 58%, 26%, 0.6) 18%,
+    hsla(0, 40%, 57%, 0.6) 92%
+  );
+
+  background: -moz-linear-gradient(
+    360deg,
+    hsla(0, 58%, 26%, 0.6) 18%,
+    hsla(0, 40%, 57%, 0.6) 92%
+  );
+
+  background: -webkit-linear-gradient(
+    360deg,
+    hsla(0, 58%, 26%, 0.6) 18%,
+    hsla(0, 40%, 57%, 0.6) 92%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#681C1C", endColorstr="#BD6565", GradientType=1 );
+}
+
+.subTextWin {
+  color: #cfe7cb;
+}
+
+.subTextLoss {
+  color: #e7cbcb;
+}
+
+.firstCol {
+  margin-left: 30px;
+}
+
+.firstCol img {
+  display: flex;
+  border-radius: 50%;
+  height: 75px;
+  width: auto;
+  margin: auto 0px;
+}
+
+.secondCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: 30px;
+  min-width: 150px;
+}
+
+.secondCol :first-child {
+  font-size: 1.3em;
+  margin: 0px 0px 8px 0px;
+}
+
+.secondCol :nth-child(2) {
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+.thirdCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 3px 40px;
+}
+
+.thirdCol :first-child {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.thirdCol :nth-child(2) {
+  font-size: 1.3em;
+  font-weight: 300;
+}
+
+.fourthCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 3px 40px;
+}
+
+.fourthCol :first-child {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.fourthCol :last-child {
+  font-size: 1.3em;
+  font-weight: 300;
+}
+
+.fifthCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 3px 40px;
+}
+
+.fifthCol :first-child {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.fifthCol :nth-child(2) {
+  font-size: 1.3em;
+  font-weight: 300;
+}
+
+.sixthCol {
+  margin-left: 125px;
+  font-size: 35px;
+}
