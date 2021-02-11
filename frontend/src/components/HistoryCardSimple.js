@@ -22,7 +22,7 @@ function HistoryCardSimple({ game, clickArrow }) {
             game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
           }
         >
-          {game.gameCreation.split(' ').slice(0, 4).join(' ')}
+          {Date.now() - game.originalDate}
         </p>
       </div>
       <div className={style.thirdCol}>
