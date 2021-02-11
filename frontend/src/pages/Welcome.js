@@ -110,16 +110,16 @@ function Welcome({
         setTime((seconds) => seconds + 1)
       }, 1000)
 
-      // const liveRankArray = []
-      // live.participants.forEach(async (player) => {
-      //   const res = await getRank(player.summonerId)
+      const liveRankArray = []
+      live.participants.forEach(async (player) => {
+        const res = await getRank(player.summonerId)
 
-      //   liveRankArray.push(res.data)
+        liveRankArray.push(res.data)
 
-      //   if (liveRankArray.length === 10) {
-      //     setLiveRank(liveRankArray)
-      //   }
-      // })
+        if (liveRankArray.length === 10) {
+          setLiveRank(liveRankArray)
+        }
+      })
     }
     return () => {
       clearTimeout(time)
@@ -171,12 +171,20 @@ function Welcome({
                 )}
               </div>
             ) : (
-              <div className={style.nameLive}>
-                <Skeleton circle={true} width={125} height={125} />
+              <div className={style.nameLiveSkeleton}>
+                <Skeleton circle={true} width={115} height={115} />
                 <Skeleton
-                  style={{ border: 'none' }}
-                  className={`${style.inGame} `}
+                  style={{ marginLeft: '25px' }}
+                  width={250}
+                  height={55}
                 />
+                {
+                  <Skeleton
+                    width={110}
+                    height={33}
+                    className={`${style.inGameSkeleton} `}
+                  />
+                }
               </div>
             )}
             <div className={style.rankCardContainer}>
@@ -217,30 +225,88 @@ function Welcome({
                   )}
                 </div>
               ) : (
-                <div style={{ marginLeft: '10px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    margin: '25px 0px 25px 0px',
+                  }}
+                >
                   <div>
                     <Skeleton
                       style={{ marginLeft: '10px' }}
                       circle={true}
-                      width={50}
-                      height={50}
-                    />
-                    <Skeleton
-                      style={{ marginLeft: '10px' }}
-                      width={200}
-                      height={48}
+                      width={75}
+                      height={75}
                     />
                   </div>
-                  <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      marginLeft: '10px',
+                      flexDirection: 'column',
+                    }}
+                  >
                     <Skeleton
-                      style={{ marginLeft: '10px' }}
-                      width={125}
-                      height={41}
+                      style={{ marginBottom: '2px' }}
+                      width={40}
+                      height={20}
                     />
                     <Skeleton
-                      style={{ marginLeft: '10px' }}
-                      width={115}
-                      height={41}
+                      style={{ marginBottom: '2px' }}
+                      width={180}
+                      height={35}
+                    />
+                    <Skeleton
+                      style={{ marginBottom: '2px' }}
+                      width={40}
+                      height={25}
+                    />
+                    <Skeleton
+                      style={{ marginBottom: '2px' }}
+                      width={130}
+                      height={25}
+                    />
+                  </div>
+
+                  <div>
+                    <Skeleton
+                      className={style.skeletonRectangle}
+                      width={15}
+                      height={15}
+                    />
+                  </div>
+
+                  <div>
+                    <Skeleton circle={true} width={75} height={75} />
+                  </div>
+
+                  <div
+                    style={{
+                      display: 'flex',
+                      marginLeft: '10px',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <Skeleton
+                      style={{ marginBottom: '2px' }}
+                      width={40}
+                      height={20}
+                    />
+                    <Skeleton
+                      style={{ marginBottom: '2px' }}
+                      width={180}
+                      height={35}
+                    />
+                    <Skeleton
+                      style={{ marginBottom: '2px' }}
+                      width={40}
+                      height={25}
+                    />
+                    <Skeleton
+                      style={{ marginBottom: '2px' }}
+                      width={130}
+                      height={25}
                     />
                   </div>
                 </div>

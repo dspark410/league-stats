@@ -268,4 +268,23 @@
 
 .nameLive {
   display: flex;
+  align-items: center;
+}
+
+.nameLiveSkeleton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.skeletonRectangle {
+  display: flex;
+  margin: 60px 53px 0px 53px;
+  border-radius: 0px !important;
+  transform: rotate(45deg);
+}
+
+.inGameSkeleton {
+  margin-left: 25px;
+  border-radius: 20px !important;
 }

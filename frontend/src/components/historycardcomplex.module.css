@@ -249,8 +249,13 @@
 }
 
 .sixthCol {
-  margin-left: 38px;
+  margin: 0px 0px 75px 39px;
   font-size: 35px;
+}
+
+.sixthCol:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .lineWin {

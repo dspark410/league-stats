@@ -157,3 +157,8 @@
   margin-left: 94px;
   font-size: 35px;
 }
+
+.sixthCol:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
