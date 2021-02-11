@@ -82,7 +82,7 @@
   justify-content: space-evenly;
   align-items: center;
   margin-left: 30px;
-  min-width: 150px;
+  min-width: 155px;
 }
 
 .secondCol :first-child {
@@ -101,6 +101,7 @@
   align-items: center;
   justify-content: center;
   margin: 0px 0px 3px 40px;
+  min-width: 88px;
 }
 
 .thirdCol :first-child {
@@ -119,6 +120,7 @@
   align-items: center;
   justify-content: center;
   margin: 0px 0px 3px 40px;
+  min-width: 125px;
 }
 
 .fourthCol :first-child {
@@ -136,12 +138,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   margin: 0px 0px 3px 40px;
 }
 
 .fifthCol :first-child {
   font-size: 24px;
   font-weight: 600;
+  min-width: 60px;
 }
 
 .fifthCol :nth-child(2) {
@@ -150,6 +154,6 @@
 }
 
 .sixthCol {
-  margin-left: 125px;
+  margin-left: 94px;
   font-size: 35px;
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import style from './historycardsimple.module.css'
 import { IoIosArrowDown } from 'react-icons/io'
 
-function HistoryCardSimple({ game }) {
+function HistoryCardSimple({ game, clickArrow }) {
   return (
     <div
       className={`${style.historyCard} ${
@@ -66,7 +66,7 @@ function HistoryCardSimple({ game }) {
           cs/min
         </div>
       </div>
-      <IoIosArrowDown className={style.sixthCol} />
+      <IoIosArrowDown className={style.sixthCol} onClick={clickArrow} />
     </div>
   )
 }

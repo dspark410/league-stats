@@ -11,6 +11,7 @@ function HistoryCardComplex({
   runes,
   summonerInfo,
   getPlayerName,
+  clickArrow,
 }) {
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
@@ -160,18 +161,19 @@ function HistoryCardComplex({
       ${game.playerInfo.stats.deaths} /
       ${game.playerInfo.stats.assists}`}
           </div>
-          <div className={style.kdaRatio}>
-            {game.playerInfo.stats.largestMultiKill === 0 ||
-            game.playerInfo.stats.largestMultiKill === 1
-              ? ''
-              : game.playerInfo.stats.largestMultiKill === 2
-              ? 'Double Kill'
-              : game.playerInfo.stats.largestMultiKill === 3
-              ? 'Triple Kill'
-              : game.playerInfo.stats.largestMultiKill === 4
-              ? 'Quadra Kill'
-              : 'Penta Kill'}
-          </div>
+          {game.playerInfo.stats.largestMultiKill <= 1 ? (
+            ''
+          ) : (
+            <div className={style.kdaRatio}>
+              {game.playerInfo.stats.largestMultiKill === 2
+                ? 'Double Kill'
+                : game.playerInfo.stats.largestMultiKill === 3
+                ? 'Triple Kill'
+                : game.playerInfo.stats.largestMultiKill === 4
+                ? 'Quadra Kill'
+                : 'Penta Kill'}
+            </div>
+          )}
         </div>
         <div className={style.fourthCol}>
           <span className={style.level}>
@@ -215,12 +217,35 @@ function HistoryCardComplex({
             version={game.gameVersion}
           />
         </div>
-        <IoIosArrowUp className={style.sixthCol} />
+        <IoIosArrowUp className={style.sixthCol} onClick={clickArrow} />
       </div>
       <div
         className={game.playerInfo.stats.win ? style.lineWin : style.lineLoss}
       />
       <div className={style.historyCard2}>
+        <div className={style.statsContainer}>
+          {game.participants
+            .filter((participant) => {
+              return participant.teamId === 100
+            })
+            .map((player, i) => {
+              return (
+                <div key={i} className={style.team100}>
+                  <div>{`${player.stats.kills} / ${player.stats.deaths} / ${player.stats.assists}`}</div>
+
+                  <div>
+                    {(
+                      (player.stats.totalMinionsKilled +
+                        player.stats.neutralMinionsKilled) /
+                      (game.gameDuration / 60)
+                    ).toFixed(1)}{' '}
+                    cs/min
+                  </div>
+                </div>
+              )
+            })}
+        </div>
+
         <div className={style.sixthCard}>
           {game.players
             .slice(0, Math.ceil(game.players.length / 2))
@@ -233,7 +258,7 @@ function HistoryCardComplex({
                     : getPlayerName
                 }
                 name={player.name}
-                className={style.col}
+                className={style.col1}
                 key={i}
               >
                 <span
@@ -261,6 +286,29 @@ function HistoryCardComplex({
             ))}
         </div>
 
+        <div className={style.iconContainer}>
+          <img
+            alt='icon'
+            src={process.env.PUBLIC_URL + '/images/icons/Top_icon.png'}
+          />
+          <img
+            alt='icon'
+            src={process.env.PUBLIC_URL + '/images/icons/Jungle_icon.png'}
+          />
+          <img
+            alt='icon'
+            src={process.env.PUBLIC_URL + '/images/icons/Middle_icon.png'}
+          />
+          <img
+            alt='icon'
+            src={process.env.PUBLIC_URL + '/images/icons/Bottom_icon.png'}
+          />
+          <img
+            alt='icon'
+            src={process.env.PUBLIC_URL + '/images/icons/Support_icon.png'}
+          />
+        </div>
+
         <div className={style.seventhCard}>
           {game.players
             .slice(Math.ceil(game.players.length / 2), game.players.length)
@@ -273,7 +321,7 @@ function HistoryCardComplex({
                     : getPlayerName
                 }
                 name={player.name}
-                className={style.col}
+                className={style.col2}
                 key={i}
               >
                 <img
@@ -299,6 +347,27 @@ function HistoryCardComplex({
                 </span>
               </div>
             ))}
+        </div>
+        <div className={style.statsContainer2}>
+          {game.participants
+            .filter((participant) => {
+              return participant.teamId === 200
+            })
+            .map((player, i) => {
+              return (
+                <div key={i} className={style.team200}>
+                  <div>
+                    {(
+                      (player.stats.totalMinionsKilled +
+                        player.stats.neutralMinionsKilled) /
+                      (game.gameDuration / 60)
+                    ).toFixed(1)}{' '}
+                    cs/min
+                  </div>
+                  <div>{`${player.stats.kills} / ${player.stats.deaths} / ${player.stats.assists}`}</div>
+                </div>
+              )
+            })}
         </div>
       </div>
     </div>

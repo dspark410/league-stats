@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import style from './matchhistory.module.css'
-import Tooltip from './Tooltip'
 import axios from 'axios'
-import ItemHistory from './ItemHistory'
-import HistoryCardSimple from './HistoryCardSimple'
-import HistoryCardComplex from './HistoryCardComplex'
-import { runeDescriptions } from '../utils/constant'
-
-// MATCH TIMESLINES API
-// https://na1.api.riotgames.com/lol/match/v4/timelines/by-match/3630397822?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
+import HistoryCard from './HistoryCard'
 
 function MatchHistoryCard({
   summonerInfo,
@@ -19,25 +12,25 @@ function MatchHistoryCard({
   playerMatches,
   skeleton,
 }) {
-  const visible = playerMatches.length < 7 ? playerMatches.length : 1
+  const visible = playerMatches.length < 7 ? playerMatches.length : 7
   const [gameDetails, setGameDetails] = useState([])
   const [runes, setRunes] = useState([])
   const [spells, setSpells] = useState([])
   const [matchDetails, setMatchDetails] = useState([])
   const [index, setIndex] = useState(visible)
-
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
 
   // Funtion for loading more matches
-  const getMoreMatches = async () => {
+  const getMoreMatches = () => {
     axios
       .get(`${url}/matchDetails/${playerMatches[index].gameId}`)
       .then(async (res) => {
-        const newMatch = await createGameObject(res.data, queues, champInfo)
+        const newMatch = createGameObject(res.data, queues, champInfo)
         setGameDetails((prevGames) => [...prevGames, newMatch])
       })
+
     setIndex((prevIndex) => prevIndex + 1)
   }
 
@@ -54,6 +47,7 @@ function MatchHistoryCard({
           gameDuration: match.gameDuration,
           gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
           players: [],
+          participants: match.participants,
         }
         return object
       })[0]
@@ -133,7 +127,7 @@ function MatchHistoryCard({
   useEffect(() => {
     // Empty array to store match details
     const matchArray = []
-
+    setIndex(visible)
     // Slice to determine how many previous matches to render
     playerMatches.slice(0, visible).forEach((match) => {
       axios
@@ -172,314 +166,14 @@ function MatchHistoryCard({
             })
             .map((game, i) => {
               return (
-                <>
-                  <HistoryCardSimple game={game} />
-                  <HistoryCardComplex
-                    game={game}
-                    spells={spells}
-                    runes={runes}
-                    summonerInfo={summonerInfo}
-                    getPlayerName={getPlayerName}
-                  />
-                  <div
-                    className={
-                      game.playerInfo.stats.win
-                        ? style.cardContainerWin
-                        : style.cardContainerLose
-                    }
-                    key={i}
-                  >
-                    <span className={style.cardContainer}>
-                      <div className={style.firstCard}>
-                        <p className={style.gameType}>
-                          {game.gameType.split(' ').slice(0, 3).join(' ')}
-                        </p>
-                        <p className={style.gameCreation}>
-                          {game.gameCreation.split(' ').slice(0, 4).join(' ')}
-                        </p>
-                        <p
-                          className={
-                            game.playerInfo.stats.win ? style.win : style.loss
-                          }
-                        >
-                          {game.playerInfo.stats.win ? 'Victory' : 'Defeat'}
-                        </p>
-                        <p className={style.gameDuration}>{`${Math.floor(
-                          game.gameDuration / 60
-                        )}m ${Math.ceil(game.gameDuration % 60)}s `}</p>
-                      </div>
-
-                      <div className={style.secondCard}>
-                        <div className={style.championName}>
-                          {game.championName}
-                        </div>
-                        <div className={style.imageContainer}>
-                          <div className={style.championImg}>
-                            <img
-                              className={style.championImage}
-                              alt={game.championImage}
-                              src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${game.championImage}`}
-                            />
-                          </div>
-
-                          <div className={style.summonerSpellContainer}>
-                            {spells.map(
-                              (spell, i) =>
-                                +spell.key === game.playerInfo.spell1Id && (
-                                  <Tooltip
-                                    key={i}
-                                    name={spell.name}
-                                    info={spell.description}
-                                  >
-                                    <img
-                                      alt={spell.name}
-                                      className={style.summonerSpell}
-                                      src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/spell/${spell.id}.png`}
-                                    />
-                                  </Tooltip>
-                                )
-                            )}
-
-                            {spells.map(
-                              (spell, i) =>
-                                +spell.key === game.playerInfo.spell2Id && (
-                                  <Tooltip
-                                    key={i}
-                                    name={spell.name}
-                                    info={spell.description}
-                                  >
-                                    <img
-                                      key={i}
-                                      alt={spell.name}
-                                      className={style.summonerSpell2}
-                                      src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/spell/${spell.id}.png`}
-                                    />
-                                  </Tooltip>
-                                )
-                            )}
-                          </div>
-                          <div className={style.summonerSpellContainer}>
-                            {runes
-                              .filter((rune) => {
-                                return (
-                                  rune.id ===
-                                  game.playerInfo.stats.perkPrimaryStyle
-                                )
-                              })
-                              .map((rune, i) => {
-                                const perk0 = game.playerInfo.stats.perk0
-                                const perkImage = rune.slots[0].runes.filter(
-                                  (perk) => {
-                                    return perk.id === perk0
-                                  }
-                                )
-                                return (
-                                  <Tooltip
-                                    key={i}
-                                    name={perkImage[0].name}
-                                    info={perkImage[0].longDesc}
-                                  >
-                                    <img
-                                      alt='runes'
-                                      className={style.summonerSpell}
-                                      src={`https://raw.communitydragon.org/${
-                                        game.gameVersion
-                                      }/plugins/rcp-be-lol-game-data/global/default/v1/${perkImage[0].icon.toLowerCase()}`}
-                                    />
-                                  </Tooltip>
-                                )
-                              })}
-
-                            {runes
-                              .filter((rune) => {
-                                return (
-                                  game.playerInfo.stats.perkSubStyle === rune.id
-                                )
-                              })
-                              .map((rune, i) => (
-                                <Tooltip
-                                  name={rune.name}
-                                  info={runeDescriptions
-                                    .filter(
-                                      (runeDescription) =>
-                                        runeDescription.key === rune.name &&
-                                        runeDescription.description
-                                    )
-                                    .map((rune) => rune.description)}
-                                  key={i}
-                                >
-                                  <img
-                                    alt='summoner spell'
-                                    className={style.summonerSpell2}
-                                    src={`https://raw.communitydragon.org/${
-                                      game.gameVersion
-                                    }/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
-                                  />
-                                </Tooltip>
-                              ))}
-                          </div>
-                        </div>
-                      </div>
-                    </span>
-                    <span className={style.cardContainer}>
-                      <div className={style.thirdCard}>
-                        <div className={style.killDeathAssists}>
-                          <span>{game.playerInfo.stats.kills}/</span>
-                          <span>{game.playerInfo.stats.deaths}/</span>
-                          <span>{game.playerInfo.stats.assists}</span>
-                        </div>
-                        <div className={style.kdaRatio}>
-                          <span>
-                            {(
-                              (game.playerInfo.stats.kills +
-                                game.playerInfo.stats.assists) /
-                              (game.playerInfo.stats.deaths === 0
-                                ? 1
-                                : game.playerInfo.stats.deaths)
-                            ).toFixed(2)}
-                            :1 KDA
-                          </span>
-                          <div>
-                            <span>
-                              {game.playerInfo.stats.largestMultiKill === 0 ||
-                              game.playerInfo.stats.largestMultiKill === 1
-                                ? ''
-                                : game.playerInfo.stats.largestMultiKill === 2
-                                ? 'Double Kill'
-                                : game.playerInfo.stats.largestMultiKill === 3
-                                ? 'Triple Kill'
-                                : game.playerInfo.stats.largestMultiKill === 4
-                                ? 'Quadra Kill'
-                                : 'Penta Kill'}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className={style.fourthCard}>
-                        <span>level {game.playerInfo.stats.champLevel}</span>
-                        <Tooltip
-                          moreInfo={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}
-                        >
-                          <span className={style.minions}>
-                            {game.playerInfo.stats.totalMinionsKilled +
-                              game.playerInfo.stats.neutralMinionsKilled}{' '}
-                            cs
-                          </span>
-                        </Tooltip>
-                        <Tooltip
-                          moreInfo={`${(
-                            (game.playerInfo.stats.totalMinionsKilled +
-                              game.playerInfo.stats.neutralMinionsKilled) /
-                            (game.gameDuration / 60)
-                          ).toFixed(1)} CS per minute`}
-                        >
-                          <span>
-                            (
-                            {(
-                              (game.playerInfo.stats.totalMinionsKilled +
-                                game.playerInfo.stats.neutralMinionsKilled) /
-                              (game.gameDuration / 60)
-                            ).toFixed(1)}
-                            )
-                          </span>
-                        </Tooltip>
-                      </div>
-
-                      <div className={style.fifthCard}>
-                        <ItemHistory
-                          details={game.playerInfo.stats}
-                          version={game.gameVersion}
-                        />
-                      </div>
-                    </span>
-
-                    <span className={style.cardContainer}>
-                      <div className={style.sixthCard}>
-                        {game.players
-                          .slice(0, Math.ceil(game.players.length / 2))
-                          .map((player, i) => (
-                            <div
-                              onClick={
-                                player.name === summonerInfo.name ||
-                                player.name === sessionData.name
-                                  ? null
-                                  : getPlayerName
-                              }
-                              name={player.name}
-                              className={style.col}
-                              key={i}
-                            >
-                              <img
-                                name={player.name}
-                                alt={player.image}
-                                src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}`}
-                              />
-                              <span
-                                className={
-                                  summonerInfo.name
-                                    ? player.name === summonerInfo.name
-                                      ? style.summonerName
-                                      : style.name
-                                    : style.name || sessionData.name
-                                    ? player.name === sessionData.name
-                                      ? style.summonerName
-                                      : style.name
-                                    : style.name
-                                }
-                                name={player.name}
-                              >
-                                {player.name.replace(/\s/g, '')}
-                              </span>
-                            </div>
-                          ))}
-                      </div>
-
-                      <div className={style.seventhCard}>
-                        {game.players
-                          .slice(
-                            Math.ceil(game.players.length / 2),
-                            game.players.length
-                          )
-                          .map((player, i) => (
-                            <div
-                              onClick={
-                                player.name === summonerInfo.name ||
-                                player.name === sessionData.name
-                                  ? null
-                                  : getPlayerName
-                              }
-                              name={player.name}
-                              className={style.col}
-                              key={i}
-                            >
-                              <img
-                                name={player.name}
-                                alt={player.image}
-                                src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.image}`}
-                              />
-                              <span
-                                className={
-                                  summonerInfo.name
-                                    ? player.name === summonerInfo.name
-                                      ? style.summonerName
-                                      : style.name
-                                    : style.name || sessionData.name
-                                    ? player.name === sessionData.name
-                                      ? style.summonerName
-                                      : style.name
-                                    : style.name
-                                }
-                                name={player.name}
-                              >
-                                {player.name.replace(/\s/g, '')}
-                              </span>
-                            </div>
-                          ))}
-                      </div>
-                    </span>
-                  </div>
-                </>
+                <HistoryCard
+                  key={i}
+                  game={game}
+                  spells={spells}
+                  runes={runes}
+                  summonerInfo={summonerInfo}
+                  getPlayerName={getPlayerName}
+                />
               )
             })}
 
