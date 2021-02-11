@@ -23,17 +23,19 @@ function MatchHistoryCard({
   const url = process.env.REACT_APP_API_URL || "";
 
   // Funtion for loading more matches
-  const getMoreMatches = () => {
+  const getMoreMatches = async () => {
+    const matchArr = [];
     for (let i = index; i < index + 5; i++) {
       if (i < playerMatches.length) {
-        axios
+        await axios
           .get(`${url}/matchDetails/${playerMatches[i].gameId}`)
           .then(async (res) => {
             const newMatch = createGameObject(res.data, queues, champInfo);
-            setGameDetails((prevGames) => [...prevGames, newMatch]);
+            matchArr.push(newMatch);
           });
       }
     }
+    setGameDetails((prevGames) => [...prevGames, ...matchArr]);
     setIndex((prevIndex) => prevIndex + 5);
   };
 
