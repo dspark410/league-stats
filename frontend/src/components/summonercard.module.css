@@ -3,6 +3,16 @@
   align-items: center;
   align-content: center;
   justify-content: center;
+  animation: fadeIn ease 1.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .summonerCardContainer {

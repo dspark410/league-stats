@@ -36,15 +36,19 @@ function App() {
   const url = process.env.REACT_APP_API_URL || ''
 
   // Reusable function for changing the Summoner in the whole app
+
   const getAccountInfo = (summonerName) => {
     axios.get(`${url}/getSummonerName/${summonerName}`).then((res) => {
       if (!res.data.id) {
         // Message will be displayed on Home Screen, dissapears after 3 seconds
         setInputResponse(res.data)
+
         setTimeout(() => {
           setInputResponse('')
         }, 3000)
-      } else {
+      }
+
+      if (res.data.id) {
         // Set summoner info which will be referenced by entire web app
         setSummonerInfo(res.data)
 

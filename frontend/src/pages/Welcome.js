@@ -31,7 +31,7 @@ function Welcome({
   const [live, setLive] = useState()
   const [time, setTime] = useState()
   const [loading, setLoading] = useState(true)
-
+  const [fade, setFade] = useState(true)
   const url = process.env.REACT_APP_API_URL || ''
 
   // Function for masteries call specific to summoner id
@@ -164,7 +164,7 @@ function Welcome({
               <div className={style.nameLive}>
                 <SummonerCard version={version} summonerInfo={summonerInfo} />
                 {live && (
-                  <div className={style.inGame}>
+                  <div className={`${fade} && ${style.inGame}`}>
                     <div className={style.circlePulse} />
                     In Game
                   </div>
@@ -317,42 +317,42 @@ function Welcome({
 
         <div className={style.row2}>
           <div className={style.linksContainer}>
-            <span
-              onClick={() => setDisplay('overview')}
-              to='#'
-              className={
-                !loading && display === 'overview'
-                  ? style.underline
-                  : style.live
-              }
-            >
-              {!loading ? (
-                'Overview'
-              ) : (
-                <Skeleton
-                  style={{ display: 'inlineBlock' }}
-                  height={30}
-                  width={74}
-                />
-              )}
-            </span>
-            <span
-              onClick={() => setDisplay('live')}
-              to='/live'
-              className={
-                !loading && display === 'live' ? style.underline : style.live
-              }
-            >
-              {!loading ? (
-                'Live Game'
-              ) : (
-                <Skeleton
-                  style={{ display: 'inlineBlock' }}
-                  height={30}
-                  width={84}
-                />
-              )}
-            </span>
+            {!loading ? (
+              <span
+                onClick={() => setDisplay('overview')}
+                to='#'
+                className={
+                  !loading && display === 'overview'
+                    ? style.underline
+                    : style.live
+                }
+              >
+                Overview
+              </span>
+            ) : (
+              <Skeleton
+                style={{ display: 'inlineBlock', marginLeft: '15px' }}
+                height={30}
+                width={74}
+              />
+            )}
+            {!loading ? (
+              <span
+                onClick={() => setDisplay('live')}
+                to='/live'
+                className={
+                  !loading && display === 'live' ? style.underline : style.live
+                }
+              >
+                Live Game
+              </span>
+            ) : (
+              <Skeleton
+                style={{ display: 'inlineBlock', marginLeft: '15px' }}
+                height={30}
+                width={84}
+              />
+            )}
           </div>
         </div>
         <div className={style.row3}>

@@ -103,6 +103,7 @@
   font-size: 14px;
   font-weight: 500;
   border: solid 2px #3076c7;
+  animation: fadeIn ease 1.5s;
 }
 
 .emblemContainer {
@@ -123,12 +124,22 @@
   height: 20px;
   width: 20px;
   margin: auto 40px;
+  animation: fadeIn ease 1.5s;
 }
 
 .row2 {
   display: flex;
   width: 1200px;
   margin: 15px auto;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .linksContainer {
@@ -148,6 +159,7 @@
   margin-left: 15px;
   min-width: 85px;
   min-height: 30px;
+  animation: fadeIn ease 1.5s;
 }
 
 .underline {
@@ -156,6 +168,7 @@
   min-width: 74px;
   min-height: 30px;
   margin-left: 15px;
+  animation: fadeIn ease 1.5s;
 }
 
 .row3 {
@@ -264,6 +277,7 @@
   padding: 8px 12px;
   border-radius: 8px;
   margin-top: 15px;
+  animation: fadeIn ease 1.5s;
 }
 
 .nameLive {

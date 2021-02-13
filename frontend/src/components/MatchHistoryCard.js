@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import style from './matchhistory.module.css'
 import axios from 'axios'
 import HistoryCard from './HistoryCard'
+import MatchesLoader from './MatchesLoader'
 
 function MatchHistoryCard({
   summonerInfo,
@@ -18,25 +19,31 @@ function MatchHistoryCard({
   const [spells, setSpells] = useState([])
   const [matchDetails, setMatchDetails] = useState([])
   const [index, setIndex] = useState(visible)
+  const [matchesLoader, setMatchesLoader] = useState(false)
+
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
 
   // Funtion for loading more matches
   const getMoreMatches = async () => {
-    const matchArr = []
-    for (let i = index; i < index + 5; i++) {
-      if (i < playerMatches.length) {
-        await axios
-          .get(`${url}/matchDetails/${playerMatches[i].gameId}`)
-          .then(async (res) => {
-            const newMatch = createGameObject(res.data, queues, champInfo)
-            matchArr.push(newMatch)
-          })
+    setMatchesLoader(true)
+    setTimeout(async () => {
+      const matchArr = []
+      for (let i = index; i < index + 5; i++) {
+        if (i < playerMatches.length) {
+          await axios
+            .get(`${url}/matchDetails/${playerMatches[i].gameId}`)
+            .then(async (res) => {
+              const newMatch = createGameObject(res.data, queues, champInfo)
+              matchArr.push(newMatch)
+            })
+        }
       }
-    }
-    setGameDetails((prevGames) => [...prevGames, ...matchArr])
-    setIndex((prevIndex) => prevIndex + 5)
+      setGameDetails((prevGames) => [...prevGames, ...matchArr])
+      setIndex((prevIndex) => prevIndex + 5)
+      setMatchesLoader(false)
+    }, 2000)
   }
 
   const createGameObject = (match, queues, champInfo) => {
@@ -55,6 +62,7 @@ function MatchHistoryCard({
           players: [],
           participants: match.participants,
         }
+
         return object
       })[0]
 
@@ -195,7 +203,9 @@ function MatchHistoryCard({
                 More Matches Unavailable
               </div>
             ) : (
-              'Load More'
+              <div className={style.moreMatchesContainer}>
+                More Matches {matchesLoader && <MatchesLoader />}
+              </div>
             )}
           </div>
         )}
@@ -205,4 +215,3 @@ function MatchHistoryCard({
 }
 
 export default MatchHistoryCard
-// export const memoHistory = React.memo(MatchHistoryCard)

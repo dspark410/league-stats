@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import style from './historycard.module.css'
 import HistoryCardComplex from './HistoryCardComplex'
 import HistoryCardSimple from './HistoryCardSimple'
 
@@ -14,7 +15,7 @@ function HistoryCard({ game, spells, runes, summonerInfo, getPlayerName }) {
   }
 
   return (
-    <div>
+    <div className={`${style.fadeIn}`}>
       {!open ? (
         <HistoryCardSimple game={game} clickArrow={clickArrow} />
       ) : (

@@ -30,7 +30,7 @@ function SummonerCard({ summonerInfo, version }) {
       {loading ? (
         ''
       ) : (
-        <div className={style.container}>
+        <div className={`${style.container}`}>
           <div className={style.summonerCardContainer}>
             <img
               alt='summoner border'

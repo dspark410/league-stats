@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './unrankedcard.module.css'
 import {
   CircularProgressbarWithChildren,
@@ -7,10 +7,11 @@ import {
 import 'react-circular-progressbar/dist/styles.css'
 
 function UnrankedCard({ queue }) {
+  const [fade, setFade] = useState(true)
   return (
     // Rank card to display players rank and points if available
 
-    <div className={style.singleCardContainer}>
+    <div className={`${fade} && ${style.singleCardContainer}`}>
       <div style={{ width: '70px' }}>
         <CircularProgressbarWithChildren
           value='100'

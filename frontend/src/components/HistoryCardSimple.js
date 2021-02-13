@@ -3,6 +3,29 @@ import style from './historycardsimple.module.css'
 import { IoIosArrowDown } from 'react-icons/io'
 
 function HistoryCardSimple({ game, clickArrow }) {
+  const timeConverter = (creation, duration) => {
+    const secs = creation / 1000 - duration
+    const mins = Math.floor(secs / 60)
+    const hours = Math.floor(mins / 60)
+    const days = Math.floor(hours / 24)
+    const months = Math.floor(days / 30)
+    const years = Math.floor(months / 12)
+
+    if (mins < 60) {
+      return `${mins}  Mins Ago`
+    } else if (hours < 24) {
+      return hours === 1 ? `${hours} Hour Ago` : `${hours} Hours Ago`
+    } else if (days < 30) {
+      return days === 1 ? `${days} Day Ago` : `${days} Days Ago`
+    } else if (months < 12) {
+      return months === 1 ? `${months} Month Ago` : `${months} Months Ago`
+    } else if (years <= 1) {
+      return years === 1 ? `${years} Year Ago` : `${years} Years Ago`
+    } else {
+      return game.gameCreation.split(' ').slice(0, 4).join(' ')
+    }
+  }
+
   return (
     <div
       className={`${style.historyCard} ${
@@ -22,7 +45,7 @@ function HistoryCardSimple({ game, clickArrow }) {
             game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
           }
         >
-          {Date.now() - game.originalDate}
+          {timeConverter(Date.now() - game.originalDate, game.gameDuration)}
         </p>
       </div>
       <div className={style.thirdCol}>

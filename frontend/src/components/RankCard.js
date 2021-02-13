@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './rankcard.module.css'
 import {
   CircularProgressbarWithChildren,
@@ -8,6 +8,7 @@ import 'react-circular-progressbar/dist/styles.css'
 
 function RankCard({ rank, queue }) {
   let color
+
   if (rank.tier === 'IRON') {
     color = '#483938'
   }
@@ -38,7 +39,7 @@ function RankCard({ rank, queue }) {
   return (
     // Rank card to display players rank and points if available
 
-    <div className={style.singleCardContainer}>
+    <div className={`${style.singleCardContainer}`}>
       <div style={{ width: '70px' }}>
         <CircularProgressbarWithChildren
           value={rank.leaguePoints}

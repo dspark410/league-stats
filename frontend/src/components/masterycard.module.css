@@ -10,6 +10,16 @@
   font-weight: 500;
   border-radius: 8px;
   background-color: #7a6b83;
+  animation: fadeIn ease 1.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .header {

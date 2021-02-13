@@ -1,51 +1,51 @@
-import React, { useState, useEffect } from "react";
-import style from "./live.module.css";
-import axios from "axios";
-import Tooltip from "./Tooltip";
+import React, { useState, useEffect } from 'react'
+import style from './live.module.css'
+import axios from 'axios'
+import Tooltip from './Tooltip'
 
-import { runeDescriptions } from "../utils/constant";
+import { runeDescriptions } from '../utils/constant'
 
 function Live({ live, champInfo, version, queues, time, liveRank }) {
-  const [summoner, setSummoner] = useState([]);
-  const [runes, setRunes] = useState([]);
-  const [spells, setSpells] = useState([]);
+  const [summoner, setSummoner] = useState([])
+  const [runes, setRunes] = useState([])
+  const [spells, setSpells] = useState([])
 
   useEffect(() => {
     const particpants = liveRank
       .map((participant) => {
         if (participant.length !== 0) {
-          return participant[0].summonerName;
+          return participant[0].summonerName
         }
       })
       .filter((el) => {
-        return el !== undefined;
-      });
-    console.log(particpants);
-    setSummoner(particpants);
-  }, [liveRank]);
+        return el !== undefined
+      })
+    console.log(particpants)
+    setSummoner(particpants)
+  }, [liveRank])
 
   useEffect(() => {
-    if (version !== "") {
+    if (version !== '') {
       // Retrieve list of summoner spells from Riot API
       axios
         .get(
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
         )
         .then((res) => {
-          setSpells(Object.values(res.data.data));
-        });
+          setSpells(Object.values(res.data.data))
+        })
       axios
         .get(
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
         )
         .then((res) => {
-          setRunes(res.data);
-        });
+          setRunes(res.data)
+        })
     }
-  }, [version]);
+  }, [version])
 
   return (
-    <div className={style.liveWidthContainer}>
+    <div className={`${style.liveWidthContainer}`}>
       <div className={style.liveContainer}>
         <div className={style.timerQueueContainer}>
           <div className={style.timerQueueContainerBorder}>
@@ -53,8 +53,8 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
               {queues.map((queue) => {
                 return (
                   live.gameQueueConfigId === queue.queueId &&
-                  queue.description.split(" ").slice(0, 3).join(" ")
-                );
+                  queue.description.split(' ').slice(0, 3).join(' ')
+                )
               })}
             </div>
             <span>-</span>
@@ -90,7 +90,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                       />
                     )
-                  );
+                  )
                 })
             )
           )}
@@ -107,7 +107,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
               >
                 <div className={style.summonerName}>
                   <img
-                    alt="profile icon"
+                    alt='profile icon'
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
@@ -126,7 +126,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                             src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                           />
                         )
-                      );
+                      )
                     })}
                   </div>
                   <div className={style.runeContainer}>
@@ -134,7 +134,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkStyle === rune.id;
+                              return player.perks.perkStyle === rune.id
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -153,21 +153,21 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                   alt={rune.name}
                                   key={i}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split(".")
+                                    .split('.')
                                     .slice(0, 2)
                                     .join(
-                                      "."
+                                      '.'
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ""}
+                        : ''}
                     </div>
                     <div>
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkSubStyle === rune.id;
+                              return player.perks.perkSubStyle === rune.id
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -186,15 +186,15 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                   className={style.runeImage}
                                   alt={rune.name}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split(".")
+                                    .split('.')
                                     .slice(0, 2)
                                     .join(
-                                      "."
+                                      '.'
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ""}
+                        : ''}
                     </div>
                   </div>
                   <div className={style.spellContainer}>
@@ -242,15 +242,15 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                   {summoner.includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game) => {
-                          let emblem;
+                          let emblem
                           if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === "RANKED_SOLO_5x5"
+                            game.queueType === 'RANKED_SOLO_5x5'
                           ) {
                             if (
-                              game.tier === "CHALLENGER" ||
-                              game.tier === "GRANDMASTER" ||
-                              game.tier === "MASTER"
+                              game.tier === 'CHALLENGER' ||
+                              game.tier === 'GRANDMASTER' ||
+                              game.tier === 'MASTER'
                             ) {
                               emblem = (
                                 <div className={style.emblemContainer}>
@@ -265,25 +265,25 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              );
+                              )
                             } else {
-                              let playerRank;
+                              let playerRank
 
                               switch (game.rank) {
-                                case "I":
-                                  playerRank = 1;
-                                  break;
-                                case "II":
-                                  playerRank = 2;
-                                  break;
-                                case "III":
-                                  playerRank = 3;
-                                  break;
-                                case "IV":
-                                  playerRank = 4;
-                                  break;
+                                case 'I':
+                                  playerRank = 1
+                                  break
+                                case 'II':
+                                  playerRank = 2
+                                  break
+                                case 'III':
+                                  playerRank = 3
+                                  break
+                                case 'IV':
+                                  playerRank = 4
+                                  break
                                 default:
-                                  playerRank = -1;
+                                  playerRank = -1
                               }
 
                               emblem = (
@@ -299,33 +299,33 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              );
+                              )
                             }
-                            return <div>{emblem}</div>;
+                            return <div>{emblem}</div>
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === "RANKED_FLEX_SR" &&
+                            game.queueType === 'RANKED_FLEX_SR' &&
                             rank.length === 1
                           ) {
-                            return "-";
+                            return '-'
                           }
-                        });
+                        })
                       })
-                    : "-"}
+                    : '-'}
                 </div>
                 <div className={style.flexRank}>
                   {summoner.includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game) => {
-                          let emblem;
+                          let emblem
                           if (
                             player.summonerName === game.summonerName &&
-                            game.queueType === "RANKED_FLEX_SR"
+                            game.queueType === 'RANKED_FLEX_SR'
                           ) {
                             if (
-                              game.tier === "CHALLENGER" ||
-                              game.tier === "GRANDMASTER" ||
-                              game.tier === "MASTER"
+                              game.tier === 'CHALLENGER' ||
+                              game.tier === 'GRANDMASTER' ||
+                              game.tier === 'MASTER'
                             ) {
                               emblem = (
                                 <div className={style.emblemContainer}>
@@ -340,25 +340,25 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              );
+                              )
                             } else {
-                              let playerRank;
+                              let playerRank
 
                               switch (game.rank) {
-                                case "I":
-                                  playerRank = 1;
-                                  break;
-                                case "II":
-                                  playerRank = 2;
-                                  break;
-                                case "III":
-                                  playerRank = 3;
-                                  break;
-                                case "IV":
-                                  playerRank = 4;
-                                  break;
+                                case 'I':
+                                  playerRank = 1
+                                  break
+                                case 'II':
+                                  playerRank = 2
+                                  break
+                                case 'III':
+                                  playerRank = 3
+                                  break
+                                case 'IV':
+                                  playerRank = 4
+                                  break
                                 default:
-                                  playerRank = -1;
+                                  playerRank = -1
                               }
 
                               emblem = (
@@ -374,19 +374,19 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              );
+                              )
                             }
-                            return <div>{emblem}</div>;
+                            return <div>{emblem}</div>
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === "RANKED_SOLO_5x5" &&
+                            game.queueType === 'RANKED_SOLO_5x5' &&
                             rank.length === 1
                           ) {
-                            return "-";
+                            return '-'
                           }
-                        });
+                        })
                       })
-                    : "-"}
+                    : '-'}
                 </div>
               </div>
             )
@@ -416,7 +416,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                       />
                     )
-                  );
+                  )
                 })
             )
           )}
@@ -432,7 +432,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
               >
                 <div className={style.summonerName}>
                   <img
-                    alt="profile icon"
+                    alt='profile icon'
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
@@ -451,7 +451,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                             src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                           />
                         )
-                      );
+                      )
                     })}
                   </div>
                   <div className={style.runeContainer}>
@@ -459,7 +459,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkStyle === rune.id;
+                              return player.perks.perkStyle === rune.id
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -478,21 +478,21 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                   alt={rune.name}
                                   key={i}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split(".")
+                                    .split('.')
                                     .slice(0, 2)
                                     .join(
-                                      "."
+                                      '.'
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ""}
+                        : ''}
                     </div>
                     <div>
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkSubStyle === rune.id;
+                              return player.perks.perkSubStyle === rune.id
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -511,15 +511,15 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                   className={style.runeImage}
                                   alt={rune.name}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split(".")
+                                    .split('.')
                                     .slice(0, 2)
                                     .join(
-                                      "."
+                                      '.'
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ""}
+                        : ''}
                     </div>
                   </div>
                   <div className={style.spellContainer}>
@@ -567,15 +567,15 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                   {summoner.includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game) => {
-                          let emblem;
+                          let emblem
                           if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === "RANKED_SOLO_5x5"
+                            game.queueType === 'RANKED_SOLO_5x5'
                           ) {
                             if (
-                              game.tier === "CHALLENGER" ||
-                              game.tier === "GRANDMASTER" ||
-                              game.tier === "MASTER"
+                              game.tier === 'CHALLENGER' ||
+                              game.tier === 'GRANDMASTER' ||
+                              game.tier === 'MASTER'
                             ) {
                               emblem = (
                                 <div className={style.emblemContainer}>
@@ -590,25 +590,25 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              );
+                              )
                             } else {
-                              let playerRank;
+                              let playerRank
 
                               switch (game.rank) {
-                                case "I":
-                                  playerRank = 1;
-                                  break;
-                                case "II":
-                                  playerRank = 2;
-                                  break;
-                                case "III":
-                                  playerRank = 3;
-                                  break;
-                                case "IV":
-                                  playerRank = 4;
-                                  break;
+                                case 'I':
+                                  playerRank = 1
+                                  break
+                                case 'II':
+                                  playerRank = 2
+                                  break
+                                case 'III':
+                                  playerRank = 3
+                                  break
+                                case 'IV':
+                                  playerRank = 4
+                                  break
                                 default:
-                                  playerRank = -1;
+                                  playerRank = -1
                               }
 
                               emblem = (
@@ -624,33 +624,33 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              );
+                              )
                             }
-                            return <div>{emblem}</div>;
+                            return <div>{emblem}</div>
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === "RANKED_FLEX_SR" &&
+                            game.queueType === 'RANKED_FLEX_SR' &&
                             rank.length === 1
                           ) {
-                            return "-";
+                            return '-'
                           }
-                        });
+                        })
                       })
-                    : "-"}
+                    : '-'}
                 </div>
                 <div className={style.flexRank}>
                   {summoner.includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game) => {
-                          let emblem;
+                          let emblem
                           if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === "RANKED_FLEX_SR"
+                            game.queueType === 'RANKED_FLEX_SR'
                           ) {
                             if (
-                              game.tier === "CHALLENGER" ||
-                              game.tier === "GRANDMASTER" ||
-                              game.tier === "MASTER"
+                              game.tier === 'CHALLENGER' ||
+                              game.tier === 'GRANDMASTER' ||
+                              game.tier === 'MASTER'
                             ) {
                               emblem = (
                                 <div className={style.emblemContainer}>
@@ -665,25 +665,25 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              );
+                              )
                             } else {
-                              let playerRank;
+                              let playerRank
 
                               switch (game.rank) {
-                                case "I":
-                                  playerRank = 1;
-                                  break;
-                                case "II":
-                                  playerRank = 2;
-                                  break;
-                                case "III":
-                                  playerRank = 3;
-                                  break;
-                                case "IV":
-                                  playerRank = 4;
-                                  break;
+                                case 'I':
+                                  playerRank = 1
+                                  break
+                                case 'II':
+                                  playerRank = 2
+                                  break
+                                case 'III':
+                                  playerRank = 3
+                                  break
+                                case 'IV':
+                                  playerRank = 4
+                                  break
                                 default:
-                                  playerRank = -1;
+                                  playerRank = -1
                               }
 
                               emblem = (
@@ -699,26 +699,26 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              );
+                              )
                             }
-                            return <div>{emblem}</div>;
+                            return <div>{emblem}</div>
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === "RANKED_SOLO_5x5" &&
+                            game.queueType === 'RANKED_SOLO_5x5' &&
                             rank.length === 1
                           ) {
-                            return "-";
+                            return '-'
                           }
-                        });
+                        })
                       })
-                    : "-"}
+                    : '-'}
                 </div>
               </div>
             )
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default Live;
+export default Live

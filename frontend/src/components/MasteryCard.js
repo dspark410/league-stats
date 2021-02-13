@@ -1,13 +1,13 @@
-import React from "react";
-import style from "./masterycard.module.css";
+import React from 'react'
+import style from './masterycard.module.css'
 
 function MasteryCard({ version, filteredChamps }) {
   return (
     <div className={style.masteryCard}>
       <div className={style.header}>
         <img
-          alt="mastery icon"
-          src={process.env.PUBLIC_URL + "/images/icons/mastery.png"}
+          alt='mastery icon'
+          src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
         />
         CHAMPION MASTERY
       </div>
@@ -43,17 +43,17 @@ function MasteryCard({ version, filteredChamps }) {
                           ? process.env.PUBLIC_URL +
                             `/images/masteryicons/level${champ.level}.png`
                           : process.env.PUBLIC_URL +
-                            "/images/masteryicons/level1.png"
+                            '/images/masteryicons/level1.png'
                       }
                     />
                   </div>
 
                   <div className={style.points}>
-                    {champ.points.toLocaleString("en")}
+                    {champ.points.toLocaleString('en')}
                   </div>
                 </div>
               </li>
-            );
+            )
           })
         : filteredChamps.slice(0, 5).map((champ, i) => {
             return (
@@ -79,20 +79,20 @@ function MasteryCard({ version, filteredChamps }) {
                           ? process.env.PUBLIC_URL +
                             `/images/masteryicons/level${champ.level}.png`
                           : process.env.PUBLIC_URL +
-                            "/images/masteryicons/level1.png"
+                            '/images/masteryicons/level1.png'
                       }
                     />
                   </div>
 
                   <div className={style.points}>
-                    {champ.points.toLocaleString("en")}
+                    {champ.points.toLocaleString('en')}
                   </div>
                 </div>
               </li>
-            );
+            )
           })}
     </div>
-  );
+  )
 }
 
-export default MasteryCard;
+export default MasteryCard
