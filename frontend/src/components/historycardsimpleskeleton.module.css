@@ -1,0 +1,93 @@
+.historyCard {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 835px;
+  height: 90px;
+  border-radius: 8px;
+  margin: 20px 0px;
+  background-color: #7a6b83;
+}
+
+.firstCol {
+  margin-left: 30px;
+}
+
+.firstCol img {
+  display: flex;
+  border-radius: 50%;
+  height: 75px;
+  width: auto;
+  margin: auto 0px;
+}
+
+.secondCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+  min-width: 155px;
+}
+
+.secondCol :first-child {
+  font-size: 1.3em;
+  margin-bottom: 5px;
+}
+
+.secondCol :nth-child(2) {
+  font-size: 0.9em;
+  font-weight: 300;
+}
+
+.thirdCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 3px 40px;
+  min-width: 88px;
+}
+
+.thirdCol :first-child {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.thirdCol :nth-child(2) {
+  font-size: 1.3em;
+  font-weight: 300;
+}
+
+.fourthCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 0px 0px 40px;
+  min-width: 125px;
+}
+
+.fourthCol :first-child {
+  margin-bottom: 0px;
+}
+
+.fifthCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0px 0px 3px 40px;
+}
+
+.sixthCol {
+  margin-left: 80px;
+  font-size: 35px;
+}
+
+.sixthCol:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}

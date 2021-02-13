@@ -1,6 +1,6 @@
 import React from 'react'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import style from './matchhistory.module.css'
+import style from './historycardsimpleskeleton.module.css'
 
 function MatchHistoryCardSkeleton() {
   const playerArr = [1, 2, 3, 4, 5]
@@ -14,137 +14,39 @@ function MatchHistoryCardSkeleton() {
           color=' rgba(59, 43, 68)'
           highlightColor='rgb(91, 66, 105)'
         >
-          <div className={style.skeletonContainer}>
-            <span className={style.cardContainer}>
-              <div className={style.firstCard}>
-                <p className={style.gameType}>
-                  <Skeleton width={115} />
-                </p>
-                <p className={style.gameCreation}>
-                  <Skeleton width={115} />
-                </p>
-                <p>
-                  <Skeleton width={80} />
-                </p>
-                <p className={style.gameDuration}>
-                  <Skeleton width={90} />
-                </p>
-              </div>
+          <div className={`${style.historyCard}`}>
+            <div className={style.firstCol}>
+              <Skeleton circle={true} width={75} height={75} />
+            </div>
+            <div className={style.secondCol}>
+              <Skeleton width={135} height={30} />
 
-              <div className={style.secondCard}>
-                <div className={style.championName}>
-                  <Skeleton width={105} />
-                </div>
-                <div className={style.imageContainer}>
-                  <div className={style.championImg}>
-                    <Skeleton
-                      style={{ marginRight: '3px' }}
-                      width={50}
-                      height={50}
-                    />
-                  </div>
+              <Skeleton width={100} height={20} />
+            </div>
+            <div className={style.thirdCol}>
+              <Skeleton
+                style={{ marginBottom: '0px' }}
+                width={100}
+                height={30}
+              />
 
-                  <div className={style.summonerSpellContainer}>
-                    <Skeleton
-                      style={{ margin: '3px' }}
-                      width={30}
-                      height={30}
-                    />
-                    <Skeleton
-                      style={{ margin: '3px' }}
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                  <div className={style.summonerSpellContainer}>
-                    <Skeleton
-                      style={{ margin: '3px' }}
-                      width={30}
-                      height={30}
-                    />
-                    <Skeleton
-                      style={{ margin: '3px' }}
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                </div>
-              </div>
-            </span>
-            <span className={style.cardContainer}>
-              <div className={style.thirdCard}>
-                <div className={style.killDeathAssists}>
-                  <span>
-                    <Skeleton width={56} />
-                  </span>
-                </div>
-                <div className={style.kdaRatio}>
-                  <span>
-                    <Skeleton width={65} />
-                  </span>
-                  <div>
-                    <span>
-                      <Skeleton width={70} />
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={style.fourthCard}>
-                <span>
-                  <Skeleton width={46} />
-                </span>
-                <Skeleton width={31} />
-                <Skeleton width={30} />
-              </div>
-
-              <div className={style.fifthCard}>
-                <div>
-                  <div>
-                    <Skeleton
-                      style={{ margin: '2px' }}
-                      count={4}
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                  <div>
-                    <Skeleton
-                      style={{ margin: '2px' }}
-                      count={3}
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                </div>
-              </div>
-            </span>
-
-            <span className={style.cardContainer}>
-              <div className={style.sixthCard}>
-                {playerArr.map((player, i) => {
-                  return (
-                    <div name={player.name} className={style.col} key={i}>
-                      <Skeleton width={20} height={20} />
-
-                      <Skeleton style={{ margin: '0px 3px' }} width={70} />
-                    </div>
-                  )
-                })}
-              </div>
-
-              <div className={style.seventhCard}>
-                {playerArr.map((player, i) => {
-                  return (
-                    <div name={player.name} className={style.col} key={i}>
-                      <Skeleton width={20} height={20} />
-
-                      <Skeleton style={{ margin: '0px 3px' }} width={70} />
-                    </div>
-                  )
-                })}
-              </div>
-            </span>
+              <Skeleton width={95} height={25} />
+            </div>
+            <div className={style.fourthCol}>
+              <Skeleton
+                style={{ marginBottom: '0px' }}
+                width={120}
+                height={35}
+              />
+              <Skeleton width={50} height={30} />
+            </div>
+            <div className={style.fifthCol}>
+              <Skeleton width={50} height={30} />
+              <Skeleton width={60} height={20} />
+            </div>
+            <div className={style.sixthCol}>
+              <Skeleton width={30} height={20} />
+            </div>
           </div>
         </SkeletonTheme>
       ))}
