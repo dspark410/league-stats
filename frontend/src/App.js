@@ -32,11 +32,9 @@ function App() {
   const [navVisibility, setNavVisibility] = useState(false);
   const [leaderboard, setLeaderBoard] = useState([]);
   const [background, setBackground] = useState(BrandBackground);
+  const [prevEntries, setPrevEntries] = useState([]);
 
   const url = process.env.REACT_APP_API_URL || "";
-
-  const getPrevEntries =
-    JSON.parse(localStorage.getItem("searchedSummoner")) || [];
 
   // Reusable function for changing the Summoner in the whole app
 
@@ -137,6 +135,8 @@ function App() {
           sessionStorage.setItem("backupjson", JSON.stringify(res.data));
         });
       });
+    setPrevEntries(JSON.parse(localStorage.getItem("searchedSummoner")) || []);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -182,24 +182,24 @@ function App() {
   // onSubmit for input form
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (inputValue.trim() === "") {
-      setInputResponse("Please enter a summoner name...");
-      setTimeout(() => {
-        setInputResponse("");
-      }, 3000);
+    if (e.target.getAttribute("value")) {
+      getAccountInfo(e.target.getAttribute("value"));
     } else {
-      if (!getPrevEntries.includes(inputValue)) {
-        if (getPrevEntries.length > 10) {
-          getPrevEntries.shift();
+      if (inputValue.trim() === "") {
+        setInputResponse("Please enter a summoner name...");
+        setTimeout(() => {
+          setInputResponse("");
+        }, 3000);
+      } else {
+        if (!prevEntries.includes(inputValue)) {
+          if (prevEntries.length > 10) {
+            prevEntries.shift();
+          }
+          prevEntries.push(inputValue);
+          localStorage.setItem("searchedSummoner", JSON.stringify(prevEntries));
         }
-        getPrevEntries.push(inputValue);
-        localStorage.setItem(
-          "searchedSummoner",
-          JSON.stringify(getPrevEntries)
-        );
+        getAccountInfo(inputValue);
       }
-      getAccountInfo(inputValue);
     }
   };
 
@@ -240,6 +240,7 @@ function App() {
                       champInfo={champInfo}
                       version={version}
                       hideNav={hideNav}
+                      prevSearches={prevEntries}
                     />
                   )
                 }
