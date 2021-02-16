@@ -117,11 +117,13 @@ input[type='text'] {
   width: 98%;
   padding: 10px 8px;
   margin-bottom: 5px;
+  z-index: 1000;
 }
 
 .storageSummoner:hover {
   background-color: #483e4e;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .recent {
@@ -141,18 +143,18 @@ input[type='text'] {
 }
 
 .removeContainer {
-  height: 35px;
-  width: 35px;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
 }
 
 .remove {
-  font-size: 25px;
+  font-size: 20px;
   color: #e1e1e1;
-  z-index: 1000;
+  z-index: 1;
 }
 
 .removeContainer:hover {

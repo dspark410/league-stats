@@ -44,14 +44,27 @@ function App() {
     axios.get(`${url}/getSummonerName/${summonerName}`).then((res) => {
       if (!res.data.id) {
         // Message will be displayed on Home Screen, dissapears after 3 seconds
-        setInputResponse(res.data)
+        setInputValue(res.data)
 
         setTimeout(() => {
-          setInputResponse('')
-        }, 3000)
+          setInputValue('')
+        }, 2000)
       }
 
       if (res.data.id) {
+        if (!prevEntries.includes(inputValue)) {
+          const prevEntriesArr = [...prevEntries]
+
+          if (prevEntriesArr.length === 4) {
+            prevEntriesArr.pop()
+          }
+          // if (inputValue !== '') {
+          prevEntriesArr.unshift(inputValue)
+          // }
+
+          setPrevEntries(prevEntriesArr)
+        }
+
         // Set summoner info which will be referenced by entire web app
         setSummonerInfo(res.data)
 
@@ -138,7 +151,7 @@ function App() {
         })
       })
     // if (prevEntries.length === 0) {
-    //   setPrevEntries(['mistahpig'])
+    //   setPrevEntries(['mistahpig', 'dambitwes'])
     // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -156,6 +169,10 @@ function App() {
         })
     }
   }, [version])
+
+  useEffect(() => {
+    localStorage.setItem('searchedSummoner', JSON.stringify(prevEntries))
+  }, [prevEntries])
 
   const changeLeaderBoard = (rank, division, page) => {
     axios
@@ -185,40 +202,32 @@ function App() {
   // onSubmit for input form
   const handleSubmit = (e) => {
     e.preventDefault()
+
     if (e.target.getAttribute('value')) {
       getAccountInfo(e.target.getAttribute('value'))
+      setInputValue('')
     } else {
       if (inputValue.trim() === '') {
         return
-        // setInputResponse('Please enter a summoner name...')
-        // setTimeout(() => {
-        //   setInputResponse('')
-        // }, 3000)
       } else {
-        if (!prevEntries.includes(inputValue)) {
-          if (prevEntries.length === 4) {
-            prevEntries.pop()
-          }
-          prevEntries.unshift(inputValue)
-          localStorage.setItem('searchedSummoner', JSON.stringify(prevEntries))
-        }
         getAccountInfo(inputValue)
+        setInputValue('')
       }
     }
   }
 
   // Function to remove a summoner from local storage onClick of the close button
   const removeSearchedSummoner = (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     e.stopPropagation()
-    console.log(prevEntries.indexOf(e.target.getAttribute('value')))
-    const index = prevEntries.indexOf(e.target.getAttribute('value'))
+    const prevEntriesArr = [...prevEntries]
+    const index = prevEntriesArr.indexOf(e.target.getAttribute('value'))
 
     if (index > -1) {
-      prevEntries.splice(index, 1)
+      prevEntriesArr.splice(index, 1)
     }
 
-    localStorage.setItem('searchedSummoner', JSON.stringify(prevEntries))
+    setPrevEntries(prevEntriesArr)
   }
 
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen

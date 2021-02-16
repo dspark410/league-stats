@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import style from "./home.module.css";
-import { AiOutlineSearch } from "react-icons/ai";
-import { IoClose } from "react-icons/io5";
+import React, { useState, useEffect } from 'react'
+import style from './home.module.css'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { IoClose } from 'react-icons/io5'
 
 function Home({
   change,
@@ -10,23 +10,24 @@ function Home({
   hideNav,
   prevSearches,
   removeSearchedSummoner,
+  inputValue,
 }) {
-  const [showStorage, setShowStorage] = useState(true);
+  const [showStorage, setShowStorage] = useState(true)
 
   useEffect(() => {
-    setShowStorage(false);
-    hideNav();
+    setShowStorage(false)
+    hideNav()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleFocus = () => {
-    setShowStorage(true);
-  };
+    setShowStorage(true)
+  }
 
   const handleBlur = () => {
-    setShowStorage(false);
-  };
+    setShowStorage(false)
+  }
 
   return (
     <div className={style.homeBackgroundContainer}>
@@ -36,44 +37,84 @@ function Home({
           <div className={style.formContainer}>
             <form onSubmit={submit}>
               <input
-                spellCheck="false"
+                spellCheck='false'
                 onChange={change}
-                type="text"
-                placeholder="search summoner..."
+                type='text'
+                placeholder='search summoner...'
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                value={inputValue}
               />
             </form>
             <AiOutlineSearch onClick={submit} className={style.searchIcon} />
           </div>
           {showStorage && (
             <div className={style.showStorageContainer}>
-              <div className={style.recent}>Recent Searches</div>
-              {prevSearches.map((summoner) => (
-                <div
-                  onMouseDown={submit}
-                  value={summoner}
-                  className={style.storageSummoner}
-                >
-                  <span className={style.region}>NA</span>
-                  <span className={style.summoner}>{summoner}</span>
+              <div className={style.recent}>
+                {prevSearches.length === 0
+                  ? 'Summoner Example'
+                  : 'Recent Searches'}
+              </div>
+              {prevSearches.length === 0 ? (
+                <>
+                  <div
+                    onMouseDown={submit}
+                    value='mistahpig'
+                    className={style.storageSummoner}
+                  >
+                    <span className={style.region}>NA</span>
+                    <span className={style.summoner}>mistahpig</span>
 
-                  <div className={style.removeContainer}>
-                    <IoClose
-                      className={style.remove}
+                    <div className={style.removeContainer}>
+                      <p className={style.remove}>x</p>
+                    </div>
+                  </div>
+                  <div
+                    onMouseDown={submit}
+                    value='dambitwes'
+                    className={style.storageSummoner}
+                  >
+                    <span className={style.region}>NA</span>
+                    <span className={style.summoner}>dambitwes</span>
+
+                    <div className={style.removeContainer}>
+                      <p className={style.remove}>x</p>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                prevSearches.map((summoner) => (
+                  <div
+                    onMouseDown={submit}
+                    value={summoner}
+                    className={style.storageSummoner}
+                  >
+                    <span className={style.region}>NA</span>
+                    <span className={style.summoner}>{summoner}</span>
+
+                    <div
                       onMouseDown={removeSearchedSummoner}
                       value={summoner}
-                    />
+                      className={style.removeContainer}
+                    >
+                      <div
+                        onMouseDown={removeSearchedSummoner}
+                        value={summoner}
+                        className={style.remove}
+                      >
+                        x
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           )}
         </div>
         <p className={style.inputResponse}>{inputResponse}</p>
       </div>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home
