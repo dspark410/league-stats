@@ -166,7 +166,7 @@ input[type='text'] {
   flex-flow: row wrap;
   justify-content: center;
   color: #e1e1e1;
-  animation: fadeIn ease-in 3s;
+  animation: fadeIn ease-in 2s;
 }
 
 .champName {

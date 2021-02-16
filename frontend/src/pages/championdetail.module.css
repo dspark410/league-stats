@@ -260,11 +260,11 @@
 
 .splashHeader {
   background-color: #755c83;
-  padding: 10px 0px;
+  padding: 10px 12px;
   color: #e1e1e1;
   text-align: center;
-  width: 39%;
-  border-radius: 8px;
+  width: auto;
+  border-radius: 5px;
   margin: 0 auto 15px auto;
 }
 

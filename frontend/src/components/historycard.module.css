@@ -11,5 +11,24 @@
   }
 }
 
-.fadeOut {
+.enter {
+  opacity: 0;
+}
+
+.enterActive {
+  opacity: 1;
+  transition: opacity 1000ms linear;
+}
+
+.exit {
+  opacity: 0;
+}
+
+.exitActive {
+  opacity: 0.5;
+  transition: opacity 500ms linear;
+}
+
+.exitDone {
+  opacity: 1;
 }

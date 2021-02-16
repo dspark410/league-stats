@@ -126,6 +126,7 @@ input[type='text'] {
 
 .recent {
   font-weight: 600;
+  margin-bottom: 13px;
 }
 
 .region {
