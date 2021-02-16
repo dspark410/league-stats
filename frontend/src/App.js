@@ -212,7 +212,11 @@ function App() {
     console.log(prevEntries.indexOf(e.target.getAttribute('value')))
 
     const index = prevEntries.indexOf(e.target.getAttribute('value'))
-    prevEntries.splice(index, 1)
+
+    if (index > -1) {
+      prevEntries.splice(index, 1)
+    }
+
     localStorage.setItem('searchedSummoner', JSON.stringify(prevEntries))
   }
 
