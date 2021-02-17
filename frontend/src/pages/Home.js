@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import style from './home.module.css'
 import { AiOutlineSearch } from 'react-icons/ai'
+import { regions } from '../utils/constant'
 
 function Home({
   change,
@@ -37,6 +38,17 @@ function Home({
           <h1>LeagueStats</h1>
           <div className={style.formContainer}>
             <form onSubmit={submit}>
+              <select className={style.regionSelect}>
+                {regions.map((region) => (
+                  <option
+                    className={style.regionOption}
+                    value={region}
+                    key={region}
+                  >
+                    {region}
+                  </option>
+                ))}
+              </select>
               <input
                 spellCheck='false'
                 onChange={change}

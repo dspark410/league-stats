@@ -192,20 +192,18 @@ function MatchHistoryCard({
             })}
 
         {gameDetails.length >= visible && (
-          <div
-            className={
-              index < playerMatches.length ? style.moreMatchesBtn : style.none
-            }
-            onClick={index < playerMatches.length ? getMoreMatches : null}
-          >
+          <div onClick={index < playerMatches.length ? getMoreMatches : null}>
             {index >= playerMatches.length ? (
-              <div disabled className={style.none}>
+              <button disabled className={style.none}>
                 More Matches Unavailable
-              </div>
+              </button>
             ) : (
-              <div className={style.moreMatchesContainer}>
+              <button
+                disabled={matchesLoader}
+                className={style.moreMatchesContainer}
+              >
                 More Matches {matchesLoader && <MatchesLoader />}
-              </div>
+              </button>
             )}
           </div>
         )}

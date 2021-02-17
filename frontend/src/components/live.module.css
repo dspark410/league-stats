@@ -32,7 +32,7 @@
   align-items: center;
   justify-content: center;
   background-color: #755c83;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 5px 12px;
   width: 250px;
 }
@@ -73,7 +73,7 @@
 }
 
 .allyTeam {
-  color: rgb(63, 112, 168);
+  color: #5786cc;
   min-width: 125px;
   font-weight: 700;
 }
@@ -87,14 +87,14 @@
 }
 
 .enemyTeam {
-  color: rgb(211, 81, 81);
+  color: #bd5757;
   min-width: 125px;
   font-weight: 700;
 }
 
 .banContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   min-width: 271px;
 }

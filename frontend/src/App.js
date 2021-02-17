@@ -48,7 +48,7 @@ function App() {
 
         setTimeout(() => {
           setInputValue('')
-        }, 2000)
+        }, 1000)
       }
 
       if (res.data.id) {

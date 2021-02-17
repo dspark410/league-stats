@@ -311,7 +311,7 @@
 
 .name1:hover {
   cursor: pointer;
-  color: #5786cc;
+  color: #9cc4ff;
 }
 
 .name2 {
@@ -322,7 +322,7 @@
 
 .name2:hover {
   cursor: pointer;
-  color: #5786cc;
+  color: #9cc4ff;
 }
 
 .iconContainer {
@@ -365,7 +365,7 @@
 }
 
 .summonerName {
-  color: #5786cc;
+  color: #9cc4ff;
   max-width: 80px;
   max-height: 20px;
 }

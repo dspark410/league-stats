@@ -53,7 +53,7 @@ function MatchHistoryCardSkeleton() {
       <Skeleton
         style={{ display: 'flex', margin: '0 auto' }}
         height={44}
-        width={167}
+        width={120}
       />
     </div>
   )

@@ -301,47 +301,43 @@
   flex-direction: row;
 }
 
-.moreMatchesBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20%;
-  padding: 10px 10px;
-  background-color: #7a6b83;
-  margin: 5px auto 5px auto;
-  border-radius: 4px;
-  color: #e1e1e1;
-  font-weight: bold;
-  font-size: 14px;
-  animation: fadeIn ease 1.5s;
-}
-
 .moreMatchesContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  border: none;
+  outline: none;
+  background-color: #7a6b83;
+  color: #e1e1e1;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  animation: fadeIn ease 1.5s;
 }
 
 .none {
-  color: rgb(240, 113, 113);
-  padding: 7px 0px;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-  background-color: #7a6b83;
-  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
-  border-radius: 3px;
+  color: #e7cbcb;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background-color: #7a6b83;
 }
 
 .none:hover {
   cursor: no-drop;
 }
 
-.moreMatchesBtn:hover {
-  cursor: pointer;
+.moreMatchesContainer:hover {
   background-color: #836894;
+  cursor: pointer;
 }
 
 @keyframes fadeIn {
