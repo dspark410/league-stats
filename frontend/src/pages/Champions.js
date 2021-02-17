@@ -160,188 +160,238 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
 
   return (
     <>
-      <div className={style.searchContainer}>
-        <h1 className={style.championList}>Champion List</h1>
-        <div className={style.rolesContainer}>
-          <div
-            onClick={() => setRole('all')}
-            className={role === 'all' ? style.currentRole : style.roleContainer}
-          >
-            <img
-              className={style.roleImage}
-              alt='Role-Top'
-              src={process.env.PUBLIC_URL + '/images/roles/all.png'}
-            />
-            <label className={style.roleLabel}>All</label>
-          </div>
-          <div
-            onClick={() => setRole('free')}
-            className={
-              role === 'free' ? style.currentRole : style.roleContainer
-            }
-          >
-            <img
-              className={`${style.roleImage} ${style.rotateImage}`}
-              alt='Role-Top'
-              src={process.env.PUBLIC_URL + '/images/roles/all.png'}
-            />
-            <label className={style.roleLabel}>Free</label>
-          </div>
-          <div
-            onClick={() => setRole('top')}
-            className={role === 'top' ? style.currentRole : style.roleContainer}
-          >
-            <img
-              className={style.roleImage}
-              alt='Role-Top'
-              src={process.env.PUBLIC_URL + '/images/roles/top.png'}
-            />
-            <label className={style.roleLabel}>Top</label>
-          </div>
-          <div
-            onClick={() => setRole('jungle')}
-            className={
-              role === 'jungle' ? style.currentRole : style.roleContainer
-            }
-          >
-            <img
-              className={style.roleImage}
-              alt='Role-Jungle'
-              src={process.env.PUBLIC_URL + '/images/roles/jungle.png'}
-            />
-            <label className={style.roleLabel}>Jungler</label>
-          </div>
-          <div
-            onClick={() => setRole('mid')}
-            className={role === 'mid' ? style.currentRole : style.roleContainer}
-          >
-            <img
-              className={style.roleImage}
-              alt='Role-Mid'
-              src={process.env.PUBLIC_URL + '/images/roles/mid.png'}
-            />
-            <label className={style.roleLabel}>Mid</label>
-          </div>
-          <div
-            onClick={() => setRole('adcarry')}
-            className={
-              role === 'adcarry' ? style.currentRole : style.roleContainer
-            }
-          >
-            <img
-              className={style.roleImage}
-              alt='Role-AD Carry'
-              src={process.env.PUBLIC_URL + '/images/roles/adcarry.png'}
-            />
-            <label className={style.roleLabel}>AD Carry</label>
-          </div>
-          <div
-            onClick={() => setRole('support')}
-            className={
-              role === 'support' ? style.currentRole : style.roleContainer
-            }
-          >
-            <img
-              className={style.roleImage}
-              alt='Role-Support'
-              src={process.env.PUBLIC_URL + '/images/roles/support.png'}
-            />
-            <label className={style.roleLabel}>Support</label>
-          </div>
-        </div>
+      {Array.isArray(latest) && (
+        <>
+          <div className={style.searchContainer}>
+            <h1 className={style.championList}>Champion List</h1>
+            <div className={style.rolesContainer}>
+              <div
+                onClick={() => setRole('all')}
+                className={
+                  role === 'all' ? style.currentRole : style.roleContainer
+                }
+              >
+                <img
+                  className={style.roleImage}
+                  alt='Role-Top'
+                  src={process.env.PUBLIC_URL + '/images/roles/all.png'}
+                />
+                <label className={style.roleLabel}>All</label>
+              </div>
+              <div
+                onClick={() => setRole('free')}
+                className={
+                  role === 'free' ? style.currentRole : style.roleContainer
+                }
+              >
+                <img
+                  className={`${style.roleImage} ${style.rotateImage}`}
+                  alt='Role-Top'
+                  src={process.env.PUBLIC_URL + '/images/roles/all.png'}
+                />
+                <label className={style.roleLabel}>Free</label>
+              </div>
+              <div
+                onClick={() => setRole('top')}
+                className={
+                  role === 'top' ? style.currentRole : style.roleContainer
+                }
+              >
+                <img
+                  className={style.roleImage}
+                  alt='Role-Top'
+                  src={process.env.PUBLIC_URL + '/images/roles/top.png'}
+                />
+                <label className={style.roleLabel}>Top</label>
+              </div>
+              <div
+                onClick={() => setRole('jungle')}
+                className={
+                  role === 'jungle' ? style.currentRole : style.roleContainer
+                }
+              >
+                <img
+                  className={style.roleImage}
+                  alt='Role-Jungle'
+                  src={process.env.PUBLIC_URL + '/images/roles/jungle.png'}
+                />
+                <label className={style.roleLabel}>Jungler</label>
+              </div>
+              <div
+                onClick={() => setRole('mid')}
+                className={
+                  role === 'mid' ? style.currentRole : style.roleContainer
+                }
+              >
+                <img
+                  className={style.roleImage}
+                  alt='Role-Mid'
+                  src={process.env.PUBLIC_URL + '/images/roles/mid.png'}
+                />
+                <label className={style.roleLabel}>Mid</label>
+              </div>
+              <div
+                onClick={() => setRole('adcarry')}
+                className={
+                  role === 'adcarry' ? style.currentRole : style.roleContainer
+                }
+              >
+                <img
+                  className={style.roleImage}
+                  alt='Role-AD Carry'
+                  src={process.env.PUBLIC_URL + '/images/roles/adcarry.png'}
+                />
+                <label className={style.roleLabel}>AD Carry</label>
+              </div>
+              <div
+                onClick={() => setRole('support')}
+                className={
+                  role === 'support' ? style.currentRole : style.roleContainer
+                }
+              >
+                <img
+                  className={style.roleImage}
+                  alt='Role-Support'
+                  src={process.env.PUBLIC_URL + '/images/roles/support.png'}
+                />
+                <label className={style.roleLabel}>Support</label>
+              </div>
+            </div>
 
-        <div className={style.inputContainer}>
-          {/* <form onSubmit={handleSubmit}> */}
-          <input
-            spellCheck='false'
-            type='text'
-            onChange={changeHandler}
-            value={input}
-            placeholder='search champion...'
-          />
-          {/* </form> */}
-          <AiOutlineSearch
-            className={style.searchIcon}
-            // onClick={handleSubmit}
-          />
-        </div>
-      </div>
-      <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
-        <div className={style.screenContainer}>
-          <h2>Latest Champions</h2>
-          <div
-            className={
-              !loading ? style.latestContainerAnimate : style.latestContainer
-            }
-          >
-            <>
-              {latest.map((latest, i) => {
-                return (
-                  <Tooltip
-                    key={i}
-                    name={latest.name}
-                    info={latest.title}
-                    moreInfo={latest.blurb}
-                  >
-                    <div className={style.latestImage}>
-                      {!loading ? (
-                        <Link to='/championdetail'>
-                          <img
-                            alt={latest.image.full}
-                            onClick={selectChampion}
-                            name={latest.id}
-                            realname={latest.name}
-                            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
-                          />
-                        </Link>
-                      ) : (
-                        <Skeleton
-                          width={115}
-                          height={115}
-                          circle={true}
-                          style={{ margin: '10px 10px 15px 10px' }}
-                        />
-                      )}
-
-                      <div className={style.champName}>
-                        {!loading ? (
-                          latest.name
-                        ) : (
-                          <Skeleton
-                            width={50}
-                            height={15}
-                            style={{ margin: '0px 0px 15px 0px' }}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  </Tooltip>
-                )
-              })}
-            </>
+            <div className={style.inputContainer}>
+              {/* <form onSubmit={handleSubmit}> */}
+              <input
+                spellCheck='false'
+                type='text'
+                onChange={changeHandler}
+                value={input}
+                placeholder='search champion...'
+              />
+              {/* </form> */}
+              <AiOutlineSearch
+                className={style.searchIcon}
+                // onClick={handleSubmit}
+              />
+            </div>
           </div>
-          <div className={style.imageContainer}>
-            <>
-              {input === ''
-                ? champs
-                    .sort(function (a, b) {
-                      if (a.name < b.name) {
-                        return -1
-                      }
-                      if (a.name > b.name) {
-                        return 1
-                      }
-                      return 0
-                    })
-                    .map((champ, i) => (
+          <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
+            <div className={style.screenContainer}>
+              <h2>Latest Champions</h2>
+              <div
+                className={
+                  !loading
+                    ? style.latestContainerAnimate
+                    : style.latestContainer
+                }
+              >
+                <>
+                  {latest.map((latest, i) => {
+                    return (
                       <Tooltip
                         key={i}
-                        name={champ.name}
-                        info={champ.title}
-                        moreInfo={champ.blurb}
+                        name={latest.name}
+                        info={latest.title}
+                        moreInfo={latest.blurb}
                       >
-                        <div className={!loading && style.latestImage}>
+                        <div className={style.latestImage}>
                           {!loading ? (
+                            <Link to='/championdetail'>
+                              <img
+                                alt={latest.image.full}
+                                onClick={selectChampion}
+                                name={latest.id}
+                                realname={latest.name}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
+                              />
+                            </Link>
+                          ) : (
+                            <Skeleton
+                              width={115}
+                              height={115}
+                              circle={true}
+                              style={{ margin: '10px 10px 15px 10px' }}
+                            />
+                          )}
+
+                          <div className={style.champName}>
+                            {!loading ? (
+                              latest.name
+                            ) : (
+                              <Skeleton
+                                width={50}
+                                height={15}
+                                style={{ margin: '0px 0px 15px 0px' }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </Tooltip>
+                    )
+                  })}
+                </>
+              </div>
+              <div className={style.imageContainer}>
+                <>
+                  {input === ''
+                    ? champs
+                        .sort(function (a, b) {
+                          if (a.name < b.name) {
+                            return -1
+                          }
+                          if (a.name > b.name) {
+                            return 1
+                          }
+                          return 0
+                        })
+                        .map((champ, i) => (
+                          <Tooltip
+                            key={i}
+                            name={champ.name}
+                            info={champ.title}
+                            moreInfo={champ.blurb}
+                          >
+                            <div className={!loading && style.latestImage}>
+                              {!loading ? (
+                                <Link to='/championdetail'>
+                                  <img
+                                    alt={champ.image.full}
+                                    onClick={selectChampion}
+                                    name={champ.id}
+                                    realname={champ.name}
+                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                                  />
+                                </Link>
+                              ) : (
+                                <Skeleton
+                                  width={75}
+                                  height={75}
+                                  circle={true}
+                                  style={{ margin: '0px 20px 15px 20px' }}
+                                />
+                              )}
+
+                              <div className={style.champName}>
+                                {!loading ? (
+                                  champ.name
+                                ) : (
+                                  <Skeleton
+                                    width={50}
+                                    height={15}
+                                    style={{ margin: '0px 0px 10px 0px' }}
+                                  />
+                                )}
+                              </div>
+                            </div>
+                          </Tooltip>
+                        ))
+                    : autofill.map((champ, i) => (
+                        <Tooltip
+                          key={i}
+                          name={champ.name}
+                          info={champ.title}
+                          moreInfo={champ.blurb}
+                        >
+                          <div className={style.latestImage}>
                             <Link to='/championdetail'>
                               <img
                                 alt={champ.image.full}
@@ -351,59 +401,16 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                               />
                             </Link>
-                          ) : (
-                            <Skeleton
-                              width={75}
-                              height={75}
-                              circle={true}
-                              style={{ margin: '0px 20px 15px 20px' }}
-                            />
-                          )}
-
-                          <div className={style.champName}>
-                            {!loading ? (
-                              champ.name
-                            ) : (
-                              <Skeleton
-                                width={50}
-                                height={15}
-                                style={{ margin: '0px 0px 10px 0px' }}
-                              />
-                            )}
+                            <div className={style.champName}>{champ.name}</div>
                           </div>
-                        </div>
-                      </Tooltip>
-                    ))
-                : autofill.map((champ, i) => (
-                    <Tooltip
-                      key={i}
-                      name={champ.name}
-                      info={champ.title}
-                      moreInfo={champ.blurb}
-                    >
-                      <div
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        className={style.latestImage}
-                      >
-                        <Link to='/championdetail'>
-                          <img
-                            alt={champ.image.full}
-                            onClick={selectChampion}
-                            name={champ.id}
-                            realname={champ.name}
-                            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                          />
-                        </Link>
-                        <div className={style.champName}>{champ.name}</div>
-                      </div>
-                    </Tooltip>
-                  ))}
-            </>
-          </div>
-        </div>
-      </SkeletonTheme>
+                        </Tooltip>
+                      ))}
+                </>
+              </div>
+            </div>
+          </SkeletonTheme>{' '}
+        </>
+      )}
     </>
   )
 }

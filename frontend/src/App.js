@@ -22,7 +22,7 @@ function App() {
   const [inputValue, setInputValue] = useState('')
   const [redirect, setRedirect] = useState(false)
   const [champInfo, setChampInfo] = useState([])
-  const [latest, setLatest] = useState([])
+  const [latest, setLatest] = useState()
   const [version, setVersion] = useState()
   const [inputResponse, setInputResponse] = useState('')
   const [queues, setQueues] = useState([])
