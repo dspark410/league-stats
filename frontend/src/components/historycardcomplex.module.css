@@ -19,7 +19,8 @@
 }
 
 .historyCardWin {
-  background: hsla(101, 58%, 26%, 1);
+  background-image: linear-gradient(90deg, rgba(1, 97, 28, 0.3), #7a6b83 45%);
+  /* background: hsla(101, 58%, 26%, 1);
 
   background: linear-gradient(
     360deg,
@@ -39,11 +40,11 @@
     hsla(130, 40%, 57%, 0.6) 92%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#34681C", endColorstr="#65BD73", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#34681C", endColorstr="#65BD73", GradientType=1 ); */
 }
 
 .historyCardLoss {
-  background: hsla(0, 74%, 27%, 1);
+  /* background: hsla(0, 74%, 27%, 1);
 
   background: linear-gradient(
     360deg,
@@ -63,7 +64,8 @@
     hsla(0, 40%, 57%, 0.48) 100%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#791212", endColorstr="#BD6565", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#791212", endColorstr="#BD6565", GradientType=1 ); */
+  background-image: linear-gradient(90deg, rgba(140, 0, 0, 0.3), #7a6b83 45%);
 }
 
 .subTextWin {
@@ -85,7 +87,7 @@
 
 .firstCol :first-child {
   font-size: 1.3em;
-  color: #91878d;
+  color: #a99ea5;
 }
 
 .firstCol :nth-child(2) {
@@ -96,12 +98,12 @@
 
 .firstCol :nth-child(3) {
   font-weight: 300;
-  color: #91878d;
+  color: #a99ea5;
 }
 
 .firstCol :nth-child(4) {
   font-weight: 300;
-  color: #91878d;
+  color: #a99ea5;
 }
 
 .secondCol {
@@ -144,7 +146,7 @@
   min-width: 80px;
   font-size: 1.3em;
   font-weight: 300;
-  color: #91878d;
+  color: #a99ea5;
 }
 
 .imageContainer {
@@ -192,7 +194,7 @@
 }
 
 .thirdCol :first-child {
-  color: #91878d;
+  color: #a99ea5;
   font-size: 1.3em;
   font-weight: 300;
 }
@@ -223,7 +225,7 @@
 .level {
   font-size: 17px;
   font-weight: 00;
-  color: #91878d;
+  color: #a99ea5;
 }
 
 .minionContainer {
@@ -394,7 +396,7 @@
   justify-content: space-around;
   align-items: center;
   font-weight: 300;
-  color: #91878d;
+  color: #a99ea5;
   height: 100%;
 }
 
@@ -411,7 +413,7 @@
   justify-content: space-around;
   align-items: center;
   font-weight: 300;
-  color: #91878d;
+  color: #a99ea5;
   height: 100%;
 }
 

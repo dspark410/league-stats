@@ -90,34 +90,44 @@ input[type='text'] {
   font-weight: 500; */
 }
 
-.hideStorageContainer {
-  display: none;
-}
-
 .showStorageContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: #35273e;
+  background-color: #3d2e47;
   border-radius: 8px;
   height: auto;
   width: 500px;
   position: absolute;
   top: 130px;
-  padding: 10px 0px;
+  padding: 10px 12px;
+  animation: scaleup 100ms ease;
+}
+
+@keyframes scaleup {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .storageSummoner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #3c3142;
+  background-color: #4d3f55;
   border-radius: 5px;
   width: 98%;
   padding: 10px 8px;
   margin-bottom: 5px;
   z-index: 1000;
+  box-shadow: 0 0 3px #3c3142;
 }
 
 .storageSummoner:hover {

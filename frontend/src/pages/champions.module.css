@@ -115,6 +115,14 @@ input[type='text'] {
   align-items: center;
 }
 
+.latestContainerAnimate {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn ease 2s;
+}
+
 .latestImage {
   display: flex;
   flex-direction: column;
@@ -122,6 +130,7 @@ input[type='text'] {
   justify-content: center;
   margin: 0 auto;
   min-width: 110px;
+  animation: fadeIn ease 2s;
 }
 
 .latestImage img {
@@ -144,6 +153,7 @@ input[type='text'] {
   margin: 10px auto;
   max-width: 1280px;
   margin-bottom: 100px;
+  animation: fadeIn ease 2s;
 }
 
 .imageContainer img {
@@ -166,7 +176,6 @@ input[type='text'] {
   flex-flow: row wrap;
   justify-content: center;
   color: #e1e1e1;
-  animation: fadeIn ease-in 2s;
 }
 
 .champName {

@@ -52,14 +52,14 @@ function App() {
       }
 
       if (res.data.id) {
-        if (!prevEntries.includes(inputValue)) {
+        if (!prevEntries.includes(summonerName)) {
           const prevEntriesArr = [...prevEntries]
 
           if (prevEntriesArr.length === 4) {
             prevEntriesArr.pop()
           }
           // if (inputValue !== '') {
-          prevEntriesArr.unshift(inputValue)
+          prevEntriesArr.unshift(summonerName)
           // }
 
           setPrevEntries(prevEntriesArr)

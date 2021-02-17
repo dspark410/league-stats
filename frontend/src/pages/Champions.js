@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { laneChamp } from '../utils/constant'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 function Champions({ champInfo, version, selectChampion, showNav, latest }) {
   const [input, setInput] = useState('')
@@ -13,23 +14,28 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
   const [champs, setChamps] = useState([])
   const [autofill, setAutofill] = useState([])
   const [freeChamps, setFreeChamps] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const url = process.env.REACT_APP_API_URL || ''
 
   useEffect(() => {
     //show nav
     showNav()
-    axios.get(`${url}/getChampionRotation`).then((res) => {
-      // Store array of numbers for free champion rotation in variable
-      const championRotation = res.data.freeChampionIds
-      // Filter through champInfo to keep only the object for free champions
-      const rotationChamp = champInfo.filter((champ) =>
-        // If chamption rotation matches key of free champs, returns true
-        championRotation.includes(Number(champ.key))
-      )
-      // Save free champs into state
-      setFreeChamps(rotationChamp)
-    })
+
+    setTimeout(() => {
+      axios.get(`${url}/getChampionRotation`).then((res) => {
+        // Store array of numbers for free champion rotation in variable
+        const championRotation = res.data.freeChampionIds
+        // Filter through champInfo to keep only the object for free champions
+        const rotationChamp = champInfo.filter((champ) =>
+          // If chamption rotation matches key of free champs, returns true
+          championRotation.includes(Number(champ.key))
+        )
+        // Save free champs into state
+        setFreeChamps(rotationChamp)
+        setLoading(false)
+      })
+    }, 2500)
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champInfo])
@@ -260,62 +266,122 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
           />
         </div>
       </div>
-
-      <div className={style.screenContainer}>
-        <h2>Latest Champions</h2>
-        <div className={style.latestContainer}>
-          <AnimatePresence>
-            {latest.map((latest, i) => {
-              return (
-                <Tooltip
-                  key={i}
-                  name={latest.name}
-                  info={latest.title}
-                  moreInfo={latest.blurb}
-                >
-                  <motion.div
-                    initial={{ y: 2, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -2, opacity: 0 }}
-                    className={style.latestImage}
+      <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
+        <div className={style.screenContainer}>
+          <h2>Latest Champions</h2>
+          <div
+            className={
+              !loading ? style.latestContainerAnimate : style.latestContainer
+            }
+          >
+            <>
+              {latest.map((latest, i) => {
+                return (
+                  <Tooltip
+                    key={i}
+                    name={latest.name}
+                    info={latest.title}
+                    moreInfo={latest.blurb}
                   >
-                    <Link to='/championdetail'>
-                      <img
-                        alt={latest.image.full}
-                        onClick={selectChampion}
-                        name={latest.id}
-                        realname={latest.name}
-                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
-                      />
-                    </Link>
-                    <div className={style.champName}>{latest.name}</div>
-                  </motion.div>
-                </Tooltip>
-              )
-            })}
-          </AnimatePresence>
-        </div>
-        <div className={style.imageContainer}>
-          <AnimatePresence>
-            {input === ''
-              ? champs
-                  .sort(function (a, b) {
-                    if (a.name < b.name) {
-                      return -1
-                    }
-                    if (a.name > b.name) {
-                      return 1
-                    }
-                    return 0
-                  })
-                  .map((champ, i) => (
+                    <div className={style.latestImage}>
+                      {!loading ? (
+                        <Link to='/championdetail'>
+                          <img
+                            alt={latest.image.full}
+                            onClick={selectChampion}
+                            name={latest.id}
+                            realname={latest.name}
+                            src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
+                          />
+                        </Link>
+                      ) : (
+                        <Skeleton
+                          width={115}
+                          height={115}
+                          circle={true}
+                          style={{ margin: '10px 10px 15px 10px' }}
+                        />
+                      )}
+
+                      <div className={style.champName}>
+                        {!loading ? (
+                          latest.name
+                        ) : (
+                          <Skeleton
+                            width={50}
+                            height={15}
+                            style={{ margin: '0px 0px 15px 0px' }}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </Tooltip>
+                )
+              })}
+            </>
+          </div>
+          <div className={style.imageContainer}>
+            <>
+              {input === ''
+                ? champs
+                    .sort(function (a, b) {
+                      if (a.name < b.name) {
+                        return -1
+                      }
+                      if (a.name > b.name) {
+                        return 1
+                      }
+                      return 0
+                    })
+                    .map((champ, i) => (
+                      <Tooltip
+                        key={i}
+                        name={champ.name}
+                        info={champ.title}
+                        moreInfo={champ.blurb}
+                      >
+                        <div className={!loading && style.latestImage}>
+                          {!loading ? (
+                            <Link to='/championdetail'>
+                              <img
+                                alt={champ.image.full}
+                                onClick={selectChampion}
+                                name={champ.id}
+                                realname={champ.name}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                              />
+                            </Link>
+                          ) : (
+                            <Skeleton
+                              width={75}
+                              height={75}
+                              circle={true}
+                              style={{ margin: '0px 20px 15px 20px' }}
+                            />
+                          )}
+
+                          <div className={style.champName}>
+                            {!loading ? (
+                              champ.name
+                            ) : (
+                              <Skeleton
+                                width={50}
+                                height={15}
+                                style={{ margin: '0px 0px 10px 0px' }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </Tooltip>
+                    ))
+                : autofill.map((champ, i) => (
                     <Tooltip
                       key={i}
                       name={champ.name}
                       info={champ.title}
                       moreInfo={champ.blurb}
                     >
-                      <motion.div
+                      <div
                         initial={{ y: 10, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: -10, opacity: 0 }}
@@ -331,38 +397,13 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
                           />
                         </Link>
                         <div className={style.champName}>{champ.name}</div>
-                      </motion.div>
+                      </div>
                     </Tooltip>
-                  ))
-              : autofill.map((champ, i) => (
-                  <Tooltip
-                    key={i}
-                    name={champ.name}
-                    info={champ.title}
-                    moreInfo={champ.blurb}
-                  >
-                    <motion.div
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -10, opacity: 0 }}
-                      className={style.latestImage}
-                    >
-                      <Link to='/championdetail'>
-                        <img
-                          alt={champ.image.full}
-                          onClick={selectChampion}
-                          name={champ.id}
-                          realname={champ.name}
-                          src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                        />
-                      </Link>
-                      <div className={style.champName}>{champ.name}</div>
-                    </motion.div>
-                  </Tooltip>
-                ))}
-          </AnimatePresence>
+                  ))}
+            </>
+          </div>
         </div>
-      </div>
+      </SkeletonTheme>
     </>
   )
 }

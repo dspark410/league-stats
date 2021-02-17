@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import style from './home.module.css'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { IoClose } from 'react-icons/io5'
 
 function Home({
   change,
@@ -13,6 +12,8 @@ function Home({
   inputValue,
 }) {
   const [showStorage, setShowStorage] = useState(true)
+
+  const inputEl = useRef(false)
 
   useEffect(() => {
     setShowStorage(false)
@@ -44,6 +45,7 @@ function Home({
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={inputValue}
+                ref={inputEl}
               />
             </form>
             <AiOutlineSearch onClick={submit} className={style.searchIcon} />
@@ -65,7 +67,10 @@ function Home({
                     <span className={style.region}>NA</span>
                     <span className={style.summoner}>mistahpig</span>
 
-                    <div className={style.removeContainer}>
+                    <div
+                      onMouseDown={() => inputEl.current.blur()}
+                      className={style.removeContainer}
+                    >
                       <p className={style.remove}>x</p>
                     </div>
                   </div>
@@ -77,7 +82,10 @@ function Home({
                     <span className={style.region}>NA</span>
                     <span className={style.summoner}>dambitwes</span>
 
-                    <div className={style.removeContainer}>
+                    <div
+                      onMouseDown={() => inputEl.current.blur()}
+                      className={style.removeContainer}
+                    >
                       <p className={style.remove}>x</p>
                     </div>
                   </div>
