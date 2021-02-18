@@ -1,13 +1,14 @@
-import React from 'react'
-import style from './masterycard.module.css'
+import React from "react";
+import style from "./masterycard.module.css";
+import { Link } from "react-router-dom";
 
-function MasteryCard({ version, filteredChamps }) {
+function MasteryCard({ version, filteredChamps, selectChampion }) {
   return (
     <div className={style.masteryCard}>
       <div className={style.header}>
         <img
-          alt='mastery icon'
-          src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
+          alt="mastery icon"
+          src={process.env.PUBLIC_URL + "/images/icons/mastery.png"}
         />
         CHAMPION MASTERY
       </div>
@@ -25,12 +26,16 @@ function MasteryCard({ version, filteredChamps }) {
                 <div className={style.masteryRow}>
                   <div>{i + 1}.</div>
                   <div className={style.champImgContainer}>
-                    <img
-                      key={i}
-                      className={style.championImage}
-                      alt={champ.image}
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
-                    />
+                    <Link to="/championdetail">
+                      <img
+                        onClick={selectChampion}
+                        key={i}
+                        name={champ.id}
+                        className={style.championImage}
+                        alt={champ.image}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
+                      />
+                    </Link>
                   </div>
 
                   <div className={style.name}>{champ.name}</div>
@@ -43,17 +48,17 @@ function MasteryCard({ version, filteredChamps }) {
                           ? process.env.PUBLIC_URL +
                             `/images/masteryicons/level${champ.level}.png`
                           : process.env.PUBLIC_URL +
-                            '/images/masteryicons/level1.png'
+                            "/images/masteryicons/level1.png"
                       }
                     />
                   </div>
 
                   <div className={style.points}>
-                    {champ.points.toLocaleString('en')}
+                    {champ.points.toLocaleString("en")}
                   </div>
                 </div>
               </li>
-            )
+            );
           })
         : filteredChamps.slice(0, 5).map((champ, i) => {
             return (
@@ -61,15 +66,26 @@ function MasteryCard({ version, filteredChamps }) {
                 <div className={style.masteryRow}>
                   <div className={style.number}>{i + 1}.</div>
                   <div className={style.champImgContainer}>
-                    <img
-                      key={i}
-                      className={style.championImage}
-                      alt={champ.image}
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
-                    />
+                    <Link to="/championdetail">
+                      <img
+                        onClick={selectChampion}
+                        key={i}
+                        name={champ.id}
+                        className={style.championImage}
+                        alt={champ.image}
+                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
+                      />
+                    </Link>
                   </div>
-
-                  <div className={style.name}>{champ.name}</div>
+                  <Link to="/championdetail">
+                    <div
+                      onClick={selectChampion}
+                      name={champ.id}
+                      className={style.name}
+                    >
+                      {champ.name}
+                    </div>
+                  </Link>
                   <div className={style.champLvlContainer}>
                     <img
                       className={style.masteryFrame}
@@ -79,20 +95,20 @@ function MasteryCard({ version, filteredChamps }) {
                           ? process.env.PUBLIC_URL +
                             `/images/masteryicons/level${champ.level}.png`
                           : process.env.PUBLIC_URL +
-                            '/images/masteryicons/level1.png'
+                            "/images/masteryicons/level1.png"
                       }
                     />
                   </div>
 
                   <div className={style.points}>
-                    {champ.points.toLocaleString('en')}
+                    {champ.points.toLocaleString("en")}
                   </div>
                 </div>
               </li>
-            )
+            );
           })}
     </div>
-  )
+  );
 }
 
-export default MasteryCard
+export default MasteryCard;

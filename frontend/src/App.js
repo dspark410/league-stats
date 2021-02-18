@@ -92,7 +92,8 @@ function App() {
   // onClick that makes an axios call to retrieve the specific champion json using
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
-    const getChamp = event.target.name;
+    const getChamp = event.target.getAttribute("name");
+    console.log(event.target.getAttribute("name"));
 
     sessionStorage.setItem("champion", getChamp);
 
@@ -322,6 +323,7 @@ function App() {
                     getPlayerName={getPlayerName}
                     queues={queues}
                     showNav={showNav}
+                    selectChampion={selectChampion}
                   />
                 )}
               />
