@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import style from "./home.module.css";
-import { AiOutlineSearch } from "react-icons/ai";
-import { regions } from "../utils/constant";
+import React, { useState, useEffect, useRef } from 'react'
+import style from './home.module.css'
+import { AiOutlineSearch } from 'react-icons/ai'
+import { regions } from '../utils/constant'
 
 function Home({
   change,
@@ -13,29 +13,29 @@ function Home({
   inputValue,
   regionSelect,
 }) {
-  const [showStorage, setShowStorage] = useState(true);
-  const [hideAnimation, setHideAnimation] = useState(true);
+  const [showStorage, setShowStorage] = useState(true)
+  const [hideAnimation, setHideAnimation] = useState(true)
 
-  const inputEl = useRef(false);
+  const inputEl = useRef(false)
 
   useEffect(() => {
-    setShowStorage(false);
-    hideNav();
+    setShowStorage(false)
+    hideNav()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleFocus = () => {
-    setHideAnimation(true);
-    setShowStorage(true);
-  };
+    setHideAnimation(true)
+    setShowStorage(true)
+  }
 
   const handleBlur = () => {
-    setHideAnimation(false);
+    setHideAnimation(false)
     setTimeout(() => {
-      setShowStorage(false);
-    }, 50);
-  };
+      setShowStorage(false)
+    }, 50)
+  }
 
   return (
     <div className={style.homeBackgroundContainer}>
@@ -43,7 +43,7 @@ function Home({
         <div className={style.inputContainer}>
           <h1>LeagueStats</h1>
           <div className={style.formContainer}>
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className={style.selectContainer}>
               <select
                 defaultValue={region}
                 onChange={regionSelect}
@@ -56,10 +56,10 @@ function Home({
                 ))}
               </select>
               <input
-                spellCheck="false"
+                spellCheck='false'
                 onChange={change}
-                type="text"
-                placeholder="search summoner..."
+                type='text'
+                placeholder='search summoner...'
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={inputValue}
@@ -78,22 +78,22 @@ function Home({
             >
               <div className={style.recent}>
                 {prevSearches.length === 0
-                  ? "Summoner Example"
-                  : "Recent Searches"}
+                  ? 'Summoner Example'
+                  : 'Recent Searches'}
               </div>
               {prevSearches.length === 0 ? (
                 <>
                   <div
                     onMouseDown={submit}
-                    value="mistahpig"
-                    region="NA1"
+                    value='mistahpig'
+                    region='NA1'
                     className={style.storageSummoner}
                   >
                     <span className={style.region}>NA</span>
                     <span
                       onMouseDown={submit}
-                      value="mistahpig"
-                      region="NA1"
+                      value='mistahpig'
+                      region='NA1'
                       className={style.summoner}
                     >
                       mistahpig
@@ -108,15 +108,15 @@ function Home({
                   </div>
                   <div
                     onMouseDown={submit}
-                    value="dambitwes"
-                    region="NA1"
+                    value='dambitwes'
+                    region='NA1'
                     className={style.storageSummoner}
                   >
                     <span className={style.region}>NA</span>
                     <span
                       onMouseDown={submit}
-                      value="dambitwes"
-                      region="NA1"
+                      value='dambitwes'
+                      region='NA1'
                       className={style.summoner}
                     >
                       dambitwes
@@ -171,7 +171,7 @@ function Home({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

@@ -107,6 +107,10 @@
   height: auto;
 }
 
+a {
+  text-decoration: none;
+}
+
 .championImage {
   width: 35px;
   height: auto;

@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { FaBars, FaTimes, FaCaretDown } from 'react-icons/fa'
+import { FaBars, FaTimes } from 'react-icons/fa'
 import style from './navbar.module.css'
-import Dropdown from './Dropdown'
 
 function Navbar({ visibility }) {
   const [click, setClick] = useState(false)
-  const [dropdown, setDropdown] = useState(false)
   const [vis, setVis] = useState(visibility)
 
   const handleClick = () => setClick(!click)
   const closeMobileMenu = () => setClick(false)
-
-  const onMouseEnter = () => {
-    setDropdown(true)
-  }
-
-  const onMouseLeave = () => {
-    setDropdown(false)
-  }
 
   useEffect(() => {
     setVis(visibility)
@@ -50,22 +40,14 @@ function Navbar({ visibility }) {
               Home
             </Link>
           </li>
-          <li
-            className={style.navItem}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-          >
+          <li className={style.navItem}>
             <Link
-              to='#'
-              className={`${style.navLinks} ${style.noLink}`}
+              to='/champions'
+              className={style.navLinks}
               onClick={closeMobileMenu}
             >
-              Champions{''}
-              <i>
-                <FaCaretDown className={style.faCaretDown} />
-              </i>
+              Champions
             </Link>
-            {dropdown && <Dropdown />}
           </li>
           <li className={style.navItem}>
             <Link

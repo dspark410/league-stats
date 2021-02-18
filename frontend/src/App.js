@@ -1,60 +1,61 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import Home from "./pages/Home";
-import Welcome from "./pages/Welcome";
-import Champions from "./pages/Champions";
-import ChampionRotation from "./pages/ChampionRotation";
-import Leaderboard from "./pages/Leaderboard";
-import ChampionDetail from "./pages/ChampionDetail";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import './App.css'
+import Home from './pages/Home'
+import Welcome from './pages/Welcome'
+import Champions from './pages/Champions'
+import ChampionRotation from './pages/ChampionRotation'
+import Leaderboard from './pages/Leaderboard'
+import ChampionDetail from './pages/ChampionDetail'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import BrandBackground from "./components/images/brand.jpg";
+} from 'react-router-dom'
+
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import BrandBackground from './components/images/brand.jpg'
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState({});
-  const [inputValue, setInputValue] = useState("");
+  const [summonerInfo, setSummonerInfo] = useState({})
+  const [inputValue, setInputValue] = useState('')
   const [region, setRegion] = useState(
-    JSON.parse(sessionStorage.getItem("region")) || "NA1"
-  );
-  const [redirect, setRedirect] = useState(false);
-  const [champInfo, setChampInfo] = useState([]);
-  const [latest, setLatest] = useState();
-  const [version, setVersion] = useState();
-  const [queues, setQueues] = useState([]);
-  const [champDetail, setChampDetail] = useState();
-  const [backupItem, setBackupItem] = useState();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [navVisibility, setNavVisibility] = useState(false);
-  const [leaderboard, setLeaderBoard] = useState([]);
-  const [background, setBackground] = useState(BrandBackground);
+    JSON.parse(sessionStorage.getItem('region')) || 'NA1'
+  )
+  const [redirect, setRedirect] = useState(false)
+  const [champInfo, setChampInfo] = useState([])
+  const [latest, setLatest] = useState()
+  const [version, setVersion] = useState()
+  const [queues, setQueues] = useState([])
+  const [champDetail, setChampDetail] = useState()
+  const [backupItem, setBackupItem] = useState()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [navVisibility, setNavVisibility] = useState(false)
+  const [leaderboard, setLeaderBoard] = useState([])
+  const [background, setBackground] = useState(BrandBackground)
   const [prevEntries, setPrevEntries] = useState(
-    JSON.parse(localStorage.getItem("searchedSummoner")) || []
-  );
+    JSON.parse(localStorage.getItem('searchedSummoner')) || []
+  )
 
-  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-  const url = process.env.REACT_APP_API_URL || "";
+  const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+  const url = process.env.REACT_APP_API_URL || ''
+
+  console.log('window', window.history)
 
   // Reusable function for changing the Summoner in the whole app
-
   const getAccountInfo = (summonerName, region) => {
     axios
       .get(`${url}/getSummonerName/${summonerName}/${region}`)
       .then((res) => {
-        console.log("axios summonername");
         if (!res.data.id) {
           // Message will be displayed on Home Screen, dissapears after 3 seconds
-          setInputValue(res.data);
+          setInputValue(res.data)
 
           setTimeout(() => {
-            setInputValue("");
-          }, 1000);
+            setInputValue('')
+          }, 1000)
         }
 
         if (res.data.id) {
@@ -62,84 +63,158 @@ function App() {
             .map((entry) => {
               return (
                 entry[0].includes(summonerName) && entry[1].includes(region)
-              );
+              )
             })
-            .includes(true);
+            .includes(true)
 
           if (!doNotAdd) {
-            const prevEntriesArr = [...prevEntries];
+            const prevEntriesArr = [...prevEntries]
 
             if (prevEntriesArr.length === 4) {
-              prevEntriesArr.pop();
+              prevEntriesArr.pop()
             }
 
-            prevEntriesArr.unshift([summonerName, region]);
+            prevEntriesArr.unshift([summonerName, region])
 
-            setPrevEntries(prevEntriesArr);
+            setPrevEntries(prevEntriesArr)
           }
 
           // Set summoner info which will be referenced by entire web app
-          setSummonerInfo(res.data);
+          setSummonerInfo(res.data)
 
           //Set session data
-          sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-          sessionStorage.setItem("region", JSON.stringify(region));
-          setRegion(region);
-          setRedirect(true);
+          sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+          sessionStorage.setItem('region', JSON.stringify(region))
+
+          window.history.replaceState(
+            null,
+            'summoner',
+            `/summoner/${region.toLowerCase()}/${summonerName
+              .toLowerCase()
+              .split(' ')
+              .join()} `
+          )
+
+          setRegion(region)
+          setRedirect(true)
         }
-      });
-  };
+      })
+  }
 
   // onClick that makes an axios call to retrieve the specific champion json using
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
-    const getChamp = event.target.getAttribute("name");
-    console.log(event.target.getAttribute("name"));
+    const getChamp = event.target.getAttribute('name')
+    console.log(event.target.getAttribute('name'))
 
-    sessionStorage.setItem("champion", getChamp);
+    sessionStorage.setItem('champion', getChamp)
 
     axios
       .get(
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
-        setChampDetail(res.data.data[getChamp]);
+        setChampDetail(res.data.data[getChamp])
         // setModalOpen(true)
-      });
-  };
+      })
+  }
 
   // onClick for champion details that opens up modal
   // Will send championDetail into ModalState
   const championModal = () => {
-    setModalOpen(true);
-  };
+    setModalOpen(true)
+  }
 
   // onClick to close modal
   const closeModal = () => {
-    setModalOpen(false);
-  };
+    setModalOpen(false)
+  }
 
   const showNav = () => {
-    setNavVisibility(true);
-  };
+    setNavVisibility(true)
+  }
 
   const hideNav = () => {
-    setNavVisibility(false);
-  };
+    setNavVisibility(false)
+  }
 
   const changeBackground = (url) => {
-    setBackground(url);
-  };
+    setBackground(url)
+  }
+
+  // onChange for input field
+  const handleOnChange = (e) => {
+    setInputValue(e.target.value)
+  }
+
+  // onSubmit for input form
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (e.target.getAttribute('value')) {
+      getAccountInfo(
+        e.target.getAttribute('value'),
+        e.target.getAttribute('region')
+      )
+      setInputValue('')
+    } else {
+      if (inputValue.trim() === '') {
+        return
+      } else {
+        getAccountInfo(inputValue, region)
+        setInputValue('')
+      }
+    }
+  }
+
+  // onChange for select menu
+  const regionSelect = (e) => {
+    setRegion(e.target.value)
+  }
+
+  // Function to remove a summoner from local storage onClick of the close button
+  const removeSearchedSummoner = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const prevEntriesArr = [...prevEntries]
+
+    const summonerName = e.target.getAttribute('value')
+    const region = e.target.getAttribute('region')
+
+    const remove = prevEntries.map((entry) => {
+      return entry[0].includes(summonerName) && entry[1].includes(region)
+    })
+
+    const index = remove.indexOf(true)
+
+    if (index > -1) {
+      prevEntriesArr.splice(index, 1)
+    }
+
+    setPrevEntries(prevEntriesArr)
+  }
+
+  // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
+  const getPlayerName = (e) => {
+    const summonerName = e.target.getAttribute('name')
+    const region = e.target.getAttribute('region')
+    getAccountInfo(summonerName, region)
+  }
+
+  const changeRedirect = () => {
+    setRedirect(false)
+  }
 
   useEffect(() => {
     // Retrieve queueType list from Riot API
-    axios.get(`${url}/queueType`).then((res) => setQueues(res.data));
+    axios.get(`${url}/queueType`).then((res) => setQueues(res.data))
     axios
       // Link to version list from Riot
-      .get("https://ddragon.leagueoflegends.com/api/versions.json")
+      .get('https://ddragon.leagueoflegends.com/api/versions.json')
       .then((res) => {
         // Save current version into state
-        setVersion(res.data[0]);
+        setVersion(res.data[0])
         axios
           .get(
             // Link to champion.json from Riot
@@ -148,7 +223,7 @@ function App() {
           .then((result) => {
             // Loop through Riot's champion.json array and keeps object values, in the form of an array
             // Store championArray into state
-            setChampInfo(Object.values(result.data.data));
+            setChampInfo(Object.values(result.data.data))
             axios
               .get(
                 // Link to champion.json from Riot
@@ -157,23 +232,20 @@ function App() {
               .then((response) => {
                 const latestArr = Object.values(result.data.data).filter(
                   (champ) => !Object.keys(response.data.data).includes(champ.id)
-                );
-                setLatest(latestArr);
-              });
-          });
+                )
+                setLatest(latestArr)
+              })
+          })
         axios.get(`${url}/backupjson`).then((res) => {
-          setBackupItem(res.data);
-          sessionStorage.setItem("backupjson", JSON.stringify(res.data));
-        });
-      });
-    // if (prevEntries.length === 0) {
-    //   setPrevEntries(['mistahpig', 'dambitwes'])
-    // }
+          setBackupItem(res.data)
+          sessionStorage.setItem('backupjson', JSON.stringify(res.data))
+        })
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
-    const getChamp = sessionStorage.getItem("champion");
+    const getChamp = sessionStorage.getItem('champion')
 
     if (version && getChamp) {
       axios
@@ -181,110 +253,46 @@ function App() {
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
         )
         .then((res) => {
-          setChampDetail(res.data.data[getChamp]);
-        });
+          setChampDetail(res.data.data[getChamp])
+        })
     }
-  }, [version]);
+  }, [version])
 
   useEffect(() => {
-    localStorage.setItem("searchedSummoner", JSON.stringify(prevEntries));
-  }, [prevEntries]);
+    localStorage.setItem('searchedSummoner', JSON.stringify(prevEntries))
+  }, [prevEntries])
 
   const changeLeaderBoard = (rank, division, page) => {
     axios
       .get(`${url}/leaderboard/${rank}/${division}/${page}`)
       .then(async (res) => {
-        const leaderboardData = await res.data;
+        const leaderboardData = await res.data
         await leaderboardData.slice(0, 5).map((player) => {
           return axios
             .get(`${url}/getSummonerId/${player.summonerId}`)
             .then((res) => {
-              player.icon = res.data.profileIconId;
+              player.icon = res.data.profileIconId
             })
             .then(() => {
-              setLeaderBoard(leaderboardData);
-            });
-        });
-      });
-  };
-
-  // onChange for input field
-  const handleOnChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  // onSubmit for input form
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (e.target.getAttribute("value")) {
-      getAccountInfo(
-        e.target.getAttribute("value"),
-        e.target.getAttribute("region")
-      );
-      setInputValue("");
-    } else {
-      if (inputValue.trim() === "") {
-        return;
-      } else {
-        getAccountInfo(inputValue, region);
-        setInputValue("");
-      }
-    }
-  };
-
-  // onChange for select menu
-  const regionSelect = (e) => {
-    setRegion(e.target.value);
-  };
-
-  // Function to remove a summoner from local storage onClick of the close button
-  const removeSearchedSummoner = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const prevEntriesArr = [...prevEntries];
-
-    const summonerName = e.target.getAttribute("value");
-    const region = e.target.getAttribute("region");
-
-    const remove = prevEntries.map((entry) => {
-      return entry[0].includes(summonerName) && entry[1].includes(region);
-    });
-
-    const index = remove.indexOf(true);
-
-    if (index > -1) {
-      prevEntriesArr.splice(index, 1);
-    }
-
-    setPrevEntries(prevEntriesArr);
-  };
-
-  // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
-  const getPlayerName = (e) => {
-    const summonerName = e.target.getAttribute("name");
-    const region = e.target.getAttribute("region");
-    getAccountInfo(summonerName, region);
-  };
-
-  const changeRedirect = () => {
-    setRedirect(false);
-  };
+              setLeaderBoard(leaderboardData)
+            })
+        })
+      })
+  }
 
   return (
     <div
-      className="backgroundContainer"
+      className='backgroundContainer'
       style={{ backgroundImage: `url(${background})` }}
     >
-      <div className={navVisibility ? "overlay" : null}>
+      <div className={navVisibility ? 'overlay' : null}>
         <div>
           <Router>
             <Navbar visibility={navVisibility} />
             <Switch>
               <Route
                 exact
-                path="/"
+                path='/'
                 render={() =>
                   redirect ? (
                     <Redirect
@@ -313,7 +321,7 @@ function App() {
                 }
               />
               <Route
-                path="/summoner/:region/:summonerName"
+                path='/summoner/:region/:summonerName'
                 render={() => (
                   <Welcome
                     redirect={changeRedirect}
@@ -329,7 +337,7 @@ function App() {
                 )}
               />
               <Route
-                path="/champions"
+                path='/champions'
                 render={() => (
                   <Champions
                     champInfo={champInfo}
@@ -345,7 +353,7 @@ function App() {
                 )}
               />
               <Route
-                path="/championrotation"
+                path='/championrotation'
                 render={() => (
                   <ChampionRotation
                     champInfo={champInfo}
@@ -360,7 +368,7 @@ function App() {
                 )}
               />
               <Route
-                path="/leaderboard"
+                path='/leaderboard'
                 render={() => (
                   <Leaderboard
                     version={version}
@@ -371,7 +379,7 @@ function App() {
                 )}
               />
               <Route
-                path="/championdetail"
+                path='/championdetail'
                 render={() => (
                   <ChampionDetail
                     version={version}
@@ -388,7 +396,7 @@ function App() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
