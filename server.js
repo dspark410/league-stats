@@ -6,6 +6,7 @@ const axios = require('axios')
 const app = express()
 const path = require('path')
 const backupItem = require('./Items/backupItems.json')
+const { inflateRawSync } = require('zlib')
 const port = process.env.PORT || 5000
 
 app.use((req, res, next) => {
@@ -14,20 +15,22 @@ app.use((req, res, next) => {
 })
 
 // Call from frontend along with summoner name to retrieve puuid/summoner_id/account_id
-app.get('/getSummonerName/:summoner', async (req, res) => {
+app.get('/getSummonerName/:summoner/:region', async (req, res) => {
   try {
     const summoner = encodeURIComponent(req.params.summoner)
+    const region = req.params.region
     const api = process.env.API_KEY
     const summonerData = await axios.get(
-      `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
+      `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
     )
     res.json(summonerData.data)
   } catch (error) {
     if (res.status >= 500) {
       const summoner = encodeURIComponent(req.params.summoner)
+
       const api = process.env.API_KEY
       const summonerData = await axios.get(
-        `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
+        `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
       )
       res.json(summonerData.data)
     }
@@ -151,6 +154,7 @@ app.get('/matchDetails/:id', async (req, res) => {
     res.json(matchDetailsData.data)
   } catch (error) {
     console.log(error)
+    res.json(error.response.status)
   }
 })
 

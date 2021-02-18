@@ -8,6 +8,10 @@
   margin: 20px 0px;
 }
 
+.hideHistoryCard {
+  display: none;
+}
+
 .historyCardWin {
   /* background: hsla(101, 58%, 26%, 1);
 

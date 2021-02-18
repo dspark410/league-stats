@@ -117,6 +117,33 @@ input[type='text'] {
   }
 }
 
+.hideStorageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #3d2e47;
+  border-radius: 8px;
+  height: auto;
+  width: 500px;
+  position: absolute;
+  top: 130px;
+  padding: 10px 12px;
+  animation: scaledown 100ms ease;
+}
+
+@keyframes scaledown {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
 .storageSummoner {
   display: flex;
   align-items: center;

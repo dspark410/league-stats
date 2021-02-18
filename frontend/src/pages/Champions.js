@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import style from './champions.module.css'
 import Tooltip from '../components/Tooltip'
-import { motion, AnimatePresence } from 'framer-motion'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { laneChamp } from '../utils/constant'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import ChampionSkeleton from './ChampionSkeleton'
 
 function Champions({ champInfo, version, selectChampion, showNav, latest }) {
   const [input, setInput] = useState('')
@@ -15,6 +14,7 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
   const [autofill, setAutofill] = useState([])
   const [freeChamps, setFreeChamps] = useState([])
   const [loading, setLoading] = useState(true)
+  const [fade, setFade] = useState(true)
 
   const url = process.env.REACT_APP_API_URL || ''
 
@@ -129,6 +129,13 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role, champInfo])
+
+  useEffect(() => {
+    setFade(false)
+    setTimeout(() => {
+      setFade(true)
+    }, 200)
+  }, [champs, autofill])
 
   // Change Handler for input
   const changeHandler = (event) => {
@@ -274,84 +281,69 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
               />
             </div>
           </div>
-          <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
-            <div className={style.screenContainer}>
-              <h2>Latest Champions</h2>
-              <div
-                className={
-                  !loading
-                    ? style.latestContainerAnimate
-                    : style.latestContainer
-                }
-              >
-                <>
-                  {latest.map((latest, i) => {
-                    return (
-                      <Tooltip
-                        key={i}
-                        name={latest.name}
-                        info={latest.title}
-                        moreInfo={latest.blurb}
-                      >
-                        <div className={style.latestImage}>
-                          {!loading ? (
-                            <Link to='/championdetail'>
-                              <img
-                                alt={latest.image.full}
-                                onClick={selectChampion}
-                                name={latest.id}
-                                realname={latest.name}
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
-                              />
-                            </Link>
-                          ) : (
-                            <Skeleton
-                              width={115}
-                              height={115}
-                              circle={true}
-                              style={{ margin: '10px 10px 15px 10px' }}
-                            />
-                          )}
-
-                          <div className={style.champName}>
-                            {!loading ? (
-                              latest.name
-                            ) : (
-                              <Skeleton
-                                width={50}
-                                height={15}
-                                style={{ margin: '0px 0px 15px 0px' }}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </Tooltip>
-                    )
-                  })}
-                </>
-              </div>
-              <div className={style.imageContainer}>
-                <>
-                  {input === ''
-                    ? champs
-                        .sort(function (a, b) {
-                          if (a.name < b.name) {
-                            return -1
-                          }
-                          if (a.name > b.name) {
-                            return 1
-                          }
-                          return 0
-                        })
-                        .map((champ, i) => (
+          {!loading ? (
+            <>
+              <div className={style.screenContainer}>
+                <h2>Latest Champions</h2>
+                <div
+                  className={
+                    !loading
+                      ? style.latestContainerAnimate
+                      : style.latestContainer
+                  }
+                >
+                  <>
+                    {latest.map((latest, i) => {
+                      return (
+                        <>
                           <Tooltip
                             key={i}
-                            name={champ.name}
-                            info={champ.title}
-                            moreInfo={champ.blurb}
+                            name={latest.name}
+                            info={latest.title}
+                            moreInfo={latest.blurb}
                           >
-                            <div className={!loading && style.latestImage}>
-                              {!loading ? (
+                            <div className={style.latestImage}>
+                              <Link to='/championdetail'>
+                                <img
+                                  alt={latest.image.full}
+                                  onClick={selectChampion}
+                                  name={latest.id}
+                                  realname={latest.name}
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
+                                />
+                              </Link>
+
+                              <div className={style.champName}>
+                                {latest.name}
+                              </div>
+                            </div>
+                          </Tooltip>
+                        </>
+                      )
+                    })}
+                  </>
+                </div>
+                <div className={style.imageContainer}>
+                  <>
+                    {fade && input === ''
+                      ? champs
+                          .sort(function (a, b) {
+                            if (a.name < b.name) {
+                              return -1
+                            }
+                            if (a.name > b.name) {
+                              return 1
+                            }
+                            return 0
+                          })
+                          .map((champ, i) => (
+                            <Tooltip
+                              key={i}
+                              name={champ.name}
+                              info={champ.title}
+                              moreInfo={champ.blurb}
+                            >
+                              <div className={!loading && style.latestImage}>
                                 <Link to='/championdetail'>
                                   <img
                                     alt={champ.image.full}
@@ -361,54 +353,43 @@ function Champions({ champInfo, version, selectChampion, showNav, latest }) {
                                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                                   />
                                 </Link>
-                              ) : (
-                                <Skeleton
-                                  width={75}
-                                  height={75}
-                                  circle={true}
-                                  style={{ margin: '0px 20px 15px 20px' }}
-                                />
-                              )}
 
+                                <div className={style.champName}>
+                                  {champ.name}
+                                </div>
+                              </div>
+                            </Tooltip>
+                          ))
+                      : autofill.map((champ, i) => (
+                          <Tooltip
+                            key={i}
+                            name={champ.name}
+                            info={champ.title}
+                            moreInfo={champ.blurb}
+                          >
+                            <div className={style.latestImage}>
+                              <Link to='/championdetail'>
+                                <img
+                                  alt={champ.image.full}
+                                  onClick={selectChampion}
+                                  name={champ.id}
+                                  realname={champ.name}
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                                />
+                              </Link>
                               <div className={style.champName}>
-                                {!loading ? (
-                                  champ.name
-                                ) : (
-                                  <Skeleton
-                                    width={50}
-                                    height={15}
-                                    style={{ margin: '0px 0px 10px 0px' }}
-                                  />
-                                )}
+                                {champ.name}
                               </div>
                             </div>
                           </Tooltip>
-                        ))
-                    : autofill.map((champ, i) => (
-                        <Tooltip
-                          key={i}
-                          name={champ.name}
-                          info={champ.title}
-                          moreInfo={champ.blurb}
-                        >
-                          <div className={style.latestImage}>
-                            <Link to='/championdetail'>
-                              <img
-                                alt={champ.image.full}
-                                onClick={selectChampion}
-                                name={champ.id}
-                                realname={champ.name}
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                              />
-                            </Link>
-                            <div className={style.champName}>{champ.name}</div>
-                          </div>
-                        </Tooltip>
-                      ))}
-                </>
+                        ))}
+                  </>
+                </div>
               </div>
-            </div>
-          </SkeletonTheme>{' '}
+            </>
+          ) : (
+            <ChampionSkeleton latest={latest} champs={champInfo} />
+          )}
         </>
       )}
     </>

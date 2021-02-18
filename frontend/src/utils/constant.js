@@ -22,6 +22,7 @@ export const runeDescriptions = [
 ]
 
 export const regions = [
+  'NA1',
   'BR1',
   'EUN1',
   'EUW1',
@@ -29,7 +30,6 @@ export const regions = [
   'KR',
   'LA1',
   'LA2',
-  'NA1',
   'OC1',
   'RU',
   'TR1',

@@ -29,18 +29,17 @@ function HistoryCard({ game, spells, runes, summonerInfo, getPlayerName }) {
       }}
     >
       <div className={`${style.fadeIn}`}>
-        {!open ? (
-          <HistoryCardSimple game={game} clickArrow={clickArrow} />
-        ) : (
-          <HistoryCardComplex
-            game={game}
-            spells={spells}
-            runes={runes}
-            summonerInfo={summonerInfo}
-            getPlayerName={getPlayerName}
-            clickArrow={clickArrow}
-          />
-        )}
+        <HistoryCardSimple open={open} game={game} clickArrow={clickArrow} />
+
+        <HistoryCardComplex
+          open={open}
+          game={game}
+          spells={spells}
+          runes={runes}
+          summonerInfo={summonerInfo}
+          getPlayerName={getPlayerName}
+          clickArrow={clickArrow}
+        />
       </div>
     </CSSTransition>
   )

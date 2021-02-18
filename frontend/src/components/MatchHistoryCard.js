@@ -35,6 +35,8 @@ function MatchHistoryCard({
           await axios
             .get(`${url}/matchDetails/${playerMatches[i].gameId}`)
             .then(async (res) => {
+              if (res.status > 500) return
+
               const newMatch = createGameObject(res.data, queues, champInfo)
               matchArr.push(newMatch)
             })
@@ -61,6 +63,7 @@ function MatchHistoryCard({
           gameVersion: match.gameVersion.split('.').slice(0, 2).join('.'),
           players: [],
           participants: match.participants,
+          platformId: match.platformId,
         }
 
         return object

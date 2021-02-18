@@ -10,6 +10,10 @@
   margin: 20px 0px;
 }
 
+.hideHistoryCard {
+  display: none;
+}
+
 .historyCard {
   display: flex;
   justify-content: flex-start;

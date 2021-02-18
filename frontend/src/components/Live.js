@@ -20,7 +20,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
       .filter((el) => {
         return el !== undefined
       })
-    console.log(particpants)
+
     setSummoner(particpants)
   }, [liveRank])
 

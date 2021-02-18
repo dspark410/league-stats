@@ -12,13 +12,14 @@ function HistoryCardComplex({
   summonerInfo,
   getPlayerName,
   clickArrow,
+  open,
 }) {
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
 
   return (
     <div
-      className={`${style.historyCardComplex} ${
+      className={`${open ? style.historyCardComplex : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
       }`}
     >
@@ -274,6 +275,7 @@ function HistoryCardComplex({
                       : style.name
                   }
                   name={player.name}
+                  region={game.platformId}
                 >
                   {player.name.replace(/\s/g, '')}
                 </span>
@@ -341,6 +343,7 @@ function HistoryCardComplex({
                         : style.name2
                       : style.name
                   }
+                  region={game.platformId}
                   name={player.name}
                 >
                   {player.name.replace(/\s/g, '')}

@@ -6,13 +6,15 @@ import { regions } from '../utils/constant'
 function Home({
   change,
   submit,
-  inputResponse,
+
   hideNav,
   prevSearches,
   removeSearchedSummoner,
   inputValue,
+  regionSelect,
 }) {
   const [showStorage, setShowStorage] = useState(true)
+  const [hideAnimation, setHideAnimation] = useState(true)
 
   const inputEl = useRef(false)
 
@@ -24,11 +26,15 @@ function Home({
   }, [])
 
   const handleFocus = () => {
+    setHideAnimation(true)
     setShowStorage(true)
   }
 
   const handleBlur = () => {
-    setShowStorage(false)
+    setHideAnimation(false)
+    setTimeout(() => {
+      setShowStorage(false)
+    }, 50)
   }
 
   return (
@@ -38,14 +44,10 @@ function Home({
           <h1>LeagueStats</h1>
           <div className={style.formContainer}>
             <form onSubmit={submit}>
-              <select className={style.regionSelect}>
-                {regions.map((region) => (
-                  <option
-                    className={style.regionOption}
-                    value={region}
-                    key={region}
-                  >
-                    {region}
+              <select onChange={regionSelect} className={style.regionSelect}>
+                {regions.map((r) => (
+                  <option className={style.regionOption} value={r} key={r}>
+                    {r}
                   </option>
                 ))}
               </select>
@@ -63,7 +65,13 @@ function Home({
             <AiOutlineSearch onClick={submit} className={style.searchIcon} />
           </div>
           {showStorage && (
-            <div className={style.showStorageContainer}>
+            <div
+              className={
+                hideAnimation
+                  ? style.showStorageContainer
+                  : style.hideStorageContainer
+              }
+            >
               <div className={style.recent}>
                 {prevSearches.length === 0
                   ? 'Summoner Example'
@@ -74,10 +82,18 @@ function Home({
                   <div
                     onMouseDown={submit}
                     value='mistahpig'
+                    region='NA1'
                     className={style.storageSummoner}
                   >
                     <span className={style.region}>NA</span>
-                    <span className={style.summoner}>mistahpig</span>
+                    <span
+                      onMouseDown={submit}
+                      value='mistahpig'
+                      region='NA1'
+                      className={style.summoner}
+                    >
+                      mistahpig
+                    </span>
 
                     <div
                       onMouseDown={() => inputEl.current.blur()}
@@ -89,10 +105,18 @@ function Home({
                   <div
                     onMouseDown={submit}
                     value='dambitwes'
+                    region='NA1'
                     className={style.storageSummoner}
                   >
                     <span className={style.region}>NA</span>
-                    <span className={style.summoner}>dambitwes</span>
+                    <span
+                      onMouseDown={submit}
+                      value='dambitwes'
+                      region='NA1'
+                      className={style.summoner}
+                    >
+                      dambitwes
+                    </span>
 
                     <div
                       onMouseDown={() => inputEl.current.blur()}
@@ -106,20 +130,30 @@ function Home({
                 prevSearches.map((summoner) => (
                   <div
                     onMouseDown={submit}
-                    value={summoner}
+                    value={summoner[0]}
+                    region={summoner[1]}
                     className={style.storageSummoner}
                   >
-                    <span className={style.region}>NA</span>
-                    <span className={style.summoner}>{summoner}</span>
+                    <span className={style.region}>{summoner[1]}</span>
+                    <span
+                      onMouseDown={submit}
+                      value={summoner[0]}
+                      region={summoner[1]}
+                      className={style.summoner}
+                    >
+                      {summoner[0]}
+                    </span>
 
                     <div
                       onMouseDown={removeSearchedSummoner}
-                      value={summoner}
+                      value={summoner[0]}
+                      region={summoner[1]}
                       className={style.removeContainer}
                     >
                       <div
                         onMouseDown={removeSearchedSummoner}
-                        value={summoner}
+                        value={summoner[0]}
+                        region={summoner[1]}
                         className={style.remove}
                       >
                         x
@@ -131,7 +165,6 @@ function Home({
             </div>
           )}
         </div>
-        <p className={style.inputResponse}>{inputResponse}</p>
       </div>
     </div>
   )

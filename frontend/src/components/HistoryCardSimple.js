@@ -2,7 +2,7 @@ import React from 'react'
 import style from './historycardsimple.module.css'
 import { IoIosArrowDown } from 'react-icons/io'
 
-function HistoryCardSimple({ game, clickArrow }) {
+function HistoryCardSimple({ game, clickArrow, open }) {
   const timeConverter = (creation, duration) => {
     const secs = creation / 1000 - duration
     const mins = Math.floor(secs / 60)
@@ -28,7 +28,7 @@ function HistoryCardSimple({ game, clickArrow }) {
 
   return (
     <div
-      className={`${style.historyCard} ${
+      className={`${!open ? style.historyCard : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
       }`}
     >

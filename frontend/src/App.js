@@ -20,11 +20,13 @@ import BrandBackground from './components/images/brand.jpg'
 function App() {
   const [summonerInfo, setSummonerInfo] = useState({})
   const [inputValue, setInputValue] = useState('')
+  const [region, setRegion] = useState(
+    JSON.parse(sessionStorage.getItem('region')) || 'NA1'
+  )
   const [redirect, setRedirect] = useState(false)
   const [champInfo, setChampInfo] = useState([])
   const [latest, setLatest] = useState()
   const [version, setVersion] = useState()
-  const [inputResponse, setInputResponse] = useState('')
   const [queues, setQueues] = useState([])
   const [champDetail, setChampDetail] = useState()
   const [backupItem, setBackupItem] = useState()
@@ -36,43 +38,55 @@ function App() {
     JSON.parse(localStorage.getItem('searchedSummoner')) || []
   )
 
+  const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
 
   // Reusable function for changing the Summoner in the whole app
 
-  const getAccountInfo = (summonerName) => {
-    axios.get(`${url}/getSummonerName/${summonerName}`).then((res) => {
-      if (!res.data.id) {
-        // Message will be displayed on Home Screen, dissapears after 3 seconds
-        setInputValue(res.data)
+  const getAccountInfo = (summonerName, region) => {
+    axios
+      .get(`${url}/getSummonerName/${summonerName}/${region}`)
+      .then((res) => {
+        console.log('axios summonername')
+        if (!res.data.id) {
+          // Message will be displayed on Home Screen, dissapears after 3 seconds
+          setInputValue(res.data)
 
-        setTimeout(() => {
-          setInputValue('')
-        }, 1000)
-      }
-
-      if (res.data.id) {
-        if (!prevEntries.includes(summonerName)) {
-          const prevEntriesArr = [...prevEntries]
-
-          if (prevEntriesArr.length === 4) {
-            prevEntriesArr.pop()
-          }
-          // if (inputValue !== '') {
-          prevEntriesArr.unshift(summonerName)
-          // }
-
-          setPrevEntries(prevEntriesArr)
+          setTimeout(() => {
+            setInputValue('')
+          }, 1000)
         }
 
-        // Set summoner info which will be referenced by entire web app
-        setSummonerInfo(res.data)
+        if (res.data.id) {
+          const doNotAdd = prevEntries
+            .map((entry) => {
+              return (
+                entry[0].includes(summonerName) && entry[1].includes(region)
+              )
+            })
+            .includes(true)
 
-        //Set session data
-        sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
-        setRedirect(true)
-      }
-    })
+          if (!doNotAdd) {
+            const prevEntriesArr = [...prevEntries]
+
+            if (prevEntriesArr.length === 4) {
+              prevEntriesArr.pop()
+            }
+
+            prevEntriesArr.unshift([summonerName, region])
+
+            setPrevEntries(prevEntriesArr)
+          }
+
+          // Set summoner info which will be referenced by entire web app
+          setSummonerInfo(res.data)
+
+          //Set session data
+          sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+          sessionStorage.setItem('region', JSON.stringify(region))
+          setRedirect(true)
+        }
+      })
   }
 
   // onClick that makes an axios call to retrieve the specific champion json using
@@ -183,11 +197,9 @@ function App() {
           return axios
             .get(`${url}/getSummonerId/${player.summonerId}`)
             .then((res) => {
-              console.log('profileicon', res.data)
               player.icon = res.data.profileIconId
             })
             .then(() => {
-              console.log(leaderboardData)
               setLeaderBoard(leaderboardData)
             })
         })
@@ -204,24 +216,41 @@ function App() {
     e.preventDefault()
 
     if (e.target.getAttribute('value')) {
-      getAccountInfo(e.target.getAttribute('value'))
+      getAccountInfo(
+        e.target.getAttribute('value'),
+        e.target.getAttribute('region')
+      )
       setInputValue('')
     } else {
       if (inputValue.trim() === '') {
         return
       } else {
-        getAccountInfo(inputValue)
+        getAccountInfo(inputValue, region)
         setInputValue('')
       }
     }
+  }
+
+  // onChange for select menu
+  const regionSelect = (e) => {
+    setRegion(e.target.value)
   }
 
   // Function to remove a summoner from local storage onClick of the close button
   const removeSearchedSummoner = (e) => {
     e.preventDefault()
     e.stopPropagation()
+
     const prevEntriesArr = [...prevEntries]
-    const index = prevEntriesArr.indexOf(e.target.getAttribute('value'))
+
+    const summonerName = e.target.getAttribute('value')
+    const region = e.target.getAttribute('region')
+
+    const remove = prevEntries.map((entry) => {
+      return entry[0].includes(summonerName) && entry[1].includes(region)
+    })
+
+    const index = remove.indexOf(true)
 
     if (index > -1) {
       prevEntriesArr.splice(index, 1)
@@ -233,7 +262,8 @@ function App() {
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
   const getPlayerName = (e) => {
     const summonerName = e.target.getAttribute('name')
-    getAccountInfo(summonerName)
+    const region = e.target.getAttribute('region')
+    getAccountInfo(summonerName, region)
   }
 
   const changeRedirect = () => {
@@ -255,26 +285,32 @@ function App() {
                 path='/'
                 render={() =>
                   redirect ? (
-                    <Redirect to='/welcome' />
+                    <Redirect
+                      to={`/summoner/${region.toLowerCase()}/${
+                        summonerInfo.name
+                          ? summonerInfo.name.toLowerCase()
+                          : sessionData.name.toLowerCase()
+                      } `}
+                    />
                   ) : (
                     <Home
                       summonerInfo={summonerInfo}
                       inputValue={inputValue}
                       change={handleOnChange}
                       submit={handleSubmit}
-                      inputResponse={inputResponse}
                       isAuthed={true}
                       champInfo={champInfo}
                       version={version}
                       hideNav={hideNav}
                       prevSearches={prevEntries}
                       removeSearchedSummoner={removeSearchedSummoner}
+                      regionSelect={regionSelect}
                     />
                   )
                 }
               />
               <Route
-                path='/welcome'
+                path='/summoner/:region/:summonerName'
                 render={() => (
                   <Welcome
                     redirect={changeRedirect}
