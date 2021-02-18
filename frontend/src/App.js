@@ -84,6 +84,7 @@ function App() {
           //Set session data
           sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
           sessionStorage.setItem("region", JSON.stringify(region));
+          setRegion(region);
           setRedirect(true);
         }
       });
