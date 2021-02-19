@@ -290,7 +290,7 @@ function App() {
     <>
       {!fade ? (
         <div
-          className={'backgroundContainerFade'}
+          className={!fade && 'backgroundContainerFade'}
           style={{ backgroundImage: `url(${background})` }}
         />
       ) : null}

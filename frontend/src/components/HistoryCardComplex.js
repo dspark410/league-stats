@@ -231,7 +231,14 @@ function HistoryCardComplex({
             })
             .map((player, i) => {
               return (
-                <div key={i} className={style.team100}>
+                <div
+                  key={i}
+                  className={
+                    game.playerInfo.stats.win
+                      ? style.team100Win
+                      : style.team100Loss
+                  }
+                >
                   <div>{`${player.stats.kills} / ${player.stats.deaths} / ${player.stats.assists}`}</div>
 
                   <div>
@@ -358,7 +365,14 @@ function HistoryCardComplex({
             })
             .map((player, i) => {
               return (
-                <div key={i} className={style.team200}>
+                <div
+                  key={i}
+                  className={
+                    game.playerInfo.stats.win
+                      ? style.team200Win
+                      : style.team200Loss
+                  }
+                >
                   <div>
                     {(
                       (player.stats.totalMinionsKilled +

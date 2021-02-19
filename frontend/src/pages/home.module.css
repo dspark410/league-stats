@@ -20,7 +20,7 @@
   color: #e1e1e1;
 }
 
-input[type="text"] {
+input[type='text'] {
   font-size: 18px;
 }
 
@@ -174,19 +174,30 @@ input[type="text"] {
   width: 98%;
   padding: 10px 8px;
   margin-bottom: 5px;
-  z-index: 1000;
+
   box-shadow: 0 0 3px #3c3142;
 }
 
 .storageSummoner:hover {
   background-color: #483e4e;
   cursor: pointer;
-  z-index: 1000;
+}
+
+.recentContainer {
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .recent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 600;
-  margin-bottom: 13px;
+}
+
+.infoIcon {
+  font-size: 20px;
+  margin-right: 5px;
 }
 
 .region {

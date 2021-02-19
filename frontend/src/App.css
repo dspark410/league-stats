@@ -1,28 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .backgroundContainerFade {
-  background-size: cover;
-  background-position: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  min-width: 1200px;
-  height: auto;
-  min-height: 100%;
-  animation: fadeIn ease 800ms;
-}
-
-.backgroundContainer {
   background-size: cover;
   background-position: 50%;
   position: absolute;
@@ -102,30 +87,30 @@
   border-radius: 8px;
 }
 
-.tippy-box[data-theme~="custom"] {
+.tippy-box[data-theme~='custom'] {
   color: #26323d;
   box-shadow: 0 0 20px 4px rgba(154, 161, 177, 0.15),
     0 4px 80px -8px rgba(36, 40, 47, 0.25),
     0 4px 4px -2px rgba(91, 94, 105, 0.15);
   background-color: rgba(59, 43, 68);
 }
-.tippy-box[data-theme~="custom"][data-placement^="top"] > .tippy-arrow:before {
+.tippy-box[data-theme~='custom'][data-placement^='top'] > .tippy-arrow:before {
   border-top-color: rgba(59, 43, 68);
 }
-.tippy-box[data-theme~="custom"][data-placement^="bottom"]
+.tippy-box[data-theme~='custom'][data-placement^='bottom']
   > .tippy-arrow:before {
   border-bottom-color: rgba(59, 43, 68);
 }
-.tippy-box[data-theme~="custom"][data-placement^="left"] > .tippy-arrow:before {
+.tippy-box[data-theme~='custom'][data-placement^='left'] > .tippy-arrow:before {
   border-left-color: rgba(59, 43, 68);
 }
-.tippy-box[data-theme~="custom"][data-placement^="right"]
+.tippy-box[data-theme~='custom'][data-placement^='right']
   > .tippy-arrow:before {
   border-right-color: rgba(59, 43, 68);
 }
-.tippy-box[data-theme~="custom"] > .tippy-backdrop {
+.tippy-box[data-theme~='custom'] > .tippy-backdrop {
   background-color: rgba(59, 43, 68);
 }
-.tippy-box[data-theme~="custom"] > .tippy-svg-arrow {
+.tippy-box[data-theme~='custom'] > .tippy-svg-arrow {
   fill: rgba(59, 43, 68);
 }

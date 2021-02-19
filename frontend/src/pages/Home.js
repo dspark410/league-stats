@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import style from './home.module.css'
-import { AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
+import { IoSearchCircle } from 'react-icons/io5'
 import { regions } from '../utils/constant'
 
 function Home({
@@ -76,10 +77,18 @@ function Home({
                   : style.hideStorageContainer
               }
             >
-              <div className={style.recent}>
-                {prevSearches.length === 0
-                  ? 'Summoner Example'
-                  : 'Recent Searches'}
+              <div className={style.recentContainer}>
+                {prevSearches.length === 0 ? (
+                  <div className={style.recent}>
+                    <AiOutlineInfoCircle className={style.infoIcon} />
+                    <div>Summoner Example</div>
+                  </div>
+                ) : (
+                  <div className={style.recent}>
+                    <IoSearchCircle className={style.infoIcon} />
+                    <div>Recent Searches</div>
+                  </div>
+                )}
               </div>
               {prevSearches.length === 0 ? (
                 <>

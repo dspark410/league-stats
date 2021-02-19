@@ -404,11 +404,20 @@
   height: 100%;
 }
 
-.team100 {
+.team100Win {
   display: flex;
   justify-content: space-around;
   align-items: center;
   min-width: 150px;
+  color: #cfe7cb;
+}
+
+.team100Loss {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 150px;
+  color: #e7cbcb;
 }
 
 .statsContainer2 {
@@ -421,9 +430,18 @@
   height: 100%;
 }
 
-.team200 {
+.team200Win {
   display: flex;
   justify-content: space-around;
   align-items: center;
   min-width: 150px;
+  color: #cfe7cb;
+}
+
+.team200Loss {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 150px;
+  color: #e7cbcb;
 }

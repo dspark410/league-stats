@@ -60,7 +60,7 @@ export default function ChampionDetail({
     setFade(true)
     setTimeout(() => {
       setFade(false)
-    }, 200)
+    }, 100)
   }
   // onClick, increases skin - 1, to change loading
   const prevSkin = () => {
@@ -69,7 +69,7 @@ export default function ChampionDetail({
     setFade(true)
     setTimeout(() => {
       setFade(false)
-    }, 200)
+    }, 100)
   }
 
   let key
