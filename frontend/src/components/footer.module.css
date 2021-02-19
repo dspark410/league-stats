@@ -7,5 +7,10 @@
   color: rgb(255, 255, 255);
   font-size: 9px;
   margin: 20px auto;
+  width: 1200px;
+}
+
+.footer {
   width: 50%;
+  margin: 0 auto;
 }

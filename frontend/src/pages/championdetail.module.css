@@ -1,3 +1,7 @@
+.fadeContainer {
+  animation: fadeIn linear 500ms;
+}
+
 .grid {
   display: flex;
   justify-content: flex-start;
