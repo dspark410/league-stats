@@ -187,6 +187,8 @@
   font-size: 18px;
   font-weight: 500;
   border-radius: 8px;
+  animation: fadeIn ease 1.5s;
+  margin-top: 21px;
 }
 
 .matchHeader {
@@ -207,6 +209,7 @@
   margin-top: 2px;
   font-size: 14px;
 }
+
 .masteryCard {
   display: flex;
   flex-direction: column;
@@ -219,6 +222,8 @@
   font-weight: 500;
   border-radius: 8px;
   background-color: #7a6b83;
+  animation: fadeIn ease 1.5s;
+  margin-top: 21px;
 }
 
 .header {
@@ -273,11 +278,43 @@
 
 .notInGame {
   color: #e1e1e1;
-  background-color: #755c83;
-  padding: 8px 12px;
+  background-color: #7a6b83;
+
   border-radius: 8px;
   margin-top: 15px;
   animation: fadeIn ease 1.5s;
+  width: 432px;
+}
+
+.liveGameHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0px;
+  border-radius: 8px;
+  margin: 0 auto;
+  background-color: #7a6b83;
+}
+
+.liveGame {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.liveIcon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  background-color: #755c83;
+  border-radius: 8px;
+  padding: 15px 0px;
 }
 
 .nameLive {

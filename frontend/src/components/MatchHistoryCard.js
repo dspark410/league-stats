@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import style from './matchhistory.module.css'
+import style from './matchhistorycard.module.css'
 import axios from 'axios'
 import HistoryCard from './HistoryCard'
 import MatchesLoader from './MatchesLoader'
@@ -165,6 +165,11 @@ function MatchHistoryCard({
     if (matchDetails.length === visible) {
       matchDetails.forEach((match) => {
         // Loops through queue state, to match game type ex. 5v5 , 3v3, summoners rift, ranked
+
+        if (match.queueId >= 2000) {
+          return
+        }
+
         const matchObj = createGameObject(match, queues, champInfo)
         gameDetailsArr.push(matchObj)
         setGameDetails(gameDetailsArr)
@@ -176,7 +181,7 @@ function MatchHistoryCard({
   return (
     <div className={style.matchContainer}>
       <div>
-        {gameDetails.length >= visible &&
+        {gameDetails.length >= visible ? (
           gameDetails
             .sort(function (a, b) {
               return new Date(b.gameCreation) - new Date(a.gameCreation)
@@ -192,7 +197,13 @@ function MatchHistoryCard({
                   getPlayerName={getPlayerName}
                 />
               )
-            })}
+            })
+        ) : (
+          <div className={style.noMatchContainer}>
+            <div className={style.matchHeader}>Match History</div>
+            <div className={style.noMatches}>No Matches Were Found.</div>
+          </div>
+        )}
 
         {gameDetails.length >= visible && (
           <div onClick={index < playerMatches.length ? getMoreMatches : null}>

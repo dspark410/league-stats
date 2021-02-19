@@ -16,6 +16,7 @@ export default function ChampionDetail({
   const [loading, setLoading] = useState(false)
   const [championDetails, setChampionDetails] = useState()
   const [current, setCurrent] = useState(0)
+  const [fade, setFade] = useState(false)
 
   const sessionData = JSON.parse(sessionStorage.getItem('backupjson'))
 
@@ -54,11 +55,19 @@ export default function ChampionDetail({
   const nextSkin = () => {
     setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1)
     //console.log("next", championDetails.skins[current]);
+    setFade(true)
+    setTimeout(() => {
+      setFade(false)
+    }, 200)
   }
   // onClick, increases skin - 1, to change loading
   const prevSkin = () => {
     setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1)
     //console.log("prev", championDetails.skins[current]);
+    setFade(true)
+    setTimeout(() => {
+      setFade(false)
+    }, 200)
   }
 
   let key
@@ -270,10 +279,11 @@ export default function ChampionDetail({
         {championDetails && (
           <div className={style.skinContent}>
             <h1 className={style.skins}> Champion Skins</h1>
+
             <FaAngleLeft className={style.buttonImagePrev} onClick={prevSkin} />
 
             <img
-              className={style.splashImage}
+              className={fade ? style.splashImageFade : style.splashImage}
               alt={championDetails.image.full}
               src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championDetails.id}_${championDetails.skins[current].num}.jpg`}
             />

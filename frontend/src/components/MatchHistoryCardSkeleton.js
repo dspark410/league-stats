@@ -3,7 +3,6 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import style from './historycardsimpleskeleton.module.css'
 
 function MatchHistoryCardSkeleton() {
-  const playerArr = [1, 2, 3, 4, 5]
   const matchArr = [1, 2, 3, 4, 5, 6, 7]
   return (
     <div className={style.matchContainer}>

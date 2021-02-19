@@ -91,7 +91,7 @@ function Home({
                   >
                     <span className={style.region}>NA</span>
                     <span
-                      onMouseDown={submit}
+                      // onMouseDown={submit}
                       value='mistahpig'
                       region='NA1'
                       className={style.summoner}
@@ -114,7 +114,7 @@ function Home({
                   >
                     <span className={style.region}>NA</span>
                     <span
-                      onMouseDown={submit}
+                      // onMouseDown={submit}
                       value='dambitwes'
                       region='NA1'
                       className={style.summoner}
@@ -140,9 +140,9 @@ function Home({
                   >
                     <span className={style.region}>{summoner[1]}</span>
                     <span
-                      onMouseDown={submit}
-                      value={summoner[0]}
-                      region={summoner[1]}
+                      // onMouseDown={submit}
+                      // value={summoner[0]}
+                      // region={summoner[1]}
                       className={style.summoner}
                     >
                       {summoner[0]}

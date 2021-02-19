@@ -4,7 +4,6 @@ import './App.css'
 import Home from './pages/Home'
 import Welcome from './pages/Welcome'
 import Champions from './pages/Champions'
-import ChampionRotation from './pages/ChampionRotation'
 import Leaderboard from './pages/Leaderboard'
 import ChampionDetail from './pages/ChampionDetail'
 import {
@@ -38,14 +37,13 @@ function App() {
   const [prevEntries, setPrevEntries] = useState(
     JSON.parse(localStorage.getItem('searchedSummoner')) || []
   )
-
+  const [fade, setFade] = useState(false)
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
 
-  console.log('window', window.history)
-
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName, region) => {
+    console.log('accountinfo')
     axios
       .get(`${url}/getSummonerName/${summonerName}/${region}`)
       .then((res) => {
@@ -97,6 +95,9 @@ function App() {
 
           setRegion(region)
           setRedirect(true)
+          setTimeout(() => {
+            setRedirect(false)
+          }, 100)
         }
       })
   }
@@ -140,6 +141,10 @@ function App() {
 
   const changeBackground = (url) => {
     setBackground(url)
+    setFade(true)
+    setTimeout(() => {
+      setFade(false)
+    }, 1500)
   }
 
   // onChange for input field
@@ -149,6 +154,7 @@ function App() {
 
   // onSubmit for input form
   const handleSubmit = (e) => {
+    console.log('sumbit')
     e.preventDefault()
 
     if (e.target.getAttribute('value')) {
@@ -282,7 +288,7 @@ function App() {
 
   return (
     <div
-      className='backgroundContainer'
+      className={fade ? 'backgroundContainerFade' : 'backgroundContainer'}
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className={navVisibility ? 'overlay' : null}>
@@ -342,21 +348,6 @@ function App() {
                   <Champions
                     champInfo={champInfo}
                     latest={latest}
-                    version={version}
-                    champDetail={champDetail}
-                    selectChampion={selectChampion}
-                    modalState={modalOpen}
-                    openModal={championModal}
-                    closeModal={closeModal}
-                    showNav={showNav}
-                  />
-                )}
-              />
-              <Route
-                path='/championrotation'
-                render={() => (
-                  <ChampionRotation
-                    champInfo={champInfo}
                     version={version}
                     champDetail={champDetail}
                     selectChampion={selectChampion}

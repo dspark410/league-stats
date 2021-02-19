@@ -11,6 +11,7 @@ import Live from '../components/Live'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
 import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
+import { MdLiveTv } from 'react-icons/md'
 
 function Welcome({
   summonerInfo,
@@ -385,7 +386,14 @@ function Welcome({
                 )}
               </div>
               {live === undefined && display === 'live' && (
-                <div className={style.notInGame}>Summoner Is Not In Game.</div>
+                <div className={style.notInGame}>
+                  <div className={style.liveGameHeader}>
+                    <MdLiveTv className={style.liveIcon} />
+                    <span className={style.liveGame}>Live Game</span>
+                  </div>
+
+                  <div className={style.text}>Summoner Is Not In Game.</div>
+                </div>
               )}
             </>
           ) : (
@@ -427,7 +435,12 @@ function Welcome({
                     : style.none
                 }
               >
-                Summoner Is Not In Game.
+                <div className={style.liveGameHeader}>
+                  <MdLiveTv className={style.liveIcon} />
+                  <span className={style.liveGame}>Live Game</span>
+                </div>
+
+                <div className={style.text}>Summoner Is Not In Game.</div>
               </div>
               <div
                 className={

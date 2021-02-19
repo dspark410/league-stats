@@ -269,14 +269,36 @@
 }
 
 .splashImage {
-  max-width: 800px;
-  max-height: 460px;
+  width: 800px;
+  height: 460px;
   display: flex;
   justify-content: center;
   align-content: center;
   text-align: center;
   margin: 0px auto 15px auto;
   padding: 0 10px;
+}
+
+.splashImageFade {
+  width: 800px;
+  height: 460px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  margin: 0px auto 15px auto;
+  padding: 0 10px;
+  animation: fadeIn linear 200ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .buttonImageNext {
