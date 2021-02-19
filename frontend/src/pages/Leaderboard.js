@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import style from './leaderboard.module.css'
 
 function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
@@ -12,7 +12,7 @@ function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     changeLeaderBoard(rank, division, page)
     if (rank === 'CHALLENGER' || rank === 'GRANDMASTER' || rank === 'MASTER') {
       setMapDivision(['I'])
@@ -80,20 +80,17 @@ function Leaderboard({ version, showNav, changeLeaderBoard, leaderboard }) {
               </th>
             </tr>
             {leaderboard
-              .sort((a, b) => b.leaguePoints - a.leaguePoints)
+              // .sort((a, b) => b.leaguePoints - a.leaguePoints)
               .map((summoner, i) => (
                 <tr className={`${style.row}`} key={i}>
                   <td className={`${style.td} ${style.number}`}>{i + 1}.</td>
                   <td className={style.td}>
-                    {/* <img
+                    <img
                       alt='profile icon'
                       className={style.profileIcon}
                       // Grab profile icon
-                      src={
-                        `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png` ||
-                        process.env.PUBLIC_URL + '/images/emptyitem.png'
-                      }
-                    /> */}
+                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
+                    />
 
                     {summoner.summonerName}
                   </td>

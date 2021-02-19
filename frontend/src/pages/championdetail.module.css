@@ -228,9 +228,11 @@
   color: #e1e1e1;
   z-index: 10;
 }
+
 .skillVideo {
   width: 90%;
   height: auto;
+  animation: fadeIn linear 1000ms;
 }
 
 .spellImage {
@@ -292,7 +294,7 @@
   text-align: center;
   margin: 0px auto 15px auto;
   padding: 0 10px;
-  animation: fadeIn linear 200ms;
+  animation: fadeIn linear 500ms;
 }
 
 @keyframes fadeIn {
