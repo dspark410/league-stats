@@ -25,16 +25,6 @@ app.get('/getSummonerName/:summoner/:region', async (req, res) => {
     )
     res.json(summonerData.data)
   } catch (error) {
-    if (res.status >= 500) {
-      const summoner = encodeURIComponent(req.params.summoner)
-
-      const api = process.env.API_KEY
-      const summonerData = await axios.get(
-        `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
-      )
-      res.json(summonerData.data)
-    }
-
     console.log(error)
     res.send('summoner not found...')
   }
@@ -50,15 +40,6 @@ app.get('/getSummonerId/:summoner', async (req, res) => {
     )
     res.json(summonerData.data)
   } catch (error) {
-    if (res.status >= 500) {
-      const summoner = req.params.summoner
-      const api = process.env.API_KEY
-      const summonerData = await axios.get(
-        `https://na1.api.riotgames.com/lol/summoner/v4/summoners/${summoner}?api_key=${api}`
-      )
-      res.json(summonerData.data)
-    }
-
     console.log(error)
     res.send('Summoner not found...')
   }
