@@ -288,7 +288,7 @@ function App() {
 
     if (
       champName[3].toLowerCase() === "championdetail" &&
-      champName[4].length > 0 &&
+      champName[4] &&
       version &&
       champInfo.length > 0
     ) {
