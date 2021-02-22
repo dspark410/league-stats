@@ -368,10 +368,18 @@
   align-items: center;
 }
 
-.summonerName {
+.summonerName1 {
   color: #9cc4ff;
   min-width: 80px;
   max-height: 20px;
+  text-align: end;
+}
+
+.summonerName2 {
+  color: #9cc4ff;
+  min-width: 80px;
+  max-height: 20px;
+  text-align: start;
 }
 
 .col1 {

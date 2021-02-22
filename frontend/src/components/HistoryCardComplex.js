@@ -273,11 +273,11 @@ function HistoryCardComplex({
                   className={
                     summonerInfo.name
                       ? player.name === summonerInfo.name
-                        ? style.summonerName
+                        ? style.summonerName1
                         : style.name1
                       : style.name1 || sessionData.name
                       ? player.name === sessionData.name
-                        ? style.summonerName
+                        ? style.summonerName1
                         : style.name1
                       : style.name
                   }
@@ -342,11 +342,11 @@ function HistoryCardComplex({
                   className={
                     summonerInfo.name
                       ? player.name === summonerInfo.name
-                        ? style.summonerName
+                        ? style.summonerName2
                         : style.name2
                       : style.name2 || sessionData.name
                       ? player.name === sessionData.name
-                        ? style.summonerName
+                        ? style.summonerName2
                         : style.name2
                       : style.name
                   }
