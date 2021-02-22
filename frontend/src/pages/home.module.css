@@ -20,7 +20,7 @@
   color: #e1e1e1;
 }
 
-input[type='text'] {
+input[type="text"] {
   font-size: 18px;
 }
 
@@ -168,7 +168,7 @@ input[type='text'] {
 .storageSummoner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: #4d3f55;
   border-radius: 5px;
   width: 98%;
@@ -205,10 +205,20 @@ input[type='text'] {
   padding: 2px 4px;
   font-size: 12px;
   border-radius: 5px;
+  margin-right: 100px;
+}
+
+.profileIcon {
+  width: 30px;
+  height: auto;
+  margin-right: 5px;
+  border-radius: 50%;
 }
 
 .summoner {
+  margin-left: 10px;
   font-weight: 300;
+  min-width: 150px;
 }
 
 .removeContainer {
@@ -218,6 +228,7 @@ input[type='text'] {
   height: 35px;
   width: 35px;
   border-radius: 50%;
+  margin-left: 100px;
 }
 
 .remove {

@@ -30,7 +30,6 @@ function App() {
   const [queues, setQueues] = useState([]);
   const [champDetail, setChampDetail] = useState();
   const [backupItem, setBackupItem] = useState();
-  const [modalOpen, setModalOpen] = useState(false);
   const [navVisibility, setNavVisibility] = useState(false);
   const [leaderboard, setLeaderBoard] = useState([]);
   const [background, setBackground] = useState(BrandBackground);
@@ -72,7 +71,11 @@ function App() {
               prevEntriesArr.pop();
             }
 
-            prevEntriesArr.unshift([summonerName, region]);
+            prevEntriesArr.unshift([
+              summonerName,
+              region,
+              res.data.profileIconId,
+            ]);
 
             setPrevEntries(prevEntriesArr);
           }
@@ -83,15 +86,6 @@ function App() {
           //Set session data
           sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
           sessionStorage.setItem("region", JSON.stringify(region));
-
-          window.history.replaceState(
-            null,
-            "summoner",
-            `/summoner/${region.toLowerCase()}/${summonerName
-              .toLowerCase()
-              .split(" ")
-              .join()} `
-          );
 
           setRegion(region);
           setRedirect(true);
@@ -116,19 +110,12 @@ function App() {
       )
       .then((res) => {
         setChampDetail(res.data.data[getChamp]);
-        // setModalOpen(true)
+        window.history.pushState(
+          null,
+          "",
+          `championdetail/${getChamp.toLowerCase()}`
+        );
       });
-  };
-
-  // onClick for champion details that opens up modal
-  // Will send championDetail into ModalState
-  const championModal = () => {
-    setModalOpen(true);
-  };
-
-  // onClick to close modal
-  const closeModal = () => {
-    setModalOpen(false);
   };
 
   const showNav = () => {
@@ -160,7 +147,8 @@ function App() {
     if (e.target.getAttribute("value")) {
       getAccountInfo(
         e.target.getAttribute("value"),
-        e.target.getAttribute("region")
+        e.target.getAttribute("region"),
+        e.target.getAttribute("icon")
       );
       setInputValue("");
     } else {
@@ -205,7 +193,8 @@ function App() {
   const getPlayerName = (e) => {
     const summonerName = e.target.getAttribute("name");
     const region = e.target.getAttribute("region");
-    getAccountInfo(summonerName, region);
+    const icon = e.target.getAttribute("icon");
+    getAccountInfo(summonerName, region, icon);
   };
 
   const changeRedirect = () => {
@@ -354,6 +343,7 @@ function App() {
                       removeSearchedSummoner={removeSearchedSummoner}
                       regionSelect={regionSelect}
                       region={region}
+                      version={version}
                     />
                   )
                 }
@@ -384,9 +374,6 @@ function App() {
                     version={version}
                     champDetail={champDetail}
                     selectChampion={selectChampion}
-                    modalState={modalOpen}
-                    openModal={championModal}
-                    closeModal={closeModal}
                     showNav={showNav}
                     region={region}
                   />
