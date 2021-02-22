@@ -370,7 +370,7 @@
 
 .summonerName {
   color: #9cc4ff;
-  max-width: 80px;
+  min-width: 80px;
   max-height: 20px;
 }
 

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import style from "./home.module.css";
-import { AiOutlineSearch, AiOutlineInfoCircle } from "react-icons/ai";
-import { IoSearchCircle } from "react-icons/io5";
-import { regions } from "../utils/constant";
+import React, { useState, useEffect, useRef } from 'react'
+import style from './home.module.css'
+import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
+import { IoSearchCircle } from 'react-icons/io5'
+import { regions } from '../utils/constant'
 
 function Home({
   change,
@@ -15,29 +15,29 @@ function Home({
   regionSelect,
   version,
 }) {
-  const [showStorage, setShowStorage] = useState(true);
-  const [hideAnimation, setHideAnimation] = useState(true);
+  const [showStorage, setShowStorage] = useState(true)
+  const [hideAnimation, setHideAnimation] = useState(true)
 
-  const inputEl = useRef(false);
+  const inputEl = useRef(false)
 
   useEffect(() => {
-    setShowStorage(false);
-    hideNav();
+    setShowStorage(false)
+    hideNav()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleFocus = () => {
-    setHideAnimation(true);
-    setShowStorage(true);
-  };
+    setHideAnimation(true)
+    setShowStorage(true)
+  }
 
   const handleBlur = () => {
-    setHideAnimation(false);
+    setHideAnimation(false)
     setTimeout(() => {
-      setShowStorage(false);
-    }, 50);
-  };
+      setShowStorage(false)
+    }, 50)
+  }
 
   return (
     <div className={style.homeBackgroundContainer}>
@@ -58,10 +58,10 @@ function Home({
                 ))}
               </select>
               <input
-                spellCheck="false"
+                spellCheck='false'
                 onChange={change}
-                type="text"
-                placeholder="search summoner..."
+                type='text'
+                placeholder='search summoner...'
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={inputValue}
@@ -95,23 +95,26 @@ function Home({
                 <>
                   <div
                     onMouseDown={submit}
-                    value="mistahpig"
-                    region="NA1"
-                    icon="7"
+                    value='mistahpig'
+                    region='NA1'
+                    icon='7'
                     className={style.storageSummoner}
                   >
-                    <span className={style.region}>NA</span>
+                    <div className={style.regionContainer}>
+                      <span className={style.region}>NA</span>
+                    </div>
+
                     <img
-                      alt="profile icon"
+                      alt='profile icon'
                       className={style.profileIcon}
                       // Grab profile icon
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
                     />
                     <span
                       // onMouseDown={submit}
-                      value="mistahpig"
-                      region="NA1"
-                      icon="7"
+                      value='mistahpig'
+                      region='NA1'
+                      icon='7'
                       className={style.summoner}
                     >
                       mistahpig
@@ -126,23 +129,25 @@ function Home({
                   </div>
                   <div
                     onMouseDown={submit}
-                    value="dambitwes"
-                    region="NA1"
-                    icon="3466"
+                    value='dambitwes'
+                    region='NA1'
+                    icon='3466'
                     className={style.storageSummoner}
                   >
-                    <span className={style.region}>NA</span>
+                    <div className={style.regionContainer}>
+                      <span className={style.region}>NA</span>
+                    </div>
                     <img
-                      alt="profile icon"
+                      alt='profile icon'
                       className={style.profileIcon}
                       // Grab profile icon
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
                     />
                     <span
                       // onMouseDown={submit}
-                      value="dambitwes"
-                      region="NA1"
-                      icon="3466"
+                      value='dambitwes'
+                      region='NA1'
+                      icon='3466'
                       className={style.summoner}
                     >
                       dambitwes
@@ -165,9 +170,12 @@ function Home({
                     icon={summoner[2]}
                     className={style.storageSummoner}
                   >
-                    <span className={style.region}>{summoner[1]}</span>
+                    <div className={style.regionContainer}>
+                      <span className={style.region}>{summoner[1]}</span>
+                    </div>
+
                     <img
-                      alt="profile icon"
+                      alt='profile icon'
                       className={style.profileIcon}
                       // Grab profile icon
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
@@ -207,7 +215,7 @@ function Home({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

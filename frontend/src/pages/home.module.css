@@ -20,7 +20,7 @@
   color: #e1e1e1;
 }
 
-input[type="text"] {
+input[type='text'] {
   font-size: 18px;
 }
 
@@ -200,12 +200,17 @@ input[type="text"] {
   margin-right: 5px;
 }
 
+.regionContainer {
+  min-width: 40px;
+  margin-right: 80px;
+}
+
 .region {
   background-color: #35273e;
-  padding: 2px 4px;
+  padding: 3px 4px;
   font-size: 12px;
   border-radius: 5px;
-  margin-right: 100px;
+  text-align: center;
 }
 
 .profileIcon {
