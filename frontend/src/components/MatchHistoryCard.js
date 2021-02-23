@@ -97,7 +97,7 @@ function MatchHistoryCard({
           }
         })
       })
-      return Promise.resolve(matchObj.players.push(playerObj))
+      return matchObj.players.push(playerObj)
     })
     // finds matching participantId from matchObj and keeps all data from matching participants
     match.participants.forEach(async (data) => {

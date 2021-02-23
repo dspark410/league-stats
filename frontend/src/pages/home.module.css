@@ -20,16 +20,19 @@
   color: #e1e1e1;
 }
 
-input[type='text'] {
-  font-size: 18px;
+.input[type='text'] {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .homeContainer input {
   padding: 14px 15px;
   width: 27vw;
+  height: 48px;
   border: none;
   background-color: rgb(43, 34, 58);
   color: #e1e1e1;
+
   border-radius: 8px;
   z-index: 100;
   opacity: 0.7;
@@ -68,11 +71,17 @@ input[type='text'] {
   margin: 0 auto;
 }
 
+.selectContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .selectContainer select {
   border: none;
   outline: none;
   background-color: rgb(43, 34, 58);
-  padding: 15px 10px;
+  padding: 11px 10px;
   border-radius: 5px;
   color: #e1e1e1;
   font-size: 16px;
@@ -84,7 +93,6 @@ input[type='text'] {
 .selectContainer select:hover {
   cursor: pointer;
   background-color: #54425f;
-  /* background-color: #4d3f55; */
   opacity: 1;
   border: none;
   outline: none;

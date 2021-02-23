@@ -22,8 +22,7 @@ app.get('/getSummonerName/:summoner/:region', async (req, res) => {
     const summonerData = await axios.get(
       `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
     )
-    const data = await summonerData.data
-    res.json(data)
+    res.json(summonerData.data)
   } catch (error) {
     console.log(error)
     res.send('summoner not found...')

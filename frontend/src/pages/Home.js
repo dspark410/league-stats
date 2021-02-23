@@ -58,6 +58,7 @@ function Home({
                 ))}
               </select>
               <input
+                className={style.input}
                 spellCheck='false'
                 onChange={change}
                 type='text'
