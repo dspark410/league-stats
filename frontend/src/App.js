@@ -35,7 +35,6 @@ function App() {
   const [showStorage, setShowStorage] = useState(true)
   const [hideAnimation, setHideAnimation] = useState(true)
   const [loading, setLoading] = useState(true)
-  const [session, setSession] = useState({})
 
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
@@ -84,11 +83,6 @@ function App() {
           // Set summoner info which will be referenced by entire web app
           setSummonerInfo(res.data)
 
-          //Set session data
-          sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
-          setSession(JSON.parse(sessionStorage.getItem('summonerInfo')))
-          sessionStorage.setItem('region', JSON.stringify(rgn))
-
           setRegion(rgn)
           setRedirect(true)
 
@@ -96,11 +90,9 @@ function App() {
             `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()} `
           )
 
-          // window.history.pushState(
-          //   null,
-          //   '',
-          //   `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()} `
-          // )
+          //Set session data
+          sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+          sessionStorage.setItem('region', JSON.stringify(rgn))
 
           setTimeout(() => {
             setRedirect(false)
@@ -123,7 +115,9 @@ function App() {
       .then((res) => {
         setChampDetail(res.data.data[getChamp])
 
-        history.push(`championdetail/${getChamp.toLowerCase()}`)
+        history.replace(`championdetail/${getChamp.toLowerCase()}`)
+
+        console.log(history)
         // window.history.pushState(
         //   null,
         //   '',
@@ -163,7 +157,7 @@ function App() {
         e.target.getAttribute('region'),
         e.target.getAttribute('icon')
       )
-      setShowStorage(false)
+      handleBlur()
 
       setInputValue('')
       setRegion(e.target.getAttribute('region'))
@@ -172,7 +166,7 @@ function App() {
         return
       } else {
         getAccountInfo(inputValue, region)
-        setShowStorage(false)
+        handleBlur()
         setInputValue('')
       }
     }
@@ -266,6 +260,7 @@ function App() {
   }
 
   useEffect(() => {
+    closeStorage()
     // Retrieve queueType list from Riot API
     axios.get(`${url}/queueType`).then((res) => setQueues(res.data))
     axios
@@ -360,27 +355,49 @@ function App() {
 
       <div className={navVisibility ? 'overlay' : null}>
         <div>
-          <Navbar
-            visibility={navVisibility}
-            inputValue={inputValue}
-            change={handleOnChange}
-            submit={handleSubmit}
-            isAuthed={true}
-            version={version}
-            hideNav={hideNav}
-            prevSearches={prevEntries}
-            removeSearchedSummoner={removeSearchedSummoner}
-            regionSelect={regionSelect}
-            region={region}
-            handleFocus={handleFocus}
-            handleBlur={handleBlur}
-            hideAnimation={hideAnimation}
-            showStorage={showStorage}
-            skeletonTrue={skeletonTrue}
-            skeletonFalse={skeletonFalse}
-            summonerInfo={summonerInfo}
-            session={session}
-          />
+          {summonerInfo?.name ? (
+            <Navbar
+              visibility={navVisibility}
+              inputValue={inputValue}
+              change={handleOnChange}
+              submit={handleSubmit}
+              isAuthed={true}
+              version={version}
+              hideNav={hideNav}
+              prevSearches={prevEntries}
+              removeSearchedSummoner={removeSearchedSummoner}
+              regionSelect={regionSelect}
+              region={region}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+              hideAnimation={hideAnimation}
+              showStorage={showStorage}
+              skeletonTrue={skeletonTrue}
+              skeletonFalse={skeletonFalse}
+              summonerInfo={summonerInfo}
+            />
+          ) : sessionData?.name ? (
+            <Navbar
+              visibility={navVisibility}
+              inputValue={inputValue}
+              change={handleOnChange}
+              submit={handleSubmit}
+              isAuthed={true}
+              version={version}
+              hideNav={hideNav}
+              prevSearches={prevEntries}
+              removeSearchedSummoner={removeSearchedSummoner}
+              regionSelect={regionSelect}
+              region={region}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+              hideAnimation={hideAnimation}
+              showStorage={showStorage}
+              skeletonTrue={skeletonTrue}
+              skeletonFalse={skeletonFalse}
+              summonerInfo={sessionData}
+            />
+          ) : null}
           <Switch>
             <Route
               exact

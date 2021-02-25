@@ -291,7 +291,7 @@ function Champions({
           {!loading ? (
             <>
               <div className={style.screenContainer}>
-                <h2>Latest Champions</h2>
+                <h2>Latest Champion{latest.length > 1 ? 's' : ''}</h2>
                 <div
                   className={
                     !loading

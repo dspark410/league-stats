@@ -221,7 +221,7 @@
   height: auto;
   width: 500px;
   position: absolute;
-  top: 130px;
+  top: 50px;
   padding: 10px 12px;
   animation: scaledown 100ms ease;
 }
@@ -253,6 +253,14 @@
 .storageSummoner:hover {
   background-color: #483e4e;
   cursor: pointer;
+}
+
+.topLayer {
+  position: absolute;
+  opacity: 0;
+  width: 412px;
+  height: 55px;
+  z-index: 1000;
 }
 
 .recentContainer {

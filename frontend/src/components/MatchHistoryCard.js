@@ -11,7 +11,6 @@ function MatchHistoryCard({
   getPlayerName,
   queues,
   playerMatches,
-  skeleton,
   region,
   live,
 }) {
@@ -74,7 +73,7 @@ function MatchHistoryCard({
     // loops through current account id in session or summonerInfo
     // To grab the right info for match history card
     let playerObj
-    match.participantIdentities.forEach(async (id) => {
+    match.participantIdentities.forEach((id) => {
       if (
         id.player.accountId === summonerInfo.accountId ||
         id.player.accountId === sessionData.accountId ||
@@ -101,14 +100,14 @@ function MatchHistoryCard({
       return matchObj.players.push(playerObj)
     })
     // finds matching participantId from matchObj and keeps all data from matching participants
-    match.participants.forEach(async (data) => {
+    match.participants.forEach((data) => {
       if (data.participantId === matchObj.participantId) {
         const playerStats = data
         matchObj.playerInfo = playerStats
       }
     })
     // get relevant image for player's champion for that game
-    champInfo.forEach(async (champ) => {
+    champInfo.forEach((champ) => {
       if (matchObj.playerInfo.championId === +champ.key) {
         matchObj.championName = champ.name
         matchObj.championImage = champ.image.full
