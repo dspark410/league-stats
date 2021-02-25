@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './App.css'
 import Home from './pages/Home'
@@ -6,19 +6,14 @@ import { Welcome } from './pages/Welcome'
 import Champions from './pages/Champions'
 import Leaderboard from './pages/Leaderboard'
 import ChampionDetail from './pages/ChampionDetail'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BrandBackground from './components/images/brand.jpg'
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState({})
+  const [summonerInfo, setSummonerInfo] = useState()
   const [inputValue, setInputValue] = useState('')
   const [region, setRegion] = useState(
     JSON.parse(sessionStorage.getItem('region')) || 'NA1'
@@ -44,6 +39,8 @@ function App() {
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
   let source = axios.CancelToken.source()
+
+  const history = useHistory()
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName, rgn) => {
@@ -93,11 +90,15 @@ function App() {
           setRegion(rgn)
           setRedirect(true)
 
-          window.history.pushState(
-            null,
-            '',
+          history.push(
             `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()} `
           )
+
+          // window.history.pushState(
+          //   null,
+          //   '',
+          //   `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()} `
+          // )
 
           setTimeout(() => {
             setRedirect(false)
@@ -119,11 +120,13 @@ function App() {
       )
       .then((res) => {
         setChampDetail(res.data.data[getChamp])
-        window.history.pushState(
-          null,
-          '',
-          `championdetail/${getChamp.toLowerCase()}`
-        )
+
+        history.push(`championdetail/${getChamp.toLowerCase()}`)
+        // window.history.pushState(
+        //   null,
+        //   '',
+        //   `championdetail/${getChamp.toLowerCase()}`
+        // )
       })
   }
 
@@ -153,7 +156,6 @@ function App() {
     e.preventDefault()
 
     if (e.target.getAttribute('value')) {
-      console.log('inside get attribute')
       getAccountInfo(
         e.target.getAttribute('value'),
         e.target.getAttribute('region'),
@@ -164,7 +166,6 @@ function App() {
       setInputValue('')
       setRegion(e.target.getAttribute('region'))
     } else {
-      console.log('outside')
       if (inputValue.trim() === '') {
         return
       } else {
@@ -357,151 +358,151 @@ function App() {
 
       <div className={navVisibility ? 'overlay' : null}>
         <div>
-          <Router>
-            <Navbar
-              visibility={navVisibility}
-              inputValue={inputValue}
-              change={handleOnChange}
-              submit={handleSubmit}
-              isAuthed={true}
-              version={version}
-              hideNav={hideNav}
-              prevSearches={prevEntries}
-              removeSearchedSummoner={removeSearchedSummoner}
-              regionSelect={regionSelect}
-              region={region}
-              handleFocus={handleFocus}
-              handleBlur={handleBlur}
-              hideAnimation={hideAnimation}
-              showStorage={showStorage}
-              skeletonTrue={skeletonTrue}
-              skeletonFalse={skeletonFalse}
-            />
-            <Switch>
-              <Route
-                exact
-                path='/'
-                render={() =>
-                  redirect ? (
-                    <Redirect
-                      to={`/summoner/${region.toLowerCase()}/${
-                        summonerInfo.name
-                          ? summonerInfo.name.toLowerCase()
-                          : sessionData.name.toLowerCase()
-                      } `}
-                    />
-                  ) : (
-                    <Home
-                      summonerInfo={summonerInfo}
-                      inputValue={inputValue}
-                      change={handleOnChange}
-                      submit={handleSubmit}
-                      isAuthed={true}
-                      champInfo={champInfo}
-                      version={version}
-                      hideNav={hideNav}
-                      prevSearches={prevEntries}
-                      removeSearchedSummoner={removeSearchedSummoner}
-                      regionSelect={regionSelect}
-                      region={region}
-                      handleFocus={handleFocus}
-                      handleBlur={handleBlur}
-                      hideAnimation={hideAnimation}
-                      showStorage={showStorage}
-                      closeStorage={closeStorage}
-                    />
-                  )
-                }
-              />
-              <Route
-                path='/summoner/:region/:summonerName'
-                render={() => (
-                  <Welcome
-                    redirect={changeRedirect}
-                    summonerInfo={summonerInfo}
-                    champInfo={champInfo}
-                    isAuthed={true}
-                    version={version}
-                    getPlayerName={getPlayerName}
-                    queues={queues}
-                    showNav={showNav}
-                    selectChampion={selectChampion}
-                    region={region}
-                    loading={loading}
-                    skeletonTrue={skeletonTrue}
-                    skeletonFalse={skeletonFalse}
+          <Navbar
+            visibility={navVisibility}
+            inputValue={inputValue}
+            change={handleOnChange}
+            submit={handleSubmit}
+            isAuthed={true}
+            version={version}
+            hideNav={hideNav}
+            prevSearches={prevEntries}
+            removeSearchedSummoner={removeSearchedSummoner}
+            regionSelect={regionSelect}
+            region={region}
+            handleFocus={handleFocus}
+            handleBlur={handleBlur}
+            hideAnimation={hideAnimation}
+            showStorage={showStorage}
+            skeletonTrue={skeletonTrue}
+            skeletonFalse={skeletonFalse}
+            summonerInfo={summonerInfo}
+          />
+          <Switch>
+            <Route
+              exact
+              path='/'
+              render={() =>
+                redirect ? (
+                  <Redirect
+                    to={`/summoner/${region.toLowerCase()}/${
+                      summonerInfo.name
+                        ? summonerInfo.name.toLowerCase()
+                        : sessionData.name.toLowerCase()
+                    } `}
                   />
-                )}
-              />
-              <Route
-                path='/champions'
-                render={() =>
-                  redirect ? (
-                    <Redirect
-                      to={`/summoner/${region.toLowerCase()}/${
-                        summonerInfo.name
-                          ? summonerInfo.name.toLowerCase()
-                          : sessionData.name.toLowerCase()
-                      } `}
-                    />
-                  ) : (
-                    <Champions
-                      champInfo={champInfo}
-                      latest={latest}
-                      version={version}
-                      champDetail={champDetail}
-                      selectChampion={selectChampion}
-                      showNav={showNav}
-                      region={region}
-                    />
-                  )
-                }
-              />
-              <Route
-                path='/leaderboard'
-                render={() =>
-                  redirect ? (
-                    <Redirect
-                      to={`/summoner/${region.toLowerCase()}/${
-                        summonerInfo.name
-                          ? summonerInfo.name.toLowerCase()
-                          : sessionData.name.toLowerCase()
-                      } `}
-                    />
-                  ) : (
-                    <Leaderboard
-                      version={version}
-                      showNav={showNav}
-                      changeLeaderBoard={changeLeaderBoard}
-                      leaderboard={leaderboard}
-                    />
-                  )
-                }
-              />
-              <Route
-                path='/championdetail'
-                render={() =>
-                  redirect ? (
-                    <Redirect
-                      to={`/summoner/${region.toLowerCase()}/${
-                        summonerInfo.name
-                          ? summonerInfo.name.toLowerCase()
-                          : sessionData.name.toLowerCase()
-                      } `}
-                    />
-                  ) : (
-                    <ChampionDetail
-                      version={version}
-                      champDetail={champDetail}
-                      itemObj={backupItem}
-                      showNav={showNav}
-                      changeBackground={changeBackground}
-                    />
-                  )
-                }
-              />
-            </Switch>
-          </Router>
+                ) : (
+                  <Home
+                    summonerInfo={summonerInfo}
+                    inputValue={inputValue}
+                    change={handleOnChange}
+                    submit={handleSubmit}
+                    isAuthed={true}
+                    champInfo={champInfo}
+                    version={version}
+                    hideNav={hideNav}
+                    prevSearches={prevEntries}
+                    removeSearchedSummoner={removeSearchedSummoner}
+                    regionSelect={regionSelect}
+                    region={region}
+                    handleFocus={handleFocus}
+                    handleBlur={handleBlur}
+                    hideAnimation={hideAnimation}
+                    showStorage={showStorage}
+                    closeStorage={closeStorage}
+                  />
+                )
+              }
+            />
+            <Route
+              path='/summoner/:region/:summonerName'
+              render={() => (
+                <Welcome
+                  redirect={changeRedirect}
+                  summonerInfo={summonerInfo}
+                  champInfo={champInfo}
+                  isAuthed={true}
+                  version={version}
+                  getPlayerName={getPlayerName}
+                  queues={queues}
+                  showNav={showNav}
+                  selectChampion={selectChampion}
+                  region={region}
+                  loading={loading}
+                  skeletonTrue={skeletonTrue}
+                  skeletonFalse={skeletonFalse}
+                />
+              )}
+            />
+            <Route
+              path='/champions'
+              render={() =>
+                redirect ? (
+                  <Redirect
+                    to={`/summoner/${region.toLowerCase()}/${
+                      summonerInfo.name
+                        ? summonerInfo.name.toLowerCase()
+                        : sessionData.name.toLowerCase()
+                    } `}
+                  />
+                ) : (
+                  <Champions
+                    champInfo={champInfo}
+                    latest={latest}
+                    version={version}
+                    champDetail={champDetail}
+                    selectChampion={selectChampion}
+                    showNav={showNav}
+                    region={region}
+                  />
+                )
+              }
+            />
+            <Route
+              path='/leaderboard'
+              render={() =>
+                redirect ? (
+                  <Redirect
+                    to={`/summoner/${region.toLowerCase()}/${
+                      summonerInfo.name
+                        ? summonerInfo.name.toLowerCase()
+                        : sessionData.name.toLowerCase()
+                    } `}
+                  />
+                ) : (
+                  <Leaderboard
+                    version={version}
+                    showNav={showNav}
+                    changeLeaderBoard={changeLeaderBoard}
+                    leaderboard={leaderboard}
+                  />
+                )
+              }
+            />
+            <Route
+              path='/championdetail'
+              render={() =>
+                redirect ? (
+                  <Redirect
+                    to={`/summoner/${region.toLowerCase()}/${
+                      summonerInfo.name
+                        ? summonerInfo.name.toLowerCase()
+                        : sessionData.name.toLowerCase()
+                    } `}
+                  />
+                ) : (
+                  <ChampionDetail
+                    version={version}
+                    champDetail={champDetail}
+                    itemObj={backupItem}
+                    showNav={showNav}
+                    changeBackground={changeBackground}
+                  />
+                )
+              }
+            />
+          </Switch>
+
           <Footer />
         </div>
       </div>
