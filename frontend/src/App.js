@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import './App.css'
 import Home from './pages/Home'
@@ -40,6 +40,7 @@ function App() {
   const url = process.env.REACT_APP_API_URL || ''
   let source = axios.CancelToken.source()
 
+  const inputRef = useRef()
   const history = useHistory()
 
   // Reusable function for changing the Summoner in the whole app
@@ -158,7 +159,7 @@ function App() {
         e.target.getAttribute('icon')
       )
       handleBlur()
-
+      inputRef.current.blur()
       setInputValue('')
       setRegion(e.target.getAttribute('region'))
     } else {
@@ -167,6 +168,7 @@ function App() {
       } else {
         getAccountInfo(inputValue, region)
         handleBlur()
+        inputRef.current.blur()
         setInputValue('')
       }
     }
@@ -375,6 +377,7 @@ function App() {
               skeletonTrue={skeletonTrue}
               skeletonFalse={skeletonFalse}
               summonerInfo={summonerInfo}
+              inputRef={inputRef}
             />
           ) : sessionData?.name ? (
             <Navbar
@@ -396,6 +399,7 @@ function App() {
               skeletonTrue={skeletonTrue}
               skeletonFalse={skeletonFalse}
               summonerInfo={sessionData}
+              inputRef={inputRef}
             />
           ) : null}
           <Switch>

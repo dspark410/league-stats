@@ -21,6 +21,7 @@ function Navbar({
   handleBlur,
   skeletonTrue,
   summonerInfo,
+  inputRef,
 }) {
   const [vis, setVis] = useState(visibility)
 
@@ -63,7 +64,7 @@ function Navbar({
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   value={inputValue}
-                  ref={inputEl}
+                  ref={(inputEl, inputRef)}
                 />
               </form>
               <AiOutlineSearch onClick={submit} className={style.searchIcon} />
