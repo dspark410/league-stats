@@ -13,7 +13,7 @@ import Footer from './components/Footer'
 import BrandBackground from './components/images/brand.jpg'
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState()
+  const [summonerInfo, setSummonerInfo] = useState({})
   const [inputValue, setInputValue] = useState('')
   const [region, setRegion] = useState(
     JSON.parse(sessionStorage.getItem('region')) || 'NA1'
@@ -35,6 +35,7 @@ function App() {
   const [showStorage, setShowStorage] = useState(true)
   const [hideAnimation, setHideAnimation] = useState(true)
   const [loading, setLoading] = useState(true)
+  const [session, setSession] = useState({})
 
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
@@ -85,6 +86,7 @@ function App() {
 
           //Set session data
           sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+          setSession(JSON.parse(sessionStorage.getItem('summonerInfo')))
           sessionStorage.setItem('region', JSON.stringify(rgn))
 
           setRegion(rgn)
@@ -377,6 +379,7 @@ function App() {
             skeletonTrue={skeletonTrue}
             skeletonFalse={skeletonFalse}
             summonerInfo={summonerInfo}
+            session={session}
           />
           <Switch>
             <Route

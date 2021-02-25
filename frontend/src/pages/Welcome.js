@@ -75,7 +75,7 @@ export const Welcome = React.memo(
       // Show nav on the welcome screen
       showNav()
       setLive()
-      if (!summonerInfo) {
+      if (!summonerInfo.id) {
         // Checks if summonerInfo.id is available, if not grab identical copy from sessionStorage
         const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
 
