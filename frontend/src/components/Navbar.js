@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import style from './navbar.module.css'
-import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
-import { IoSearchCircle } from 'react-icons/io5'
-import { regions } from '../utils/constant'
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import style from "./navbar.module.css";
+import { AiOutlineSearch, AiOutlineInfoCircle } from "react-icons/ai";
+import { IoSearchCircle } from "react-icons/io5";
+import { regions } from "../utils/constant";
 
 function Navbar({
   visibility,
@@ -21,19 +21,19 @@ function Navbar({
   handleBlur,
   skeletonTrue,
 }) {
-  const [vis, setVis] = useState(visibility)
+  const [vis, setVis] = useState(visibility);
 
-  const inputEl = useRef(false)
+  const inputEl = useRef(false);
 
   useEffect(() => {
-    setVis(visibility)
-  }, [visibility])
+    setVis(visibility);
+  }, [visibility]);
 
   return (
     <>
-      <nav className={style.navbar} style={{ display: !vis ? 'none' : 'flex' }}>
+      <nav className={style.navbar} style={{ display: !vis ? "none" : "flex" }}>
         <div className={style.navHeader}>
-          <Link to='/' className={style.navbarLogo}>
+          <Link to="/" className={style.navbarLogo}>
             League Stats
           </Link>
         </div>
@@ -43,7 +43,7 @@ function Navbar({
             <div className={style.formContainer}>
               <form onSubmit={submit} className={style.selectContainer}>
                 <select
-                  defaultValue={region}
+                  value={region}
                   onChange={regionSelect}
                   className={style.regionSelect}
                 >
@@ -55,10 +55,10 @@ function Navbar({
                 </select>
                 <input
                   className={style.input}
-                  spellCheck='false'
+                  spellCheck="false"
                   onChange={change}
-                  type='text'
-                  placeholder='search summoner...'
+                  type="text"
+                  placeholder="search summoner..."
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   value={inputValue}
@@ -93,9 +93,9 @@ function Navbar({
                     <div
                       onClick={skeletonTrue}
                       onMouseDown={submit}
-                      value='mistahpig'
-                      region='NA1'
-                      icon='7'
+                      value="mistahpig"
+                      region="NA1"
+                      icon="7"
                       className={style.storageSummoner}
                     >
                       <div className={style.regionContainer}>
@@ -103,16 +103,16 @@ function Navbar({
                       </div>
 
                       <img
-                        alt='profile icon'
+                        alt="profile icon"
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
                       />
                       <span
                         // onMouseDown={submit}
-                        value='mistahpig'
-                        region='NA1'
-                        icon='7'
+                        value="mistahpig"
+                        region="NA1"
+                        icon="7"
                         className={style.summoner}
                       >
                         mistahpig
@@ -128,25 +128,25 @@ function Navbar({
                     <div
                       onClick={skeletonTrue}
                       onMouseDown={submit}
-                      value='dambitwes'
-                      region='NA1'
-                      icon='3466'
+                      value="dambitwes"
+                      region="NA1"
+                      icon="3466"
                       className={style.storageSummoner}
                     >
                       <div className={style.regionContainer}>
                         <span className={style.region}>NA</span>
                       </div>
                       <img
-                        alt='profile icon'
+                        alt="profile icon"
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
                       />
                       <span
                         // onMouseDown={submit}
-                        value='dambitwes'
-                        region='NA1'
-                        icon='3466'
+                        value="dambitwes"
+                        region="NA1"
+                        icon="3466"
                         className={style.summoner}
                       >
                         dambitwes
@@ -163,6 +163,7 @@ function Navbar({
                 ) : (
                   prevSearches.map((summoner) => (
                     <div
+                      key={summoner}
                       onClick={skeletonTrue}
                       onMouseDown={submit}
                       value={summoner[0]}
@@ -175,7 +176,7 @@ function Navbar({
                       </div>
 
                       <img
-                        alt='profile icon'
+                        alt="profile icon"
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
@@ -217,24 +218,24 @@ function Navbar({
 
         <ul className={style.navMenu}>
           <li className={style.navItem}>
-            <Link to='/' className={style.navLinks}>
+            <Link to="/" className={style.navLinks}>
               Home
             </Link>
           </li>
           <li className={style.navItem}>
-            <Link to='/champions' className={style.navLinks}>
+            <Link to="/champions" className={style.navLinks}>
               Champions
             </Link>
           </li>
           <li className={style.navItem}>
-            <Link to='/leaderboard' className={style.navLinks}>
+            <Link to="/leaderboard" className={style.navLinks}>
               Leaderboard
             </Link>
           </li>
         </ul>
       </nav>
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;

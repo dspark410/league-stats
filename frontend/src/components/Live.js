@@ -12,11 +12,9 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
 
   useEffect(() => {
     const particpants = liveRank
-      .map((participant) => {
-        if (participant.length !== 0) {
-          return participant[0].summonerName;
-        }
-      })
+      .map(
+        (participant) => participant.length !== 0 && participant[0].summonerName
+      )
       .filter((el) => {
         return el !== undefined;
       });
@@ -301,7 +299,6 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                 </div>
                               );
                             }
-                            return <div>{emblem}</div>;
                           } else if (
                             game.summonerName === player.summonerName &&
                             game.queueType === "RANKED_FLEX_SR" &&
@@ -309,6 +306,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                           ) {
                             return "-";
                           }
+                          return <div>{emblem}</div>;
                         });
                       })
                     : "-"}
@@ -376,7 +374,6 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                 </div>
                               );
                             }
-                            return <div>{emblem}</div>;
                           } else if (
                             game.summonerName === player.summonerName &&
                             game.queueType === "RANKED_SOLO_5x5" &&
@@ -384,6 +381,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                           ) {
                             return "-";
                           }
+                          return <div>{emblem}</div>;
                         });
                       })
                     : "-"}
@@ -626,7 +624,6 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                 </div>
                               );
                             }
-                            return <div>{emblem}</div>;
                           } else if (
                             game.summonerName === player.summonerName &&
                             game.queueType === "RANKED_FLEX_SR" &&
@@ -634,6 +631,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                           ) {
                             return "-";
                           }
+                          return <div>{emblem}</div>;
                         });
                       })
                     : "-"}
@@ -701,7 +699,6 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                                 </div>
                               );
                             }
-                            return <div>{emblem}</div>;
                           } else if (
                             game.summonerName === player.summonerName &&
                             game.queueType === "RANKED_SOLO_5x5" &&
@@ -709,6 +706,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                           ) {
                             return "-";
                           }
+                          return <div>{emblem}</div>;
                         });
                       })
                     : "-"}
