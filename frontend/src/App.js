@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import axios from 'axios'
 import './App.css'
 import Home from './pages/Home'
-import Welcome from './pages/Welcome'
+import { Welcome } from './pages/Welcome'
 import Champions from './pages/Champions'
 import Leaderboard from './pages/Leaderboard'
 import ChampionDetail from './pages/ChampionDetail'
@@ -37,18 +37,21 @@ function App() {
     JSON.parse(localStorage.getItem('searchedSummoner')) || []
   )
   const [fade, setFade] = useState(false)
+  const [showStorage, setShowStorage] = useState(true)
+  const [hideAnimation, setHideAnimation] = useState(true)
+  const [loading, setLoading] = useState(true)
+
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
   let source = axios.CancelToken.source()
-  // Reusable function for changing the Summoner in the whole app
-  const getAccountInfo = (summonerName, region) => {
-    console.log('accountinfo')
 
-    // setTimeout(() => {
-    //   source.cancel()
-    // }, 3000)
+  // Reusable function for changing the Summoner in the whole app
+  const getAccountInfo = (summonerName, rgn) => {
+    setTimeout(() => {
+      source.cancel()
+    }, 3000)
     axios
-      .get(`${url}/getSummonerName/${summonerName}/${region}`, {
+      .get(`${url}/getSummonerName/${summonerName}/${rgn}`, {
         cancelToken: source.token,
       })
       .then((res) => {
@@ -64,9 +67,7 @@ function App() {
         if (res.data.id) {
           const doNotAdd = prevEntries
             .map((entry) => {
-              return (
-                entry[0].includes(summonerName) && entry[1].includes(region)
-              )
+              return entry[0].includes(summonerName) && entry[1].includes(rgn)
             })
             .includes(true)
 
@@ -77,11 +78,7 @@ function App() {
               prevEntriesArr.pop()
             }
 
-            prevEntriesArr.unshift([
-              summonerName,
-              region,
-              res.data.profileIconId,
-            ])
+            prevEntriesArr.unshift([summonerName, rgn, res.data.profileIconId])
 
             setPrevEntries(prevEntriesArr)
           }
@@ -91,10 +88,17 @@ function App() {
 
           //Set session data
           sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
-          sessionStorage.setItem('region', JSON.stringify(region))
+          sessionStorage.setItem('region', JSON.stringify(rgn))
 
-          setRegion(region)
+          setRegion(rgn)
           setRedirect(true)
+
+          window.history.pushState(
+            null,
+            '',
+            `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()} `
+          )
+
           setTimeout(() => {
             setRedirect(false)
           }, 100)
@@ -106,7 +110,6 @@ function App() {
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
     const getChamp = event.target.getAttribute('name')
-    console.log(event.target.getAttribute('name'))
 
     sessionStorage.setItem('champion', getChamp)
 
@@ -147,21 +150,26 @@ function App() {
 
   // onSubmit for input form
   const handleSubmit = (e) => {
-    console.log('sumbit')
     e.preventDefault()
 
     if (e.target.getAttribute('value')) {
+      console.log('inside get attribute')
       getAccountInfo(
         e.target.getAttribute('value'),
         e.target.getAttribute('region'),
         e.target.getAttribute('icon')
       )
+      setShowStorage(false)
+
       setInputValue('')
+      setRegion(e.target.getAttribute('region'))
     } else {
+      console.log('outside')
       if (inputValue.trim() === '') {
         return
       } else {
         getAccountInfo(inputValue, region)
+        setShowStorage(false)
         setInputValue('')
       }
     }
@@ -205,6 +213,30 @@ function App() {
 
   const changeRedirect = () => {
     setRedirect(false)
+  }
+
+  const handleFocus = () => {
+    setHideAnimation(true)
+    setShowStorage(true)
+  }
+
+  const handleBlur = () => {
+    setHideAnimation(false)
+    setTimeout(() => {
+      setShowStorage(false)
+    }, 50)
+  }
+
+  const closeStorage = () => {
+    setShowStorage(false)
+  }
+
+  const skeletonTrue = () => {
+    setLoading(true)
+  }
+
+  const skeletonFalse = () => {
+    setLoading(false)
   }
 
   const changeLeaderBoard = async (rank, division, page) => {
@@ -338,6 +370,12 @@ function App() {
               removeSearchedSummoner={removeSearchedSummoner}
               regionSelect={regionSelect}
               region={region}
+              handleFocus={handleFocus}
+              handleBlur={handleBlur}
+              hideAnimation={hideAnimation}
+              showStorage={showStorage}
+              skeletonTrue={skeletonTrue}
+              skeletonFalse={skeletonFalse}
             />
             <Switch>
               <Route
@@ -366,6 +404,11 @@ function App() {
                       removeSearchedSummoner={removeSearchedSummoner}
                       regionSelect={regionSelect}
                       region={region}
+                      handleFocus={handleFocus}
+                      handleBlur={handleBlur}
+                      hideAnimation={hideAnimation}
+                      showStorage={showStorage}
+                      closeStorage={closeStorage}
                     />
                   )
                 }
@@ -384,45 +427,78 @@ function App() {
                     showNav={showNav}
                     selectChampion={selectChampion}
                     region={region}
+                    loading={loading}
+                    skeletonTrue={skeletonTrue}
+                    skeletonFalse={skeletonFalse}
                   />
                 )}
               />
               <Route
                 path='/champions'
-                render={() => (
-                  <Champions
-                    champInfo={champInfo}
-                    latest={latest}
-                    version={version}
-                    champDetail={champDetail}
-                    selectChampion={selectChampion}
-                    showNav={showNav}
-                    region={region}
-                  />
-                )}
+                render={() =>
+                  redirect ? (
+                    <Redirect
+                      to={`/summoner/${region.toLowerCase()}/${
+                        summonerInfo.name
+                          ? summonerInfo.name.toLowerCase()
+                          : sessionData.name.toLowerCase()
+                      } `}
+                    />
+                  ) : (
+                    <Champions
+                      champInfo={champInfo}
+                      latest={latest}
+                      version={version}
+                      champDetail={champDetail}
+                      selectChampion={selectChampion}
+                      showNav={showNav}
+                      region={region}
+                    />
+                  )
+                }
               />
               <Route
                 path='/leaderboard'
-                render={() => (
-                  <Leaderboard
-                    version={version}
-                    showNav={showNav}
-                    changeLeaderBoard={changeLeaderBoard}
-                    leaderboard={leaderboard}
-                  />
-                )}
+                render={() =>
+                  redirect ? (
+                    <Redirect
+                      to={`/summoner/${region.toLowerCase()}/${
+                        summonerInfo.name
+                          ? summonerInfo.name.toLowerCase()
+                          : sessionData.name.toLowerCase()
+                      } `}
+                    />
+                  ) : (
+                    <Leaderboard
+                      version={version}
+                      showNav={showNav}
+                      changeLeaderBoard={changeLeaderBoard}
+                      leaderboard={leaderboard}
+                    />
+                  )
+                }
               />
               <Route
                 path='/championdetail'
-                render={() => (
-                  <ChampionDetail
-                    version={version}
-                    champDetail={champDetail}
-                    itemObj={backupItem}
-                    showNav={showNav}
-                    changeBackground={changeBackground}
-                  />
-                )}
+                render={() =>
+                  redirect ? (
+                    <Redirect
+                      to={`/summoner/${region.toLowerCase()}/${
+                        summonerInfo.name
+                          ? summonerInfo.name.toLowerCase()
+                          : sessionData.name.toLowerCase()
+                      } `}
+                    />
+                  ) : (
+                    <ChampionDetail
+                      version={version}
+                      champDetail={champDetail}
+                      itemObj={backupItem}
+                      showNav={showNav}
+                      changeBackground={changeBackground}
+                    />
+                  )
+                }
               />
             </Switch>
           </Router>

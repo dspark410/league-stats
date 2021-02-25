@@ -83,7 +83,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
   z-index: 1000;
   color: #e1e1e1;
 }
@@ -159,8 +158,6 @@
 
 .selectContainer select:hover {
   cursor: pointer;
-  background-color: #54425f;
-  /* background-color: #4d3f55; */
   opacity: 1;
   border: none;
   outline: none;
@@ -250,7 +247,6 @@
   width: 98%;
   padding: 10px 8px;
   margin-bottom: 5px;
-
   box-shadow: 0 0 3px #3c3142;
 }
 

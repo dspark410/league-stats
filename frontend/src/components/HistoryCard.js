@@ -4,12 +4,19 @@ import HistoryCardComplex from './HistoryCardComplex'
 import HistoryCardSimple from './HistoryCardSimple'
 import { CSSTransition } from 'react-transition-group'
 
-function HistoryCard({ game, spells, runes, summonerInfo, getPlayerName }) {
+function HistoryCard({
+  game,
+  spells,
+  runes,
+  summonerInfo,
+  getPlayerName,
+  live,
+}) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setOpen(false)
-  }, [game])
+  }, [game, live])
 
   const clickArrow = () => {
     setOpen((prev) => !prev)

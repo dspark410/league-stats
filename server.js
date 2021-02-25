@@ -124,7 +124,7 @@ app.get('/matchList/:id/:region', async (req, res) => {
     )
     res.json(matchListData.data)
   } catch (error) {
-    console.log(error)
+    res.send(error)
   }
 })
 

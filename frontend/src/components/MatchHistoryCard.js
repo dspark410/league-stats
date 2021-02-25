@@ -13,6 +13,7 @@ function MatchHistoryCard({
   playerMatches,
   skeleton,
   region,
+  live,
 }) {
   const visible = playerMatches.length < 7 ? playerMatches.length : 7
   const [gameDetails, setGameDetails] = useState([])
@@ -196,6 +197,7 @@ function MatchHistoryCard({
                   runes={runes}
                   summonerInfo={summonerInfo}
                   getPlayerName={getPlayerName}
+                  live={live}
                 />
               )
             })

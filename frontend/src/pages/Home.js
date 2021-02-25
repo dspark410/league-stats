@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import style from './home.module.css'
 import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoSearchCircle } from 'react-icons/io5'
@@ -14,30 +14,20 @@ function Home({
   inputValue,
   regionSelect,
   version,
+  closeStorage,
+  showStorage,
+  hideAnimation,
+  handleFocus,
+  handleBlur,
 }) {
-  const [showStorage, setShowStorage] = useState(true)
-  const [hideAnimation, setHideAnimation] = useState(true)
-
   const inputEl = useRef(false)
 
   useEffect(() => {
-    setShowStorage(false)
+    closeStorage()
     hideNav()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  const handleFocus = () => {
-    setHideAnimation(true)
-    setShowStorage(true)
-  }
-
-  const handleBlur = () => {
-    setHideAnimation(false)
-    setTimeout(() => {
-      setShowStorage(false)
-    }, 50)
-  }
 
   return (
     <div className={style.homeBackgroundContainer}>

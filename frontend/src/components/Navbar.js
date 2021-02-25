@@ -4,6 +4,7 @@ import style from './navbar.module.css'
 import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoSearchCircle } from 'react-icons/io5'
 import { regions } from '../utils/constant'
+
 function Navbar({
   visibility,
   change,
@@ -14,28 +15,19 @@ function Navbar({
   region,
   inputValue,
   version,
+  showStorage,
+  hideAnimation,
+  handleFocus,
+  handleBlur,
+  skeletonTrue,
 }) {
   const [vis, setVis] = useState(visibility)
-  const [showStorage, setShowStorage] = useState(true)
-  const [hideAnimation, setHideAnimation] = useState(true)
 
   const inputEl = useRef(false)
 
   useEffect(() => {
     setVis(visibility)
   }, [visibility])
-
-  const handleFocus = () => {
-    setHideAnimation(true)
-    setShowStorage(true)
-  }
-
-  const handleBlur = () => {
-    setHideAnimation(false)
-    setTimeout(() => {
-      setShowStorage(false)
-    }, 50)
-  }
 
   return (
     <>
@@ -45,6 +37,7 @@ function Navbar({
             League Stats
           </Link>
         </div>
+
         <div className={style.homeContainer}>
           <div className={style.inputContainer}>
             <div className={style.formContainer}>
@@ -74,7 +67,7 @@ function Navbar({
               </form>
               <AiOutlineSearch onClick={submit} className={style.searchIcon} />
             </div>
-            {showStorage && (
+            {showStorage ? (
               <div
                 className={
                   hideAnimation
@@ -98,6 +91,7 @@ function Navbar({
                 {prevSearches.length === 0 ? (
                   <>
                     <div
+                      onClick={skeletonTrue}
                       onMouseDown={submit}
                       value='mistahpig'
                       region='NA1'
@@ -132,6 +126,7 @@ function Navbar({
                       </div>
                     </div>
                     <div
+                      onClick={skeletonTrue}
                       onMouseDown={submit}
                       value='dambitwes'
                       region='NA1'
@@ -168,6 +163,7 @@ function Navbar({
                 ) : (
                   prevSearches.map((summoner) => (
                     <div
+                      onClick={skeletonTrue}
                       onMouseDown={submit}
                       value={summoner[0]}
                       region={summoner[1]}
@@ -215,7 +211,7 @@ function Navbar({
                   ))
                 )}
               </div>
-            )}
+            ) : null}
           </div>
         </div>
 
