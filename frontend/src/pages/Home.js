@@ -19,7 +19,6 @@ function Home({
   hideAnimation,
   handleFocus,
   handleBlur,
-  inputRef,
 }) {
   const inputEl = useRef(false);
   useEffect(() => {
@@ -56,7 +55,7 @@ function Home({
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={inputValue}
-                ref={(inputEl, inputRef)}
+                ref={inputEl}
               />
             </form>
             <AiOutlineSearch onClick={submit} className={style.searchIcon} />
