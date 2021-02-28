@@ -21,11 +21,15 @@ function Navbar({
   handleBlur,
   skeletonTrue,
   summonerInfo,
-  inputRef,
 }) {
   const [vis, setVis] = useState(visibility);
 
   const inputEl = useRef(false);
+
+  const searchInput = (event) => {
+    submit(event);
+    inputEl.current.blur();
+  };
 
   useEffect(() => {
     setVis(visibility);
@@ -43,7 +47,7 @@ function Navbar({
         <div className={style.homeContainer}>
           <div className={style.inputContainer}>
             <div className={style.formContainer}>
-              <form onSubmit={submit} className={style.selectContainer}>
+              <form onSubmit={searchInput} className={style.selectContainer}>
                 <select
                   value={region}
                   onChange={regionSelect}
@@ -64,10 +68,13 @@ function Navbar({
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   value={inputValue}
-                  ref={(inputEl, inputRef)}
+                  ref={inputEl}
                 />
               </form>
-              <AiOutlineSearch onClick={submit} className={style.searchIcon} />
+              <AiOutlineSearch
+                onClick={searchInput}
+                className={style.searchIcon}
+              />
             </div>
             {showStorage ? (
               <div
@@ -94,7 +101,7 @@ function Navbar({
                   <>
                     <div
                       // onClick={skeletonTrue}
-                      onMouseDown={submit}
+                      onMouseDown={searchInput}
                       value="mistahpig"
                       region="NA1"
                       icon="7"
@@ -129,7 +136,7 @@ function Navbar({
                     </div>
                     <div
                       // onClick={skeletonTrue}
-                      onMouseDown={submit}
+                      onMouseDown={searchInput}
                       value="Dambitwes"
                       region="NA1"
                       icon="3466"
@@ -177,7 +184,7 @@ function Navbar({
                             summonerInfo.name.toLowerCase() &&
                           summoner[1] === region
                             ? handleBlur
-                            : submit
+                            : searchInput
                         }
                         value={summoner[0]}
                         region={summoner[1]}

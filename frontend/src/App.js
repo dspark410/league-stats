@@ -40,7 +40,7 @@ function App() {
   const url = process.env.REACT_APP_API_URL || "";
   let source = axios.CancelToken.source();
 
-  const inputRef = useRef();
+  // const inputRef = useRef();
   const history = useHistory();
 
   // Reusable function for changing the Summoner in the whole app
@@ -159,8 +159,8 @@ function App() {
         e.target.getAttribute("icon")
       );
       handleBlur();
-      console.log(inputRef);
-      inputRef.current.blur();
+      // console.log(inputRef);
+      // inputRef.current.blur();
       setInputValue("");
       setRegion(e.target.getAttribute("region"));
     } else {
@@ -169,7 +169,7 @@ function App() {
       } else {
         getAccountInfo(inputValue, region);
         handleBlur();
-        inputRef.current.blur();
+        // inputRef.current.blur();
         setInputValue("");
       }
     }
@@ -378,7 +378,7 @@ function App() {
               skeletonTrue={skeletonTrue}
               skeletonFalse={skeletonFalse}
               summonerInfo={summonerInfo}
-              inputRef={inputRef}
+              // inputRef={inputRef}
             />
           ) : sessionData?.name ? (
             <Navbar
@@ -400,7 +400,7 @@ function App() {
               skeletonTrue={skeletonTrue}
               skeletonFalse={skeletonFalse}
               summonerInfo={sessionData}
-              inputRef={inputRef}
+              // inputRef={inputRef}
             />
           ) : null}
           <Switch>
@@ -435,7 +435,7 @@ function App() {
                     hideAnimation={hideAnimation}
                     showStorage={showStorage}
                     closeStorage={closeStorage}
-                    inputRef={inputRef}
+                    // inputRef={inputRef}
                   />
                 )
               }
