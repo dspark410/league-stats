@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import style from "./navbar.module.css";
 import { AiOutlineSearch, AiOutlineInfoCircle } from "react-icons/ai";
 import { IoSearchCircle } from "react-icons/io5";
@@ -23,7 +23,7 @@ function Navbar({
   summonerInfo,
 }) {
   const [vis, setVis] = useState(visibility);
-
+  const currentLocation = useLocation();
   const inputEl = useRef(false);
 
   const searchInput = (event) => {
@@ -35,7 +35,7 @@ function Navbar({
     setVis(visibility);
   }, [visibility]);
 
-  return (
+  return version ? (
     <>
       <nav className={style.navbar} style={{ display: !vis ? "none" : "flex" }}>
         <div className={style.navHeader}>
@@ -182,7 +182,8 @@ function Navbar({
                         onMouseDown={
                           summoner[0].toLowerCase() ===
                             summonerInfo.name.toLowerCase() &&
-                          summoner[1] === region
+                          summoner[1] === region &&
+                          currentLocation.pathname.includes("summoner")
                             ? handleBlur
                             : searchInput
                         }
@@ -246,6 +247,8 @@ function Navbar({
         </ul>
       </nav>
     </>
+  ) : (
+    ""
   );
 }
 

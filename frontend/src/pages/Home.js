@@ -28,7 +28,7 @@ function Home({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  return version ? (
     <div className={style.homeBackgroundContainer}>
       <div className={style.homeContainer}>
         <div className={style.inputContainer}>
@@ -198,6 +198,8 @@ function Home({
         </div>
       </div>
     </div>
+  ) : (
+    ""
   );
 }
 

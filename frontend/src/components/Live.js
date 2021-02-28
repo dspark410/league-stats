@@ -239,7 +239,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                 <div className={style.soloRank}>
                   {summoner.includes(player.summonerName)
                     ? liveRank.map((rank) => {
-                        return rank.map((game) => {
+                        return rank.map((game, i) => {
                           let emblem;
                           if (
                             game.summonerName === player.summonerName &&
@@ -251,7 +251,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               game.tier === "MASTER"
                             ) {
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
@@ -285,7 +285,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               }
 
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
@@ -326,7 +326,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               game.tier === "MASTER"
                             ) {
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
@@ -360,7 +360,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               }
 
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
@@ -576,7 +576,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               game.tier === "MASTER"
                             ) {
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
@@ -610,7 +610,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               }
 
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
@@ -651,7 +651,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               game.tier === "MASTER"
                             ) {
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
@@ -685,7 +685,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                               }
 
                               emblem = (
-                                <div className={style.emblemContainer}>
+                                <div key={i} className={style.emblemContainer}>
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
