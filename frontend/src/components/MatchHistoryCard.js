@@ -171,9 +171,12 @@ function MatchHistoryCard({
           return
         }
 
-        const matchObj = createGameObject(match, queues, champInfo)
-        gameDetailsArr.push(matchObj)
-        setGameDetails(gameDetailsArr)
+        Promise.resolve(createGameObject(match, queues, champInfo)).then(
+          (res) => {
+            gameDetailsArr.push(res)
+            setGameDetails(gameDetailsArr)
+          }
+        )
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
