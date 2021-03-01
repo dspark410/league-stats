@@ -100,7 +100,7 @@ function App() {
           setRedirect(true);
 
           history.push(
-            `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()} `
+            `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()}`
           );
 
           //Set session data
@@ -376,13 +376,11 @@ function App() {
 
   // useEffect(() => {
   //   if (location.pathname.includes("summoner")) {
-  //     console.log(
-  //       summonerInfo.name.split(" "),
-  //       window.location.href.split("/")[5].split(" ")
-  //     );
-  //     const summonerCall = location.pathname.split("/");
+  //     const summonerCall = decodeURIComponent(location.pathname).split("/");
 
-  //     if (summonerInfo.name.toLowerCase() + " " !== summonerCall[3]) {
+  //     if (
+  //       `/summoner/na1/${summonerInfo.name.toLowerCase()} ` !== summonerCall
+  //     ) {
   //       getAccountInfo(summonerCall[3], summonerCall[2].toUpperCase());
   //     }
   //   }
