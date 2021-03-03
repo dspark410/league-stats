@@ -147,7 +147,7 @@
   font-weight: bold;
   text-align: center;
   margin-top: -15px;
-  min-width: 80px;
+  min-width: 145px;
   font-size: 1.3em;
   font-weight: 300;
   color: #a99ea5;
@@ -305,7 +305,7 @@
 
 .name1 {
   text-align: end;
-  min-width: 80px;
+  min-width: 145px;
   max-height: 20px;
 }
 
@@ -316,7 +316,7 @@
 
 .name2 {
   text-align: start;
-  min-width: 80px;
+  min-width: 145px;
   max-height: 20px;
 }
 
@@ -362,14 +362,14 @@
 
 .summonerName1 {
   color: #9cc4ff;
-  min-width: 80px;
+  min-width: 145px;
   max-height: 20px;
   text-align: end;
 }
 
 .summonerName2 {
   color: #9cc4ff;
-  min-width: 80px;
+  min-width: 145px;
   max-height: 20px;
   text-align: start;
 }

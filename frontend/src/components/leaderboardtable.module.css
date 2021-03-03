@@ -1,0 +1,138 @@
+.tableContainer {
+  margin: 10px auto;
+  color: #e1e1e1;
+  font-weight: 600;
+}
+
+.tbody {
+  width: 100vw;
+}
+
+.leaderHeader {
+  color: #e1e1e1;
+  text-align: center;
+  margin: 100px 0px 30px 0px;
+  font-size: 50px;
+}
+.rowHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #755c83;
+  padding: 12px 0px;
+  margin: 7px 0px;
+  border-radius: 5px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #7a6b83;
+  padding: 8px 0px;
+  margin: 7px 0px;
+  border-radius: 5px;
+}
+
+.td {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 230px;
+}
+
+.tdName {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 260px;
+}
+
+.name:hover {
+  cursor: pointer;
+}
+
+.tdTier {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 200px;
+}
+
+.number {
+  margin-right: -100px;
+  margin-left: 15px;
+}
+
+.Tier {
+  color: #5786cc;
+}
+
+.points {
+  color: #e2c0f7;
+}
+.tdWinRatio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 250px;
+  margin-left: -140px;
+}
+
+.winRatio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.winRatioHeader {
+  left: -100px;
+}
+
+.winsContainer {
+  min-width: 50px;
+  text-align: center;
+  margin-right: 10px;
+}
+.wins {
+  color: #679d4e;
+}
+
+.lossContainer {
+  min-width: 50px;
+  text-align: center;
+}
+
+.losses {
+  color: #bd5757;
+}
+
+.ratioContainer {
+  text-align: center;
+  min-width: 50px;
+}
+
+.winRatio span:last-child {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.profileIcon {
+  width: 30px;
+  height: auto;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

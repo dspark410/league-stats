@@ -28,7 +28,11 @@ function Champions({
   useEffect(() => {
     //show nav
     showNav()
-
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto',
+    })
     setTimeout(() => {
       axios.get(`${url}/getChampionRotation/${region}`).then((res) => {
         // Store array of numbers for free champion rotation in variable

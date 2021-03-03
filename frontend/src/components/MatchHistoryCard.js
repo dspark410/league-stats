@@ -13,6 +13,7 @@ function MatchHistoryCard({
   playerMatches,
   region,
   live,
+  skeletonFalse,
 }) {
   const visible = playerMatches.length < 7 ? playerMatches.length : 7
   const [gameDetails, setGameDetails] = useState([])
@@ -175,6 +176,9 @@ function MatchHistoryCard({
           (res) => {
             gameDetailsArr.push(res)
             setGameDetails(gameDetailsArr)
+            setTimeout(() => {
+              skeletonFalse()
+            }, 2000)
           }
         )
       })

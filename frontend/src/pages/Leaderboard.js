@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import style from './leaderboard.module.css'
-import Paginate from '../components/Paginate'
-
+import LeaderboardTable from '../components/LeaderboardTable'
+import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
 function Leaderboard({
   version,
   showNav,
@@ -9,14 +9,19 @@ function Leaderboard({
   leaderboard,
   postsPerPage,
   totalPosts,
+  totalPosts2,
   paginate,
   currentPage,
   region,
   getPlayerName,
+  changeLeaderBoardPage,
+  leaderboardDiamondToIron,
+  postsperPageDiamondToIron,
 }) {
   const [rank, setRank] = useState('CHALLENGER')
   const [division, setDivision] = useState('I')
   const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     showNav()
@@ -24,11 +29,12 @@ function Leaderboard({
   }, [])
 
   useEffect(() => {
-    changeLeaderBoard(rank)
     if (rank === 'CHALLENGER' || rank === 'GRANDMASTER' || rank === 'MASTER') {
       setMapDivision(['I'])
+      changeLeaderBoard(rank)
     } else {
       setMapDivision(['I', 'II', 'III', 'IV'])
+      changeLeaderBoardPage(rank, division, page)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rank, division])
@@ -62,103 +68,35 @@ function Leaderboard({
               </option>
             ))}
           </select>
-
-          {/* <button
-            className={page === 1 ? style.none : style.Btn}
-            onClick={() =>
-              page === 1 ? setPage(1) : setPage((prevPage) => prevPage - 1)
-            }
-          >
-            &lt;
-          </button>
-          <button
-            className={style.Btn}
-            onClick={() => setPage((prevPage) => prevPage + 1)}
-          >
-            &gt;
-          </button>
-          <p>PAGE: {page}</p> */}
         </div>
-        <table className={style.tableContainer}>
-          <tbody className={style.tbody}>
-            <tr className={`${style.rowHeader}`}>
-              <th className={`${style.td} ${style.number}`}>#</th>
-              <th className={style.tdName}>Summoners</th>
-              <th className={style.tdTier}>Tier</th>
-              <th className={style.td}>LP</th>
-              <th className={`${style.tdWinRatio} ${style.winRatioHeader}`}>
-                Win Ratio
-              </th>
-            </tr>
-            {leaderboard.map((summoner, i) => (
-              <tr className={`${style.row}`} key={i}>
-                <td className={`${style.td} ${style.number}`}>
-                  {summoner.number}.
-                </td>
-                <td className={style.tdName}>
-                  {summoner.icon ? (
-                    <img
-                      alt='profile icon'
-                      className={style.profileIcon}
-                      // Grab profile icon
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
-                    />
-                  ) : null}
-                  <div
-                    className={style.name}
-                    name={summoner.summonerName}
-                    region={region}
-                    icon={summoner.icon}
-                    onClick={getPlayerName}
-                  >
-                    {summoner.summonerName}
-                  </div>
-                </td>
-                <td className={`${style.tdTier} ${style.Tier}`}>
-                  {`${summoner.tier} ${summoner.rank}`}
-                </td>
-                <td className={`${style.td} ${style.points}`}>
-                  {summoner.leaguePoints}
-                </td>
-                <td className={`${style.tdWinRatio}`}>
-                  <div className={style.winRatio}>
-                    <div className={style.winsContainer}>
-                      <div className={style.wins}>{summoner.wins} W</div>
-                    </div>
-                    <div
-                      style={{
-                        minWidth: '25px',
-                        textAlign: 'center',
-                      }}
-                    >
-                      <div> - </div>
-                    </div>
-                    <div className={style.lossContainer}>
-                      <div className={style.losses}>{summoner.losses} L</div>
-                    </div>
-
-                    <div className={style.ratioContainer}>
-                      <div>
-                        {(
-                          (summoner.wins / (summoner.wins + summoner.losses)) *
-                          100
-                        ).toFixed(0)}
-                        %
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <Paginate
-          postsPerPage={postsPerPage}
-          totalPosts={totalPosts}
-          paginate={paginate}
-          currentPage={currentPage}
-          rank={rank}
-        />
+        {rank === 'CHALLENGER' ||
+        rank === 'GRANDMASTER' ||
+        rank === 'MASTER' ? (
+          <LeaderboardTable
+            version={version}
+            leaderboard={leaderboard}
+            postsPerPage={postsPerPage}
+            totalPosts={totalPosts}
+            paginate={paginate}
+            currentPage={currentPage}
+            rank={rank}
+            region={region}
+            getPlayerName={getPlayerName}
+          />
+        ) : (
+          <LeaderboardDiamondToIron
+            version={version}
+            leaderboard={leaderboardDiamondToIron}
+            postsPerPage={postsperPageDiamondToIron}
+            totalPosts={totalPosts2}
+            paginate={paginate}
+            currentPage={currentPage}
+            rank={rank}
+            region={region}
+            getPlayerName={getPlayerName}
+            page={page}
+          />
+        )}
       </div>
     </>
   )

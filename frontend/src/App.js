@@ -33,6 +33,8 @@ function App() {
   const [backupItem, setBackupItem] = useState()
   const [navVisibility, setNavVisibility] = useState(false)
   const [leaderboard, setLeaderBoard] = useState([])
+  const [leaderboardDiamondToIron, setLeaderBoardDiamondToIron] = useState([])
+
   const [background, setBackground] = useState(BrandBackground)
   const [prevEntries, setPrevEntries] = useState(
     JSON.parse(localStorage.getItem('searchedSummoner')) || []
@@ -43,8 +45,8 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [postsPerPage, setPostsPerPage] = useState(25)
-
+  const [postsPerPage] = useState(25)
+  const [postsperPageDiamondToIron] = useState(41)
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
   const url = process.env.REACT_APP_API_URL || ''
   let source = axios.CancelToken.source()
@@ -262,28 +264,35 @@ function App() {
     setLoading(false)
   }
 
-  // const changeLeaderBoard = async (rank, division, page) => {
-  //   let leaderboardData
-  //   setTimeout(() => {
-  //     source.cancel()
-  //   }, 3000)
-  //   await axios
-  //     .get(`${url}/leaderboard/${region}/${rank}/${division}/${page}`, {
-  //       cancelToken: source.token,
-  //     })
-  //     .then((res) => {
-  //       leaderboardData = res.data
-  //     })
-  //   return Promise.all(
-  //     leaderboardData.slice(0, 5).map((player) => {
-  //       return axios
-  //         .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
-  //         .then((res) => {
-  //           player.icon = res.data.profileIconId
-  //         })
-  //     })
-  //   ).then(() => setLeaderBoard(leaderboardData))
-  // }
+  const changeLeaderBoardPage = async (rank, division, page) => {
+    let leaderboardData
+    setTimeout(() => {
+      source.cancel()
+    }, 3000)
+    await axios
+      .get(`${url}/leaderboard/${region}/${rank}/${division}/${page}`, {
+        cancelToken: source.token,
+      })
+      .then((res) => {
+        res.data
+          .sort((a, b) => b.leaguePoints - a.leaguePoints)
+          .forEach((entry, i) => {
+            entry.number = i + 1
+          })
+        leaderboardData = res.data
+      })
+    return Promise.all(
+      leaderboardData.slice(0, 5).map((player) => {
+        return axios
+          .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
+          .then((res) => {
+            player.icon = res.data.profileIconId
+          })
+      })
+    ).then(() => {
+      setLeaderBoardDiamondToIron(leaderboardData)
+    })
+  }
 
   const changeLeaderBoard = async (tier) => {
     let leaderboardData
@@ -317,12 +326,24 @@ function App() {
 
   const indexOfLastPost = currentPage * postsPerPage
   const indexofFirstPost = indexOfLastPost - postsPerPage
+
+  const indexofLastPost2 = currentPage * postsperPageDiamondToIron
+  const indexofFirstPost2 = indexofLastPost2 * postsperPageDiamondToIron
+
   const currentPosts = leaderboard.slice(indexofFirstPost, indexOfLastPost)
 
+  const currenPostsDiamondToIron = leaderboardDiamondToIron.slice(
+    indexofFirstPost2,
+    indexofLastPost2
+  )
   // change page
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber)
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
   }
 
   useEffect(() => {
@@ -334,7 +355,7 @@ function App() {
       .get('https://ddragon.leagueoflegends.com/api/versions.json')
       .then((res) => {
         // Save current version into state
-        setVersion(res.data[0])
+        setVersion(res.data[1])
         axios
           .get(
             // Link to champion.json from Riot
@@ -575,10 +596,13 @@ function App() {
                     version={version}
                     showNav={showNav}
                     changeLeaderBoard={changeLeaderBoard}
-                    // leaderboard={leaderboard}
+                    changeLeaderBoardPage={changeLeaderBoardPage}
                     leaderboard={currentPosts}
+                    leaderboardDiamondToIron={currenPostsDiamondToIron}
                     postsPerPage={postsPerPage}
+                    postsperPageDiamondToIron={postsperPageDiamondToIron}
                     totalPosts={leaderboard.length}
+                    totalPosts2={leaderboardDiamondToIron.length}
                     paginate={paginate}
                     currentPage={currentPage}
                     region={region}

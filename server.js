@@ -145,19 +145,20 @@ app.get('/matchDetails/:id/:region', async (req, res) => {
   }
 })
 
-// // Call to get all solo ranks
-// app.get('/leaderboard/:region/:rank/:division/:page', async (req, res) => {
-//   try {
-//     const api = process.env.API_KEY
-//     const region = req.params.region
-//     const leaderboardData = await axios.get(
-//       `https://${region}.api.riotgames.com/lol/league-exp/v4/entries/RANKED_SOLO_5x5/${req.params.rank}/${req.params.division}?page=${req.params.page}&api_key=${api}`
-//     )
-//     res.json(leaderboardData.data)
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
+// Call to get all solo ranks
+app.get('/leaderboard/:region/:rank/:division/:page', async (req, res) => {
+  try {
+    const api = process.env.API_KEY
+    const region = req.params.region
+
+    const leaderboardData = await axios.get(
+      `https://${region}.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/${req.params.rank}/${req.params.division}?page=${req.params.page}&api_key=${api}`
+    )
+    res.json(leaderboardData.data)
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 // Call to get challenger solo ranks
 app.get('/leaderboard/:tier/:region', async (req, res) => {
