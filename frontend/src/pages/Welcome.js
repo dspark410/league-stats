@@ -68,6 +68,7 @@ export const Welcome = ({
     const matchList = await axios.get(`${url}/matchList/${id}/${region}`, {
       cancelToken: source.token,
     })
+
     if (matchList.status >= 500) {
       return getMatchList(id, region)
     }

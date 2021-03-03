@@ -38,7 +38,7 @@ function Paginate({ postsPerPage, totalPosts, paginate, currentPage, rank }) {
 
         paginate(start - 9)
       }
-    } else if (begin < 10) {
+    } else if (begin <= 10) {
       setBegin(0)
       setEnd(10)
       paginate(1)
