@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import style from './leaderboardtable.module.css'
-import Paginate from './Paginate'
+import React, { useState } from "react";
+import style from "./leaderboardtable.module.css";
+import Paginate from "./Paginate";
 
 function LeaderboardDiamondToIron({
   version,
@@ -13,6 +13,8 @@ function LeaderboardDiamondToIron({
   region,
   getPlayerName,
   page,
+  nextPage,
+  prevPage,
 }) {
   return (
     <>
@@ -36,7 +38,7 @@ function LeaderboardDiamondToIron({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -65,8 +67,8 @@ function LeaderboardDiamondToIron({
                   </div>
                   <div
                     style={{
-                      minWidth: '25px',
-                      textAlign: 'center',
+                      minWidth: "25px",
+                      textAlign: "center",
                     }}
                   >
                     <div> - </div>
@@ -96,9 +98,14 @@ function LeaderboardDiamondToIron({
         paginate={paginate}
         currentPage={currentPage}
         rank={rank}
+        firstLast={false}
+        table={false}
+        nextPage={nextPage}
+        prevPage={prevPage}
+        page={page}
       />
     </>
-  )
+  );
 }
 
-export default LeaderboardDiamondToIron
+export default LeaderboardDiamondToIron;

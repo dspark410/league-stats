@@ -1,6 +1,6 @@
-import React from 'react'
-import style from './leaderboardtable.module.css'
-import Paginate from './Paginate'
+import React from "react";
+import style from "./leaderboardtable.module.css";
+import Paginate from "./Paginate";
 
 function LeaderboardTable({
   version,
@@ -34,7 +34,7 @@ function LeaderboardTable({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -63,8 +63,8 @@ function LeaderboardTable({
                   </div>
                   <div
                     style={{
-                      minWidth: '25px',
-                      textAlign: 'center',
+                      minWidth: "25px",
+                      textAlign: "center",
                     }}
                   >
                     <div> - </div>
@@ -94,9 +94,11 @@ function LeaderboardTable({
         paginate={paginate}
         currentPage={currentPage}
         rank={rank}
+        firstLast={true}
+        table={true}
       />
     </>
-  )
+  );
 }
 
-export default LeaderboardTable
+export default LeaderboardTable;
