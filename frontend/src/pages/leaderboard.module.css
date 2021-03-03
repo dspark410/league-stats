@@ -1,5 +1,6 @@
 .leaderboardContainer {
   margin-bottom: 100px;
+  animation: fadeIn ease 1500ms;
 }
 
 .selectContainer {
@@ -20,6 +21,7 @@
   font-size: 16px;
   font-weight: 600;
   margin-right: 15px;
+  min-width: 58px;
 }
 .selectContainer select:hover {
   cursor: pointer;
@@ -86,8 +88,14 @@
   font-size: 50px;
 }
 .rowHeader {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #755c83;
+  padding: 12px 0px;
+  margin: 7px 0px;
+  border-radius: 5px;
 }
 
 .row {
@@ -96,30 +104,34 @@
   align-items: center;
   margin-bottom: 10px;
   background-color: #7a6b83;
-  padding: 5px;
-  margin: 0;
-  border: none;
+  padding: 8px 0px;
+  margin: 7px 0px;
+  border-radius: 5px;
 }
 
-.row:nth-child(1) {
-  background-color: #7a6b83;
-  color: #e1e1e1;
-  border: none;
-}
-
-.row:nth-child(even) {
-  background-color: #755c83;
-}
-
-.row:last-child {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
 .td {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  min-width: 250px;
+  min-width: 230px;
+}
+
+.tdName {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 260px;
+}
+
+.name:hover {
+  cursor: pointer;
+}
+
+.tdTier {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 200px;
 }
 
 .number {
@@ -128,7 +140,7 @@
 }
 
 .Tier {
-  color: #3788e4;
+  color: #5786cc;
 }
 
 .points {
@@ -136,16 +148,15 @@
 }
 .tdWinRatio {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  min-width: 200px;
-  margin-left: -175px;
-  margin-right: 15px;
+  min-width: 250px;
+  margin-left: -140px;
 }
 
 .winRatio {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -153,11 +164,27 @@
   left: -100px;
 }
 
-.wins {
-  color: rgb(94, 204, 94);
+.winsContainer {
+  min-width: 50px;
+  text-align: center;
+  margin-right: 10px;
 }
+.wins {
+  color: #679d4e;
+}
+
+.lossContainer {
+  min-width: 50px;
+  text-align: center;
+}
+
 .losses {
-  color: rgb(219, 101, 101);
+  color: #bd5757;
+}
+
+.ratioContainer {
+  text-align: center;
+  min-width: 50px;
 }
 
 .winRatio span:last-child {
@@ -172,4 +199,13 @@
   height: auto;
   margin-right: 5px;
   border-radius: 50%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

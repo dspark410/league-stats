@@ -303,10 +303,6 @@
   margin: 1px 3px 1px 1px;
 }
 
-.sixthCard img:hover {
-  cursor: pointer;
-}
-
 .name1 {
   text-align: end;
   min-width: 80px;
@@ -356,10 +352,6 @@
   height: auto;
   border-radius: 50%;
   margin: 1px 3px 1px 1px;
-}
-
-.seventhCard img:hover {
-  cursor: pointer;
 }
 
 .historyCard2 {

@@ -1,0 +1,35 @@
+.ul {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+  list-style-type: none;
+}
+
+.li {
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  color: #e1e1e1;
+  margin-right: 10px;
+  width: 30px;
+  background-color: #7a6b83;
+  padding: 3px 3px;
+  border-radius: 3px;
+}
+
+.liNone {
+  text-align: center;
+  font-weight: bold;
+  cursor: default;
+  color: #e1e1e1;
+  margin-right: 10px;
+  width: 30px;
+  background-color: #7a6b83;
+  padding: 3px 3px;
+  border-radius: 3px;
+  opacity: 0.4;
+}
+
+.color {
+  background-color: rgb(61, 50, 80);
+}
