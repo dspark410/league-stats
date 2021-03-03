@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import style from "./leaderboardtable.module.css";
-import Paginate from "./Paginate";
-
+import React, { useState } from 'react'
+import style from './leaderboardtable.module.css'
+import Paginate from './Paginate'
+import { AiOutlineInfoCircle } from 'react-icons/ai'
 function LeaderboardDiamondToIron({
   version,
   leaderboard,
@@ -18,8 +18,12 @@ function LeaderboardDiamondToIron({
 }) {
   return (
     <>
-      <p>ranking no sorted</p>
       <table className={style.tableContainer}>
+        <div className={style.sorted}>
+          <AiOutlineInfoCircle className={style.infoIcon} />
+          <div>Diamond - Iron tiers are sorted every 5 pages.</div>
+        </div>
+
         <tbody className={style.tbody}>
           <tr className={`${style.rowHeader}`}>
             <th className={`${style.td} ${style.number}`}>#</th>
@@ -38,7 +42,7 @@ function LeaderboardDiamondToIron({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt="profile icon"
+                    alt='profile icon'
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -67,8 +71,8 @@ function LeaderboardDiamondToIron({
                   </div>
                   <div
                     style={{
-                      minWidth: "25px",
-                      textAlign: "center",
+                      minWidth: '25px',
+                      textAlign: 'center',
                     }}
                   >
                     <div> - </div>
@@ -105,7 +109,7 @@ function LeaderboardDiamondToIron({
         page={page}
       />
     </>
-  );
+  )
 }
 
-export default LeaderboardDiamondToIron;
+export default LeaderboardDiamondToIron

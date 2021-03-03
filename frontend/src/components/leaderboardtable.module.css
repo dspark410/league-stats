@@ -136,3 +136,16 @@
     opacity: 1;
   }
 }
+
+.infoIcon {
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.sorted {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 500;
+}

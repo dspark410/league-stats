@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import style from "./leaderboard.module.css";
-import LeaderboardTable from "../components/LeaderboardTable";
-import LeaderboardDiamondToIron from "../components/LeaderboardDiamondToIron";
+import React, { useState, useEffect } from 'react'
+import style from './leaderboard.module.css'
+import LeaderboardTable from '../components/LeaderboardTable'
+import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
 function Leaderboard({
   version,
   showNav,
@@ -18,36 +18,37 @@ function Leaderboard({
   leaderboardDiamondToIron,
   postsperPageDiamondToIron,
   fullLeaderboard,
+  setPagetoOne,
 }) {
-  const [rank, setRank] = useState("CHALLENGER");
-  const [division, setDivision] = useState("I");
-  const [mapDivision, setMapDivision] = useState(["I", "II", "III", "IV"]);
-  const [page, setPage] = useState(1);
+  const [rank, setRank] = useState('CHALLENGER')
+  const [division, setDivision] = useState('I')
+  const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    showNav();
+    showNav()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
-    if (rank === "CHALLENGER" || rank === "GRANDMASTER" || rank === "MASTER") {
-      setMapDivision(["I"]);
-      changeLeaderBoard(rank);
+    if (rank === 'CHALLENGER' || rank === 'GRANDMASTER' || rank === 'MASTER') {
+      setMapDivision(['I'])
+      changeLeaderBoard(rank)
     } else {
-      setMapDivision(["I", "II", "III", "IV"]);
-      changeLeaderBoardPage(rank, division, page);
+      setMapDivision(['I', 'II', 'III', 'IV'])
+      changeLeaderBoardPage(rank, division, page)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rank, division, page]);
+  }, [rank, division, page])
 
   const nextPage = () => {
-    console.log(fullLeaderboard);
+    console.log(fullLeaderboard)
     if (fullLeaderboard.length < 205) {
-      return;
+      return
     } else {
-      setPage((prev) => prev + 1);
+      setPage((prev) => prev + 1)
     }
-  };
+  }
 
   return (
     <>
@@ -56,38 +57,39 @@ function Leaderboard({
         <div className={style.selectContainer}>
           <select
             onChange={(e) => {
-              setRank(e.target.value);
-              setPage(1);
+              setRank(e.target.value)
+              setPage(1)
             }}
           >
-            <option defaultValue value="CHALLENGER">
+            <option defaultValue value='CHALLENGER'>
               Challenger
             </option>
-            <option value="GRANDMASTER">GRANDMASTER</option>
-            <option value="MASTER">MASTER</option>
-            <option value="DIAMOND">DIAMOND</option>
-            <option value="PLATINUM">PLATINUM</option>
-            <option value="GOLD">GOLD</option>
-            <option value="SILVER">SILVER</option>
-            <option value="BRONZE">BRONZE</option>
-            <option value="IRON">IRON</option>
+            <option value='GRANDMASTER'>GRANDMASTER</option>
+            <option value='MASTER'>MASTER</option>
+            <option value='DIAMOND'>DIAMOND</option>
+            <option value='PLATINUM'>PLATINUM</option>
+            <option value='GOLD'>GOLD</option>
+            <option value='SILVER'>SILVER</option>
+            <option value='BRONZE'>BRONZE</option>
+            <option value='IRON'>IRON</option>
           </select>
           <select
             onChange={(e) => {
-              setDivision(e.target.value);
-              setPage(1);
+              setDivision(e.target.value)
+              setPage(1)
+              setPagetoOne()
             }}
           >
             {mapDivision.map((div, i) => (
-              <option key={i} defaultValue={div === "I"} value={div}>
+              <option key={i} defaultValue={div === 'I'} value={div}>
                 {div}
               </option>
             ))}
           </select>
         </div>
-        {rank === "CHALLENGER" ||
-        rank === "GRANDMASTER" ||
-        rank === "MASTER" ? (
+        {rank === 'CHALLENGER' ||
+        rank === 'GRANDMASTER' ||
+        rank === 'MASTER' ? (
           <LeaderboardTable
             version={version}
             leaderboard={leaderboard}
@@ -113,14 +115,14 @@ function Leaderboard({
             page={page}
             nextPage={nextPage}
             prevPage={() => {
-              setPage((prev) => prev - 1);
+              setPage((prev) => prev - 1)
             }}
             fullLeaderboard={fullLeaderboard}
           />
         )}
       </div>
     </>
-  );
+  )
 }
 
-export default Leaderboard;
+export default Leaderboard
