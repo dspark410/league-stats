@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import style from "./historycardcomplex.module.css";
 import Tooltip from "./Tooltip";
 import ItemHistory from "./ItemHistory";
@@ -16,13 +16,12 @@ function HistoryCardComplex({
 }) {
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-  let teamOne;
-  let teamTwo;
 
   const sortByLane = (arr) => {
     const playerArr = [];
     arr.forEach((player) => {
       const lane = player.timeline.lane;
+      const role = player.timeline.role;
 
       if (lane !== "NONE") {
         switch (lane) {
@@ -36,8 +35,8 @@ function HistoryCardComplex({
             playerArr[2] = player;
             break;
           case "BOTTOM":
-            playerArr[3] = player;
-            playerArr[4] = player;
+            if (role === "DUO_CARRY") playerArr[3] = player;
+            if (role === "DUO_SUPPORT") playerArr[4] = player;
             break;
           default:
             return;
@@ -48,17 +47,15 @@ function HistoryCardComplex({
     return playerArr;
   };
 
-  useLayoutEffect(() => {
-    teamOne = game.participants.filter((participant) => {
-      return participant.teamId === 100;
-    });
+  const teamOne = game.participants.filter((participant) => {
+    return participant.teamId === 100;
+  });
 
-    const teamOneDisplay = sortByLane(teamOne);
+  //const teamOneDisplay = sortByLane(teamOne);
 
-    teamTwo = game.participants.filter((participant) => {
-      return participant.teamId === 200;
-    });
-  }, []);
+  const teamTwo = game.participants.filter((participant) => {
+    return participant.teamId === 200;
+  });
 
   return (
     <div
