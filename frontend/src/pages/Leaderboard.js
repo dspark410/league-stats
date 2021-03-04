@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import style from './leaderboard.module.css'
 import LeaderboardTable from '../components/LeaderboardTable'
 import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
+import LeaderboardSkeleton from './LeaderboardSkeleton'
+
 function Leaderboard({
   version,
   showNav,
@@ -24,13 +26,18 @@ function Leaderboard({
   const [division, setDivision] = useState('I')
   const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
   const [page, setPage] = useState(1)
-
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     showNav()
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
+    setLoading(true)
     if (rank === 'CHALLENGER' || rank === 'GRANDMASTER' || rank === 'MASTER') {
       setMapDivision(['I'])
       changeLeaderBoard(rank)
@@ -38,6 +45,11 @@ function Leaderboard({
       setMapDivision(['I', 'II', 'III', 'IV'])
       changeLeaderBoardPage(rank, division, page)
     }
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rank, division, page])
 
@@ -52,7 +64,11 @@ function Leaderboard({
 
   return (
     <>
-      <div className={style.leaderboardContainer}>
+      <LeaderboardSkeleton loading={loading} />
+      <div
+        style={!loading ? { display: 'block' } : { display: 'none' }}
+        className={style.leaderboardContainer}
+      >
         <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
         <div className={style.selectContainer}>
           <select

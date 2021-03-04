@@ -95,9 +95,13 @@ function App() {
 
           // Set summoner info which will be referenced by entire web app
 
+          res.data.profileIconId = res.data.profileIconId.toString()
           setSummonerInfo(res.data)
 
+          console.log(typeof res.data.profileIconId)
+
           setRegion(rgn)
+
           setRedirect(true)
 
           history.push(
@@ -281,21 +285,22 @@ function App() {
           })
         leaderboardData = res.data
       })
-    return Promise.all(
-      leaderboardData.slice(0, 5).map((player) => {
-        return axios
-          .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
-          .then((res) => {
-            player.icon = res.data.profileIconId
-          })
+      // return Promise.all(
+      //   leaderboardData.slice(0, 5).map((player) => {
+      //     return axios
+      //       .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
+      //       .then((res) => {
+      //         player.icon = res.data.profileIconId
+      //       })
+      //   })
+      // )
+      .then(() => {
+        if (leaderboardData.length === 0) {
+          setLeaderBoardDiamondToIron([])
+          return
+        }
+        setLeaderBoardDiamondToIron(leaderboardData)
       })
-    ).then(() => {
-      if (leaderboardData.length === 0) {
-        setLeaderBoardDiamondToIron([])
-        return
-      }
-      setLeaderBoardDiamondToIron(leaderboardData)
-    })
   }
 
   const changeLeaderBoard = async (tier) => {
@@ -317,15 +322,16 @@ function App() {
 
         leaderboardData = res.data
       })
-    return Promise.all(
-      leaderboardData.entries.slice(0, 5).map((player) => {
-        return axios
-          .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
-          .then((res) => {
-            player.icon = res.data.profileIconId
-          })
-      })
-    ).then(() => setLeaderBoard(leaderboardData.entries))
+      // return Promise.all(
+      //   leaderboardData.entries.slice(0, 5).map((player) => {
+      //     return axios
+      //       .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
+      //       .then((res) => {
+      //         player.icon = res.data.profileIconId
+      //       })
+      //   })
+      // )
+      .then(() => setLeaderBoard(leaderboardData.entries))
   }
 
   const indexOfLastPost = currentPage * postsPerPage

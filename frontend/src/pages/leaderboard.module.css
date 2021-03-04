@@ -209,3 +209,23 @@
     opacity: 1;
   }
 }
+
+/* skeleton css */
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.table {
+  margin: 3px auto;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+}

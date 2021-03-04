@@ -21,7 +21,10 @@ function LeaderboardDiamondToIron({
       <table className={style.tableContainer}>
         <div className={style.sorted}>
           <AiOutlineInfoCircle className={style.infoIcon} />
-          <div>Diamond - Iron tiers are sorted every 5 pages.</div>
+          <div>
+            Diamond - Iron tiers are sorted every 5 pages. Summoner icons are
+            not shown.
+          </div>
         </div>
 
         <tbody className={style.tbody}>

@@ -8,6 +8,7 @@ const path = require('path')
 const backupItem = require('./Items/backupItems.json')
 const port = process.env.PORT || 5000
 
+// Allow CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   next()
@@ -178,7 +179,7 @@ app.get('/leaderboard/:tier/:region', async (req, res) => {
 //na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?api_key=RGAPI-f3372fe9-4a88-4d2f-917b-54974292c5f6
 
 //Call for live game for summoner
-https: app.get('/live/:summonerId/:region', async (req, res) => {
+app.get('/live/:summonerId/:region', async (req, res) => {
   try {
     const api = process.env.API_KEY
     const region = req.params.region
@@ -205,8 +206,15 @@ if (process.env.NODE_ENV === 'production') {
   // Sends static folder
   app.use(express.static('frontend/build'))
 
-  app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, './frontend/build/index.html'))
+  app.get('/*', function (req, res) {
+    res.sendFile(
+      path.join(__dirname, './frontend/build/index.html'),
+      function (err) {
+        if (err) {
+          res.status(500).send(err)
+        }
+      }
+    )
   })
 }
 
