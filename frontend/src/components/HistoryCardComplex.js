@@ -17,45 +17,62 @@ function HistoryCardComplex({
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
 
-  const sortByLane = (arr) => {
-    const playerArr = []
-    arr.forEach((player) => {
-      const lane = player.timeline.lane
-      const role = player.timeline.role
-
-      if (lane !== 'NONE') {
-        switch (lane) {
-          case 'TOP':
-            playerArr[0] = player
-            break
-          case 'JUNGLE':
-            playerArr[1] = player
-            break
-          case 'MIDDLE':
-            playerArr[2] = player
-            break
-          case 'BOTTOM':
-            if (role === 'DUO_CARRY') playerArr[3] = player
-            if (role === 'DUO_SUPPORT') playerArr[4] = player
-            break
-          default:
-            return
-        }
-      }
-    })
-    console.log(playerArr)
-    return playerArr
-  }
-
   const teamOne = game.participants.filter((participant) => {
     return participant.teamId === 100
   })
 
-  const teamOneDisplay = sortByLane(teamOne)
-
   const teamTwo = game.participants.filter((participant) => {
     return participant.teamId === 200
   })
+
+  // useEffect(() => {
+  //   if (teamOne) {
+  //     sortByLane(teamOne, game.gameType)
+  //   }
+  // }, [teamOne])
+
+  // const sortByLane = (arr, gameType) => {
+  //   if (
+  //     gameType === '5v5 Ranked Solo games' ||
+  //     gameType === '5v5 Draft Pick games' ||
+  //     gameType === '5v5 Ranked Flex games' ||
+  //     gameType === '5v5 Blind Pick games'
+  //   ) {
+  //     const playerArr = []
+
+  //     arr.forEach((player) => {
+  //       const lane = player.timeline.lane
+  //       const role = player.timeline.role
+
+  //       if (lane !== 'NONE') {
+  //         switch (lane) {
+  //           case 'TOP':
+  //             if (role === 'DUO_CARRY') playerArr[3] = player
+  //             if (role === 'DUO_SUPPORT') playerArr[4] = player
+  //             if (role === 'SOLO') playerArr[0] = player
+  //             break
+  //           case 'JUNGLE':
+  //             playerArr[1] = player
+  //             break
+  //           case 'MIDDLE':
+  //             if (role === 'DUO_CARRY') playerArr[2] = player
+  //             if (role === 'DUO_SUPPORT') playerArr[4] = player
+  //             break
+  //           case 'BOTTOM':
+  //             if (role === 'DUO_CARRY') playerArr[3] = player
+  //             if (role === 'DUO_SUPPORT') playerArr[4] = player
+  //             if (role === 'SOLO') playerArr[0] = player
+  //             break
+  //           default:
+  //             return
+  //         }
+  //       }
+  //     })
+  //     console.log(playerArr)
+  //     return playerArr
+  //   }
+  //   return arr
+  // }
 
   return (
     <div
@@ -333,26 +350,53 @@ function HistoryCardComplex({
         </div>
 
         <div className={style.iconContainer}>
-          <img
-            alt='icon'
-            src={process.env.PUBLIC_URL + '/images/icons/Top_icon.png'}
-          />
-          <img
-            alt='icon'
-            src={process.env.PUBLIC_URL + '/images/icons/Jungle_icon.png'}
-          />
-          <img
-            alt='icon'
-            src={process.env.PUBLIC_URL + '/images/icons/Middle_icon.png'}
-          />
-          <img
-            alt='icon'
-            src={process.env.PUBLIC_URL + '/images/icons/Bottom_icon.png'}
-          />
-          <img
-            alt='icon'
-            src={process.env.PUBLIC_URL + '/images/icons/Support_icon.png'}
-          />
+          {game.gameType === '5v5 ARAM games' ? (
+            Array.from({ length: 5 }).map((num) => (
+              <img
+                key={num}
+                alt='poro'
+                src={
+                  'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/poro_happy_taunt_selector.png'
+                }
+              />
+            ))
+          ) : game.gameType === 'URF games' ? (
+            Array.from({ length: 5 }).map((num) => (
+              <img
+                key={num}
+                alt='golden spatula'
+                src={process.env.PUBLIC_URL + '/images/icons/spatula.png'}
+              />
+            ))
+          ) : game.gameType === '5v5 Ranked Solo games' ||
+            game.gameType === '5v5 Draft Pick games' ||
+            game.gameType === '5v5 Ranked Flex games' ||
+            game.gameType === '5v5 Blind Pick games' ? (
+            <>
+              <img
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Top_icon.png'}
+              />
+              <img
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Jungle_icon.png'}
+              />
+              <img
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Middle_icon.png'}
+              />
+              <img
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Bottom_icon.png'}
+              />
+              <img
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Support_icon.png'}
+              />
+            </>
+          ) : (
+            Array.from({ length: 5 }).map((num) => <h3 key={num}>-</h3>)
+          )}
         </div>
 
         <div className={style.seventhCard}>
