@@ -40,7 +40,11 @@ function Navbar({
       <nav className={style.navbar} style={{ display: !vis ? 'none' : 'flex' }}>
         <div className={style.navHeader}>
           <Link to='/' className={style.navbarLogo}>
-            League Stats
+            <img
+              className={style.logo}
+              alt='League Stats Logo'
+              src={process.env.PUBLIC_URL + '/images/logo/leaguestats.png'}
+            />
           </Link>
         </div>
 
@@ -53,8 +57,13 @@ function Navbar({
                   onChange={regionSelect}
                   className={style.regionSelect}
                 >
-                  {regions.map((r) => (
-                    <option className={style.regionOption} value={r} key={r}>
+                  {regions.map((r, i) => (
+                    <option
+                      key={i}
+                      className={style.regionOption}
+                      value={r}
+                      key={r}
+                    >
                       {r}
                     </option>
                   ))}

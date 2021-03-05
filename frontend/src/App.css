@@ -19,7 +19,7 @@
   min-width: 1200px;
   height: auto;
   min-height: 100%;
-  animation: fadeIn ease 1500ms;
+  animation: fadeIn ease 3000ms;
 }
 
 @keyframes fadeIn {

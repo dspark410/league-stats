@@ -32,7 +32,11 @@ function Home({
     <div className={style.homeBackgroundContainer}>
       <div className={style.homeContainer}>
         <div className={style.inputContainer}>
-          <h1>LeagueStats</h1>
+          <img
+            className={style.logo}
+            alt='League Stats Logo'
+            src={process.env.PUBLIC_URL + '/images/logo/leaguestats.png'}
+          />
           <div className={style.formContainer}>
             <form onSubmit={submit} className={style.selectContainer}>
               <select

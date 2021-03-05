@@ -17,6 +17,7 @@ function ChampionSkeleton({ champs, latest }) {
                   <div className={style.latestImage}>
                     {
                       <Skeleton
+                        key={i}
                         width={115}
                         height={115}
                         circle={true}
@@ -42,6 +43,7 @@ function ChampionSkeleton({ champs, latest }) {
             {champs.map((champ, i) => (
               <div className={style.latestImage}>
                 <Skeleton
+                  key={i}
                   width={75}
                   height={75}
                   circle={true}

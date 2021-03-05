@@ -97,9 +97,6 @@ function App() {
 
           res.data.profileIconId = res.data.profileIconId.toString()
           setSummonerInfo(res.data)
-
-          console.log(typeof res.data.profileIconId)
-
           setRegion(rgn)
 
           setRedirect(true)

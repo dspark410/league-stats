@@ -18,6 +18,16 @@
   min-height: 90vh;
   z-index: 100;
   color: #e1e1e1;
+  animation: fadeIn ease 1000ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .input[type='text'] {
@@ -57,6 +67,12 @@
   justify-content: center;
   z-index: 100;
   position: relative;
+}
+
+.logo {
+  width: 175px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .inputContainer h1 {
@@ -129,7 +145,7 @@
   height: auto;
   width: 500px;
   position: absolute;
-  top: 130px;
+  top: 197px;
   padding: 10px 12px;
   animation: scaleup 100ms ease;
 }

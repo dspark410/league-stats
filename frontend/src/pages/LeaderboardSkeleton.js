@@ -25,7 +25,12 @@ function LeaderboardSkeleton({ loading }) {
         <div className={style.tableContainer}>
           {Array.from({ length: 26 }, () => Math.floor(Math.random() * 40)).map(
             (num) => (
-              <Skeleton className={style.table} width={945} height={49} />
+              <Skeleton
+                key={num}
+                className={style.table}
+                width={945}
+                height={49}
+              />
             )
           )}
         </div>
@@ -33,6 +38,7 @@ function LeaderboardSkeleton({ loading }) {
           {Array.from({ length: 13 }, () => Math.floor(Math.random() * 40)).map(
             (num) => (
               <Skeleton
+                key={num}
                 width={50}
                 height={31}
                 style={{ margin: '10px 5px 15px 5px' }}
