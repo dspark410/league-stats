@@ -1,6 +1,6 @@
 # League Stats
 
-### Deployed Link - http://www.league-stats.com/
+### Deployed Link - https://www.league-stats.com/
 
 Project is currently in progress...
 
