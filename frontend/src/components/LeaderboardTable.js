@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import style from './leaderboardtable.module.css'
-import axios from 'axios'
-import Paginate from './Paginate'
+import React, { useState, useEffect } from "react";
+import style from "./leaderboardtable.module.css";
+import axios from "axios";
+import Paginate from "./Paginate";
 
 function LeaderboardTable({
   version,
@@ -14,25 +14,26 @@ function LeaderboardTable({
   region,
   getPlayerName,
 }) {
-  const [profileIcon, setProfileIcon] = useState([])
+  const [profileIcon, setProfileIcon] = useState([]);
 
-  const url = process.env.REACT_APP_API_URL || ''
+  const url = process.env.REACT_APP_API_URL || "";
 
   useEffect(() => {
-    const iconArr = []
+    const iconArr = [];
     Promise.all(
       leaderboard.map((player) => {
         return axios
           .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
           .then((res) => {
-            player.icon = res.data.profileIconId.toString()
-            iconArr.push(player)
-          })
+            player.icon = res.data.profileIconId.toString();
+            iconArr.push(player);
+          });
       })
     ).then(() => {
-      setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints))
-    })
-  }, [leaderboard])
+      setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints));
+    });
+    // eslint-disable-next-line
+  }, [leaderboard]);
 
   return (
     <>
@@ -55,7 +56,7 @@ function LeaderboardTable({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -84,8 +85,8 @@ function LeaderboardTable({
                   </div>
                   <div
                     style={{
-                      minWidth: '25px',
-                      textAlign: 'center',
+                      minWidth: "25px",
+                      textAlign: "center",
                     }}
                   >
                     <div> - </div>
@@ -119,7 +120,7 @@ function LeaderboardTable({
         table={true}
       />
     </>
-  )
+  );
 }
 
-export default LeaderboardTable
+export default LeaderboardTable;

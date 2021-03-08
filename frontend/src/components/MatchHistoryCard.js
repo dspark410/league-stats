@@ -211,7 +211,13 @@ function MatchHistoryCard({
         )}
 
         {gameDetails.length >= visible && (
-          <div onClick={index < playerMatches.length ? getMoreMatches : null}>
+          <div
+            onClick={
+              index < playerMatches.length && !matchesLoader
+                ? getMoreMatches
+                : null
+            }
+          >
             {index >= playerMatches.length ? (
               <button disabled className={style.none}>
                 More Matches Unavailable

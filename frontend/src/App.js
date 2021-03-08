@@ -3,10 +3,17 @@ import axios from "axios";
 import "./App.css";
 import Home from "./pages/Home";
 import { Welcome } from "./pages/Welcome";
+import NotFound from "./pages/NotFound";
 import Champions from "./pages/Champions";
 import Leaderboard from "./pages/Leaderboard";
 import ChampionDetail from "./pages/ChampionDetail";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  Redirect,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -46,7 +53,7 @@ function App() {
 
   // const inputRef = useRef();
   const history = useHistory();
-  //const location = useLocation();
+  const location = useLocation();
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName, rgn) => {
@@ -61,9 +68,13 @@ function App() {
       }
 
       if (res.data.id) {
+        console.log("if call is successful");
         const doNotAdd = prevEntries
           .map((entry) => {
-            return entry[0].includes(res.data.name) && entry[1].includes(rgn);
+            return (
+              entry[0].includes(res.data.name) &&
+              entry[1].includes(rgn.toUpperCase())
+            );
           })
           .includes(true);
 
@@ -74,7 +85,11 @@ function App() {
             prevEntriesArr.pop();
           }
 
-          prevEntriesArr.unshift([res.data.name, rgn, res.data.profileIconId]);
+          prevEntriesArr.unshift([
+            res.data.name,
+            rgn.toUpperCase(),
+            res.data.profileIconId,
+          ]);
 
           setPrevEntries(prevEntriesArr);
         }
@@ -87,10 +102,6 @@ function App() {
 
         setRedirect(true);
 
-        history.push(
-          `/summoner/${rgn.toLowerCase()}/${res.data.name.toLowerCase()}`
-        );
-
         //Set session data
         sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
         sessionStorage.setItem("region", JSON.stringify(rgn));
@@ -100,6 +111,10 @@ function App() {
         }, 100);
       }
     });
+  };
+
+  const changeURL = (name, region) => {
+    history.push(`/summoner/${region.toUpperCase()}/${name.toLowerCase()}`);
   };
 
   // onClick that makes an axios call to retrieve the specific champion json using
@@ -146,10 +161,9 @@ function App() {
     e.preventDefault();
 
     if (e.target.getAttribute("value")) {
-      getAccountInfo(
+      changeURL(
         e.target.getAttribute("value"),
-        e.target.getAttribute("region"),
-        e.target.getAttribute("icon")
+        e.target.getAttribute("region")
       );
       handleBlur();
       setInputValue("");
@@ -158,28 +172,7 @@ function App() {
       if (inputValue.trim() === "") {
         return;
       } else {
-        // if (
-        //   summonerInfo.name
-        //     ? summonerInfo.name &&
-        //       history.location.pathname.includes('summoner')
-        //     : sessionData.name &&
-        //       sessionData.name &&
-        //       history.location.pathname.includes('summoner')
-        // ) {
-        //   if (
-        //     summonerInfo.name
-        //       ? summonerInfo.name.toLowerCase().split(' ').join() ===
-        //         inputValue.toLowerCase().split(' ').join()
-        //       : sessionData.name &&
-        //         sessionData.name.toLowerCase().split(' ').join() ===
-        //           inputValue.toLowerCase().split(' ').join()
-        //   ) {
-        //     setInputValue('')
-        //     return
-        //   }
-        // }
-
-        getAccountInfo(inputValue, region);
+        changeURL(inputValue, region);
         handleBlur();
 
         setInputValue("");
@@ -219,8 +212,7 @@ function App() {
   const getPlayerName = (e) => {
     const summonerName = e.target.getAttribute("name");
     const region = e.target.getAttribute("region");
-    const icon = e.target.getAttribute("icon");
-    getAccountInfo(summonerName, region, icon);
+    changeURL(summonerName, region);
   };
 
   const changeRedirect = () => {
@@ -430,6 +422,17 @@ function App() {
   // }, [location]);
 
   useEffect(() => {
+    if (location.pathname.includes("summoner")) {
+      const summoner = location.pathname.split("/")[3];
+      const region = location.pathname.split("/")[2];
+      if (summoner !== undefined && region !== undefined) {
+        getAccountInfo(summoner, region);
+      }
+    }
+    // eslint-disable-next-line
+  }, [location]);
+
+  useEffect(() => {
     localStorage.setItem("searchedSummoner", JSON.stringify(prevEntries));
   }, [prevEntries]);
 
@@ -493,58 +496,52 @@ function App() {
             <Route
               exact
               path="/"
-              render={() =>
-                redirect ? (
-                  <Redirect
-                    to={`/summoner/${region.toLowerCase()}/${
-                      summonerInfo.name
-                        ? summonerInfo.name.toLowerCase()
-                        : sessionData.name.toLowerCase()
-                    } `}
-                  />
-                ) : (
-                  <Home
-                    summonerInfo={summonerInfo}
-                    inputValue={inputValue}
-                    change={handleOnChange}
-                    submit={handleSubmit}
-                    isAuthed={true}
-                    champInfo={champInfo}
-                    version={version}
-                    hideNav={hideNav}
-                    prevSearches={prevEntries}
-                    removeSearchedSummoner={removeSearchedSummoner}
-                    regionSelect={regionSelect}
-                    region={region}
-                    handleFocus={handleFocus}
-                    handleBlur={handleBlur}
-                    hideAnimation={hideAnimation}
-                    showStorage={showStorage}
-                    closeStorage={closeStorage}
-                    // inputRef={inputRef}
-                  />
-                )
-              }
+              render={() => (
+                <Home
+                  summonerInfo={summonerInfo}
+                  inputValue={inputValue}
+                  change={handleOnChange}
+                  submit={handleSubmit}
+                  isAuthed={true}
+                  champInfo={champInfo}
+                  version={version}
+                  hideNav={hideNav}
+                  prevSearches={prevEntries}
+                  removeSearchedSummoner={removeSearchedSummoner}
+                  regionSelect={regionSelect}
+                  region={region}
+                  handleFocus={handleFocus}
+                  handleBlur={handleBlur}
+                  hideAnimation={hideAnimation}
+                  showStorage={showStorage}
+                  closeStorage={closeStorage}
+                  // inputRef={inputRef}
+                />
+              )}
             />
             <Route
               path="/summoner/:region/:summonerName"
-              render={() => (
-                <Welcome
-                  redirect={changeRedirect}
-                  summonerInfo={summonerInfo}
-                  champInfo={champInfo}
-                  isAuthed={true}
-                  version={version}
-                  getPlayerName={getPlayerName}
-                  queues={queues}
-                  showNav={showNav}
-                  selectChampion={selectChampion}
-                  region={region}
-                  loading={loading}
-                  skeletonTrue={skeletonTrue}
-                  skeletonFalse={skeletonFalse}
-                />
-              )}
+              render={() =>
+                summonerInfo.id ? (
+                  <Welcome
+                    redirect={changeRedirect}
+                    summonerInfo={summonerInfo}
+                    champInfo={champInfo}
+                    isAuthed={true}
+                    version={version}
+                    getPlayerName={getPlayerName}
+                    queues={queues}
+                    showNav={showNav}
+                    selectChampion={selectChampion}
+                    region={region}
+                    loading={loading}
+                    skeletonTrue={skeletonTrue}
+                    skeletonFalse={skeletonFalse}
+                  />
+                ) : (
+                  <NotFound showNav={showNav} noSummoner={true} />
+                )
+              }
             />
             <Route
               path="/champions"
@@ -625,6 +622,7 @@ function App() {
                 )
               }
             />
+            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
           </Switch>
 
           <Footer />

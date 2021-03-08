@@ -69,42 +69,7 @@ export const Welcome = ({
     // Show nav on the welcome screen
     showNav();
     setLive();
-    if (!summonerInfo.id) {
-      // Checks if summonerInfo.id is available, if not grab identical copy from sessionStorage
-      const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-
-      // Get masteries using sessionStorage and set into state
-      skeletonTrue();
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "smooth",
-      });
-      getMasteries(sessionData.id, region).then((res) => {
-        setMastery(res.data);
-        getRank(sessionData.id, region).then((res) => setRank(res.data));
-
-        getMatchList(sessionData.accountId, region).then((res) => {
-          res.data.matches
-            ? setPlayerMatches(res.data.matches)
-            : setPlayerMatches([]);
-        });
-      });
-
-      // Get live game data for summoner
-      setTimeout(() => {
-        source.cancel();
-      }, 3000);
-
-      axios
-        .get(`${url}/live/${sessionData.id}/${region}`, {
-          cancelToken: source.token,
-        })
-        .then((res) => {
-          setLive(res.data);
-          // setLength(res.data.gameLength)
-        });
-    } else {
+    if (summonerInfo.id) {
       // Get masteries from state and set into state
       skeletonTrue();
       window.scrollTo({
@@ -131,6 +96,7 @@ export const Welcome = ({
           setLive(res.data);
         });
     }
+
     setDisplay("overview");
     redirect();
     // Dependency, rerenders when summonerInfo.id is ready
