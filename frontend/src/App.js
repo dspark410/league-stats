@@ -389,7 +389,6 @@ function App() {
     const champName = window.location.href.split('/')
 
     if (
-      champKeys.includes(champName) &&
       champName[3].toLowerCase() === 'championdetail' &&
       champName[4] &&
       version &&
@@ -410,33 +409,35 @@ function App() {
             })
         }
       })
-    } else {
+    } else if (champKeys.includes(champName)) {
       history.push('/champions')
     }
+    // eslint-disable-next-line
   }, [version, champInfo])
 
-  // useEffect(() => {
-  //   if (location.pathname.includes("summoner")) {
-  //     const summonerCall = decodeURIComponent(location.pathname).split("/");
-
-  //     if (
-  //       `/summoner/na1/${summonerInfo.name.toLowerCase()} ` !== summonerCall
-  //     ) {
-  //       getAccountInfo(summonerCall[3], summonerCall[2].toUpperCase());
-  //     }
-  //   }
-  // }, [location]);
-
   useEffect(() => {
+    const getChamp = sessionStorage.getItem('champion')
+
     if (location.pathname.includes('summoner')) {
       const summoner = location.pathname.split('/')[3]
       const region = location.pathname.split('/')[2]
-
+      const extra = location.pathname.split('/')[4]
       setExistRegion(existRgn.includes(region))
 
       if (summoner !== undefined && region !== undefined) {
         getAccountInfo(summoner, region)
       }
+      if (extra) {
+        history.replace(`/summoner/${region}/${summoner}`)
+      }
+    }
+
+    if (location.pathname.includes('championdetail')) {
+      const champName = location.pathname.split('/')[2]
+
+      // if (champKeys.includes(champName)) {
+      //   history.replace(`/championdetail/${getChamp}`)
+      // }
     }
     // eslint-disable-next-line
   }, [location])
