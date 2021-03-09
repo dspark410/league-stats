@@ -1,63 +1,63 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
-import Home from "./pages/Home";
-import { Welcome } from "./pages/Welcome";
-import NotFound from "./pages/NotFound";
-import Champions from "./pages/Champions";
-import Leaderboard from "./pages/Leaderboard";
-import ChampionDetail from "./pages/ChampionDetail";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import './App.css'
+import Home from './pages/Home'
+import { Welcome } from './pages/Welcome'
+import NotFound from './pages/NotFound'
+import Champions from './pages/Champions'
+import Leaderboard from './pages/Leaderboard'
+import ChampionDetail from './pages/ChampionDetail'
 import {
   Switch,
   Route,
   Redirect,
   useHistory,
   useLocation,
-} from "react-router-dom";
+} from 'react-router-dom'
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import BrandBackground from "./components/images/brand.jpg";
-import { regions as existRgn } from "./utils/constant";
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import BrandBackground from './components/images/brand.jpg'
+import { regions as existRgn } from './utils/constant'
 
 function App() {
-  const [summonerInfo, setSummonerInfo] = useState({});
-  const [inputValue, setInputValue] = useState("");
+  const [summonerInfo, setSummonerInfo] = useState({})
+  const [inputValue, setInputValue] = useState('')
   const [region, setRegion] = useState(
-    JSON.parse(sessionStorage.getItem("region")) || "NA1"
-  );
-  const [existRegion, setExistRegion] = useState(true);
-  const [redirect, setRedirect] = useState(false);
-  const [champInfo, setChampInfo] = useState([]);
+    JSON.parse(sessionStorage.getItem('region')) || 'NA1'
+  )
+  const [existRegion, setExistRegion] = useState(true)
+  const [redirect, setRedirect] = useState(false)
+  const [champInfo, setChampInfo] = useState([])
 
-  const [champKeys, setChampKeys] = useState([]);
-  const [latest, setLatest] = useState();
-  const [version, setVersion] = useState();
-  const [queues, setQueues] = useState([]);
-  const [champDetail, setChampDetail] = useState();
-  const [backupItem, setBackupItem] = useState();
-  const [navVisibility, setNavVisibility] = useState(false);
-  const [leaderboard, setLeaderBoard] = useState([]);
-  const [leaderboardDiamondToIron, setLeaderBoardDiamondToIron] = useState([]);
+  const [champKeys, setChampKeys] = useState([])
+  const [latest, setLatest] = useState()
+  const [version, setVersion] = useState()
+  const [queues, setQueues] = useState([])
+  const [champDetail, setChampDetail] = useState()
+  const [backupItem, setBackupItem] = useState()
+  const [navVisibility, setNavVisibility] = useState(false)
+  const [leaderboard, setLeaderBoard] = useState([])
+  const [leaderboardDiamondToIron, setLeaderBoardDiamondToIron] = useState([])
 
-  const [background, setBackground] = useState(BrandBackground);
+  const [background, setBackground] = useState(BrandBackground)
   const [prevEntries, setPrevEntries] = useState(
-    JSON.parse(localStorage.getItem("searchedSummoner")) || []
-  );
-  const [fade, setFade] = useState(false);
-  const [showStorage, setShowStorage] = useState(true);
-  const [hideAnimation, setHideAnimation] = useState(true);
-  const [loading, setLoading] = useState(true);
+    JSON.parse(localStorage.getItem('searchedSummoner')) || []
+  )
+  const [fade, setFade] = useState(false)
+  const [showStorage, setShowStorage] = useState(true)
+  const [hideAnimation, setHideAnimation] = useState(true)
+  const [loading, setLoading] = useState(true)
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(25);
-  const [postsperPageDiamondToIron] = useState(41);
-  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
-  const url = process.env.REACT_APP_API_URL || "";
+  const [currentPage, setCurrentPage] = useState(1)
+  const [postsPerPage] = useState(25)
+  const [postsperPageDiamondToIron] = useState(41)
+  const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+  const url = process.env.REACT_APP_API_URL || ''
 
   // const inputRef = useRef();
-  const history = useHistory();
-  const location = useLocation();
+  const history = useHistory()
+  const location = useLocation()
 
   // Reusable function for changing the Summoner in the whole app
   const getAccountInfo = (summonerName, rgn) => {
@@ -65,11 +65,11 @@ function App() {
       axios.get(`${url}/getSummonerName/${summonerName}/${rgn}`).then((res) => {
         if (!res.data.id) {
           // Message will be displayed on Home Screen, dissapears after 3 seconds
-          setInputValue(res.data);
-          setSummonerInfo({});
+          setInputValue(res.data)
+          setSummonerInfo({})
           setTimeout(() => {
-            setInputValue("");
-          }, 1000);
+            setInputValue('')
+          }, 1000)
         }
 
         if (res.data.id) {
@@ -78,178 +78,175 @@ function App() {
               return (
                 entry[0].includes(res.data.name) &&
                 entry[1].includes(rgn.toUpperCase())
-              );
+              )
             })
-            .includes(true);
+            .includes(true)
 
           if (!doNotAdd) {
-            const prevEntriesArr = [...prevEntries];
+            const prevEntriesArr = [...prevEntries]
 
             if (prevEntriesArr.length === 4) {
-              prevEntriesArr.pop();
+              prevEntriesArr.pop()
             }
 
             prevEntriesArr.unshift([
               res.data.name,
               rgn.toUpperCase(),
               res.data.profileIconId,
-            ]);
+            ])
 
-            setPrevEntries(prevEntriesArr);
+            setPrevEntries(prevEntriesArr)
           }
 
           // Set summoner info which will be referenced by entire web app
 
-          res.data.profileIconId = res.data.profileIconId.toString();
-          setSummonerInfo(res.data);
-          setRegion(rgn);
+          res.data.profileIconId = res.data.profileIconId.toString()
+          setSummonerInfo(res.data)
+          setRegion(rgn)
 
-          setRedirect(true);
+          setRedirect(true)
 
           //Set session data
-          sessionStorage.setItem("summonerInfo", JSON.stringify(res.data));
-          sessionStorage.setItem("region", JSON.stringify(rgn));
+          sessionStorage.setItem('summonerInfo', JSON.stringify(res.data))
+          sessionStorage.setItem('region', JSON.stringify(rgn))
 
           setTimeout(() => {
-            setRedirect(false);
-          }, 100);
+            setRedirect(false)
+          }, 100)
         }
-      });
+      })
     }
-  };
+  }
 
   const changeURL = (name, region) => {
-    history.push(`/summoner/${region.toUpperCase()}/${name.toLowerCase()}`);
-  };
+    history.push(`/summoner/${region.toUpperCase()}/${name.toLowerCase()}`)
+  }
 
   // onClick that makes an axios call to retrieve the specific champion json using
   // event.target.name from mapped free champ images
   const selectChampion = (event) => {
-    const getChamp = event.target.getAttribute("name");
+    const getChamp = event.target.getAttribute('name')
 
-    sessionStorage.setItem("champion", getChamp);
+    sessionStorage.setItem('champion', getChamp)
 
     axios
       .get(
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
-        setChampDetail(res.data.data[getChamp]);
+        setChampDetail(res.data.data[getChamp])
 
-        history.replace(`championdetail/${getChamp.toLowerCase()}`);
-      });
-  };
+        history.replace(`championdetail/${getChamp.toLowerCase()}`)
+      })
+  }
 
   const showNav = () => {
-    setNavVisibility(true);
-  };
+    setNavVisibility(true)
+  }
 
   const hideNav = () => {
-    setNavVisibility(false);
-  };
+    setNavVisibility(false)
+  }
 
   const changeBackground = (url) => {
-    setBackground(url);
-    setFade(true);
+    setBackground(url)
+    setFade(true)
     setTimeout(() => {
-      setFade(false);
-    }, 500);
-  };
+      setFade(false)
+    }, 500)
+  }
 
   // onChange for input field
   const handleOnChange = (e) => {
-    setInputValue(e.target.value);
-  };
+    setInputValue(e.target.value)
+  }
 
   // onSubmit for input form
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    if (e.target.getAttribute("value")) {
-      changeURL(
-        e.target.getAttribute("value"),
-        e.target.getAttribute("region")
-      );
-      handleBlur();
-      setInputValue("");
-      setRegion(e.target.getAttribute("region"));
+    if (e.target.getAttribute('value')) {
+      changeURL(e.target.getAttribute('value'), e.target.getAttribute('region'))
+      handleBlur()
+      setInputValue('')
+      setRegion(e.target.getAttribute('region'))
     } else {
-      if (inputValue.trim() === "") {
-        return;
+      if (inputValue.trim() === '') {
+        return
       } else {
-        changeURL(inputValue, region);
-        handleBlur();
+        changeURL(inputValue, region)
+        handleBlur()
 
-        setInputValue("");
+        setInputValue('')
       }
     }
-  };
+  }
 
   // onChange for select menu
   const regionSelect = (e) => {
-    setRegion(e.target.value);
-  };
+    setRegion(e.target.value)
+  }
 
   // Function to remove a summoner from local storage onClick of the close button
   const removeSearchedSummoner = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
 
-    const prevEntriesArr = [...prevEntries];
+    const prevEntriesArr = [...prevEntries]
 
-    const summonerName = e.target.getAttribute("value");
-    const region = e.target.getAttribute("region");
+    const summonerName = e.target.getAttribute('value')
+    const region = e.target.getAttribute('region')
 
     const remove = prevEntries.map((entry) => {
-      return entry[0].includes(summonerName) && entry[1].includes(region);
-    });
+      return entry[0].includes(summonerName) && entry[1].includes(region)
+    })
 
-    const index = remove.indexOf(true);
+    const index = remove.indexOf(true)
 
     if (index > -1) {
-      prevEntriesArr.splice(index, 1);
+      prevEntriesArr.splice(index, 1)
     }
 
-    setPrevEntries(prevEntriesArr);
-  };
+    setPrevEntries(prevEntriesArr)
+  }
 
   // Function to change displayed Summoner onClick in MatchHistoryCard to change Welcome Screen
   const getPlayerName = (e) => {
-    const summonerName = e.target.getAttribute("name");
-    const region = e.target.getAttribute("region");
-    changeURL(summonerName, region);
-  };
+    const summonerName = e.target.getAttribute('name')
+    const region = e.target.getAttribute('region')
+    changeURL(summonerName, region)
+  }
 
   const changeRedirect = () => {
-    setRedirect(false);
-  };
+    setRedirect(false)
+  }
 
   const handleFocus = () => {
-    setHideAnimation(true);
-    setShowStorage(true);
-  };
+    setHideAnimation(true)
+    setShowStorage(true)
+  }
 
   const handleBlur = () => {
-    setHideAnimation(false);
+    setHideAnimation(false)
     setTimeout(() => {
-      setShowStorage(false);
-    }, 50);
-  };
+      setShowStorage(false)
+    }, 50)
+  }
 
   const closeStorage = () => {
-    setShowStorage(false);
-  };
+    setShowStorage(false)
+  }
 
   const skeletonTrue = () => {
-    setLoading(true);
-  };
+    setLoading(true)
+  }
 
   const skeletonFalse = () => {
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   const changeLeaderBoardPage = async (rank, division, page) => {
-    let leaderboardData;
+    let leaderboardData
 
     await axios
       .get(`${url}/leaderboard/${region}/${rank}/${division}/${page}`)
@@ -257,30 +254,21 @@ function App() {
         res.data
           .sort((a, b) => b.leaguePoints - a.leaguePoints)
           .forEach((entry, i) => {
-            entry.number = i + 1;
-          });
-        leaderboardData = res.data;
+            entry.number = i + 1
+          })
+        leaderboardData = res.data
       })
-      // return Promise.all(
-      //   leaderboardData.slice(0, 5).map((player) => {
-      //     return axios
-      //       .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
-      //       .then((res) => {
-      //         player.icon = res.data.profileIconId
-      //       })
-      //   })
-      // )
       .then(() => {
         if (leaderboardData.length === 0) {
-          setLeaderBoardDiamondToIron([]);
-          return;
+          setLeaderBoardDiamondToIron([])
+          return
         }
-        setLeaderBoardDiamondToIron(leaderboardData);
-      });
-  };
+        setLeaderBoardDiamondToIron(leaderboardData)
+      })
+  }
 
   const changeLeaderBoard = async (tier) => {
-    let leaderboardData;
+    let leaderboardData
 
     await axios
       .get(`${url}/leaderboard/${tier}/${region}`)
@@ -288,61 +276,52 @@ function App() {
         res.data.entries
           .sort((a, b) => b.leaguePoints - a.leaguePoints)
           .forEach((entry, i) => {
-            entry.tier = tier.toUpperCase();
-            entry.number = i + 1;
-          });
+            entry.tier = tier.toUpperCase()
+            entry.number = i + 1
+          })
 
-        leaderboardData = res.data;
+        leaderboardData = res.data
       })
-      // return Promise.all(
-      //   leaderboardData.entries.slice(0, 5).map((player) => {
-      //     return axios
-      //       .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
-      //       .then((res) => {
-      //         player.icon = res.data.profileIconId
-      //       })
-      //   })
-      // )
-      .then(() => setLeaderBoard(leaderboardData.entries));
-  };
+      .then(() => setLeaderBoard(leaderboardData.entries))
+  }
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexofFirstPost = indexOfLastPost - postsPerPage;
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexofFirstPost = indexOfLastPost - postsPerPage
 
-  const indexofLastPost2 = currentPage * postsperPageDiamondToIron;
-  const indexofFirstPost2 = indexofLastPost2 - postsperPageDiamondToIron;
+  const indexofLastPost2 = currentPage * postsperPageDiamondToIron
+  const indexofFirstPost2 = indexofLastPost2 - postsperPageDiamondToIron
 
-  const currentPosts = leaderboard.slice(indexofFirstPost, indexOfLastPost);
+  const currentPosts = leaderboard.slice(indexofFirstPost, indexOfLastPost)
 
   const currenPostsDiamondToIron = leaderboardDiamondToIron.slice(
     indexofFirstPost2,
     indexofLastPost2
-  );
+  )
 
   // change page
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    setCurrentPage(pageNumber)
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth",
-    });
-  };
+      behavior: 'smooth',
+    })
+  }
 
   const setPagetoOne = () => {
-    setCurrentPage(1);
-  };
+    setCurrentPage(1)
+  }
 
   useEffect(() => {
-    closeStorage();
+    closeStorage()
     // Retrieve queueType list from Riot API
-    axios.get(`${url}/queueType`).then((res) => setQueues(res.data));
+    axios.get(`${url}/queueType`).then((res) => setQueues(res.data))
     axios
       // Link to version list from Riot
-      .get("https://ddragon.leagueoflegends.com/api/versions.json")
+      .get('https://ddragon.leagueoflegends.com/api/versions.json')
       .then((res) => {
         // Save current version into state
-        setVersion(res.data[0]);
+        setVersion(res.data[0])
         axios
           .get(
             // Link to champion.json from Riot
@@ -351,10 +330,10 @@ function App() {
           .then((result) => {
             // Loop through Riot's champion.json array and keeps object values, in the form of an array
             // Store championArray into state
-            setChampInfo(Object.values(result.data.data));
+            setChampInfo(Object.values(result.data.data))
             setChampKeys(
               Object.keys(result.data.data).map((name) => name.toLowerCase())
-            );
+            )
 
             axios
               .get(
@@ -364,21 +343,21 @@ function App() {
               .then((response) => {
                 const latestArr = Object.values(result.data.data).filter(
                   (champ) => !Object.keys(response.data.data).includes(champ.id)
-                );
-                setLatest(latestArr);
-              });
-          });
+                )
+                setLatest(latestArr)
+              })
+          })
         axios.get(`${url}/backupjson`).then((res) => {
-          setBackupItem(res.data);
-          sessionStorage.setItem("backupjson", JSON.stringify(res.data));
-        });
-      });
+          setBackupItem(res.data)
+          sessionStorage.setItem('backupjson', JSON.stringify(res.data))
+        })
+      })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
-    const getChamp = sessionStorage.getItem("champion");
+    const getChamp = sessionStorage.getItem('champion')
 
     if (version && getChamp) {
       axios
@@ -386,61 +365,88 @@ function App() {
           `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
         )
         .then((res) => {
-          setChampDetail(res.data.data[getChamp]);
-        });
+          setChampDetail(res.data.data[getChamp])
+        })
     }
 
     // Get champ name from URL to championdetail page
-    const champName = location.pathname.split("/");
+    const champName = location.pathname.split('/')
 
     if (
-      champName[1].toLowerCase() === "championdetail" &&
+      champName[1].toLowerCase() === 'championdetail' &&
       champName[2] &&
       version &&
       champInfo.length > 0
     ) {
       champInfo.forEach(async (champ) => {
         if (champ.id.toLowerCase() !== champName[2]) {
-          return;
+          return
         } else {
-          const promiseChamp = champ.id;
+          const promiseChamp = champ.id
 
           await axios
             .get(
               `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${promiseChamp}.json`
             )
             .then((res) => {
-              sessionStorage.setItem("champion", promiseChamp);
-              setChampDetail(res.data.data[promiseChamp]);
-            });
+              sessionStorage.setItem('champion', promiseChamp)
+              setChampDetail(res.data.data[promiseChamp])
+            })
         }
-      });
+      })
     } else if (champKeys.includes(champName)) {
-      history.push("/champions");
+      history.push('/champions')
     }
     // eslint-disable-next-line
-  }, [version, champInfo]);
+  }, [version, champInfo])
 
   useEffect(() => {
-    const getChamp = sessionStorage.getItem("champion");
+    const getChamp = sessionStorage.getItem('champion')
 
-    if (location.pathname.includes("summoner")) {
-      const summoner = location.pathname.split("/")[3];
-      const region = location.pathname.split("/")[2].toUpperCase();
-      const extra = location.pathname.split("/")[4];
-      setExistRegion(existRgn.includes(region));
+    if (location.pathname.includes('summoner')) {
+      const summoner = location.pathname.split('/')[3]
+      const region = location.pathname.split('/')[2].toUpperCase()
+      const extra = location.pathname.split('/')[4]
+      setExistRegion(existRgn.includes(region))
 
       if (summoner !== undefined && region !== undefined) {
-        getAccountInfo(summoner, region);
+        getAccountInfo(summoner, region)
       }
       if (extra) {
-        history.replace(`/summoner/${region}/${summoner}`);
+        history.replace(`/summoner/${region}/${summoner}`)
       }
     }
 
-    if (location.pathname.includes("championdetail")) {
-      const champName = location.pathname.split("/")[2].toLowerCase();
-      const extra = location.pathname.split("/")[3];
+    if (location.pathname.includes('championdetail')) {
+      console.log(location.pathname)
+
+      let champName
+
+      if (location.pathname.split('/')[2]) {
+        champName = location.pathname.split('/')[2].toLowerCase()
+      }
+
+      const extra = location.pathname.split('/')[3]
+
+      if (location.pathname === '/championdetail/Camille') {
+        history.replace(`/championdetail/${champName}`)
+      }
+      if (location.pathname === '/championdetail/Ezreal') {
+        history.replace(`/championdetail/${champName}`)
+      }
+      if (location.pathname === '/championdetail/Cassiopeia') {
+        history.replace(`/championdetail/${champName}`)
+      }
+      if (location.pathname === '/championdetail/Illaoi') {
+        history.replace(`/championdetail/${champName}`)
+      }
+      if (location.pathname === '/championdetail/Viego') {
+        history.replace(`/championdetail/${champName}`)
+      }
+
+      if (location.pathname === '/championdetail/wukong') {
+        history.replace(`/championdetail/monkeyking`)
+      }
 
       if (champKeys.length > 0) {
         if (
@@ -448,40 +454,38 @@ function App() {
           champKeys.includes(champName) &&
           champName !== getChamp.toLowerCase()
         ) {
-          history.replace(`/championdetail/${champName}`);
-          return;
+          history.replace(`/championdetail/${champName.toLowerCase()}`)
         } else if (
           getChamp &&
           champName &&
           getChamp.toLowerCase() !== champName
         ) {
-          history.replace(`/championdetail/${getChamp}`);
-          return;
+          history.replace(`/championdetail/${getChamp}`)
         }
       }
 
       if (extra) {
-        history.replace(`/championdetail/${champName}`);
+        history.replace(`/championdetail/${champName}`)
       }
     }
 
     // eslint-disable-next-line
-  }, [location, champKeys]);
+  }, [location, champKeys])
 
   useEffect(() => {
-    localStorage.setItem("searchedSummoner", JSON.stringify(prevEntries));
-  }, [prevEntries]);
+    localStorage.setItem('searchedSummoner', JSON.stringify(prevEntries))
+  }, [prevEntries])
 
   return (
     <>
       {!fade ? (
         <div
-          className={!fade && "backgroundContainerFade"}
+          className={!fade && 'backgroundContainerFade'}
           style={{ backgroundImage: `url(${background})` }}
         />
       ) : null}
 
-      <div className={navVisibility ? "overlay" : null}>
+      <div className={navVisibility ? 'overlay' : null}>
         <div>
           <Navbar
             visibility={navVisibility}
@@ -508,7 +512,7 @@ function App() {
           <Switch>
             <Route
               exact
-              path="/"
+              path='/'
               render={() => (
                 <Home
                   summonerInfo={summonerInfo}
@@ -533,7 +537,7 @@ function App() {
               )}
             />
             <Route
-              path="/summoner/:region/:summonerName"
+              path='/summoner/:region/:summonerName'
               render={() =>
                 summonerInfo.id ? (
                   <Welcome
@@ -558,7 +562,7 @@ function App() {
             />
             <Route
               exact
-              path="/champions"
+              path='/champions'
               render={() =>
                 redirect ? (
                   <Redirect
@@ -583,7 +587,7 @@ function App() {
             />
             <Route
               exact
-              path="/leaderboard"
+              path='/leaderboard'
               render={() =>
                 redirect ? (
                   <Redirect
@@ -616,7 +620,7 @@ function App() {
               }
             />
             <Route
-              path="/championdetail"
+              path='/championdetail'
               render={() =>
                 redirect ? (
                   <Redirect
@@ -637,14 +641,14 @@ function App() {
                 )
               }
             />
-            <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+            <Route render={() => <Redirect to={{ pathname: '/' }} />} />
           </Switch>
 
           <Footer />
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
