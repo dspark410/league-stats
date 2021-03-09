@@ -401,7 +401,10 @@ function App() {
   }, [version, champInfo])
 
   useEffect(() => {
-    const getChamp = sessionStorage.getItem('champion')
+    let getChamp
+    if (sessionStorage.getItem('champion')) {
+      getChamp = sessionStorage.getItem('champion').toLowerCase()
+    }
 
     if (location.pathname.includes('summoner')) {
       const summoner = location.pathname.split('/')[3]
@@ -443,7 +446,6 @@ function App() {
       if (location.pathname === '/championdetail/Viego') {
         history.replace(`/championdetail/${champName}`)
       }
-
       if (location.pathname === '/championdetail/wukong') {
         history.replace(`/championdetail/monkeyking`)
       }
