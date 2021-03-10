@@ -174,6 +174,7 @@ function MatchHistoryCard({
 
   useEffect(() => {
     const gameDetailsArr = [];
+    let skeleTimer;
 
     if (matchDetails.length === index) {
       matchDetails.forEach((match) => {
@@ -186,10 +187,15 @@ function MatchHistoryCard({
         gameDetailsArr.push(createGameObject(match, queues, champInfo));
         setGameDetails(gameDetailsArr);
       });
-      setTimeout(() => {
+      skeleTimer = setTimeout(() => {
+        console.log("skeleTimer");
         skeletonFalse();
       }, 8000);
     }
+    return () => {
+      clearInterval(skeleTimer);
+    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matchDetails]);
 
