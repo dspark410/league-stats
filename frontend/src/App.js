@@ -136,7 +136,7 @@ function App() {
       .then((res) => {
         setChampDetail(res.data.data[getChamp])
 
-        history.replace(`championdetail/${getChamp.toLowerCase()}`)
+        history.replace(`champions/${getChamp.toLowerCase()}`)
       })
   }
 
@@ -369,11 +369,11 @@ function App() {
         })
     }
 
-    // Get champ name from URL to championdetail page
+    // Get champ name from URL to champions page
     const champName = location.pathname.split('/')
 
     if (
-      champName[1].toLowerCase() === 'championdetail' &&
+      champName[1].toLowerCase() === 'champions' &&
       champName[2] &&
       version &&
       champInfo.length > 0
@@ -420,7 +420,7 @@ function App() {
       }
     }
 
-    if (location.pathname.includes('championdetail')) {
+    if (location.pathname.includes('champions')) {
       console.log(location.pathname)
 
       let champName
@@ -431,23 +431,23 @@ function App() {
 
       const extra = location.pathname.split('/')[3]
 
-      if (location.pathname === '/championdetail/Camille') {
-        history.replace(`/championdetail/${champName}`)
+      if (location.pathname === '/champions/Camille') {
+        history.replace(`/champions/${champName}`)
       }
-      if (location.pathname === '/championdetail/Ezreal') {
-        history.replace(`/championdetail/${champName}`)
+      if (location.pathname === '/champions/Ezreal') {
+        history.replace(`/champions/${champName}`)
       }
-      if (location.pathname === '/championdetail/Cassiopeia') {
-        history.replace(`/championdetail/${champName}`)
+      if (location.pathname === '/champions/Cassiopeia') {
+        history.replace(`/champions/${champName}`)
       }
-      if (location.pathname === '/championdetail/Illaoi') {
-        history.replace(`/championdetail/${champName}`)
+      if (location.pathname === '/champions/Illaoi') {
+        history.replace(`/champions/${champName}`)
       }
-      if (location.pathname === '/championdetail/Viego') {
-        history.replace(`/championdetail/${champName}`)
+      if (location.pathname === '/champions/Viego') {
+        history.replace(`/champions/${champName}`)
       }
-      if (location.pathname === '/championdetail/wukong') {
-        history.replace(`/championdetail/monkeyking`)
+      if (location.pathname === '/champions/wukong') {
+        history.replace(`/champions/monkeyking`)
       }
 
       if (champKeys.length > 0) {
@@ -456,18 +456,18 @@ function App() {
           champKeys.includes(champName) &&
           champName !== getChamp.toLowerCase()
         ) {
-          history.replace(`/championdetail/${champName.toLowerCase()}`)
+          history.replace(`/champions/${champName.toLowerCase()}`)
         } else if (
           getChamp &&
           champName &&
           getChamp.toLowerCase() !== champName
         ) {
-          history.replace(`/championdetail/${getChamp}`)
+          history.replace(`/champions/${getChamp}`)
         }
       }
 
       if (extra) {
-        history.replace(`/championdetail/${champName}`)
+        history.replace(`/champions/${champName}`)
       }
     }
 
@@ -565,83 +565,53 @@ function App() {
             <Route
               exact
               path='/champions'
-              render={() =>
-                redirect ? (
-                  <Redirect
-                    to={`/summoner/${region.toLowerCase()}/${
-                      summonerInfo.name
-                        ? summonerInfo.name.toLowerCase()
-                        : sessionData.name.toLowerCase()
-                    } `}
-                  />
-                ) : (
-                  <Champions
-                    champInfo={champInfo}
-                    latest={latest}
-                    version={version}
-                    champDetail={champDetail}
-                    selectChampion={selectChampion}
-                    showNav={showNav}
-                    region={region}
-                  />
-                )
-              }
+              render={() => (
+                <Champions
+                  champInfo={champInfo}
+                  latest={latest}
+                  version={version}
+                  champDetail={champDetail}
+                  selectChampion={selectChampion}
+                  showNav={showNav}
+                  region={region}
+                />
+              )}
             />
             <Route
               exact
               path='/leaderboard'
-              render={() =>
-                redirect ? (
-                  <Redirect
-                    to={`/summoner/${region.toLowerCase()}/${
-                      summonerInfo.name
-                        ? summonerInfo.name.toLowerCase()
-                        : sessionData.name.toLowerCase()
-                    } `}
-                  />
-                ) : (
-                  <Leaderboard
-                    version={version}
-                    showNav={showNav}
-                    changeLeaderBoard={changeLeaderBoard}
-                    changeLeaderBoardPage={changeLeaderBoardPage}
-                    leaderboard={currentPosts}
-                    leaderboardDiamondToIron={currenPostsDiamondToIron}
-                    postsPerPage={postsPerPage}
-                    postsperPageDiamondToIron={postsperPageDiamondToIron}
-                    totalPosts={leaderboard.length}
-                    totalPosts2={leaderboardDiamondToIron.length}
-                    paginate={paginate}
-                    currentPage={currentPage}
-                    region={region}
-                    getPlayerName={getPlayerName}
-                    fullLeaderboard={leaderboardDiamondToIron}
-                    setPagetoOne={setPagetoOne}
-                  />
-                )
-              }
+              render={() => (
+                <Leaderboard
+                  version={version}
+                  showNav={showNav}
+                  changeLeaderBoard={changeLeaderBoard}
+                  changeLeaderBoardPage={changeLeaderBoardPage}
+                  leaderboard={currentPosts}
+                  leaderboardDiamondToIron={currenPostsDiamondToIron}
+                  postsPerPage={postsPerPage}
+                  postsperPageDiamondToIron={postsperPageDiamondToIron}
+                  totalPosts={leaderboard.length}
+                  totalPosts2={leaderboardDiamondToIron.length}
+                  paginate={paginate}
+                  currentPage={currentPage}
+                  region={region}
+                  getPlayerName={getPlayerName}
+                  fullLeaderboard={leaderboardDiamondToIron}
+                  setPagetoOne={setPagetoOne}
+                />
+              )}
             />
             <Route
-              path='/championdetail'
-              render={() =>
-                redirect ? (
-                  <Redirect
-                    to={`/summoner/${region.toLowerCase()}/${
-                      summonerInfo.name
-                        ? summonerInfo.name.toLowerCase()
-                        : sessionData.name.toLowerCase()
-                    } `}
-                  />
-                ) : (
-                  <ChampionDetail
-                    version={version}
-                    champDetail={champDetail}
-                    itemObj={backupItem}
-                    showNav={showNav}
-                    changeBackground={changeBackground}
-                  />
-                )
-              }
+              path='/champions/:champion'
+              render={() => (
+                <ChampionDetail
+                  version={version}
+                  champDetail={champDetail}
+                  itemObj={backupItem}
+                  showNav={showNav}
+                  changeBackground={changeBackground}
+                />
+              )}
             />
             <Route render={() => <Redirect to={{ pathname: '/' }} />} />
           </Switch>
