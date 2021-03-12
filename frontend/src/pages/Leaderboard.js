@@ -54,7 +54,6 @@ function Leaderboard({
   }, [rank, division, page])
 
   const nextPage = () => {
-    console.log(fullLeaderboard)
     if (fullLeaderboard.length < 205) {
       return
     } else {

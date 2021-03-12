@@ -39,7 +39,7 @@ const sortByLane = (arr, gameType) => {
         }
       }
     })
-    console.log(playerArr)
+
     return playerArr
   }
   return arr

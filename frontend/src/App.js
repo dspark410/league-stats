@@ -421,8 +421,6 @@ function App() {
     }
 
     if (location.pathname.includes('champions')) {
-      console.log(location.pathname)
-
       let champName
 
       if (location.pathname.split('/')[2]) {

@@ -206,6 +206,12 @@ if (process.env.NODE_ENV === 'production') {
   // Sends static folder
   app.use(express.static('frontend/build'))
 
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else next()
+  })
+
   app.get('/*', function (req, res) {
     res.sendFile(
       path.join(__dirname, './frontend/build/index.html'),
