@@ -41,7 +41,7 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
                     </Link>
                   </div>
 
-                  <div className={style.name}>{champ.name}</div>
+                  <div className={style.name}>{champ.id}</div>
                   <div className={style.champLvlContainer}>
                     <img
                       className={style.masteryFrame}
@@ -86,7 +86,7 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
                       name={champ.id}
                       className={style.name}
                     >
-                      {champ.name}
+                      {champ.id}
                     </div>
                   </Link>
                   <div className={style.champLvlContainer}>

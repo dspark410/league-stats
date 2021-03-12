@@ -119,7 +119,9 @@ function App() {
   }
 
   const changeURL = (name, region) => {
-    history.push(`/summoner/${region.toUpperCase()}/${name.toLowerCase()}`)
+    name &&
+      region &&
+      history.push(`/summoner/${region.toUpperCase()}/${name.toLowerCase()}`)
   }
 
   // onClick that makes an axios call to retrieve the specific champion json using
