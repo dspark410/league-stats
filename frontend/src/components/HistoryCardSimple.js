@@ -26,7 +26,7 @@ function HistoryCardSimple({ game, clickArrow, open }) {
     }
   }
 
-  return (
+  return game.playerInfo ? (
     <div
       className={`${!open ? style.historyCard : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
@@ -61,8 +61,8 @@ function HistoryCardSimple({ game, clickArrow, open }) {
       <div className={style.fourthCol}>
         <p>
           {`${game.playerInfo.stats.kills} /
-      ${game.playerInfo.stats.deaths} /
-      ${game.playerInfo.stats.assists}`}
+    ${game.playerInfo.stats.deaths} /
+    ${game.playerInfo.stats.assists}`}
         </p>
 
         <div
@@ -91,7 +91,7 @@ function HistoryCardSimple({ game, clickArrow, open }) {
       </div>
       <IoIosArrowDown className={style.sixthCol} onClick={clickArrow} />
     </div>
-  )
+  ) : null
 }
 
 export default HistoryCardSimple

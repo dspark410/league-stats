@@ -74,7 +74,7 @@ function HistoryCardComplex({
   //   return arr
   // }
 
-  return (
+  return game.playerInfo ? (
     <div
       className={`${open ? style.historyCardComplex : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
@@ -519,7 +519,7 @@ function HistoryCardComplex({
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default HistoryCardComplex
