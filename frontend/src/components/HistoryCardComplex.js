@@ -351,16 +351,7 @@ function HistoryCardComplex({
 
         <div className={style.iconContainer}>
           {game.gameType === '5v5 ARAM games' ? (
-            // Array.from({ length: 5 }).map((num, i) => (
-            //   <img
-            //     key={i}
-            //     alt='poro'
-            //     src={
-            //       'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/poro_happy_taunt_selector.png'
-            //     }
-            //   />
-            // ))
-            <>
+            <img>
               <img
                 alt='poro'
                 src={
@@ -391,15 +382,8 @@ function HistoryCardComplex({
                   'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/rewards/essence/essence_poro_tier_2_selector.png'
                 }
               />
-            </>
+            </img>
           ) : game.gameType === 'URF games' ? (
-            // Array.from({ length: 5 }).map((num, i) => (
-            //   <img
-            //     key={i}
-            //     alt='golden spatula'
-            //     src={process.env.PUBLIC_URL + '/images/icons/manatee.png'}
-            //   />
-            // ))
             <>
               <img
                 alt='manatee urf'

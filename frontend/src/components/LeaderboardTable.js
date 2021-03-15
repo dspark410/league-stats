@@ -18,6 +18,8 @@ function LeaderboardTable({
 
   const url = process.env.REACT_APP_API_URL || ''
 
+  let source = axios.CancelToken.source()
+
   useEffect(() => {
     let mounted = true
     const iconArr = []
@@ -26,7 +28,9 @@ function LeaderboardTable({
       Promise.all(
         leaderboard.map((player) => {
           return axios
-            .get(`${url}/getSummonerId/${player.summonerId}/${region}`)
+            .get(`${url}/getSummonerId/${player.summonerId}/${region}`, {
+              cancelToken: source.token,
+            })
             .then((res) => {
               player.icon = res.data.profileIconId.toString()
               iconArr.push(player)
@@ -39,6 +43,8 @@ function LeaderboardTable({
 
     return () => {
       mounted = false
+
+      source.cancel('leaderboard table component got unmounted')
     }
     // eslint-disable-next-line
   }, [leaderboard])

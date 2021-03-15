@@ -8,6 +8,7 @@ export default function ItemHistory({ details, version, skeleton }) {
   const [versionState, setVersionState] = useState()
   const [loading, setLoading] = useState(true)
 
+  let source = axios.CancelToken.source()
   // Store version into state and stop loading until new version of the item JSON is ready
   useEffect(() => {
     setLoading(true)
@@ -25,7 +26,8 @@ export default function ItemHistory({ details, version, skeleton }) {
     if (versionState) {
       axios
         .get(
-          `https://ddragon.leagueoflegends.com/cdn/${versionState}.1/data/en_US/item.json`
+          `https://ddragon.leagueoflegends.com/cdn/${versionState}.1/data/en_US/item.json`,
+          { cancelToken: source.token }
         )
         .then((res) => {
           setItems(res.data.data)
@@ -33,8 +35,14 @@ export default function ItemHistory({ details, version, skeleton }) {
           setLoading(false)
         })
     }
+
+    return () => {
+      source.cancel('itemhistory component got unmounted')
+    }
     // With dependency, this call should only be made if new version
     // is different from previous version
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [versionState])
 
   return (

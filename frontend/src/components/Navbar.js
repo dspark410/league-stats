@@ -57,8 +57,8 @@ function Navbar({
                   onChange={regionSelect}
                   className={style.regionSelect}
                 >
-                  {regions.map((r) => (
-                    <option className={style.regionOption} value={r} key={r}>
+                  {regions.map((r, i) => (
+                    <option className={style.regionOption} value={r} key={i}>
                       {r}
                     </option>
                   ))}
@@ -174,9 +174,9 @@ function Navbar({
                     </div>
                   </>
                 ) : (
-                  prevSearches.map((summoner) => (
+                  prevSearches.map((summoner, i) => (
                     <div
-                      key={summoner}
+                      key={i}
                       // onClick={skeletonTrue}
 
                       className={style.storageSummoner}

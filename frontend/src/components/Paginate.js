@@ -111,11 +111,11 @@ function Paginate({
           </li>
         )}
 
-        {pageNumbers.slice(begin, end).map((number) => (
+        {pageNumbers.slice(begin, end).map((number, i) => (
           <li
             onClick={() => paginate(number)}
             className={`${style.li} ${currentPage === number && style.color} `}
-            key={number}
+            key={i}
           >
             {page ? (page === 1 ? number : number + (page - 1) * 5) : number}
           </li>

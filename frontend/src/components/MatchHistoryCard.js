@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import style from './matchhistorycard.module.css'
 import axios from 'axios'
 import HistoryCard from './HistoryCard'
@@ -25,31 +25,44 @@ function MatchHistoryCard({
 
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
+
   const url = process.env.REACT_APP_API_URL || ''
+
+  let source = axios.CancelToken.source()
+
+  let moreMatchesMounted = useRef()
 
   // Funtion for loading more matches
   const getMoreMatches = async () => {
+    moreMatchesMounted.current = true
+
     setMatchesLoader(true)
-    setTimeout(async () => {
-      const matchArr = []
-      for (let i = index; i < index + 5; i++) {
-        if (i < playerMatches.length) {
-          await axios
-            .get(`${url}/matchDetails/${playerMatches[i].gameId}/${region}`)
-            .then(async (res) => {
-              if (res.status > 500) return
+    if (moreMatchesMounted) {
+      setTimeout(async () => {
+        const matchArr = []
 
-              const newMatch = createGameObject(res.data, queues, champInfo)
-              matchArr.push(newMatch)
-            })
+        for (let i = index; i < index + 5; i++) {
+          if (!moreMatchesMounted.current) return
+          if (i < playerMatches.length) {
+            await axios
+              .get(`${url}/matchDetails/${playerMatches[i].gameId}/${region}`, {
+                cancelToken: source.token,
+              })
+              .then(async (res) => {
+                if (res.status > 500) return
+                console.log('getmorematches running')
+                const newMatch = createGameObject(res.data, queues, champInfo)
+                matchArr.push(newMatch)
+              })
+          }
         }
-      }
-      setGameDetails((prevGames) => [...prevGames, ...matchArr])
+        setGameDetails((prevGames) => [...prevGames, ...matchArr])
 
-      setIndex((prevIndex) => prevIndex + 5)
+        setIndex((prevIndex) => prevIndex + 5)
 
-      setMatchesLoader(false)
-    }, 2000)
+        setMatchesLoader(false)
+      }, 2000)
+    }
   }
 
   const createGameObject = (match, queues, champInfo) => {
@@ -107,32 +120,40 @@ function MatchHistoryCard({
     }
 
     // finds matching participantId from matchObj and keeps all data from matching participants
-    match.participants.forEach((data) => {
-      if (data.participantId === matchObj.participantId) {
-        const playerStats = data
-        matchObj.playerInfo = playerStats
-      }
-    })
-    // get relevant image for player's champion for that game
-    champInfo.forEach((champ) => {
-      if (matchObj.playerInfo) {
-        if (matchObj.playerInfo.championId === +champ.key) {
-          matchObj.championName = champ.name
-          matchObj.championImage = champ.image.full
+    if (match.participants) {
+      match.participants.forEach((data) => {
+        if (data.participantId === matchObj.participantId) {
+          const playerStats = data
+          matchObj.playerInfo = playerStats
         }
-      }
-    })
-    return matchObj
+      })
+    }
+
+    // get relevant image for player's champion for that game
+    if (champInfo) {
+      champInfo.forEach((champ) => {
+        if (matchObj.playerInfo) {
+          if (matchObj.playerInfo.championId === +champ.key) {
+            matchObj.championName = champ.name
+            matchObj.championImage = champ.image.full
+          }
+        }
+      })
+      return matchObj
+    }
   }
 
   useEffect(() => {
     let mounted = true
+
     // Validation to check if version is populated in props
+
     if (version && mounted) {
       // Retrieve list of summoner spells from Riot API
       axios
         .get(
-          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
+          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`,
+          { cancelToken: source.token }
         )
         .then((res) => {
           setSpells(Object.values(res.data.data))
@@ -140,7 +161,8 @@ function MatchHistoryCard({
       // Retrieve list of runes from Riot APIf
       axios
         .get(
-          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
+          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`,
+          { cancelToken: source.token }
         )
         .then((res) => {
           setRunes(res.data)
@@ -149,7 +171,9 @@ function MatchHistoryCard({
 
     return () => {
       mounted = false
+      source.cancel('spells and runes got unmounted')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [version])
 
   //
@@ -171,7 +195,8 @@ function MatchHistoryCard({
       Promise.all(
         playerMatches.slice(0, visible).map(async (match) => {
           const res = await axios.get(
-            `${url}/matchDetails/${match.gameId}/${region}`
+            `${url}/matchDetails/${match.gameId}/${region}`,
+            { cancelToken: source.token }
           )
           return matchArray.push(res.data)
         })
@@ -182,6 +207,7 @@ function MatchHistoryCard({
 
     return () => {
       mounted = false
+      source.cancel('matchdetails useeffect got unmounted')
     }
     // Dependent on playerMatches to be ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -189,7 +215,7 @@ function MatchHistoryCard({
 
   useEffect(() => {
     return () => {
-      clearTimeout(getMoreMatches)
+      moreMatchesMounted.current = false
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

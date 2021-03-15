@@ -44,8 +44,8 @@ function Home({
                 onChange={regionSelect}
                 className={style.regionSelect}
               >
-                {regions.map((r) => (
-                  <option className={style.regionOption} value={r} key={r}>
+                {regions.map((r, i) => (
+                  <option className={style.regionOption} value={r} key={i}>
                     {r}
                   </option>
                 ))}
@@ -156,8 +156,8 @@ function Home({
                   </div>
                 </>
               ) : (
-                prevSearches.map((summoner) => (
-                  <div key={summoner} className={style.storageSummoner}>
+                prevSearches.map((summoner, i) => (
+                  <div key={i} className={style.storageSummoner}>
                     <div
                       className={style.topLayer}
                       onMouseDown={submit}
