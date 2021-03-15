@@ -232,6 +232,8 @@ function MatchHistoryCard({
           return
         }
 
+        if (match > 500) return
+
         gameDetailsArr.push(createGameObject(match, queues, champInfo))
         setGameDetails(gameDetailsArr)
       })
