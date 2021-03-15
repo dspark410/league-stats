@@ -18,15 +18,14 @@ function LeaderboardDiamondToIron({
 }) {
   return (
     <>
-      <table className={style.tableContainer}>
-        <div className={style.sorted}>
-          <AiOutlineInfoCircle className={style.infoIcon} />
-          <div>
-            Diamond - Iron tiers are sorted every 5 pages. Summoner icons are
-            not shown.
-          </div>
+      <div className={style.sorted}>
+        <AiOutlineInfoCircle className={style.infoIcon} />
+        <div>
+          Diamond - Iron tiers are sorted every 5 pages. Summoner icons are not
+          shown.
         </div>
-
+      </div>
+      <table className={style.tableContainer}>
         <tbody className={style.tbody}>
           <tr className={`${style.rowHeader}`}>
             <th className={`${style.td} ${style.number}`}>#</th>
