@@ -50,7 +50,7 @@ function MatchHistoryCard({
               })
               .then(async (res) => {
                 if (res.status > 500) return
-                console.log('getmorematches running')
+
                 const newMatch = createGameObject(res.data, queues, champInfo)
                 matchArr.push(newMatch)
               })
