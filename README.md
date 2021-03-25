@@ -2,7 +2,7 @@
 
 ### Deployed Link - https://www.league-stats.com/
 
-Project is currently in progress...
+Project is currently in progress....
 
 ## Description
 
