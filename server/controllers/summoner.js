@@ -4,7 +4,6 @@ const backupItem = require('../Items/backupItems.json')
 exports.getSummonerName = async (req, res) => {
   try {
     const summoner = encodeURIComponent(req.params.summoner)
-    //console.log(req.params.summoner, summoner);
     const region = req.params.region
     const api = process.env.API_KEY
     const summonerData = await axios.get(
@@ -15,6 +14,19 @@ exports.getSummonerName = async (req, res) => {
   } catch (error) {
     console.log(error)
     res.send('summoner not found...')
+  }
+}
+
+exports.getSummonerName2 = async (summoner, region) => {
+  try {
+    const api = process.env.API_KEY
+    const summonerData = await axios.get(
+      `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${summoner}?api_key=${api}`
+    )
+    // console.log(summonerData.data)
+    return summonerData.data
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -33,6 +45,18 @@ exports.getMasteries = async (req, res) => {
   }
 }
 
+exports.getMasteries2 = async (id, region) => {
+  try {
+    const api = process.env.API_KEY
+    const masteriesData = await axios.get(
+      `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${id}?api_key=${api}`
+    )
+    return masteriesData.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 // Call with id to retrieve a summoner's rank
 exports.getRank = async (req, res) => {
   try {
@@ -43,6 +67,19 @@ exports.getRank = async (req, res) => {
       `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${api}`
     )
     res.json(rankData.data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Call with id to retrieve a summoner's rank
+exports.getRank2 = async (id, region) => {
+  try {
+    const api = process.env.API_KEY
+    const rankData = await axios.get(
+      `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${id}?api_key=${api}`
+    )
+    return rankData.data
   } catch (error) {
     console.log(error)
   }
@@ -113,7 +150,7 @@ exports.getLive = async (req, res) => {
     )
     res.json(liveData.data)
   } catch (error) {
-    console.log('Not in Live Game')
+    res.send('Not in Live Game')
   }
 }
 
@@ -122,6 +159,6 @@ exports.getBackup = async (req, res) => {
   try {
     res.json(backupItem)
   } catch (error) {
-    console.log('Not in Live Game')
+    res.send('Backup not available')
   }
 }

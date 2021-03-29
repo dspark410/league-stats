@@ -5,6 +5,15 @@ const routes = require('./routes/routes')
 const express = require('express')
 const app = express()
 const path = require('path')
+const {
+  getSummonerName,
+  getSummonerName2,
+  getMasteries2,
+  getRank2,
+} = require('./controllers/summoner')
+const { getChampInfo } = require('./controllers/champions')
+const { getSummonerMasteries } = require('./controllers/utils')
+const { resolve } = require('path')
 const port = process.env.PORT || 5000
 
 // Allow CORS
@@ -14,6 +23,14 @@ app.use((req, res, next) => {
 })
 
 app.use('/api', routes)
+
+getChampInfo('11.6.1').then((champInfo) => {
+  getSummonerName2('chiew510', 'NA1').then((summonerRes) => {
+    getSummonerMasteries(summonerRes.id, 'NA1', champInfo)
+
+    getRank2(summonerRes.id, 'NA1').then((res) => console.log(res))
+  })
+})
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {

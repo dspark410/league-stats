@@ -13,3 +13,11 @@ exports.getFreeChamps = async (req, res) => {
     console.log(error)
   }
 }
+
+exports.getChampInfo = async (version) => {
+  const champInfo = await axios.get(
+    `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`
+  )
+  // console.log(Object.values(champInfo.data.data))
+  return Object.values(champInfo.data.data)
+}
