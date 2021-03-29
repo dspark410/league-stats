@@ -86,15 +86,21 @@ export const Welcome = ({
         getMasteries(summonerInfo.id, region),
         getRank(summonerInfo.id, region),
         getMatchList(summonerInfo.accountId, region),
-        getLive(summonerInfo.id, region),
-      ]).then((res) => {
-        setMastery(res[0].data)
-        setRank(res[1].data)
-        res[2].data.matches
-          ? setPlayerMatches(res[2].data.matches)
-          : setPlayerMatches([])
-        setLive(res[3].data)
-      })
+      ])
+        .then((res) => {
+          setMastery(res[0].data)
+          setRank(res[1].data)
+          res[2].data.matches
+            ? setPlayerMatches(res[2].data.matches)
+            : setPlayerMatches([])
+        })
+        .then(() => {
+          getLive(summonerInfo.id, region).then((res) => {
+            if (res.data !== undefined) {
+              setLive(res.data)
+            }
+          })
+        })
 
       //getMasteries(summonerInfo.id, region).then((res) => setMastery(res.data))
 
