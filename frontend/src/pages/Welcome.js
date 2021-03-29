@@ -96,7 +96,7 @@ export const Welcome = ({
         })
         .then(() => {
           getLive(summonerInfo.id, region).then((res) => {
-            if (res.data !== undefined) {
+            if (res.data !== 'Not in Live Game') {
               setLive(res.data)
             }
           })
