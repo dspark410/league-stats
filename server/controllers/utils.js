@@ -36,40 +36,37 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
 exports.getSummonerMatches = (id, region, queues, matches) => {
   getMatchList2(id, region).then((matchList) => {
     const matchArr = []
-    const promise = []
-    for (let i = 0; i < matches; i++) {
-      promise.push(
-        new Promise((resolve, reject) => {
-          getMatchDetails2(matchList.data.matches[i].gameId, region).then(
-            (matchDetails) => {
-              queues
-                .filter((queue) => queue.queueId === matchDetails.data.queueId)
-                .map((queue) => {
-                  const object = {
-                    map: queue.map,
-                    gameType: queue.description,
-                    gameCreation: new Date(
-                      matchDetails.data.gameCreation
-                    ).toString(),
-                    originalDate: matchDetails.data.gameCreation,
-                    gameDuration: matchDetails.data.gameDuration,
-                    gameVersion: matchDetails.data.gameVersion
-                      .split('.')
-                      .slice(0, 2)
-                      .join('.'),
-                    players: [],
-                    participants: matchDetails.data.participants,
-                    platformId: matchDetails.data.platformId,
-                  }
-                  matchArr.push(object)
 
-                  resolve(matchArr)
-                })
-            }
-          )
-        })
-      )
+    for (let i = 0; i < matches; i++) {
+      new Promise((resolve, reject) => {
+        getMatchDetails2(matchList.data.matches[i].gameId, region).then(
+          (matchDetails) => {
+            queues
+              .filter((queue) => queue.queueId === matchDetails.data.queueId)
+              .map((queue) => {
+                const object = {
+                  map: queue.map,
+                  gameType: queue.description,
+                  gameCreation: new Date(
+                    matchDetails.data.gameCreation
+                  ).toString(),
+                  originalDate: matchDetails.data.gameCreation,
+                  gameDuration: matchDetails.data.gameDuration,
+                  gameVersion: matchDetails.data.gameVersion
+                    .split('.')
+                    .slice(0, 2)
+                    .join('.'),
+                  players: [],
+                  participants: matchDetails.data.participants,
+                  platformId: matchDetails.data.platformId,
+                }
+                matchArr.push(object)
+
+                resolve(matchArr)
+              })
+          }
+        )
+      }).then((res) => console.log(res))
     }
-    Promise.all(promise).then((res) => console.log(res))
   })
 }
