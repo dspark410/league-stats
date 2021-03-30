@@ -1,26 +1,22 @@
-const {
-  getMasteries2,
-  getMatchList2,
-  getMatchDetails2,
-} = require("./summoner");
+const { getMasteries2, getMatchList2, getMatchDetails2 } = require('./summoner')
 
 exports.getSummonerMasteries = (id, region, champInfo) =>
   getMasteries2(id, region).then((masteryRes) => {
-    const champObject = [];
+    const champObject = []
 
-    let champMastery = 5;
+    let champMastery = 5
 
-    masteryRes.length < 5 && champMastery === masteryRes.length;
+    masteryRes.length < 5 && champMastery === masteryRes.length
 
     for (let i = 0; i < champMastery; i++) {
       champInfo.forEach((champ) => {
         if (+champ.key === masteryRes[i].championId) {
-          const name = champ.name;
-          const key = masteryRes[i].championId;
-          const image = champ.image.full;
-          const level = masteryRes[i].championLevel;
-          const points = masteryRes[i].championPoints;
-          const id = champ.id;
+          const name = champ.name
+          const key = masteryRes[i].championId
+          const image = champ.image.full
+          const level = masteryRes[i].championLevel
+          const points = masteryRes[i].championPoints
+          const id = champ.id
 
           const object = {
             name,
@@ -29,43 +25,51 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
             image,
             level,
             points,
-          };
-          champObject.push(object);
+          }
+          champObject.push(object)
         }
-      });
+      })
     }
-    return champObject;
-  });
+    return champObject
+  })
 
 exports.getSummonerMatches = (id, region, queues, matches) => {
-  const matchArr = [];
-  new Promise((resolve) => resolve(getMatchList2));
   getMatchList2(id, region).then((matchList) => {
+    const matchArr = []
+    const promise = []
     for (let i = 0; i < matches; i++) {
-      getMatchDetails2(matchList.matches[i].gameId, region).then(
-        (matchDetails) => {
-          queues
-            .filter((queue) => queue.queueId === matchDetails.queueId)
-            .map((queue) => {
-              const object = {
-                map: queue.map,
-                gameType: queue.description,
-                gameCreation: new Date(matchDetails.gameCreation).toString(),
-                originalDate: matchDetails.gameCreation,
-                gameDuration: matchDetails.gameDuration,
-                gameVersion: matchDetails.gameVersion
-                  .split(".")
-                  .slice(0, 2)
-                  .join("."),
-                players: [],
-                participants: matchDetails.participants,
-                platformId: matchDetails.platformId,
-              };
-              matchArr.push(object);
-            });
-        }
-      );
+      promise.push(
+        new Promise((resolve, reject) => {
+          getMatchDetails2(matchList.data.matches[i].gameId, region).then(
+            (matchDetails) => {
+              queues
+                .filter((queue) => queue.queueId === matchDetails.data.queueId)
+                .map((queue) => {
+                  const object = {
+                    map: queue.map,
+                    gameType: queue.description,
+                    gameCreation: new Date(
+                      matchDetails.data.gameCreation
+                    ).toString(),
+                    originalDate: matchDetails.data.gameCreation,
+                    gameDuration: matchDetails.data.gameDuration,
+                    gameVersion: matchDetails.data.gameVersion
+                      .split('.')
+                      .slice(0, 2)
+                      .join('.'),
+                    players: [],
+                    participants: matchDetails.data.participants,
+                    platformId: matchDetails.data.platformId,
+                  }
+                  matchArr.push(object)
+
+                  resolve(matchArr)
+                })
+            }
+          )
+        })
+      )
     }
-  });
-  Promise.all(matchArr).then((res) => console.log("all done", res));
-};
+    Promise.all(promise).then((res) => console.log(res))
+  })
+}
