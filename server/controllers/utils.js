@@ -1,6 +1,10 @@
-const { getMasteries2 } = require("./summoner");
+const {
+  getMasteries2,
+  getMatchList2,
+  getMatchDetails2,
+} = require("./summoner");
 
-exports.getSummonerMasteries = async (id, region, champInfo) =>
+exports.getSummonerMasteries = (id, region, champInfo) =>
   getMasteries2(id, region).then((masteryRes) => {
     const champObject = [];
 
@@ -32,3 +36,36 @@ exports.getSummonerMasteries = async (id, region, champInfo) =>
     }
     return champObject;
   });
+
+exports.getSummonerMatches = (id, region, queues, matches) => {
+  const matchArr = [];
+  new Promise((resolve) => resolve(getMatchList2));
+  getMatchList2(id, region).then((matchList) => {
+    for (let i = 0; i < matches; i++) {
+      getMatchDetails2(matchList.matches[i].gameId, region).then(
+        (matchDetails) => {
+          queues
+            .filter((queue) => queue.queueId === matchDetails.queueId)
+            .map((queue) => {
+              const object = {
+                map: queue.map,
+                gameType: queue.description,
+                gameCreation: new Date(matchDetails.gameCreation).toString(),
+                originalDate: matchDetails.gameCreation,
+                gameDuration: matchDetails.gameDuration,
+                gameVersion: matchDetails.gameVersion
+                  .split(".")
+                  .slice(0, 2)
+                  .join("."),
+                players: [],
+                participants: matchDetails.participants,
+                platformId: matchDetails.platformId,
+              };
+              matchArr.push(object);
+            });
+        }
+      );
+    }
+  });
+  Promise.all(matchArr).then((res) => console.log("all done", res));
+};

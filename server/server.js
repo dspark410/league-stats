@@ -12,10 +12,12 @@ const {
   getQueues2,
   getLive2,
   getMatchList2,
-  getMatchDetails2,
 } = require("./controllers/summoner");
 const { getChampInfo } = require("./controllers/champions");
-const { getSummonerMasteries } = require("./controllers/utils");
+const {
+  getSummonerMasteries,
+  getSummonerMatches,
+} = require("./controllers/utils");
 const port = process.env.PORT || 5000;
 
 // Allow CORS
@@ -38,29 +40,7 @@ getChampInfo("11.6.1").then((champInfo) => {
     getSummonerMasteries(summonerRes.id, region, champInfo);
     getRank2(summonerRes.id, region);
     getLive2(summonerRes.id, region);
-    getMatchList2(summonerRes.accountId, region).then((matchList) => {
-      const matchArr = [];
-      for (let i = 0; i < matches; i++) {
-        getMatchDetails2(matchList.matches[i].gameId, region).then(
-          (matchDetails) => {
-            // console.log(
-            //   queues.filter((queue) => queue.queueId === matchDetails.queueId)
-            // );
-            // const object = {
-            //   map: queue.map,
-            //   gameType: queue.description,
-            //   gameCreation: date,
-            //   originalDate: match.gameCreation,
-            //   gameDuration: match.gameDuration,
-            //   gameVersion: match.gameVersion.split(".").slice(0, 2).join("."),
-            //   players: [],
-            //   participants: match.participants,
-            //   platformId: match.platformId,
-            // };
-          }
-        );
-      }
-    });
+    getSummonerMatches(summonerRes.accountId, region, queues, matches);
   });
 });
 
