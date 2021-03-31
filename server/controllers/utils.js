@@ -33,40 +33,41 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
     return champObject
   })
 
-exports.getSummonerMatches = (id, region, queues, matches) => {
-  getMatchList2(id, region).then((matchList) => {
-    const matchArr = []
+//const createGameObject
 
-    for (let i = 0; i < matches; i++) {
-      new Promise((resolve, reject) => {
-        getMatchDetails2(matchList.data.matches[i].gameId, region).then(
+exports.getSummonerMatches = (id, region, queues, matches) => {
+  return getMatchList2(id, region).then((matchList) => {
+    const matchArr = []
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < matches; i++) {
+        getMatchDetails2(matchList.matches[i].gameId, region).then(
           (matchDetails) => {
+            console.log(matchDetails)
             queues
-              .filter((queue) => queue.queueId === matchDetails.data.queueId)
+              .filter((queue) => queue.queueId === matchDetails.queueId)
               .map((queue) => {
                 const object = {
                   map: queue.map,
                   gameType: queue.description,
-                  gameCreation: new Date(
-                    matchDetails.data.gameCreation
-                  ).toString(),
-                  originalDate: matchDetails.data.gameCreation,
-                  gameDuration: matchDetails.data.gameDuration,
-                  gameVersion: matchDetails.data.gameVersion
+                  gameCreation: new Date(matchDetails.gameCreation).toString(),
+                  originalDate: matchDetails.gameCreation,
+                  gameDuration: matchDetails.gameDuration,
+                  gameVersion: matchDetails.gameVersion
                     .split('.')
                     .slice(0, 2)
                     .join('.'),
                   players: [],
-                  participants: matchDetails.data.participants,
-                  platformId: matchDetails.data.platformId,
+                  participants: matchDetails.participants,
+                  platformId: matchDetails.platformId,
                 }
                 matchArr.push(object)
-
-                resolve(matchArr)
+                if (matchArr.length === matches) {
+                  resolve()
+                }
               })
           }
         )
-      }).then((res) => console.log(res))
-    }
+      }
+    }).then(() => matchArr)
   })
 }

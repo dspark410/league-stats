@@ -150,9 +150,10 @@ exports.getMatchList = async (req, res) => {
 exports.getMatchList2 = async (id, region) => {
   try {
     const api = process.env.API_KEY
-    return axios.get(
+    const matchList = await axios.get(
       `https://${region}.api.riotgames.com/lol/match/v4/matchlists/by-account/${id}?api_key=${api}`
     )
+    return matchList.data
   } catch (error) {
     console.log(error)
   }
@@ -177,9 +178,10 @@ exports.getMatchDetails = async (req, res) => {
 exports.getMatchDetails2 = async (id, region) => {
   try {
     const api = process.env.API_KEY
-    return axios.get(
+    const matchDetails = await axios.get(
       `https://${region}.api.riotgames.com/lol/match/v4/matches/${id}?api_key=${api}`
     )
+    return matchDetails.data
   } catch (error) {
     console.log(error)
   }

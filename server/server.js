@@ -41,7 +41,12 @@ getChampInfo('11.6.1').then((champInfo) => {
     getRank2(summonerRes.id, region)
     getLive2(summonerRes.id, region)
 
-    getSummonerMatches(summonerRes.accountId, region, queues, matches)
+    getSummonerMatches(
+      summonerRes.accountId,
+      region,
+      queues,
+      matches
+    ).then((res) => console.log(res))
   })
 })
 
