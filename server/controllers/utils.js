@@ -33,41 +33,111 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
     return champObject
   })
 
-//const createGameObject
+exports.getSummonerMatches = (
+  summonerRes,
+  region,
+  queues,
+  matches,
+  champInfo
+) => {
+  return getMatchList2(summonerRes.accountId, region).then((matchList) => {
+    return createGameObject(
+      summonerRes,
+      region,
+      queues,
+      matches,
+      champInfo,
+      matchList
+    )
+  })
+}
 
-exports.getSummonerMatches = (id, region, queues, matches) => {
-  return getMatchList2(id, region).then((matchList) => {
-    const matchArr = []
-    return new Promise((resolve, reject) => {
-      for (let i = 0; i < matches; i++) {
-        getMatchDetails2(matchList.matches[i].gameId, region).then(
-          (matchDetails) => {
-            console.log(matchDetails)
-            queues
-              .filter((queue) => queue.queueId === matchDetails.queueId)
-              .map((queue) => {
-                const object = {
-                  map: queue.map,
-                  gameType: queue.description,
-                  gameCreation: new Date(matchDetails.gameCreation).toString(),
-                  originalDate: matchDetails.gameCreation,
-                  gameDuration: matchDetails.gameDuration,
-                  gameVersion: matchDetails.gameVersion
-                    .split('.')
-                    .slice(0, 2)
-                    .join('.'),
-                  players: [],
-                  participants: matchDetails.participants,
-                  platformId: matchDetails.platformId,
+const createGameObject = (
+  summonerRes,
+  region,
+  queues,
+  matches,
+  champInfo,
+  matchList
+) => {
+  const matchArr = []
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < matches; i++) {
+      getMatchDetails2(matchList.matches[i].gameId, region).then(
+        (matchDetails) => {
+          const matchObj = queues
+            .filter((queue) => queue.queueId === matchDetails.queueId)
+            .map((queue) => {
+              const object = {
+                map: queue.map,
+                gameType: queue.description,
+                gameCreation: new Date(matchDetails.gameCreation).toString(),
+                originalDate: matchDetails.gameCreation,
+                gameDuration: matchDetails.gameDuration,
+                gameVersion: matchDetails.gameVersion
+                  .split('.')
+                  .slice(0, 2)
+                  .join('.'),
+                players: [],
+                participants: matchDetails.participants,
+                platformId: matchDetails.platformId,
+              }
+
+              return object
+            })[0]
+
+          let playerObj
+
+          matchDetails.participantIdentities.forEach((id) => {
+            if (
+              id.player.accountId === summonerRes.accountId ||
+              id.player.summonerId === summonerRes.id
+            ) {
+              matchObj.participantId = id.participantId
+            }
+            // Champion Icon for summoner and summoner name
+
+            matchDetails.participants.forEach((part) => {
+              if (id.participantId === part.participantId) {
+                playerObj = {
+                  id: id.participantId,
+                  name: id.player.summonerName,
+                  champId: part.championId,
                 }
-                matchArr.push(object)
-                if (matchArr.length === matches) {
-                  resolve()
+              }
+              champInfo.forEach((key) => {
+                if (playerObj.champId === +key.key) {
+                  playerObj.image = key.image.full
                 }
               })
+            })
+            matchObj.players.push(playerObj)
+          })
+
+          // finds matching participantId from matchObj and keeps all data from matching participants
+
+          matchDetails.participants.forEach((data) => {
+            if (data.participantId === matchObj.participantId) {
+              const playerStats = data
+              matchObj.playerInfo = playerStats
+            }
+          })
+
+          // get relevant image for player's champion for that game
+
+          champInfo.forEach((champ) => {
+            if (matchObj.playerInfo.championId === +champ.key) {
+              matchObj.championName = champ.name
+              matchObj.championImage = champ.image.full
+            }
+          })
+
+          matchArr.push(matchObj)
+          if (matchArr.length === matches) {
+            resolve()
           }
-        )
-      }
-    }).then(() => matchArr)
-  })
+        }
+      )
+    }
+  }).then(() => matchArr)
 }

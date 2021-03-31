@@ -12,6 +12,7 @@ const {
   getQueues2,
   getLive2,
   getMatchList2,
+  getVersion,
 } = require('./controllers/summoner')
 const { getChampInfo, getChampInfo2 } = require('./controllers/champions')
 const {
@@ -28,25 +29,34 @@ app.use((req, res, next) => {
 
 app.use('/api', routes)
 
-let maps
-getMaps2().then((res) => (maps = res))
-let queues
-getQueues2().then((res) => (queues = res))
+Promise.all([getMaps2(), getQueues2(), getVersion()]).then((res) => {
+  app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
+    try {
+      console.log('summonerInfo')
+      const summoner = req.params.summoner
+      const region = req.params.region
 
-getChampInfo('11.6.1').then((champInfo) => {
-  const region = 'NA1'
-  const matches = 2
-  getSummonerName2('warpathv2', region).then((summonerRes) => {
-    getSummonerMasteries(summonerRes.id, region, champInfo)
-    getRank2(summonerRes.id, region)
-    getLive2(summonerRes.id, region)
-
-    getSummonerMatches(
-      summonerRes.accountId,
-      region,
-      queues,
-      matches
-    ).then((res) => console.log(res))
+      getChampInfo(res[2]).then((champInfo) => {
+        const matches = 7
+        getSummonerName2(summoner, region).then((summonerRes) => {
+          Promise.all([
+            getSummonerMasteries(summonerRes.id, region, champInfo),
+            getRank2(summonerRes.id, region),
+            getLive2(summonerRes.id, region),
+            getSummonerMatches(summonerRes, region, res[1], matches, champInfo),
+          ]).then((res) =>
+            response.json({
+              mastery: res[0],
+              rank: res[1],
+              live: res[2],
+              matchHistory: res[3],
+            })
+          )
+        })
+      })
+    } catch (error) {
+      console.log(error)
+    }
   })
 })
 

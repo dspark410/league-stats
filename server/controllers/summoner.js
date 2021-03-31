@@ -86,6 +86,17 @@ exports.getRank2 = async (id, region) => {
   }
 }
 
+exports.getVersion = async (req, res) => {
+  try {
+    const versionData = await axios.get(
+      'https://ddragon.leagueoflegends.com/api/versions.json'
+    )
+
+    return versionData.data[0]
+  } catch (error) {
+    console.log(error)
+  }
+}
 // Call from frontend to retrieve list of LOL maps
 exports.getMaps = async (req, res) => {
   try {
