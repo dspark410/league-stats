@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { getMoreMatches } = require('../controllers/utils')
 const {
   getSummonerName,
   getMasteries,
@@ -9,7 +10,6 @@ const {
   getMatchList,
   getMatchDetails,
   getLive,
-
   getBackup,
 } = require('../controllers/summoner')
 const {
@@ -31,6 +31,7 @@ router.get('/matchDetails/:id/:region', getMatchDetails)
 router.get('/leaderboard/:region/:rank/:division/:page', getLeaderboard)
 router.get('/leaderboard/:tier/:region', getChallengerGrandMasterMaster)
 router.get('/live/:summonerId/:region', getLive)
+router.get('getMoreMatches', getMoreMatches)
 router.get('/backupjson', getBackup)
 
 module.exports = router

@@ -37,13 +37,12 @@ Promise.all([getMaps2(), getQueues2(), getVersion()]).then((res) => {
       const region = req.params.region
 
       getChampInfo(res[2]).then((champInfo) => {
-        const matches = 7
         getSummonerName2(summoner, region).then((summonerRes) => {
           Promise.all([
             getSummonerMasteries(summonerRes.id, region, champInfo),
             getRank2(summonerRes.id, region),
             getLive2(summonerRes.id, region),
-            getSummonerMatches(summonerRes, region, res[1], matches, champInfo),
+            getSummonerMatches(summonerRes, region, res[1], champInfo),
           ]).then((res) =>
             response.json({
               mastery: res[0],

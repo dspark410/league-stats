@@ -33,14 +33,9 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
     return champObject
   })
 
-exports.getSummonerMatches = (
-  summonerRes,
-  region,
-  queues,
-  matches,
-  champInfo
-) => {
+exports.getSummonerMatches = (summonerRes, region, queues, champInfo) => {
   return getMatchList2(summonerRes.accountId, region).then((matchList) => {
+    const matches = matchList.matches.length < 7 ? matchList.matches.length : 7
     return createGameObject(
       summonerRes,
       region,
@@ -140,4 +135,26 @@ const createGameObject = (
       )
     }
   }).then(() => matchArr)
+}
+
+exports.getMoreMatches = async (index, gameId, region) => {
+  try {
+    const matchArr = []
+    for (let i = index; i < index + 5; i++) {
+      if (i < playerMatches.length) {
+        await axios
+          .get(`${url}/matchDetails/${playerMatches[i].gameId}/${region}`, {
+            cancelToken: source.token,
+          })
+          .then(async (res) => {
+            if (res.status > 500) return
+
+            const newMatch = createGameObject(res.data, queues, champInfo)
+            matchArr.push(newMatch)
+          })
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
