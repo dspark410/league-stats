@@ -14,10 +14,11 @@ const {
   getMatchList2,
   getVersion,
 } = require("./controllers/summoner");
-const { getChampInfo, getChampInfo2 } = require("./controllers/champions");
+const { getChampInfo } = require("./controllers/champions");
 const {
   getSummonerMasteries,
   getSummonerMatches,
+  getMoreMatches,
 } = require("./controllers/utils");
 const port = process.env.PORT || 5000;
 
@@ -29,36 +30,60 @@ app.use((req, res, next) => {
 
 app.use("/api", routes);
 
-Promise.all([getMaps2(), getQueues2(), getVersion()]).then((res) => {
-  app.get("/getSummonerInfo/:summoner/:region", async (req, response) => {
-    try {
-      const summoner = req.params.summoner;
-      const region = req.params.region;
+let maps;
+let queues;
+let version;
+let champInfo;
 
-      getChampInfo(res[2]).then((champInfo) => {
-        getSummonerName2(summoner, region).then((summonerRes) => {
-          Promise.all([
-            getSummonerMasteries(summonerRes.id, region, champInfo),
-            getRank2(summonerRes.id, region),
-            getLive2(summonerRes.id, region),
-            getSummonerMatches(summonerRes, region, res[1], champInfo),
-            getMatchList2(summonerRes.accountId, region),
-          ]).then((res) => {
-            response.json({
-              summonerInfo: summonerRes,
-              mastery: res[0],
-              rank: res[1],
-              live: res[2],
-              matchHistory: res[3],
-              matchList: res[4],
-            });
-          });
+getMaps2().then((res) => (maps = res));
+getQueues2().then((res) => (queues = res));
+getVersion().then((res) => {
+  version = res;
+  getChampInfo(res).then((response) => (champInfo = response));
+});
+
+app.get("/getSummonerInfo/:summoner/:region", async (req, response) => {
+  try {
+    const summoner = req.params.summoner;
+    const region = req.params.region;
+
+    //getChampInfo(version).then((champInfo) => {
+    getSummonerName2(summoner, region).then((summonerRes) => {
+      Promise.all([
+        getSummonerMasteries(summonerRes.id, region, champInfo),
+        getRank2(summonerRes.id, region),
+        getLive2(summonerRes.id, region),
+        getSummonerMatches(summonerRes, region, queues, champInfo),
+        getMatchList2(summonerRes.accountId, region),
+      ]).then((res) => {
+        response.json({
+          summonerInfo: summonerRes,
+          mastery: res[0],
+          rank: res[1],
+          live: res[2],
+          matchHistory: res[3],
+          matchList: res[4],
         });
       });
-    } catch (error) {
-      console.log(error);
-    }
-  });
+    });
+    //});
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/getMoreMatches/:gameIds/:summonerInfo/:region", async (req, res) => {
+  const gameIds = JSON.parse(req.params.gameIds);
+  const region = req.params.region;
+  const summonerRes = req.params.summonerInfo;
+
+  try {
+    getMoreMatches(gameIds, summonerRes, region, queues, champInfo).then(
+      (res) => res
+    );
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 // Serve up static assets (usually on heroku)

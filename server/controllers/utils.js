@@ -58,7 +58,26 @@ exports.getSummonerMatches = (summonerRes, region, queues, champInfo) => {
   });
 };
 
+exports.getMoreMatches = (gameIds, summonerRes, region, queues, champInfo) => {
+  const matchArr = [];
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < gameIds.length; i++) {
+      getMatchDetails2(gameIds[i], region).then((matchDetails) => {
+        matchArr.push(
+          createGameObject(summonerRes, queues, champInfo, matchDetails)
+        );
+        if (matchArr.length === gameIds.length) {
+          resolve();
+        }
+      });
+    }
+  }).then(() => matchArr);
+};
+
 const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
+  console.log("summonerRes", summonerRes);
+  console.log("matchDetails", matchDetails);
+
   const matchObj = queues
     .filter((queue) => queue.queueId === matchDetails.queueId)
     .map((queue) => {
@@ -124,28 +143,4 @@ const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
   });
 
   return matchObj;
-};
-
-exports.getMoreMatches = async (req, res) => {
-  const gameIds = JSON.parse(req.params.gameIds);
-  const region = req.params.region;
-  const summonerRes = JSON.parse(req.params.summonerInfo);
-  console.log(summonerRes);
-  // try {
-  //   const matchArr = [];
-  //   return new Promise((resolve, reject) => {
-  //     for (let i = 0; i < gameIds.length; i++) {
-  //       getMatchDetails2(gameIds[i], region).then((matchDetails) => {
-  //         matchArr.push(
-  //           createGameObject(summonerRes, queues, champInfo, matchDetails)
-  //         );
-  //         if (matchArr.length === gameIds.length) {
-  //           resolve();
-  //         }
-  //       });
-  //     }
-  //   }).then(() => matchArr);
-  // } catch (error) {
-  //   console.log(error);
-  // }
 };

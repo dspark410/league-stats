@@ -11,6 +11,7 @@ const {
   getMatchDetails,
   getLive,
   getBackup,
+  getSummonerInfo,
 } = require("../controllers/summoner");
 const {
   getSummonerId,
@@ -31,7 +32,6 @@ router.get("/matchDetails/:id/:region", getMatchDetails);
 router.get("/leaderboard/:region/:rank/:division/:page", getLeaderboard);
 router.get("/leaderboard/:tier/:region", getChallengerGrandMasterMaster);
 router.get("/live/:summonerId/:region", getLive);
-router.get("/getMoreMatches/:gameIds/:summonerInfo/:region", getMoreMatches);
 router.get("/backupjson", getBackup);
 
 module.exports = router;
