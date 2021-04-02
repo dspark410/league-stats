@@ -6,12 +6,12 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const {
-  getSummonerName2,
-  getRank2,
-  getMaps2,
-  getQueues2,
-  getLive2,
-  getMatchList2,
+  getSummonerName,
+  getRank,
+  getMaps,
+  getQueues,
+  getLive,
+  getMatchList,
   getVersion,
 } = require('./controllers/summoner')
 const { getChampInfo } = require('./controllers/champions')
@@ -35,8 +35,8 @@ let queues
 let version
 let champInfo
 
-getMaps2().then((res) => (maps = res))
-getQueues2().then((res) => (queues = res))
+getMaps().then((res) => (maps = res))
+getQueues().then((res) => (queues = res))
 getVersion().then((res) => {
   version = res
   getChampInfo(res).then((response) => (champInfo = response))
@@ -48,13 +48,13 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
     const region = req.params.region
 
     //getChampInfo(version).then((champInfo) => {
-    getSummonerName2(summoner, region).then((summonerRes) => {
+    getSummonerName(summoner, region).then((summonerRes) => {
       Promise.all([
         getSummonerMasteries(summonerRes.id, region, champInfo),
-        getRank2(summonerRes.id, region),
-        getLive2(summonerRes.id, region),
+        getRank(summonerRes.id, region),
+        getLive(summonerRes.id, region),
         getSummonerMatches(summonerRes, region, queues, champInfo),
-        getMatchList2(summonerRes.accountId, region),
+        getMatchList(summonerRes.accountId, region),
       ]).then((res) => {
         response.json({
           summonerInfo: summonerRes,

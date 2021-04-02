@@ -1,7 +1,7 @@
-const { getMasteries2, getMatchList2, getMatchDetails2 } = require('./summoner')
+const { getMasteries, getMatchList, getMatchDetails } = require('./summoner')
 
 exports.getSummonerMasteries = (id, region, champInfo) =>
-  getMasteries2(id, region).then((masteryRes) => {
+  getMasteries(id, region).then((masteryRes) => {
     const champObject = []
 
     let champMastery = 5
@@ -34,12 +34,12 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
   })
 
 exports.getSummonerMatches = (summonerRes, region, queues, champInfo) => {
-  return getMatchList2(summonerRes.accountId, region).then((matchList) => {
+  return getMatchList(summonerRes.accountId, region).then((matchList) => {
     const matches = matchList.matches.length < 7 ? matchList.matches.length : 7
     const matchArr = []
     return new Promise((resolve, reject) => {
       for (let i = 0; i < matches; i++) {
-        getMatchDetails2(matchList.matches[i].gameId, region).then(
+        getMatchDetails(matchList.matches[i].gameId, region).then(
           (matchDetails) => {
             matchArr.push(
               createGameObject(summonerRes, queues, champInfo, matchDetails)
@@ -58,7 +58,7 @@ exports.getMoreMatches = (gameIds, summonerRes, region, queues, champInfo) => {
   const matchArr = []
   return new Promise((resolve, reject) => {
     for (let i = 0; i < gameIds.length; i++) {
-      getMatchDetails2(gameIds[i], region).then((matchDetails) => {
+      getMatchDetails(gameIds[i], region).then((matchDetails) => {
         matchArr.push(
           createGameObject(summonerRes, queues, champInfo, matchDetails)
         )

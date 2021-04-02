@@ -14,7 +14,6 @@ import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
 import { MdLiveTv } from 'react-icons/md'
 
 export const Welcome = ({
-  summonerInfo,
   champInfo,
   version,
   getPlayerName,
@@ -25,6 +24,7 @@ export const Welcome = ({
   loading,
   skeletonTrue,
   skeletonFalse,
+  summInfo,
 }) => {
   const [mastery, setMastery] = useState([])
   const [rank, setRank] = useState([])
@@ -35,8 +35,22 @@ export const Welcome = ({
   const [live, setLive] = useState()
   const [time, setTime] = useState()
   const url = process.env.REACT_APP_API_URL || ''
+  const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
   let source = axios.CancelToken.source()
 
+  const getMoreMatches = () => {
+    const matches = summInfo.matchList.matches
+      .slice(5, 10)
+      .map((match) => match.gameId)
+
+    axios
+      .get(
+        `${endpoint}/getMoreMatches/[${matches}]/${JSON.stringify(
+          summInfo.summonerInfo
+        )}/${region}`
+      )
+      .then((res) => console.log(res))
+  }
   // Function for masteries call specific to summoner id
   const getMasteries = (id, region) => {
     return axios.get(`${url}/masteries/${id}/${region}`, {
@@ -64,7 +78,7 @@ export const Welcome = ({
   }
 
   const getLive = async (id, region) => {
-    return axios.get(`${url}/live/${summonerInfo.id}/${region}`, {
+    return axios.get(`${url}/live/${summInfo.summonerInfo.id}/${region}`, {
       cancelToken: source.token,
     })
   }
@@ -73,7 +87,7 @@ export const Welcome = ({
     // Show nav on the welcome screen
     showNav()
     setLive()
-    if (summonerInfo.id) {
+    if (summInfo.summonerInfo.id) {
       // Get masteries from state and set into state
       skeletonTrue()
       window.scrollTo({
@@ -83,9 +97,9 @@ export const Welcome = ({
       })
 
       Promise.all([
-        getMasteries(summonerInfo.id, region),
-        getRank(summonerInfo.id, region),
-        getMatchList(summonerInfo.accountId, region),
+        getMasteries(summInfo.summonerInfo.id, region),
+        getRank(summInfo.summonerInfo.id, region),
+        getMatchList(summInfo.summonerInfo.accountId, region),
       ])
         .then((res) => {
           setMastery(res[0].data)
@@ -95,7 +109,7 @@ export const Welcome = ({
             : setPlayerMatches([])
         })
         .then(() => {
-          getLive(summonerInfo.id, region).then((res) => {
+          getLive(summInfo.summonerInfo.id, region).then((res) => {
             if (res.data !== 'Not in Live Game') {
               setLive(res.data)
             }
@@ -130,7 +144,7 @@ export const Welcome = ({
 
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summonerInfo])
+  }, [summInfo.summonerInfo])
 
   useEffect(() => {
     let time
@@ -165,38 +179,6 @@ export const Welcome = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [live])
 
-  useEffect(() => {
-    // Array to store newly created object that matches champion key to mastery key
-    const champObject = []
-    // Nested for loop that compares mastery array to champInfo array for matches
-    mastery.forEach((champ) => {
-      champInfo.forEach((champion) => {
-        if (champ.championId === +champion.key) {
-          const name = champion.name
-          const key = champ.championId
-          const image = champion.image.full
-          const level = champ.championLevel
-          const points = champ.championPoints
-          const id = champion.id
-
-          // Create our own object containing neccessary data to push to champObject
-          const object = {
-            name,
-            id,
-            key,
-            image,
-            level,
-            points,
-          }
-          // Push object to champObject
-          champObject.push(object)
-        }
-      })
-    })
-    // Stores new array of object into state to be mapped
-    setFilteredChamps(champObject)
-  }, [mastery, champInfo])
-
   return (
     <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.rowContainer}>
@@ -204,7 +186,10 @@ export const Welcome = ({
           <div className={style.emblemContainer}>
             {!loading ? (
               <div className={style.nameLive}>
-                <SummonerCard version={version} summonerInfo={summonerInfo} />
+                <SummonerCard
+                  version={version}
+                  summonerInfo={summInfo.summonerInfo}
+                />
                 {live && (
                   <div className={`${style.inGame}`}>
                     <div className={style.circlePulse} />
@@ -232,12 +217,12 @@ export const Welcome = ({
             <div className={style.rankCardContainer}>
               {!loading ? (
                 <div className={style.rankContainer}>
-                  {!rank.length ||
-                  (rank.length === 1 &&
-                    rank[0].queueType === 'RANKED_FLEX_SR') ? (
+                  {!summInfo.rank.length ||
+                  (summInfo.rank.length === 1 &&
+                    summInfo.rank[0].queueType === 'RANKED_FLEX_SR') ? (
                     <UnrankedCard queue='Solo' />
                   ) : (
-                    rank.map((ranking, i) => {
+                    summInfo.rank.map((ranking, i) => {
                       return ranking.queueType === 'RANKED_SOLO_5x5' ? (
                         <RankCard key={i} rank={ranking} queue='Solo' />
                       ) : (
@@ -252,12 +237,12 @@ export const Welcome = ({
                     src={process.env.PUBLIC_URL + `/images/icons/rectangle.png`}
                   />
 
-                  {!rank.length ||
-                  (rank.length === 1 &&
-                    rank[0].queueType === 'RANKED_SOLO_5x5') ? (
+                  {!summInfo.rank.length ||
+                  (summInfo.rank.length === 1 &&
+                    summInfo.rank[0].queueType === 'RANKED_SOLO_5x5') ? (
                     <UnrankedCard queue='Flex' />
                   ) : (
-                    rank.map((ranking, i) => {
+                    summInfo.rank.map((ranking, i) => {
                       return ranking.queueType === 'RANKED_FLEX_SR' ? (
                         <RankCard key={i} rank={ranking} queue='Flex' />
                       ) : (
@@ -448,9 +433,10 @@ export const Welcome = ({
                   !loading && display === 'overview' ? style.row3 : style.none
                 }
               >
+                <button onClick={getMoreMatches}>hello</button>
                 <MatchHistoryCard
                   version={version}
-                  summonerInfo={summonerInfo}
+                  summonerInfo={summInfo.summonerInfo}
                   champInfo={champInfo}
                   getPlayerName={getPlayerName}
                   queues={queues}
@@ -459,11 +445,11 @@ export const Welcome = ({
                   region={region}
                   live={live}
                   skeletonFalse={skeletonFalse}
+                  summInfo={summInfo}
                 />
                 <MasteryCard
                   version={version}
-                  filteredChamps={filteredChamps}
-                  champInfo={champInfo}
+                  filteredChamps={summInfo.mastery}
                   skeleton={loading}
                   selectChampion={selectChampion}
                 />

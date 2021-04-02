@@ -54,14 +54,14 @@ function App() {
   const [postsperPageDiamondToIron] = useState(41)
 
   const url = process.env.REACT_APP_API_URL || ''
-
+  const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
   // const inputRef = useRef();
   const history = useHistory()
   const location = useLocation()
 
   const getSummInfo = (summonerName, rgn) => {
     axios
-      .get(`http://localhost:5000/getSummonerInfo/${summonerName}/${rgn}`)
+      .get(`${endpoint}/getSummonerInfo/${summonerName}/${rgn}`)
       .then((res) => {
         setSummInfo(res.data)
       })
@@ -554,6 +554,7 @@ function App() {
                     loading={loading}
                     skeletonTrue={skeletonTrue}
                     skeletonFalse={skeletonFalse}
+                    summInfo={summInfo}
                   />
                 ) : (
                   <NotFound showNav={showNav} noRegion={existRegion} />
