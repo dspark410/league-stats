@@ -19,99 +19,53 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
         <div className={style.pointsHeader}>POINTS</div>
       </div>
 
-      {filteredChamps.length < 5
-        ? filteredChamps.map((champ, i) => {
-            return (
-              <li key={i} className={style.listContainer}>
-                <div className={style.masteryRow}>
-                  <div>{i + 1}.</div>
-                  <div className={style.champImgContainer}>
-                    <Link
-                      to="/championdetail"
-                      className={style.champDetailLink}
-                    >
-                      <img
-                        onClick={selectChampion}
-                        key={i}
-                        name={champ.id}
-                        className={style.championImage}
-                        alt={champ.image}
-                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
-                      />
-                    </Link>
-                  </div>
-
-                  <div className={style.name}>
-                    {champ.id === "MonkeyKing" ? champ.name : champ.id}
-                  </div>
-                  <div className={style.champLvlContainer}>
-                    <img
-                      className={style.masteryFrame}
-                      alt={champ.level}
-                      src={
-                        champ.level
-                          ? process.env.PUBLIC_URL +
-                            `/images/masteryicons/level${champ.level}.png`
-                          : process.env.PUBLIC_URL +
-                            "/images/masteryicons/level1.png"
-                      }
-                    />
-                  </div>
-
-                  <div className={style.points}>
-                    {champ.points.toLocaleString("en")}
-                  </div>
+      {filteredChamps.map((champ, i) => {
+        return (
+          <li key={i} className={style.listContainer}>
+            <div className={style.masteryRow}>
+              <div className={style.number}>{i + 1}.</div>
+              <div className={style.champImgContainer}>
+                <Link to="/championdetail">
+                  <img
+                    onClick={selectChampion}
+                    key={i}
+                    name={champ.id}
+                    className={style.championImage}
+                    alt={champ.image}
+                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
+                  />
+                </Link>
+              </div>
+              <Link to="/championdetail">
+                <div
+                  onClick={selectChampion}
+                  name={champ.id}
+                  className={style.name}
+                >
+                  {champ.id === "MonkeyKing" ? champ.name : champ.id}
                 </div>
-              </li>
-            );
-          })
-        : filteredChamps.slice(0, 5).map((champ, i) => {
-            return (
-              <li key={i} className={style.listContainer}>
-                <div className={style.masteryRow}>
-                  <div className={style.number}>{i + 1}.</div>
-                  <div className={style.champImgContainer}>
-                    <Link to="/championdetail">
-                      <img
-                        onClick={selectChampion}
-                        key={i}
-                        name={champ.id}
-                        className={style.championImage}
-                        alt={champ.image}
-                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image}`}
-                      />
-                    </Link>
-                  </div>
-                  <Link to="/championdetail">
-                    <div
-                      onClick={selectChampion}
-                      name={champ.id}
-                      className={style.name}
-                    >
-                      {champ.id === "MonkeyKing" ? champ.name : champ.id}
-                    </div>
-                  </Link>
-                  <div className={style.champLvlContainer}>
-                    <img
-                      className={style.masteryFrame}
-                      alt={champ.level}
-                      src={
-                        champ.level
-                          ? process.env.PUBLIC_URL +
-                            `/images/masteryicons/level${champ.level}.png`
-                          : process.env.PUBLIC_URL +
-                            "/images/masteryicons/level1.png"
-                      }
-                    />
-                  </div>
+              </Link>
+              <div className={style.champLvlContainer}>
+                <img
+                  className={style.masteryFrame}
+                  alt={champ.level}
+                  src={
+                    champ.level
+                      ? process.env.PUBLIC_URL +
+                        `/images/masteryicons/level${champ.level}.png`
+                      : process.env.PUBLIC_URL +
+                        "/images/masteryicons/level1.png"
+                  }
+                />
+              </div>
 
-                  <div className={style.points}>
-                    {champ.points.toLocaleString("en")}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
+              <div className={style.points}>
+                {champ.points.toLocaleString("en")}
+              </div>
+            </div>
+          </li>
+        );
+      })}
     </div>
   );
 }
