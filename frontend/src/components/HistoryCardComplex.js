@@ -13,6 +13,7 @@ function HistoryCardComplex({
   getPlayerName,
   clickArrow,
   open,
+  summInfo,
 }) {
   // Get info from Session Storage
   const sessionData = JSON.parse(sessionStorage.getItem('summonerInfo'))
@@ -74,7 +75,7 @@ function HistoryCardComplex({
   //   return arr
   // }
 
-  return game.playerInfo ? (
+  return game.playerInfo && summInfo.summonerInfo ? (
     <div
       className={`${open ? style.historyCardComplex : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
@@ -314,8 +315,7 @@ function HistoryCardComplex({
             .map((player, i) => (
               <div
                 onClick={
-                  player.name === summonerInfo.name ||
-                  player.name === sessionData.name
+                  player.name === summInfo.summonerInfo.name
                     ? null
                     : getPlayerName
                 }
@@ -325,8 +325,8 @@ function HistoryCardComplex({
               >
                 <span
                   className={
-                    summonerInfo.name
-                      ? player.name === summonerInfo.name
+                    summInfo.summonerInfo.name
+                      ? player.name === summInfo.summonerInfo.name
                         ? style.summonerName1
                         : style.name1
                       : style.name1 || sessionData.name
@@ -443,8 +443,7 @@ function HistoryCardComplex({
             .map((player, i) => (
               <div
                 onClick={
-                  player.name === summonerInfo.name ||
-                  player.name === sessionData.name
+                  player.name === summInfo.summonerInfo.name
                     ? null
                     : getPlayerName
                 }
@@ -459,8 +458,8 @@ function HistoryCardComplex({
                 />
                 <span
                   className={
-                    summonerInfo.name
-                      ? player.name === summonerInfo.name
+                    summInfo.summonerInfo.name
+                      ? player.name === summInfo.summonerInfo.name
                         ? style.summonerName2
                         : style.name2
                       : style.name2 || sessionData.name

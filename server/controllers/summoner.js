@@ -218,9 +218,22 @@ exports.getLive = async (id, region) => {
     const liveData = await axios.get(
       `https://${region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${id}?api_key=${api}`
     )
+    const liveRankArray = []
+    liveData.data.participants.forEach(async (player) => {
+      const res = await axios.get(
+        `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${player.summonerId}?api_key=${api}`
+      )
+
+      liveRankArray.push(res.data)
+
+      if (liveRankArray.length === liveData.data.participants.length) {
+        liveData.data['rankArray'] = liveRankArray
+      }
+    })
+
     return liveData.data
   } catch (error) {
-    return 'Not in Live Game'
+    return 'Not In Live Game'
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import style from './historycardsimple.module.css'
 import { IoIosArrowDown } from 'react-icons/io'
 
-function HistoryCardSimple({ game, clickArrow, open }) {
+function HistoryCardSimple({ game, clickArrow, open, summInfo }) {
   const timeConverter = (creation, duration) => {
     const secs = creation / 1000 - duration
     const mins = Math.floor(secs / 60)

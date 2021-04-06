@@ -11,15 +11,7 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
   const [spells, setSpells] = useState([])
 
   useEffect(() => {
-    const particpants = liveRank
-      .map(
-        (participant) => participant.length !== 0 && participant[0].summonerName
-      )
-      .filter((el) => {
-        return el !== undefined
-      })
-
-    setSummoner(particpants)
+    setSummoner(liveRank)
   }, [liveRank])
 
   useEffect(() => {
@@ -237,7 +229,11 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                   </div>
                 </div>
                 <div className={style.soloRank}>
-                  {summoner.includes(player.summonerName)
+                  {summoner
+                    .map((s) => {
+                      return s.length !== 0 && s[0].summonerName
+                    })
+                    .includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem
@@ -312,7 +308,11 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                     : '-'}
                 </div>
                 <div className={style.flexRank}>
-                  {summoner.includes(player.summonerName)
+                  {summoner
+                    .map((s) => {
+                      return s.length !== 0 && s[0].summonerName
+                    })
+                    .includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem
@@ -562,7 +562,11 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                   </div>
                 </div>
                 <div className={style.soloRank}>
-                  {summoner.includes(player.summonerName)
+                  {summoner
+                    .map((s) => {
+                      return s.length !== 0 && s[0].summonerName
+                    })
+                    .includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem
@@ -637,7 +641,11 @@ function Live({ live, champInfo, version, queues, time, liveRank }) {
                     : '-'}
                 </div>
                 <div className={style.flexRank}>
-                  {summoner.includes(player.summonerName)
+                  {summoner
+                    .map((s) => {
+                      return s.length !== 0 && s[0].summonerName
+                    })
+                    .includes(player.summonerName)
                     ? liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem

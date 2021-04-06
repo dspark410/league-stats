@@ -1,42 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
-import style from "./matchhistorycard.module.css";
-import axios from "axios";
-import HistoryCard from "./HistoryCard";
-import MatchesLoader from "./MatchesLoader";
+import React, { useState, useEffect, useRef } from 'react'
+import style from './matchhistorycard.module.css'
+import axios from 'axios'
+import HistoryCard from './HistoryCard'
+import MatchesLoader from './MatchesLoader'
 
 function MatchHistoryCard({
   summonerInfo,
-  champInfo,
   version,
   getPlayerName,
-  queues,
-  playerMatches,
   region,
   live,
   skeletonFalse,
   summInfo,
-  setSummInfo,
 }) {
-  const [gameDetails, setGameDetails] = useState([]);
-  const [runes, setRunes] = useState([]);
-  const [spells, setSpells] = useState([]);
-  const [matchDetails, setMatchDetails] = useState([]);
-  const [index, setIndex] = useState(7);
-  const [matchesLoader, setMatchesLoader] = useState(false);
+  const [gameDetails, setGameDetails] = useState([])
+  const [runes, setRunes] = useState([])
+  const [spells, setSpells] = useState([])
+  const [matchesLoader, setMatchesLoader] = useState(false)
 
-  // Get info from Session Storage
-  const sessionData = JSON.parse(sessionStorage.getItem("summonerInfo"));
+  const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
+  let source = axios.CancelToken.source()
 
-  const url = process.env.REACT_APP_API_URL || "";
-  const endpoint = process.env.REACT_APP_API_ENDPOINT || "";
-  let source = axios.CancelToken.source();
-
-  let moreMatchesMounted = useRef();
+  let moreMatchesMounted = useRef()
 
   const getMoreMatches = () => {
+    setMatchesLoader(true)
     const matches = summInfo.matchList.matches
-      .slice(summInfo.matchHistory.length - 1, summInfo.matchHistory.length + 4)
-      .map((match) => match.gameId);
+      .slice(gameDetails.length, gameDetails.length + 5)
+      .map((match) => match.gameId)
 
     axios
       .get(
@@ -45,13 +36,15 @@ function MatchHistoryCard({
         )}/${region}`
       )
       .then((res) => {
-        const newMatchHistory = { ...summInfo };
-        setSummInfo(newMatchHistory.matchHistory.concat(res.data));
-      });
-  };
+        setTimeout(() => {
+          setGameDetails((prev) => prev.concat(res.data))
+          setMatchesLoader(false)
+        }, 2000)
+      })
+  }
 
   useEffect(() => {
-    let mounted = true;
+    let mounted = true
 
     // Validation to check if version is populated in props
 
@@ -63,8 +56,8 @@ function MatchHistoryCard({
           { cancelToken: source.token }
         )
         .then((res) => {
-          setSpells(Object.values(res.data.data));
-        });
+          setSpells(Object.values(res.data.data))
+        })
       // Retrieve list of runes from Riot APIf
       axios
         .get(
@@ -72,40 +65,41 @@ function MatchHistoryCard({
           { cancelToken: source.token }
         )
         .then((res) => {
-          setRunes(res.data);
-        });
+          setRunes(res.data)
+        })
     }
 
     return () => {
-      mounted = false;
-      source.cancel("spells and runes got unmounted");
-    };
+      mounted = false
+      source.cancel('spells and runes got unmounted')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [version]);
+  }, [version])
 
   useEffect(() => {
-    let skeleTimer;
+    let skeleTimer
 
     if (summInfo.summonerInfo) {
+      setGameDetails(summInfo.matchHistory)
       skeleTimer = setTimeout(() => {
-        skeletonFalse();
-      }, 2000);
+        skeletonFalse()
+      }, 3000)
     }
 
     return () => {
-      moreMatchesMounted.current = false;
-      clearInterval(skeleTimer);
-    };
+      moreMatchesMounted.current = false
+      clearInterval(skeleTimer)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summInfo]);
+  }, [summInfo])
 
   return (
     <div className={style.matchContainer}>
       <div>
-        {summInfo.matchHistory.length > 0 ? (
-          summInfo.matchHistory
+        {gameDetails.length > 0 ? (
+          gameDetails
             .sort(function (a, b) {
-              return new Date(b.gameCreation) - new Date(a.gameCreation);
+              return new Date(b.gameCreation) - new Date(a.gameCreation)
             })
             .map((game, i) => {
               return (
@@ -117,8 +111,9 @@ function MatchHistoryCard({
                   summonerInfo={summonerInfo}
                   getPlayerName={getPlayerName}
                   live={live}
+                  summInfo={summInfo}
                 />
-              );
+              )
             })
         ) : (
           <div className={style.noMatchContainer}>
@@ -127,10 +122,9 @@ function MatchHistoryCard({
           </div>
         )}
 
-        {summInfo.matchHistory.length <= summInfo.matchList.matches.length && (
+        {gameDetails.length <= summInfo.matchList.matches.length && (
           <div onClick={!matchesLoader ? getMoreMatches : null}>
-            {summInfo.matchHistory.length >=
-            summInfo.matchList.matches.length ? (
+            {gameDetails.length >= summInfo.matchList.matches.length ? (
               <button disabled className={style.none}>
                 More Matches Unavailable
               </button>
@@ -146,7 +140,7 @@ function MatchHistoryCard({
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default MatchHistoryCard;
+export default MatchHistoryCard

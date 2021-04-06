@@ -47,26 +47,27 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
     const summoner = req.params.summoner
     const region = req.params.region
 
-    //getChampInfo(version).then((champInfo) => {
     getSummonerName(summoner, region).then((summonerRes) => {
-      Promise.all([
-        getSummonerMasteries(summonerRes.id, region, champInfo),
-        getRank(summonerRes.id, region),
-        getLive(summonerRes.id, region),
-        getSummonerMatches(summonerRes, region, queues, champInfo),
-        getMatchList(summonerRes.accountId, region),
-      ]).then((res) => {
-        response.json({
-          summonerInfo: summonerRes,
-          mastery: res[0],
-          rank: res[1],
-          live: res[2],
-          matchHistory: res[3],
-          matchList: res[4],
+      console.log(summonerRes)
+      if (summonerRes !== undefined) {
+        Promise.all([
+          getSummonerMasteries(summonerRes.id, region, champInfo),
+          getRank(summonerRes.id, region),
+          getLive(summonerRes.id, region),
+          getSummonerMatches(summonerRes, region, queues, champInfo),
+          getMatchList(summonerRes.accountId, region),
+        ]).then((res) => {
+          response.json({
+            summonerInfo: summonerRes,
+            mastery: res[0],
+            rank: res[1],
+            live: res[2],
+            matchHistory: res[3],
+            matchList: res[4],
+          })
         })
-      })
+      }
     })
-    //});
   } catch (error) {
     console.log(error)
   }

@@ -11,6 +11,7 @@ function HistoryCard({
   summonerInfo,
   getPlayerName,
   live,
+  summInfo,
 }) {
   const [open, setOpen] = useState(false)
 
@@ -36,7 +37,12 @@ function HistoryCard({
       }}
     >
       <div className={`${style.fadeIn}`}>
-        <HistoryCardSimple open={open} game={game} clickArrow={clickArrow} />
+        <HistoryCardSimple
+          open={open}
+          game={game}
+          clickArrow={clickArrow}
+          summInfo={summInfo}
+        />
 
         <HistoryCardComplex
           open={open}
@@ -46,6 +52,7 @@ function HistoryCard({
           summonerInfo={summonerInfo}
           getPlayerName={getPlayerName}
           clickArrow={clickArrow}
+          summInfo={summInfo}
         />
       </div>
     </CSSTransition>
