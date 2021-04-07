@@ -21,6 +21,8 @@ function Leaderboard({
   postsperPageDiamondToIron,
   fullLeaderboard,
   setPagetoOne,
+  leaderboardDone,
+  setLeaderboardDone,
 }) {
   const [rank, setRank] = useState("CHALLENGER");
   const [division, setDivision] = useState("I");
@@ -51,7 +53,7 @@ function Leaderboard({
         rank === "MASTER"
       ) {
         setMapDivision(["I"]);
-        changeLeaderBoard(rank);
+        changeLeaderBoard(rank, region);
       } else {
         setMapDivision(["I", "II", "III", "IV"]);
         changeLeaderBoardPage(rank, division, page);
@@ -66,7 +68,7 @@ function Leaderboard({
       mounted = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rank, division, page]);
+  }, [rank, division, page, region]);
 
   const nextPage = () => {
     if (fullLeaderboard.length < 205) {
@@ -130,6 +132,8 @@ function Leaderboard({
             rank={rank}
             region={region}
             getPlayerName={getPlayerName}
+            leaderboardDone={leaderboardDone}
+            setLeaderboardDone={setLeaderboardDone}
           />
         ) : (
           <LeaderboardDiamondToIron

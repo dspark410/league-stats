@@ -13,6 +13,8 @@ function LeaderboardTable({
   rank,
   region,
   getPlayerName,
+  leaderboardDone,
+  setLeaderboardDone,
 }) {
   const [profileIcon, setProfileIcon] = useState([]);
 
@@ -24,7 +26,8 @@ function LeaderboardTable({
     let mounted = true;
     const iconArr = [];
 
-    if (mounted) {
+    if (mounted && leaderboardDone) {
+      console.log(leaderboard);
       Promise.all(
         leaderboard.map((player) => {
           return axios
@@ -43,6 +46,7 @@ function LeaderboardTable({
         })
       ).then(() => {
         setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints));
+        setLeaderboardDone(false);
       });
     }
 
@@ -52,7 +56,7 @@ function LeaderboardTable({
       source.cancel("leaderboard table component got unmounted");
     };
     // eslint-disable-next-line
-  }, [leaderboard]);
+  }, [leaderboardDone]);
 
   return (
     <>

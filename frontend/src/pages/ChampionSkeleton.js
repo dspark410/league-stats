@@ -8,7 +8,9 @@ function ChampionSkeleton({ champs, latest }) {
   return (
     <SkeletonTheme duration={3} color="#7a6b83" highlightColor="#e2c0f7">
       <div className={style.screenContainer}>
-        <h2>Latest Champions</h2>
+        {latest.length === 0 ? null : (
+          <h2>Latest Champion{latest.length > 1 ? "s" : ""}</h2>
+        )}
         <div className={style.latestContainer}>
           <>
             {latest.map((latest, i) => {

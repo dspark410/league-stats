@@ -1,10 +1,10 @@
 // Enable access to .env file
-require('dotenv').config()
-require('./itemCompiler')
-const routes = require('./routes/routes')
-const express = require('express')
-const app = express()
-const path = require('path')
+require("dotenv").config();
+require("./itemCompiler");
+const routes = require("./routes/routes");
+const express = require("express");
+const app = express();
+const path = require("path");
 const {
   getSummonerName,
   getRank,
@@ -13,42 +13,41 @@ const {
   getLive,
   getMatchList,
   getVersion,
-} = require('./controllers/summoner')
-const { getChampInfo } = require('./controllers/champions')
+} = require("./controllers/summoner");
+const { getChampInfo } = require("./controllers/champions");
 const {
   getSummonerMasteries,
   getSummonerMatches,
   getMoreMatches,
-} = require('./controllers/utils')
-const port = process.env.PORT || 5000
+} = require("./controllers/utils");
+const port = process.env.PORT || 5000;
 
 // Allow CORS
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  next()
-})
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
-app.use('/api', routes)
+app.use("/api", routes);
 
-let maps
-let queues
-let version
-let champInfo
+let maps;
+let queues;
+let version;
+let champInfo;
 
-getMaps().then((res) => (maps = res))
-getQueues().then((res) => (queues = res))
+getMaps().then((res) => (maps = res));
+getQueues().then((res) => (queues = res));
 getVersion().then((res) => {
-  version = res
-  getChampInfo(res).then((response) => (champInfo = response))
-})
+  version = res;
+  getChampInfo(res).then((response) => (champInfo = response));
+});
 
-app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
+app.get("/getSummonerInfo/:summoner/:region", async (req, response) => {
   try {
-    const summoner = req.params.summoner
-    const region = req.params.region
+    const summoner = req.params.summoner;
+    const region = req.params.region;
 
     getSummonerName(summoner, region).then((summonerRes) => {
-      console.log(summonerRes)
       if (summonerRes !== undefined) {
         Promise.all([
           getSummonerMasteries(summonerRes.id, region, champInfo),
@@ -64,21 +63,21 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
             live: res[2],
             matchHistory: res[3],
             matchList: res[4],
-          })
-        })
+          });
+        });
       }
-    })
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
 app.get(
-  '/getMoreMatches/:gameIds/:summonerInfo/:region',
+  "/getMoreMatches/:gameIds/:summonerInfo/:region",
   async (req, response) => {
-    const summonerRes = JSON.parse(req.params.summonerInfo)
-    const gameIds = JSON.parse(req.params.gameIds)
-    const region = req.params.region
+    const summonerRes = JSON.parse(req.params.summonerInfo);
+    const gameIds = JSON.parse(req.params.gameIds);
+    const region = req.params.region;
     try {
       getMoreMatches(
         gameIds,
@@ -86,44 +85,44 @@ app.get(
         region,
         queues,
         champInfo
-      ).then((res) => response.json(res))
+      ).then((res) => response.json(res));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
-)
+);
 
 // Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   // Sends static folder
-  app.use(express.static('frontend/build'))
+  app.use(express.static("frontend/build"));
 
   app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https')
-      res.redirect(`https://${req.header('host')}${req.url}`)
-    else next()
-  })
+    if (req.header("x-forwarded-proto") !== "https")
+      res.redirect(`https://${req.header("host")}${req.url}`);
+    else next();
+  });
 
-  app.get('/*', function (req, res) {
+  app.get("/*", function (req, res) {
     res.sendFile(
-      path.join(__dirname, './frontend/build/index.html'),
+      path.join(__dirname, "./frontend/build/index.html"),
       function (err) {
         if (err) {
-          res.status(500).send(err)
+          res.status(500).send(err);
         }
       }
-    )
-  })
+    );
+  });
 }
 
 // Requested by Riot
-app.get('/riot.txt', async (req, res) => {
-  res.sendFile(__dirname + '/riot.txt')
-})
-app.get('//riot.txt', async (req, res) => {
-  res.sendFile(__dirname + '/riot.txt')
-})
+app.get("/riot.txt", async (req, res) => {
+  res.sendFile(__dirname + "/riot.txt");
+});
+app.get("//riot.txt", async (req, res) => {
+  res.sendFile(__dirname + "/riot.txt");
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at https://localhost:${port}`)
-})
+  console.log(`Example app listening at https://localhost:${port}`);
+});
