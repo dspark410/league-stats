@@ -62,12 +62,23 @@ function App() {
   const location = useLocation()
 
   const getSummInfo = (summonerName, rgn) => {
-    axios
-      .get(`${endpoint}/getSummonerInfo/${summonerName}/${rgn}`)
-      .then((res) => {
-        setLoading(true)
-        setSummInfo(res.data)
-      })
+    if (existRgn.includes(rgn)) {
+      axios
+        .get(`${endpoint}/getSummonerInfo/${summonerName}/${rgn}`)
+        .then((res) => {
+          if (res.data === 'summoner not found...') {
+            // Message will be displayed on Home Screen, dissapears after 3 seconds
+            setInputValue(res.data)
+            setSummInfo({})
+            setTimeout(() => {
+              setInputValue('')
+            }, 2000)
+          } else {
+            setLoading(true)
+            setSummInfo(res.data)
+          }
+        })
+    }
   }
 
   // Reusable function for changing the Summoner in the whole app
@@ -440,19 +451,20 @@ function App() {
       getChamp = sessionStorage.getItem('champion').toLowerCase()
     }
 
-    if (location.pathname.includes('summoner')) {
-      const summoner = location.pathname.split('/')[3]
-      const region = location.pathname.split('/')[2].toUpperCase()
-      const extra = location.pathname.split('/')[4]
-      setExistRegion(existRgn.includes(region))
+    // if (location.pathname.includes('summoner')) {
+    //   const summoner = location.pathname.split('/')[3]
+    //   const region = location.pathname.split('/')[2].toUpperCase()
+    //   const extra = location.pathname.split('/')[4]
+    //   setExistRegion(existRgn.includes(region))
 
-      if (summoner !== undefined && region !== undefined) {
-        getAccountInfo(summoner, region)
-      }
-      if (extra) {
-        history.replace(`/summoner/${region}/${summoner}`)
-      }
-    }
+    //   if (summoner !== undefined && region !== undefined) {
+    //     // getSummInfo(summoner, region)
+    //     getAccountInfo(summoner, region)
+    //   }
+    //   if (extra) {
+    //     history.replace(`/summoner/${region}/${summoner}`)
+    //   }
+    // }
 
     if (location.pathname.includes('champions')) {
       let champName

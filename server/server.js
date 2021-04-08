@@ -47,29 +47,30 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
     const summoner = req.params.summoner
     const region = req.params.region
 
-    getSummonerName(summoner, region).then((summonerRes) => {
-      if (!summonerRes.id) {
-        Promise.all([
-          getSummonerMasteries(summonerRes.id, region, champInfo),
-          getRank(summonerRes.id, region),
-          getLive(summonerRes.id, region),
-          getSummonerMatches(summonerRes, region, queues, champInfo),
-          getMatchList(summonerRes.accountId, region),
-        ]).then((res) => {
-          response.json({
-            summonerInfo: summonerRes,
-            mastery: res[0],
-            rank: res[1],
-            live: res[2],
-            matchHistory: res[3],
-            matchList: res[4],
+    getSummonerName(summoner, region)
+      .then((summonerRes) => {
+        if (summonerRes.id) {
+          Promise.all([
+            getSummonerMasteries(summonerRes.id, region, champInfo),
+            getRank(summonerRes.id, region),
+            getLive(summonerRes.id, region),
+            getSummonerMatches(summonerRes, region, queues, champInfo),
+            getMatchList(summonerRes.accountId, region),
+          ]).then((res) => {
+            response.json({
+              summonerInfo: summonerRes,
+              mastery: res[0],
+              rank: res[1],
+              live: res[2],
+              matchHistory: res[3],
+              matchList: res[4],
+            })
           })
-        })
-      }
-    })
+        }
+      })
+      .catch(() => response.send('summoner not found...'))
   } catch (error) {
     console.log(error)
-    res.send('summoner not found...')
   }
 })
 
