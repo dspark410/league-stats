@@ -69,6 +69,7 @@ function Leaderboard({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rank, division, page, region]);
+  // if CurrentPage is added to depency, it loads but we don't want skeleTimer
 
   const nextPage = () => {
     if (fullLeaderboard.length < 205) {

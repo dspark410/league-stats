@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import style from './navbar.module.css'
-import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
-import { IoSearchCircle } from 'react-icons/io5'
-import { regions } from '../utils/constant'
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import style from "./navbar.module.css";
+import { AiOutlineSearch, AiOutlineInfoCircle } from "react-icons/ai";
+import { IoSearchCircle } from "react-icons/io5";
+import { regions } from "../utils/constant";
 
 function Navbar({
   visibility,
@@ -19,31 +19,30 @@ function Navbar({
   hideAnimation,
   handleFocus,
   handleBlur,
-  skeletonTrue,
-  summonerInfo,
+  summInfo,
 }) {
-  const [vis, setVis] = useState(visibility)
-  const currentLocation = useLocation()
-  const inputEl = useRef(false)
+  const [vis, setVis] = useState(visibility);
+  const currentLocation = useLocation();
+  const inputEl = useRef(false);
 
   const searchInput = (event) => {
-    submit(event)
-    inputEl.current.blur()
-  }
+    submit(event);
+    inputEl.current.blur();
+  };
 
   useEffect(() => {
-    setVis(visibility)
-  }, [visibility])
+    setVis(visibility);
+  }, [visibility]);
 
   return version ? (
     <>
-      <nav className={style.navbar} style={{ display: !vis ? 'none' : 'flex' }}>
+      <nav className={style.navbar} style={{ display: !vis ? "none" : "flex" }}>
         <div className={style.navHeader}>
-          <Link to='/' className={style.navbarLogo}>
+          <Link to="/" className={style.navbarLogo}>
             <img
               className={style.logo}
-              alt='League Stats Logo'
-              src={process.env.PUBLIC_URL + '/images/logo/leaguestats.png'}
+              alt="League Stats Logo"
+              src={process.env.PUBLIC_URL + "/images/logo/leaguestats.png"}
             />
           </Link>
         </div>
@@ -65,10 +64,10 @@ function Navbar({
                 </select>
                 <input
                   className={style.input}
-                  spellCheck='false'
+                  spellCheck="false"
                   onChange={change}
-                  type='text'
-                  placeholder='search summoner...'
+                  type="text"
+                  placeholder="search summoner..."
                   onFocus={handleFocus}
                   onBlur={handleBlur}
                   value={inputValue}
@@ -106,9 +105,9 @@ function Navbar({
                     <div
                       // onClick={skeletonTrue}
                       onMouseDown={searchInput}
-                      value='mistahpig'
-                      region='NA1'
-                      icon='7'
+                      value="mistahpig"
+                      region="NA1"
+                      icon="7"
                       className={style.storageSummoner}
                     >
                       <div className={style.regionContainer}>
@@ -116,16 +115,16 @@ function Navbar({
                       </div>
 
                       <img
-                        alt='profile icon'
+                        alt="profile icon"
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
                       />
                       <span
                         // onMouseDown={submit}
-                        value='mistahpig'
-                        region='NA1'
-                        icon='7'
+                        value="mistahpig"
+                        region="NA1"
+                        icon="7"
                         className={style.summoner}
                       >
                         mistahpig
@@ -141,25 +140,25 @@ function Navbar({
                     <div
                       // onClick={skeletonTrue}
                       onMouseDown={searchInput}
-                      value='DambitWes'
-                      region='NA1'
-                      icon='3466'
+                      value="DambitWes"
+                      region="NA1"
+                      icon="3466"
                       className={style.storageSummoner}
                     >
                       <div className={style.regionContainer}>
                         <span className={style.region}>NA</span>
                       </div>
                       <img
-                        alt='profile icon'
+                        alt="profile icon"
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
                       />
                       <span
                         // onMouseDown={submit}
-                        value='DambitWes'
-                        region='NA1'
-                        icon='3466'
+                        value="DambitWes"
+                        region="NA1"
+                        icon="3466"
                         className={style.summoner}
                       >
                         DambitWes
@@ -184,12 +183,14 @@ function Navbar({
                       <div
                         className={style.topLayer}
                         onMouseDown={
-                          summonerInfo.name &&
-                          summoner[0].toLowerCase() ===
-                            summonerInfo.name.toLowerCase() &&
-                          summoner[1] === region &&
-                          currentLocation.pathname.includes('summoner')
-                            ? handleBlur
+                          summInfo.summonerInfo
+                            ? summInfo.summonerInfo.name &&
+                              summoner[0].toLowerCase() ===
+                                summInfo.summonerInfo.name.toLowerCase() &&
+                              summoner[1] === region &&
+                              currentLocation.pathname.includes("summoner")
+                              ? handleBlur
+                              : searchInput
                             : searchInput
                         }
                         value={summoner[0]}
@@ -201,7 +202,7 @@ function Navbar({
                       </div>
 
                       <img
-                        alt='profile icon'
+                        alt="profile icon"
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
@@ -235,17 +236,17 @@ function Navbar({
 
         <ul className={style.navMenu}>
           <li className={style.navItem}>
-            <Link to='/' className={style.navLinks}>
+            <Link to="/" className={style.navLinks}>
               Home
             </Link>
           </li>
           <li className={style.navItem}>
-            <Link to='/champions' className={style.navLinks}>
+            <Link to="/champions" className={style.navLinks}>
               Champions
             </Link>
           </li>
           <li className={style.navItem}>
-            <Link to='/leaderboard' className={style.navLinks}>
+            <Link to="/leaderboard" className={style.navLinks}>
               Leaderboard
             </Link>
           </li>
@@ -253,8 +254,8 @@ function Navbar({
       </nav>
     </>
   ) : (
-    ''
-  )
+    ""
+  );
 }
 
-export default Navbar
+export default Navbar;

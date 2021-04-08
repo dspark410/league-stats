@@ -27,7 +27,6 @@ function LeaderboardTable({
     const iconArr = [];
 
     if (mounted && leaderboardDone) {
-      console.log(leaderboard);
       Promise.all(
         leaderboard.map((player) => {
           return axios
@@ -141,6 +140,7 @@ function LeaderboardTable({
         rank={rank}
         firstLast={true}
         table={true}
+        setLeaderboardDone={setLeaderboardDone}
       />
     </>
   );
