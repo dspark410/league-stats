@@ -1,14 +1,14 @@
-import React from 'react'
-import style from './tooltip.module.css'
-import Tippy, { tippy } from '@tippyjs/react'
+import React from "react";
+import style from "./tooltip.module.css";
+import Tippy, { tippy } from "@tippyjs/react";
 
 export default function Tooltip(props) {
-  tippy('.tomato')
+  tippy(".tomato");
 
   return (
     <Tippy
-      animation='fade'
-      theme='custom'
+      animation="fade"
+      theme="custom"
       content={
         <div className={style.tooltip}>
           <div className={style.tooltiptext}>
@@ -31,5 +31,5 @@ export default function Tooltip(props) {
     >
       <div className={style.tooltip}>{props.children}</div>
     </Tippy>
-  )
+  );
 }
