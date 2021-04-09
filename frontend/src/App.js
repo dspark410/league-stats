@@ -28,7 +28,7 @@ function App() {
   );
   const [existRegion, setExistRegion] = useState(true);
   const [champInfo, setChampInfo] = useState([]);
-
+  const [nonExist, setNonExist] = useState(0);
   const [champKeys, setChampKeys] = useState([]);
   const [latest, setLatest] = useState();
   const [version, setVersion] = useState();
@@ -74,9 +74,11 @@ function App() {
                 setInputValue("");
               }, 2000);
             }
+            setNonExist((prev) => prev + 1);
           } else if (res.data.summonerInfo) {
             setLoading(true);
             setSummInfo(res.data);
+            setNonExist(0);
 
             const doNotAdd = prevEntries
               .map((entry) => {
@@ -586,7 +588,11 @@ function App() {
                     setSummInfo={setSummInfo}
                   />
                 ) : (
-                  <NotFound showNav={showNav} noRegion={existRegion} />
+                  <NotFound
+                    nonExist={nonExist}
+                    showNav={showNav}
+                    noRegion={existRegion}
+                  />
                 )
               }
             />

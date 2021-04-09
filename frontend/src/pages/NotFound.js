@@ -4,7 +4,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import MatchHistoryCardSkeleton from "../components/MatchHistoryCardSkeleton";
 import MasteryCardSkeleton from "../components/MasteryCardSkeleton";
 
-export default function NotFound({ showNav, noRegion }) {
+export default function NotFound({ showNav, noRegion, nonExist }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -156,6 +156,8 @@ export default function NotFound({ showNav, noRegion }) {
   ) : !noRegion ? (
     <div className={style.notFound}>Invalid Region</div>
   ) : (
-    <div className={style.notFound}>Summoner Not Found</div>
+    <div className={style.notFound}>
+      Summoner Not Found {nonExist > 1 ? "(" + nonExist + ")" : ""}
+    </div>
   );
 }
