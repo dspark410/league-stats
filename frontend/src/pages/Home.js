@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import style from './home.module.css'
+import { regions } from '../utils/constant'
 import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoSearchCircle } from 'react-icons/io5'
-import { regions } from '../utils/constant'
 
 function Home({
   change,
@@ -20,11 +20,13 @@ function Home({
   handleFocus,
   handleBlur,
 }) {
+  //reference to inputbox
   const inputEl = useRef(false)
-  useEffect(() => {
-    closeStorage()
-    hideNav()
 
+  //hide the navbar and set initial recent searches box to closed
+  useEffect(() => {
+    closeStorage(false)
+    hideNav(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

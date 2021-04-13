@@ -21,7 +21,7 @@ export default function ChampionDetail({
   const sessionData = JSON.parse(sessionStorage.getItem('backupjson'))
 
   useEffect(() => {
-    showNav()
+    showNav(true)
     setContainerFade(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

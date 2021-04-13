@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import style from './welcome.module.css'
 import axios from 'axios'
-//import { motion } from "framer-motion";
 import MasteryCard from '../components/MasteryCard'
 import RankCard from '../components/RankCard'
 import UnrankedCard from '../components/UnrankedCard'
@@ -22,23 +21,22 @@ export const Welcome = ({
   selectChampion,
   region,
   loading,
-  skeletonTrue,
-  skeletonFalse,
+  setLoading,
   summInfo,
   setSummInfo,
 }) => {
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
 
-  let source = axios.CancelToken.source()
+  // let source = axios.CancelToken.source()
 
   useEffect(() => {
     // Show nav on the welcome screen
-    showNav()
+    showNav(true)
 
     if (summInfo.summonerInfo.id) {
       // Get masteries from state and set into state
-      skeletonTrue()
+      setLoading(true)
       window.scrollTo({
         top: 0,
         left: 0,
@@ -48,9 +46,9 @@ export const Welcome = ({
 
     setDisplay('overview')
 
-    return () => {
-      source.cancel('welcome component got unmounted')
-    }
+    // return () => {
+    //   source.cancel('welcome component got unmounted')
+    // }
 
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,7 +74,7 @@ export const Welcome = ({
     return () => {
       clearTimeout(time)
       mounted = false
-      source.cancel('getRank in Live useEffect got unmounted')
+      // source.cancel('getRank in Live useEffect got unmounted')
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -347,7 +345,7 @@ export const Welcome = ({
                   skeleton={loading}
                   region={region}
                   live={summInfo.live}
-                  skeletonFalse={skeletonFalse}
+                  setLoading={setLoading}
                   summInfo={summInfo}
                   setSummInfo={setSummInfo}
                 />
