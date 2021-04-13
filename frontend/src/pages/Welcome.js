@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import style from './welcome.module.css'
-import axios from 'axios'
 import MasteryCard from '../components/MasteryCard'
 import RankCard from '../components/RankCard'
 import UnrankedCard from '../components/UnrankedCard'
@@ -28,8 +27,6 @@ export const Welcome = ({
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
 
-  // let source = axios.CancelToken.source()
-
   useEffect(() => {
     // Show nav on the welcome screen
     showNav(true)
@@ -45,11 +42,6 @@ export const Welcome = ({
     }
 
     setDisplay('overview')
-
-    // return () => {
-    //   source.cancel('welcome component got unmounted')
-    // }
-
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [summInfo.summonerInfo])
@@ -74,7 +66,6 @@ export const Welcome = ({
     return () => {
       clearTimeout(time)
       mounted = false
-      // source.cancel('getRank in Live useEffect got unmounted')
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

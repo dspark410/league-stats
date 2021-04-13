@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import style from './championdetail.module.css'
 import Tooltip from '../components/Tooltip'
-import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 import BrandBackground from '../components/images/brand.jpg'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 
 export default function ChampionDetail({
   version,
@@ -20,12 +20,14 @@ export default function ChampionDetail({
 
   const sessionData = JSON.parse(sessionStorage.getItem('backupjson'))
 
+  // show navbar and fade in background of champion
   useEffect(() => {
     showNav(true)
     setContainerFade(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // sets the details of the champion to the page and reset the background to brand if going back pages
   useEffect(() => {
     setChampionDetails(champDetail)
     setCurrent(0)
@@ -44,6 +46,7 @@ export default function ChampionDetail({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [championDetails])
 
+  // function for selecting champion skill video
   const selectVideo = (e) => {
     setLoading(true)
     const key = e.target.getAttribute('value')
@@ -52,25 +55,26 @@ export default function ChampionDetail({
       setLoading(false)
     }, 100)
   }
-  // onClick, increases skin + 1, to change loading
+
+  // onClick, increases skin + 1
   const nextSkin = () => {
     setCurrent(current === championDetails.skins.length - 1 ? 0 : current + 1)
-
     setFade(true)
     setTimeout(() => {
       setFade(false)
     }, 100)
   }
-  // onClick, increases skin - 1, to change loading
+
+  // onClick, increases skin - 1
   const prevSkin = () => {
     setCurrent(current === 0 ? championDetails.skins.length - 1 : current - 1)
-
     setFade(true)
     setTimeout(() => {
       setFade(false)
     }, 100)
   }
 
+  // add 0's to URL of champion skill video
   let key
 
   if (champDetail) {

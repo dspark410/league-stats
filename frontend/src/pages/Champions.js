@@ -25,6 +25,8 @@ function Champions({
 
   const url = process.env.REACT_APP_API_URL || ''
   let source = axios.CancelToken.source()
+
+  // Getting free champion rotation, showing navbar
   useEffect(() => {
     //show nav
     showNav(true)
@@ -58,6 +60,7 @@ function Champions({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champInfo])
 
+  // filtering onClick by role
   useEffect(() => {
     switch (role) {
       case 'all':
@@ -148,6 +151,7 @@ function Champions({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role, champInfo])
 
+  //fade animation for seraching champions in the inputbox
   useEffect(() => {
     setFade(false)
     let timer = setTimeout(() => {
@@ -168,23 +172,6 @@ function Champions({
     )
     setAutofill(filtered)
   }
-
-  // // SubmiteHandler for input
-  // const handleSubmit = (event) => {
-  //   event.preventDefault()
-
-  //   // When input gives back just one champion, submit would call for the champion's
-  //   // JSON file and store it in state
-  //   if (autofill.length === 1) {
-  //     axios
-  //       .get(
-  //         `https://ddragon.leagueoflegends.com/cdn/10.25.1/data/en_US/champion/${autofill[0].id}.json`
-  //       )
-  //       .then((res) => {
-  //         setChampionDetails(res.data.data[autofill[0].id])
-  //       })
-  //   }
-  // }
 
   return (
     <>

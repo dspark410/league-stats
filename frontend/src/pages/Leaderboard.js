@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import style from './leaderboard.module.css'
-import LeaderboardTable from '../components/LeaderboardTable'
+import LeaderboardTable from '../components/LeaderboardChallengerToMaster'
 import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
 import LeaderboardSkeleton from './LeaderboardSkeleton'
 
@@ -30,12 +30,13 @@ function Leaderboard({
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
 
+  //show nav bar and render skeleton
   useEffect(() => {
     showNav(true)
     let timer
     timer = setTimeout(() => {
       setLoading(false)
-    }, 4000)
+    }, 3000)
 
     return () => {
       clearTimeout(timer)
@@ -43,6 +44,7 @@ function Leaderboard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // render skeleton when rank changes on leaderboard
   useEffect(() => {
     let mounted = true
     setLoading(true)
@@ -71,6 +73,7 @@ function Leaderboard({
   }, [rank, division, page, region])
   // if CurrentPage is added to depency, it loads but we don't want skeleTimer
 
+  // function to get the next page of summoners on the leaderboard pages for Diamond to Iron ranks
   const nextPage = () => {
     if (fullLeaderboard.length < 205) {
       return
