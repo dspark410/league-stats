@@ -343,7 +343,6 @@ export const Welcome = ({
                 <MasteryCard
                   version={version}
                   filteredChamps={summInfo.mastery}
-                  skeleton={loading}
                   selectChampion={selectChampion}
                 />
               </div>

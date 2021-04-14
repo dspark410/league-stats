@@ -4,15 +4,7 @@ import HistoryCardComplex from './HistoryCardComplex'
 import HistoryCardSimple from './HistoryCardSimple'
 import { CSSTransition } from 'react-transition-group'
 
-function HistoryCard({
-  game,
-  spells,
-  runes,
-  summonerInfo,
-  getPlayerName,
-  live,
-  summInfo,
-}) {
+function HistoryCard({ game, spells, runes, getPlayerName, live, summInfo }) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -37,19 +29,13 @@ function HistoryCard({
       }}
     >
       <div className={`${style.fadeIn}`}>
-        <HistoryCardSimple
-          open={open}
-          game={game}
-          clickArrow={clickArrow}
-          summInfo={summInfo}
-        />
+        <HistoryCardSimple open={open} game={game} clickArrow={clickArrow} />
 
         <HistoryCardComplex
           open={open}
           game={game}
           spells={spells}
           runes={runes}
-          summonerInfo={summonerInfo}
           getPlayerName={getPlayerName}
           clickArrow={clickArrow}
           summInfo={summInfo}

@@ -9,7 +9,6 @@ function HistoryCardComplex({
   game,
   spells,
   runes,
-  summonerInfo,
   getPlayerName,
   clickArrow,
   open,

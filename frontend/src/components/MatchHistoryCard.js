@@ -5,7 +5,6 @@ import HistoryCard from './HistoryCard'
 import MatchesLoader from './MatchesLoader'
 
 function MatchHistoryCard({
-  summonerInfo,
   version,
   getPlayerName,
   region,
@@ -108,7 +107,6 @@ function MatchHistoryCard({
                   game={game}
                   spells={spells}
                   runes={runes}
-                  summonerInfo={summonerInfo}
                   getPlayerName={getPlayerName}
                   live={live}
                   summInfo={summInfo}
