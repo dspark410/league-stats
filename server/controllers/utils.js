@@ -6,11 +6,12 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
 
     if (masteryRes.length === 0) return champObject;
 
-    let champMastery = 5;
-
-    masteryRes.length < 5 && champMastery === masteryRes.length;
+    let champMastery;
+    console.log("masteryRes.length", masteryRes.length);
+    masteryRes.length < 5 ? (champMastery = masteryRes.length) : 5;
 
     for (let i = 0; i < champMastery; i++) {
+      console.log("champMastery", champMastery);
       champInfo.forEach((champ) => {
         if (+champ.key === masteryRes[i].championId) {
           const name = champ.name;
