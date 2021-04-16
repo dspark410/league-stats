@@ -1,4 +1,4 @@
-.homeBackgroundContainer {
+/* .homeBackgroundContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   height: auto;
   min-height: 100%;
   background: rgba(59, 43, 68, 0.85);
-}
+} */
 
 .homeContainer {
   display: flex;

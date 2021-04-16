@@ -453,31 +453,23 @@ function App() {
           champKeys.includes(champName) &&
           champName !== getChamp.toLowerCase()
         ) {
-          history.replace(`/champions/${champName.toLowerCase()}`)
+          history.push(`/champions/${champName.toLowerCase()}`)
         } else if (
           getChamp &&
           champName &&
           getChamp.toLowerCase() !== champName
         ) {
-          history.replace(`/champions/${getChamp}`)
+          history.push(`/champions/${getChamp}`)
         }
       }
 
       if (extra) {
-        history.replace(`/champions/${champName}`)
+        history.push(`/champions/${champName}`)
       }
     }
 
     // eslint-disable-next-line
   }, [location, champKeys])
-
-  // if new summoner make a new call with their info and changes URL
-  // useEffect(() => {
-  //   if (summInfo.summonerInfo) {
-  //     changeURL(summInfo.summonerInfo.name, region);
-  //   }
-  //   // eslint-disable-next-line
-  // }, [summInfo]);
 
   // resetting saved summoner searches after deleting or searching new summoner
   useEffect(() => {
@@ -493,7 +485,7 @@ function App() {
         />
       ) : null}
 
-      <div className={navVisibility ? 'overlay' : null}>
+      <div className={navVisibility ? 'overlay' : 'overlay2'}>
         <div>
           <Navbar
             visibility={navVisibility}
@@ -622,7 +614,7 @@ function App() {
                 />
               )}
             />
-            <Route render={() => <Redirect to={{ pathname: '/' }} />} />
+            {/* <Route render={() => <Redirect to={{ pathname: '/' }} />} /> */}
           </Switch>
 
           <Footer />

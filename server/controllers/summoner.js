@@ -125,6 +125,12 @@ exports.getLive = async (id, region) => {
 
     return liveData.data
   } catch (error) {
+    if (error.response.status >= 500) {
+      console.log(
+        'RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE RIOT BROKE LIVE '
+      )
+      return this.getLive(id, region)
+    }
     console.log('Not in Live Game')
     return 'Not In Live Game'
   }
