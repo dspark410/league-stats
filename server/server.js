@@ -117,14 +117,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-// Requested by Riot
-app.get('/riot.txt', async (req, res) => {
-  res.sendFile(__dirname + '/riot.txt')
-})
-app.get('//riot.txt', async (req, res) => {
-  res.sendFile(__dirname + '/riot.txt')
-})
-
 app.listen(port, () => {
   console.log(`Example app listening at https://localhost:${port}`)
 })
