@@ -6,12 +6,9 @@ exports.getSummonerMasteries = (id, region, champInfo) =>
 
     if (masteryRes.length === 0) return champObject;
 
-    let champMastery;
-    console.log("masteryRes.length", masteryRes.length);
-    masteryRes.length < 5 ? (champMastery = masteryRes.length) : 5;
+    const champMastery = masteryRes.length < 5 ? masteryRes.length : 5;
 
     for (let i = 0; i < champMastery; i++) {
-      console.log("champMastery", champMastery);
       champInfo.forEach((champ) => {
         if (+champ.key === masteryRes[i].championId) {
           const name = champ.name;
@@ -46,6 +43,7 @@ exports.getSummonerMatches = (summonerRes, region, queues, champInfo) => {
       for (let i = 0; i < matches; i++) {
         getMatchDetails(matchList.matches[i].gameId, region).then(
           (matchDetails) => {
+            console.log("matchdetails.queueid", matchDetails.queueId);
             matchArr.push(
               createGameObject(summonerRes, queues, champInfo, matchDetails)
             );
