@@ -10,9 +10,9 @@ import ChampionDetail from './pages/ChampionDetail'
 import {
   Switch,
   Route,
-  Redirect,
   useHistory,
   useLocation,
+  Redirect,
 } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
@@ -129,8 +129,8 @@ function App() {
         `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
       )
       .then((res) => {
-        setChampDetail(res.data.data[getChamp])
         history.replace(`champions/${getChamp.toLowerCase()}`)
+        setChampDetail(res.data.data[getChamp])
       })
   }
 
@@ -383,7 +383,7 @@ function App() {
           return
         } else {
           const promiseChamp = champ.id
-          console.log('promiseChamp', promiseChamp)
+
           await axios
             .get(
               `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${promiseChamp}.json`
@@ -475,11 +475,17 @@ function App() {
         // }
       }
 
-      if (extra) {
+      if (extra === '' || extra) {
         history.push(`/champions/${champName}`)
       }
     }
 
+    // if (location.pathname.includes('leaderboard')) {
+    //   const extra = location.pathname.split('/')[1]
+    //   if (extra === '' || extra) {
+    //     history.push(`/leaderboard`)
+    //   }
+    // }
     // eslint-disable-next-line
   }, [location, champKeys])
 
@@ -625,7 +631,15 @@ function App() {
                 />
               )}
             />
-            {/* <Route render={() => <Redirect to={{ pathname: '/' }} />} /> */}
+            <Route
+              render={() =>
+                location.pathname.includes('champions') ? (
+                  ''
+                ) : (
+                  <Redirect to={{ pathname: '/' }} />
+                )
+              }
+            />
           </Switch>
 
           <Footer />
