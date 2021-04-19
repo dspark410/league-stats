@@ -32,7 +32,7 @@ function App() {
   const [champKeys, setChampKeys] = useState([])
   const [latest, setLatest] = useState()
   const [version, setVersion] = useState()
-  const [queues, setQueues] = useState([])
+
   const [champDetail, setChampDetail] = useState()
   const [backupItem, setBackupItem] = useState()
   const [navVisibility, setNavVisibility] = useState(false)
@@ -312,8 +312,6 @@ function App() {
       }
     }
 
-    // Retrieve queueType list from Riot API
-    axios.get(`${url}/queueType`).then((res) => setQueues(res.data))
     axios
       // Link to version list from Riot
       .get('https://ddragon.leagueoflegends.com/api/versions.json')
@@ -361,12 +359,13 @@ function App() {
     const getChamp = sessionStorage.getItem('champion')
 
     if (version && getChamp) {
+      const thisChamp = getChamp[0].toUpperCase() + getChamp.slice(1)
       axios
         .get(
-          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${getChamp}.json`
+          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${thisChamp}.json`
         )
         .then((res) => {
-          setChampDetail(res.data.data[getChamp])
+          setChampDetail(res.data.data[thisChamp])
         })
     }
 
@@ -384,7 +383,7 @@ function App() {
           return
         } else {
           const promiseChamp = champ.id
-
+          console.log('promiseChamp', promiseChamp)
           await axios
             .get(
               `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${promiseChamp}.json`
@@ -453,14 +452,27 @@ function App() {
           champKeys.includes(champName) &&
           champName !== getChamp.toLowerCase()
         ) {
-          history.push(`/champions/${champName.toLowerCase()}`)
-        } else if (
-          getChamp &&
-          champName &&
-          getChamp.toLowerCase() !== champName
-        ) {
-          history.push(`/champions/${getChamp}`)
+          const thisChamp = champName[0].toUpperCase() + champName.slice(1)
+
+          axios
+            .get(
+              `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${thisChamp}.json`
+            )
+            .then((res) => {
+              sessionStorage.setItem('champion', champName)
+
+              setChampDetail(res.data.data[thisChamp])
+              history.push(`/champions/${champName.toLowerCase()}`)
+            })
         }
+        // } else if (
+        //   getChamp &&
+        //   champName &&
+        //   getChamp.toLowerCase() !== champName
+        // ) {
+        //   history.push(`/champions/${getChamp}`)
+        //   console.log('inside elseif', champName)
+        // }
       }
 
       if (extra) {
@@ -539,7 +551,6 @@ function App() {
                     isAuthed={true}
                     version={version}
                     getPlayerName={getPlayerName}
-                    queues={queues}
                     showNav={setNavVisibility}
                     selectChampion={selectChampion}
                     region={region}

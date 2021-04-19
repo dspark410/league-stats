@@ -97,14 +97,14 @@ exports.getMatchDetails = async (id, region) => {
   } catch (error) {
     if (error.response.status >= 500) {
       console.log(
-        'Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details  '
+        'Error with Match DetailsError with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details Error with Match Details  '
       )
       return this.getMatchDetails(id, region)
     }
   }
 }
 
-exports.getLive = async (id, region) => {
+exports.getLive = async (id, region, queues) => {
   try {
     const api = process.env.API_KEY
     const liveData = await axios.get(
@@ -120,6 +120,14 @@ exports.getLive = async (id, region) => {
 
       if (liveRankArray.length === liveData.data.participants.length) {
         liveData.data['rankArray'] = liveRankArray
+      }
+    })
+    queues.forEach((queue) => {
+      if (liveData.data.gameQueueConfigId === queue.queueId) {
+        liveData.data['queueName'] = queue.description
+          .split(' ')
+          .slice(0, 3)
+          .join(' ')
       }
     })
 

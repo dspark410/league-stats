@@ -15,7 +15,6 @@ export const Welcome = ({
   champInfo,
   version,
   getPlayerName,
-  queues,
   showNav,
   selectChampion,
   region,
@@ -332,7 +331,6 @@ export const Welcome = ({
                   summonerInfo={summInfo.summonerInfo}
                   champInfo={champInfo}
                   getPlayerName={getPlayerName}
-                  queues={queues}
                   skeleton={loading}
                   region={region}
                   live={summInfo.live}
@@ -372,7 +370,6 @@ export const Welcome = ({
                     live={summInfo.live}
                     champInfo={champInfo}
                     version={version}
-                    queues={queues}
                     time={time}
                     liveRank={summInfo.live.rankArray}
                   />

@@ -53,7 +53,7 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
           Promise.all([
             getSummonerMasteries(summonerRes.id, region, champInfo),
             getRank(summonerRes.id, region),
-            getLive(summonerRes.id, region),
+            getLive(summonerRes.id, region, queues),
             getSummonerMatches(summonerRes, region, queues, champInfo),
             getMatchList(summonerRes.accountId, region),
           ]).then((res) => {
