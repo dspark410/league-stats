@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import style from "./matchhistorycard.module.css";
-import axios from "axios";
-import HistoryCard from "./HistoryCard";
-import MatchesLoader from "./MatchesLoader";
+import React, { useState, useEffect, useRef } from 'react'
+import style from './matchhistorycard.module.css'
+import axios from 'axios'
+import HistoryCard from './HistoryCard'
+import MatchesLoader from './MatchesLoader'
+import { CgSmileSad } from 'react-icons/cg'
 
 function MatchHistoryCard({
   version,
@@ -12,24 +13,24 @@ function MatchHistoryCard({
   setLoading,
   summInfo,
 }) {
-  const [gameDetails, setGameDetails] = useState([]);
-  const [runes, setRunes] = useState([]);
-  const [spells, setSpells] = useState([]);
-  const [matchesLoader, setMatchesLoader] = useState(false);
-  const [allMatchesReady, setAllMatchesReady] = useState(true);
+  const [gameDetails, setGameDetails] = useState([])
+  const [runes, setRunes] = useState([])
+  const [spells, setSpells] = useState([])
+  const [matchesLoader, setMatchesLoader] = useState(false)
+  const [allMatchesReady, setAllMatchesReady] = useState(true)
 
-  const endpoint = process.env.REACT_APP_API_ENDPOINT || "";
-  let source = axios.CancelToken.source();
+  const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
+  let source = axios.CancelToken.source()
 
-  let moreMatchesMounted = useRef();
+  let moreMatchesMounted = useRef()
 
-  const refreshPage = () => window.location.reload();
+  const refreshPage = () => window.location.reload()
 
   const getMoreMatches = () => {
-    setMatchesLoader(true);
+    setMatchesLoader(true)
     const matches = summInfo.matchList.matches
       .slice(gameDetails.length, gameDetails.length + 5)
-      .map((match) => match.gameId);
+      .map((match) => match.gameId)
 
     axios
       .get(
@@ -39,14 +40,14 @@ function MatchHistoryCard({
       )
       .then((res) => {
         setTimeout(() => {
-          setGameDetails((prev) => prev.concat(res.data));
-          setMatchesLoader(false);
-        }, 2000);
-      });
-  };
+          setGameDetails((prev) => prev.concat(res.data))
+          setMatchesLoader(false)
+        }, 2000)
+      })
+  }
 
   useEffect(() => {
-    let mounted = true;
+    let mounted = true
 
     // Validation to check if version is populated in props
 
@@ -58,8 +59,8 @@ function MatchHistoryCard({
           { cancelToken: source.token }
         )
         .then((res) => {
-          setSpells(Object.values(res.data.data));
-        });
+          setSpells(Object.values(res.data.data))
+        })
       // Retrieve list of runes from Riot APIf
       axios
         .get(
@@ -67,37 +68,37 @@ function MatchHistoryCard({
           { cancelToken: source.token }
         )
         .then((res) => {
-          setRunes(res.data);
-        });
+          setRunes(res.data)
+        })
     }
 
     return () => {
-      mounted = false;
-      source.cancel("spells and runes got unmounted");
-    };
+      mounted = false
+      source.cancel('spells and runes got unmounted')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [version]);
+  }, [version])
 
   useEffect(() => {
-    let skeleTimer;
+    let skeleTimer
 
     if (summInfo.summonerInfo) {
-      setGameDetails(summInfo.matchHistory);
+      setGameDetails(summInfo.matchHistory)
       skeleTimer = setTimeout(() => {
-        setLoading(false);
-      }, 3000);
+        setLoading(false)
+      }, 3000)
     }
 
-    summInfo.matchHistory.forEach(
-      (game) => game === null && setAllMatchesReady(false)
-    );
+    summInfo.matchHistory.forEach((game) => {
+      game === null && setAllMatchesReady(false)
+    })
 
     return () => {
-      moreMatchesMounted.current = false;
-      clearInterval(skeleTimer);
-    };
+      moreMatchesMounted.current = false
+      clearInterval(skeleTimer)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summInfo]);
+  }, [summInfo])
 
   return (
     <div className={style.matchContainer}>
@@ -105,7 +106,7 @@ function MatchHistoryCard({
         {gameDetails.length > 0 && allMatchesReady ? (
           gameDetails
             .sort(function (a, b) {
-              return new Date(b.gameCreation) - new Date(a.gameCreation);
+              return new Date(b.gameCreation) - new Date(a.gameCreation)
             })
             .map((game, i) => {
               return (
@@ -118,18 +119,23 @@ function MatchHistoryCard({
                   live={live}
                   summInfo={summInfo}
                 />
-              );
+              )
             })
         ) : (
           <div className={style.noMatchContainer}>
             <div className={style.matchHeader}>Match History</div>
             <div className={style.noMatches}>
               {allMatchesReady ? (
-                "No Matches Were Found."
+                'No Matches Were Found.'
               ) : (
-                <div>
-                  Failed to load, please refresh the page <br />
-                  <button onClick={refreshPage}>Refresh</button>
+                <div className={style.failedMatchContainer}>
+                  <div className={style.failedMatch}>
+                    Failed To Load Match History{' '}
+                    <CgSmileSad className={style.sad} />
+                  </div>
+                  <button className={style.retry} onClick={refreshPage}>
+                    Retry
+                  </button>
                 </div>
               )}
             </div>
@@ -155,7 +161,7 @@ function MatchHistoryCard({
           )}
       </div>
     </div>
-  );
+  )
 }
 
-export default MatchHistoryCard;
+export default MatchHistoryCard

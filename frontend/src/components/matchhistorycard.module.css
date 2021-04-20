@@ -370,6 +370,40 @@
   font-size: 14px;
 }
 
+.failedMatchContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.failedMatch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sad {
+  font-size: 25px;
+  margin-left: 10px;
+}
+
+.retry {
+  color: #e1e1e1;
+  font-size: 14px;
+  margin: 10px 0px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+  background-color: #9a83a8;
+}
+
+.retry:hover {
+  cursor: pointer;
+  outline: none;
+  background-color: #867492;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
