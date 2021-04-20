@@ -37,10 +37,6 @@ exports.getSummonerMatches = (summonerRes, region, queues, champInfo) => {
   return getMatchList(summonerRes.accountId, region).then((matchList) => {
     const matchArr = [];
 
-    if (!matchList?.matches) {
-      console.log("matchList", matchList);
-    }
-
     if (matchList.matches.length === 0) return matchArr;
     const matches = matchList.matches.length < 7 ? matchList.matches.length : 7;
 
@@ -48,10 +44,6 @@ exports.getSummonerMatches = (summonerRes, region, queues, champInfo) => {
       for (let i = 0; i < matches; i++) {
         getMatchDetails(matchList.matches[i].gameId, region).then(
           (matchDetails) => {
-            if (!matchDetails.queueId) {
-              console.log("matchdetails.queueid", matchDetails);
-            }
-
             matchArr.push(
               createGameObject(summonerRes, queues, champInfo, matchDetails)
             );

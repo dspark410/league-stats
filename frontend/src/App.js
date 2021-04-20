@@ -59,11 +59,13 @@ function App() {
   const location = useLocation();
 
   const getSummInfo = (summonerName, rgn) => {
+    // setInputLoading(true) to enable skeleton
     if (existRgn.includes(rgn)) {
       axios
         .get(`${endpoint}/getSummonerInfo/${summonerName}/${rgn}`)
         .then((res) => {
           if (res.data === "summoner not found...") {
+            // setInputLoading(false)
             // Message will be displayed on Home Screen, dissapears after 3 seconds
             setSummInfo({});
             if (location.pathname === "/") {
@@ -74,6 +76,7 @@ function App() {
             }
             setNonExist((prev) => prev + 1);
           } else if (res.data.summonerInfo) {
+            // setInputLoading(false)
             setLoading(true);
             setSummInfo(res.data);
             changeURL(res.data.summonerInfo.name, region);
@@ -470,7 +473,6 @@ function App() {
           getChamp.toLowerCase() !== champName
         ) {
           history.push(`/champions/${getChamp}`);
-          console.log("inside elseif", champName);
         }
       }
 
@@ -478,13 +480,6 @@ function App() {
         history.push(`/champions/${champName}`);
       }
     }
-
-    // if (location.pathname.includes('leaderboard')) {
-    //   const extra = location.pathname.split('/')[1]
-    //   if (extra === '' || extra) {
-    //     history.push(`/leaderboard`)
-    //   }
-    // }
     // eslint-disable-next-line
   }, [location, champKeys]);
 
