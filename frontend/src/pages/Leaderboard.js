@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import style from './leaderboard.module.css'
-import LeaderboardTable from '../components/LeaderboardChallengerToMaster'
+import LeaderboardChallengerToMaster from '../components/LeaderboardChallengerToMaster'
 import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
 import LeaderboardSkeleton from './LeaderboardSkeleton'
 
@@ -126,7 +126,7 @@ function Leaderboard({
         {rank === 'CHALLENGER' ||
         rank === 'GRANDMASTER' ||
         rank === 'MASTER' ? (
-          <LeaderboardTable
+          <LeaderboardChallengerToMaster
             version={version}
             leaderboard={leaderboard}
             postsPerPage={postsPerPage}

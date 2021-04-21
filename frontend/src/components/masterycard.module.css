@@ -90,11 +90,16 @@
 .champImgContainer {
   min-width: 30px;
 }
+
 .name {
   min-width: 93px;
   color: #e1e1e1;
   font-weight: 500;
   margin-left: 5px;
+}
+
+.name:hover {
+  cursor: pointer;
 }
 
 .champLvlContainer,
@@ -118,6 +123,10 @@ a {
   height: auto;
   border-radius: 50%;
   margin-left: 4px;
+}
+
+.championImage:hover {
+  cursor: pointer;
 }
 
 .none {

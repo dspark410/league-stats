@@ -56,7 +56,7 @@ function LeaderboardChallengerToMaster({
       source.cancel('leaderboard table component got unmounted')
     }
     // eslint-disable-next-line
-  }, [leaderboardDone])
+  }, [leaderboardDone, currentPage])
 
   return (
     <>

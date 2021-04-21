@@ -80,6 +80,7 @@ function MatchHistoryCard({
   }, [version])
 
   useEffect(() => {
+    setAllMatchesReady(true)
     let skeleTimer
 
     if (summInfo.summonerInfo) {

@@ -10,6 +10,7 @@ export default function ChampionDetail({
   itemObj,
   showNav,
   changeBackground,
+  championLoading,
 }) {
   const [video, setVideo] = useState('Q')
   const [loading, setLoading] = useState(false)
@@ -89,7 +90,11 @@ export default function ChampionDetail({
     }
   }
 
-  return champDetail && itemObj && championDetails && containerFade ? (
+  return champDetail &&
+    itemObj &&
+    championDetails &&
+    containerFade &&
+    !championLoading ? (
     <div className={style.fadeContainer}>
       <div className={style.grid}>
         <div className={style.firstCard}>

@@ -313,7 +313,7 @@ function Champions({
                           moreInfo={latest.blurb}
                         >
                           <div className={style.latestImage}>
-                            <Link to='/championdetail'>
+                            <Link to='/champion/:champions'>
                               <img
                                 alt={latest.image.full}
                                 onClick={selectChampion}
@@ -351,7 +351,9 @@ function Champions({
                               moreInfo={champ.blurb}
                             >
                               <div className={!loading && style.latestImage}>
-                                <Link to='/championdetail'>
+                                <Link
+                                  to={`/champions/${champ.id.toLowerCase()}`}
+                                >
                                   <img
                                     alt={champ.image.full}
                                     onClick={selectChampion}
@@ -375,7 +377,7 @@ function Champions({
                             moreInfo={champ.blurb}
                           >
                             <div className={style.latestImage}>
-                              <Link to='/championdetail'>
+                              <Link to={`/champions/${champ.id.toLowerCase()}`}>
                                 <img
                                   alt={champ.image.full}
                                   onClick={selectChampion}

@@ -1,14 +1,14 @@
-import React from "react";
-import style from "./masterycard.module.css";
-import { Link } from "react-router-dom";
+import React from 'react'
+import style from './masterycard.module.css'
+import { Link } from 'react-router-dom'
 
 function MasteryCard({ version, filteredChamps, selectChampion }) {
   return (
     <div className={style.masteryCard}>
       <div className={style.header}>
         <img
-          alt="mastery icon"
-          src={process.env.PUBLIC_URL + "/images/icons/mastery.png"}
+          alt='mastery icon'
+          src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
         />
         CHAMPION MASTERY
       </div>
@@ -25,7 +25,7 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
             <div className={style.masteryRow}>
               <div className={style.number}>{i + 1}.</div>
               <div className={style.champImgContainer}>
-                <Link to="/championdetail">
+                <Link to={`/champions/${champ.id.toLowerCase()}`}>
                   <img
                     onClick={selectChampion}
                     key={i}
@@ -36,13 +36,13 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
                   />
                 </Link>
               </div>
-              <Link to="/championdetail">
+              <Link to={`/champions/${champ.id.toLowerCase()}`}>
                 <div
                   onClick={selectChampion}
                   name={champ.id}
                   className={style.name}
                 >
-                  {champ.id === "MonkeyKing" ? champ.name : champ.id}
+                  {champ.id === 'MonkeyKing' ? champ.name : champ.id}
                 </div>
               </Link>
               <div className={style.champLvlContainer}>
@@ -54,20 +54,20 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
                       ? process.env.PUBLIC_URL +
                         `/images/masteryicons/level${champ.level}.png`
                       : process.env.PUBLIC_URL +
-                        "/images/masteryicons/level1.png"
+                        '/images/masteryicons/level1.png'
                   }
                 />
               </div>
 
               <div className={style.points}>
-                {champ.points.toLocaleString("en")}
+                {champ.points.toLocaleString('en')}
               </div>
             </div>
           </li>
-        );
+        )
       })}
     </div>
-  );
+  )
 }
 
-export default MasteryCard;
+export default MasteryCard
