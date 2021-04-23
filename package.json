@@ -7,7 +7,7 @@
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "cd server && node server.js",
     "start:dev": "cd server && nodemon server.js",
-    "install": "cd server && npm i && cd ../client && npm i",
+    "install": "cd server && npm i && cd ../frontend && npm i",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"cd server && nodemon server.js\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1",
