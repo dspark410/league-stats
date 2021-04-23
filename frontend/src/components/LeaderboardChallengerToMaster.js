@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import style from './leaderboardtable.module.css'
-import axios from 'axios'
-import Paginate from './Paginate'
+import React, { useState, useEffect } from "react";
+import style from "./leaderboardtable.module.css";
+import axios from "axios";
+import Paginate from "./Paginate";
 
 function LeaderboardChallengerToMaster({
   version,
@@ -16,47 +16,47 @@ function LeaderboardChallengerToMaster({
   leaderboardDone,
   setLeaderboardDone,
 }) {
-  const [profileIcon, setProfileIcon] = useState([])
+  const [profileIcon, setProfileIcon] = useState([]);
 
-  const url = process.env.REACT_APP_API_URL || ''
+  const url = process.env.REACT_APP_API_ENDPOINT || "";
 
-  let source = axios.CancelToken.source()
+  let source = axios.CancelToken.source();
 
   // call for profile icon and adding to the leaderboard object
   useEffect(() => {
-    let mounted = true
-    const iconArr = []
+    let mounted = true;
+    const iconArr = [];
 
     if (mounted && leaderboardDone) {
       Promise.all(
         leaderboard.map((player) => {
           return axios
-            .get(`${url}/getSummonerId/${player.summonerId}/${region}`, {
+            .get(`${url}/api/getSummonerId/${player.summonerId}/${region}`, {
               cancelToken: source.token,
             })
             .then((res) => {
               if (res.data.profileIconId === 0) {
-                player.icon = res.data.profileIconId.toString()
+                player.icon = res.data.profileIconId.toString();
               } else {
-                player.icon = res.data.profileIconId
+                player.icon = res.data.profileIconId;
               }
 
-              iconArr.push(player)
-            })
+              iconArr.push(player);
+            });
         })
       ).then(() => {
-        setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints))
-        setLeaderboardDone(false)
-      })
+        setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints));
+        setLeaderboardDone(false);
+      });
     }
 
     return () => {
-      mounted = false
+      mounted = false;
 
-      source.cancel('leaderboard table component got unmounted')
-    }
+      source.cancel("leaderboard table component got unmounted");
+    };
     // eslint-disable-next-line
-  }, [leaderboardDone, currentPage])
+  }, [leaderboardDone, currentPage]);
 
   return (
     <>
@@ -79,7 +79,7 @@ function LeaderboardChallengerToMaster({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -108,8 +108,8 @@ function LeaderboardChallengerToMaster({
                   </div>
                   <div
                     style={{
-                      minWidth: '25px',
-                      textAlign: 'center',
+                      minWidth: "25px",
+                      textAlign: "center",
                     }}
                   >
                     <div> - </div>
@@ -144,7 +144,7 @@ function LeaderboardChallengerToMaster({
         setLeaderboardDone={setLeaderboardDone}
       />
     </>
-  )
+  );
 }
 
-export default LeaderboardChallengerToMaster
+export default LeaderboardChallengerToMaster;

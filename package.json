@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/dspark410/league-stats#readme",
   "dependencies": {
-    "concurrently": "^6.0.0",
-    "if-env": "^1.0.4"
+    "concurrently": "^6.0.0"
   }
 }
