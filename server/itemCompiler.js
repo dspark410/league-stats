@@ -17,7 +17,7 @@ async function getItem(num) {
   for (let i = num - 1; i >= 0; i--) {
     await axios
       .get(
-        `http://ddragon.leagueoflegends.com/cdn/${version[i]}/data/en_US/item.json`
+        `https://ddragon.leagueoflegends.com/cdn/${version[i]}/data/en_US/item.json`
       )
       .then((res) => {
         if (!oldItems) {
