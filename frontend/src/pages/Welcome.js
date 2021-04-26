@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import style from "./welcome.module.css";
-import MasteryCard from "../components/MasteryCard";
-import RankCard from "../components/RankCard";
-import UnrankedCard from "../components/UnrankedCard";
-import SummonerCard from "../components/SummonerCard";
-import MatchHistoryCard from "../components/MatchHistoryCard";
-import Live from "../components/Live";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import MatchHistoryCardSkeleton from "../components/MatchHistoryCardSkeleton";
-import MasteryCardSkeleton from "../components/MasteryCardSkeleton";
-import { MdLiveTv } from "react-icons/md";
+/** @format */
+
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import style from './welcome.module.css'
+import MasteryCard from '../components/MasteryCard'
+import RankCard from '../components/RankCard'
+import UnrankedCard from '../components/UnrankedCard'
+import SummonerCard from '../components/SummonerCard'
+import MatchHistoryCard from '../components/MatchHistoryCard'
+import Live from '../components/Live'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
+import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
+import { MdLiveTv } from 'react-icons/md'
 
 export const Welcome = ({
   champInfo,
@@ -23,64 +25,64 @@ export const Welcome = ({
   setLoading,
   setSummInfo,
 }) => {
-  const [display, setDisplay] = useState("overview");
-  const [time, setTime] = useState();
+  const [display, setDisplay] = useState('overview')
+  const [time, setTime] = useState()
 
-  const { summoner } = useSelector((state) => state);
+  const { summoner } = useSelector((state) => state)
 
   useEffect(() => {
     // Show nav on the welcome screen
-    showNav(true);
+    showNav(true)
 
     if (summoner.summonerInfo.id) {
       // Get masteries from state and set into state
-      setLoading(true);
+      setLoading(true)
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "smooth",
-      });
+        behavior: 'smooth',
+      })
     }
 
-    setDisplay("overview");
+    setDisplay('overview')
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summoner.summonerInfo]);
+  }, [summoner.summonerInfo])
 
   useEffect(() => {
-    let time;
-    let mounted = true;
+    let time
+    let mounted = true
 
     if (mounted) {
-      if (summoner.live && typeof summoner.live.gameLength === "number") {
+      if (summoner.live && typeof summoner.live.gameLength === 'number') {
         setTime(
           summoner.live.gameLength < 0
             ? summoner.live.gameLength * -1
             : summoner.live.gameLength
-        );
+        )
         time = setInterval(() => {
-          setTime((seconds) => seconds + 1);
-        }, 1000);
+          setTime((seconds) => seconds + 1)
+        }, 1000)
       }
     }
 
     return () => {
-      clearTimeout(time);
-      mounted = false;
-    };
+      clearTimeout(time)
+      mounted = false
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summoner.live]);
+  }, [summoner.live])
 
   return (
-    <SkeletonTheme duration={3} color="#7a6b83" highlightColor="#e2c0f7">
+    <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.rowContainer}>
         <div className={style.row1}>
           <div className={style.emblemContainer}>
             {!loading ? (
               <div className={style.nameLive}>
                 <SummonerCard version={version} />
-                {summoner.live !== "Not In Live Game" && (
+                {summoner.live !== 'Not In Live Game' && (
                   <div className={`${style.inGame}`}>
                     <div className={style.circlePulse} />
                     In Game
@@ -91,7 +93,7 @@ export const Welcome = ({
               <div className={style.nameLiveSkeleton}>
                 <Skeleton circle={true} width={115} height={115} />
                 <Skeleton
-                  style={{ marginLeft: "25px" }}
+                  style={{ marginLeft: '25px' }}
                   width={250}
                   height={55}
                 />
@@ -109,49 +111,48 @@ export const Welcome = ({
                 <div className={style.rankContainer}>
                   {!summoner.rank.length ||
                   (summoner.rank.length === 1 &&
-                    summoner.rank[0].queueType === "RANKED_FLEX_SR") ? (
-                    <UnrankedCard queue="Solo" />
+                    summoner.rank[0].queueType === 'RANKED_FLEX_SR') ? (
+                    <UnrankedCard queue='Solo' />
                   ) : (
                     summoner.rank.map((ranking, i) => {
-                      return ranking.queueType === "RANKED_SOLO_5x5" ? (
-                        <RankCard key={i} rank={ranking} queue="Solo" />
+                      return ranking.queueType === 'RANKED_SOLO_5x5' ? (
+                        <RankCard key={i} rank={ranking} queue='Solo' />
                       ) : (
-                        ranking.queueType === "RANKED_FLEX_SR" && ""
-                      );
+                        ranking.queueType === 'RANKED_FLEX_SR' && ''
+                      )
                     })
                   )}
 
                   <img
-                    alt="Unranked"
+                    alt='Unranked'
                     className={style.rectangle}
                     src={process.env.PUBLIC_URL + `/images/icons/rectangle.png`}
                   />
 
                   {!summoner.rank.length ||
                   (summoner.rank.length === 1 &&
-                    summoner.rank[0].queueType === "RANKED_SOLO_5x5") ? (
-                    <UnrankedCard queue="Flex" />
+                    summoner.rank[0].queueType === 'RANKED_SOLO_5x5') ? (
+                    <UnrankedCard queue='Flex' />
                   ) : (
                     summoner.rank.map((ranking, i) => {
-                      return ranking.queueType === "RANKED_FLEX_SR" ? (
-                        <RankCard key={i} rank={ranking} queue="Flex" />
+                      return ranking.queueType === 'RANKED_FLEX_SR' ? (
+                        <RankCard key={i} rank={ranking} queue='Flex' />
                       ) : (
-                        ranking.queueType === "RANKED_SOLO_5x5" && ""
-                      );
+                        ranking.queueType === 'RANKED_SOLO_5x5' && ''
+                      )
                     })
                   )}
                 </div>
               ) : (
                 <div
                   style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    margin: "25px 0px 25px 0px",
-                  }}
-                >
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    margin: '25px 0px 25px 0px',
+                  }}>
                   <div>
                     <Skeleton
-                      style={{ marginLeft: "10px" }}
+                      style={{ marginLeft: '10px' }}
                       circle={true}
                       width={75}
                       height={75}
@@ -159,28 +160,27 @@ export const Welcome = ({
                   </div>
                   <div
                     style={{
-                      display: "flex",
-                      marginLeft: "10px",
-                      flexDirection: "column",
-                    }}
-                  >
+                      display: 'flex',
+                      marginLeft: '10px',
+                      flexDirection: 'column',
+                    }}>
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={20}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={180}
                       height={35}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={25}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={130}
                       height={25}
                     />
@@ -200,28 +200,27 @@ export const Welcome = ({
 
                   <div
                     style={{
-                      display: "flex",
-                      marginLeft: "10px",
-                      flexDirection: "column",
-                    }}
-                  >
+                      display: 'flex',
+                      marginLeft: '10px',
+                      flexDirection: 'column',
+                    }}>
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={20}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={180}
                       height={35}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={25}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={130}
                       height={25}
                     />
@@ -236,36 +235,34 @@ export const Welcome = ({
           <div className={style.linksContainer}>
             {!loading ? (
               <span
-                onClick={() => setDisplay("overview")}
-                to="#"
+                onClick={() => setDisplay('overview')}
+                to='#'
                 className={
-                  !loading && display === "overview"
+                  !loading && display === 'overview'
                     ? style.underline
                     : style.live
-                }
-              >
+                }>
                 Overview
               </span>
             ) : (
               <Skeleton
-                style={{ display: "inlineBlock", marginLeft: "15px" }}
+                style={{ display: 'inlineBlock', marginLeft: '15px' }}
                 height={30}
                 width={74}
               />
             )}
             {!loading ? (
               <span
-                onClick={() => setDisplay("live")}
-                to="/live"
+                onClick={() => setDisplay('live')}
+                to='/live'
                 className={
-                  !loading && display === "live" ? style.underline : style.live
-                }
-              >
+                  !loading && display === 'live' ? style.underline : style.live
+                }>
                 Live Game
               </span>
             ) : (
               <Skeleton
-                style={{ display: "inlineBlock", marginLeft: "15px" }}
+                style={{ display: 'inlineBlock', marginLeft: '15px' }}
                 height={30}
                 width={84}
               />
@@ -273,7 +270,7 @@ export const Welcome = ({
           </div>
         </div>
         <div className={style.row3}>
-          {display === "overview" &&
+          {display === 'overview' &&
           summoner.matchHistory.length === 0 &&
           !loading ? (
             <>
@@ -285,8 +282,8 @@ export const Welcome = ({
               <div className={style.masteryCard}>
                 <div className={style.header}>
                   <img
-                    alt="mastery icon"
-                    src={process.env.PUBLIC_URL + "/images/icons/mastery.png"}
+                    alt='mastery icon'
+                    src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
                   />
                   CHAMPION MASTERY
                 </div>
@@ -299,7 +296,7 @@ export const Welcome = ({
                   <div className={style.noChamps}>No Champions Found.</div>
                 )}
               </div>
-              {summoner.live === "Not In Live Game" && display === "live" && (
+              {summoner.live === 'Not In Live Game' && display === 'live' && (
                 <div className={style.notInGame}>
                   <div className={style.liveGameHeader}>
                     <MdLiveTv className={style.liveIcon} />
@@ -314,17 +311,15 @@ export const Welcome = ({
             <>
               <div
                 className={
-                  loading && display === "overview" ? style.row3 : style.none
-                }
-              >
+                  loading && display === 'overview' ? style.row3 : style.none
+                }>
                 <MatchHistoryCardSkeleton />
                 <MasteryCardSkeleton />
               </div>
               <div
                 className={
-                  !loading && display === "overview" ? style.row3 : style.none
-                }
-              >
+                  !loading && display === 'overview' ? style.row3 : style.none
+                }>
                 <MatchHistoryCard
                   version={version}
                   summonerInfo={summoner.summonerInfo}
@@ -344,11 +339,10 @@ export const Welcome = ({
               </div>
               <div
                 className={
-                  summoner.live === "Not In Live Game" && display === "live"
+                  summoner.live === 'Not In Live Game' && display === 'live'
                     ? style.notInGame
                     : style.none
-                }
-              >
+                }>
                 <div className={style.liveGameHeader}>
                   <MdLiveTv className={style.liveIcon} />
                   <span className={style.liveGame}>Live Game</span>
@@ -358,21 +352,12 @@ export const Welcome = ({
               </div>
               <div
                 className={
-                  summoner.live && display === "live"
+                  summoner.live && display === 'live'
                     ? style.liveContainer
                     : style.none
-                }
-              >
-                {summoner.live !== "Not In Live Game" ? (
-                  <Live
-                    //live={summoner.live}
-                    champInfo={champInfo}
-                    version={version}
-                    time={time}
-                    //liveRank={summoner.live.rankArray}
-                  />
-                ) : (
-                  ""
+                }>
+                {summoner.live !== 'Not In Live Game' && (
+                  <Live champInfo={champInfo} version={version} time={time} />
                 )}
               </div>
             </>
@@ -380,5 +365,5 @@ export const Welcome = ({
         </div>
       </div>
     </SkeletonTheme>
-  );
-};
+  )
+}
