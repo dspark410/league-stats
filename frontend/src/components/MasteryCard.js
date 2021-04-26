@@ -1,14 +1,19 @@
-import React from 'react'
-import style from './masterycard.module.css'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { useSelector } from "react-redux";
+import style from "./masterycard.module.css";
+import { Link } from "react-router-dom";
 
-function MasteryCard({ version, filteredChamps, selectChampion }) {
+function MasteryCard({ version, selectChampion }) {
+  const {
+    summoner: { mastery },
+  } = useSelector((state) => state);
+
   return (
     <div className={style.masteryCard}>
       <div className={style.header}>
         <img
-          alt='mastery icon'
-          src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
+          alt="mastery icon"
+          src={process.env.PUBLIC_URL + "/images/icons/mastery.png"}
         />
         CHAMPION MASTERY
       </div>
@@ -19,7 +24,7 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
         <div className={style.pointsHeader}>POINTS</div>
       </div>
 
-      {filteredChamps.map((champ, i) => {
+      {mastery.map((champ, i) => {
         return (
           <li key={i} className={style.listContainer}>
             <div className={style.masteryRow}>
@@ -42,7 +47,7 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
                   name={champ.id}
                   className={style.name}
                 >
-                  {champ.id === 'MonkeyKing' ? champ.name : champ.id}
+                  {champ.id === "MonkeyKing" ? champ.name : champ.id}
                 </div>
               </Link>
               <div className={style.champLvlContainer}>
@@ -54,20 +59,20 @@ function MasteryCard({ version, filteredChamps, selectChampion }) {
                       ? process.env.PUBLIC_URL +
                         `/images/masteryicons/level${champ.level}.png`
                       : process.env.PUBLIC_URL +
-                        '/images/masteryicons/level1.png'
+                        "/images/masteryicons/level1.png"
                   }
                 />
               </div>
 
               <div className={style.points}>
-                {champ.points.toLocaleString('en')}
+                {champ.points.toLocaleString("en")}
               </div>
             </div>
           </li>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
-export default MasteryCard
+export default MasteryCard;

@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import style from './summonercard.module.css'
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import style from "./summonercard.module.css";
 
-function SummonerCard({ summonerInfo, version }) {
-  const [level, setLevel] = useState(0)
+function SummonerCard({ version }) {
+  const [level, setLevel] = useState(0);
+
+  const {
+    summoner: { summonerInfo },
+  } = useSelector((state) => state);
 
   useEffect(() => {
     if (summonerInfo.id) {
-      setLevel(summonerInfo.summonerLevel)
+      setLevel(summonerInfo.summonerLevel);
     }
-  }, [summonerInfo, version])
+  }, [summonerInfo, version]);
 
   return (
     <>
       <div className={`${style.container}`}>
         <div className={style.summonerCardContainer}>
           <img
-            alt='summoner border'
+            alt="summoner border"
             className={style.summonerBorder}
             src={
               // Ternary to grab correct border depending on Summoner Level
@@ -31,7 +36,7 @@ function SummonerCard({ summonerInfo, version }) {
             }
           />
           <img
-            alt='profile icon'
+            alt="profile icon"
             className={style.profileIcon}
             // Grab profile icon
             src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summonerInfo.profileIconId}.png`}
@@ -41,7 +46,7 @@ function SummonerCard({ summonerInfo, version }) {
         <h1 className={style.summonerName}>{summonerInfo.name}</h1>
       </div>
     </>
-  )
+  );
 }
 
-export default SummonerCard
+export default SummonerCard;

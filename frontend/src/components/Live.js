@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import style from "./live.module.css";
 import axios from "axios";
 import Tooltip from "./Tooltip";
 
 import { runeDescriptions } from "../utils/constant";
 
-function Live({ live, champInfo, version, time, liveRank }) {
-  const [summoner, setSummoner] = useState([]);
+function Live({ champInfo, version, time }) {
   const [runes, setRunes] = useState([]);
   const [spells, setSpells] = useState([]);
 
-  // Stores live into state
-  useEffect(() => {
-    setSummoner(liveRank);
-  }, [liveRank]);
+  const {
+    summoner: { live },
+  } = useSelector((state) => state);
 
   useEffect(() => {
     if (version !== "") {
@@ -35,7 +34,7 @@ function Live({ live, champInfo, version, time, liveRank }) {
     }
   }, [version]);
 
-  return summoner && live.gameId ? (
+  return live.liveRank && live.gameId ? (
     <div className={`${style.liveWidthContainer}`}>
       <div className={style.liveContainer}>
         <div className={style.timerQueueContainer}>
@@ -223,12 +222,12 @@ function Live({ live, champInfo, version, time, liveRank }) {
                   </div>
                 </div>
                 <div className={style.soloRank}>
-                  {summoner
+                  {live.liveRank
                     .map((s) => {
                       return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
-                    ? liveRank.map((rank) => {
+                    ? live.liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem;
                           if (
@@ -302,12 +301,12 @@ function Live({ live, champInfo, version, time, liveRank }) {
                     : "-"}
                 </div>
                 <div className={style.flexRank}>
-                  {summoner
+                  {live.liveRank
                     .map((s) => {
                       return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
-                    ? liveRank.map((rank) => {
+                    ? live.liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem;
                           if (
@@ -556,12 +555,12 @@ function Live({ live, champInfo, version, time, liveRank }) {
                   </div>
                 </div>
                 <div className={style.soloRank}>
-                  {summoner
+                  {live.liveRank
                     .map((s) => {
                       return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
-                    ? liveRank.map((rank) => {
+                    ? live.liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem;
                           if (
@@ -635,12 +634,12 @@ function Live({ live, champInfo, version, time, liveRank }) {
                     : "-"}
                 </div>
                 <div className={style.flexRank}>
-                  {summoner
+                  {live.liveRank
                     .map((s) => {
                       return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
-                    ? liveRank.map((rank) => {
+                    ? live.liveRank.map((rank) => {
                         return rank.map((game, i) => {
                           let emblem;
                           if (

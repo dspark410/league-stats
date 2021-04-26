@@ -1,9 +1,10 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { summonerInfoReducer, moreMatchesReducer } from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducers = combineReducers({
-  summonerInfo: summonerInfoReducer,
+  summoner: summonerInfoReducer,
   getMoreMatches: moreMatchesReducer,
 });
 

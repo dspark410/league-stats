@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getSummonerInfo } from "./redux/actions";
 import axios from "axios";
 import "./App.css";
 import Home from "./pages/Home";
@@ -52,13 +54,23 @@ function App() {
   const [postsPerPage] = useState(25);
   const [postsperPageDiamondToIron] = useState(41);
 
+  const dispatch = useDispatch();
+
   const endpoint = process.env.REACT_APP_API_ENDPOINT || "";
 
   const history = useHistory();
   const location = useLocation();
 
+  // const reduxTrigger = (name, region) => {
+  //   dispatch(getSummonerInfo(name, region));
+  // };
+
+  // const reduxGetMatches = (gameIds, summonerInfo, region) => {
+  //   dispatch(getMoreMatches(gameIds, summonerInfo, region));
+  // };
+
   const getSummInfo = (summonerName, rgn) => {
-    console.log("running getsuminfo");
+    dispatch(getSummonerInfo(summonerName, rgn));
     // setInputLoading(true) to enable skeleton
     if (existRgn.includes(rgn)) {
       axios
@@ -300,6 +312,27 @@ function App() {
   };
 
   useEffect(() => {
+    // reduxTrigger("mistahpig", "NA1");
+    // reduxGetMatches(
+    //   JSON.stringify([
+    //     3699082736,
+    //     3697989094,
+    //     3696366997,
+    //     3681246704,
+    //     3681038155,
+    //   ]),
+    //   JSON.stringify({
+    //     id: "zobUWTeT6vGoUQJ0_pwd-zmg7M9CUhAaNAZE2BKKsQDE1gg",
+    //     accountId: "NsamYCnMgwKLFcLza-6rKSRMJ7ED4kLaWeZvlm38nJ0bqwA",
+    //     puuid:
+    //       "CRi2Fm6nafEMf8GE1lzkplHfw_x5d4L5XJFbwqNgx93ES12_6LB_O6D2EMYh0VnIuldGo981rzoFFw",
+    //     name: "DambitWes",
+    //     profileIconId: 3466,
+    //     revisionDate: 1609219179000,
+    //     summonerLevel: 125,
+    //   }),
+    //   "NA1"
+    // );
     setShowStorage(false);
 
     // split the pathname to make axios call for summoner
@@ -518,7 +551,6 @@ function App() {
             handleBlur={handleBlur}
             hideAnimation={hideAnimation}
             showStorage={showStorage}
-            summInfo={summInfo}
           />
 
           <Switch>
@@ -530,7 +562,6 @@ function App() {
                   inputValue={inputValue}
                   change={handleOnChange}
                   submit={handleSubmit}
-                  isAuthed={true}
                   champInfo={champInfo}
                   version={version}
                   hideNav={setNavVisibility}
