@@ -23,7 +23,6 @@ export const Welcome = ({
   region,
   loading,
   setLoading,
-  setSummInfo,
 }) => {
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
@@ -327,10 +326,8 @@ export const Welcome = ({
                   getPlayerName={getPlayerName}
                   skeleton={loading}
                   region={region}
-                  live={summoner.live}
                   setLoading={setLoading}
                   summInfo={summoner}
-                  setSummInfo={setSummInfo}
                 />
                 <MasteryCard
                   version={version}

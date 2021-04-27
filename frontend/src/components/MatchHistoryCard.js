@@ -1,4 +1,7 @@
+/** @format */
+
 import React, { useState, useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import style from './matchhistorycard.module.css'
 import axios from 'axios'
 import HistoryCard from './HistoryCard'
@@ -9,7 +12,6 @@ function MatchHistoryCard({
   version,
   getPlayerName,
   region,
-  live,
   setLoading,
   summInfo,
 }) {
@@ -18,6 +20,14 @@ function MatchHistoryCard({
   const [spells, setSpells] = useState([])
   const [matchesLoader, setMatchesLoader] = useState(false)
   const [allMatchesReady, setAllMatchesReady] = useState(true)
+
+  const {
+    summoner: {
+      summonerInfo,
+      matchHistory,
+      matchList: { matches },
+    },
+  } = useSelector((state) => state)
 
   const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
   let source = axios.CancelToken.source()
@@ -28,13 +38,13 @@ function MatchHistoryCard({
 
   const getMoreMatches = () => {
     setMatchesLoader(true)
-    const matches = summInfo.matchList.matches
+    const matchesQuery = matches
       .slice(gameDetails.length, gameDetails.length + 5)
       .map((match) => match.gameId)
 
     axios
       .get(
-        `${endpoint}/getMoreMatches/[${matches}]/${JSON.stringify(
+        `${endpoint}/getMoreMatches/[${matchesQuery}]/${JSON.stringify(
           summInfo.summonerInfo
         )}/${region}`
       )
@@ -83,14 +93,14 @@ function MatchHistoryCard({
     setAllMatchesReady(true)
     let skeleTimer
 
-    if (summInfo.summonerInfo) {
-      setGameDetails(summInfo.matchHistory)
+    if (summonerInfo) {
+      setGameDetails(matchHistory)
       skeleTimer = setTimeout(() => {
         setLoading(false)
       }, 3000)
     }
 
-    summInfo.matchHistory.forEach((game) => {
+    matchHistory.forEach((game) => {
       game === null && setAllMatchesReady(false)
     })
 
@@ -117,8 +127,6 @@ function MatchHistoryCard({
                   spells={spells}
                   runes={runes}
                   getPlayerName={getPlayerName}
-                  live={live}
-                  summInfo={summInfo}
                 />
               )
             })
@@ -153,8 +161,7 @@ function MatchHistoryCard({
               ) : (
                 <button
                   disabled={matchesLoader}
-                  className={style.moreMatchesContainer}
-                >
+                  className={style.moreMatchesContainer}>
                   More Matches {matchesLoader && <MatchesLoader />}
                 </button>
               )}

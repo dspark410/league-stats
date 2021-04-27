@@ -1,4 +1,7 @@
+/** @format */
+
 import React from 'react'
+import { useSelector } from 'react-redux'
 import style from './historycardcomplex.module.css'
 import Tooltip from './Tooltip'
 import ItemHistory from './ItemHistory'
@@ -12,8 +15,11 @@ function HistoryCardComplex({
   getPlayerName,
   clickArrow,
   open,
-  summInfo,
 }) {
+  const {
+    summoner: { summonerInfo },
+  } = useSelector((state) => state)
+
   // Filters out team one
   const teamOne = game.participants.filter((participant) => {
     return participant.teamId === 100
@@ -23,12 +29,11 @@ function HistoryCardComplex({
     return participant.teamId === 200
   })
 
-  return game.playerInfo && summInfo.summonerInfo ? (
+  return game.playerInfo && summonerInfo ? (
     <div
       className={`${open ? style.historyCardComplex : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
-      }`}
-    >
+      }`}>
       <div className={`${style.historyCard} `}>
         <div className={style.firstCol}>
           <p>{game.gameType.split(' ').slice(0, 3).join(' ')}</p>
@@ -36,16 +41,14 @@ function HistoryCardComplex({
           <p
             className={
               game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-            }
-          >
+            }>
             {game.gameCreation.split(' ').slice(0, 4).join(' ')}
           </p>
 
           <p
             className={
               game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-            }
-          >{`${Math.floor(game.gameDuration / 60)}m ${Math.ceil(
+            }>{`${Math.floor(game.gameDuration / 60)}m ${Math.ceil(
             game.gameDuration % 60
           )}s `}</p>
         </div>
@@ -67,8 +70,7 @@ function HistoryCardComplex({
                       <Tooltip
                         key={i}
                         name={spell.name}
-                        info={spell.description}
-                      >
+                        info={spell.description}>
                         <img
                           alt={spell.name}
                           className={style.summonerSpell}
@@ -84,8 +86,7 @@ function HistoryCardComplex({
                       <Tooltip
                         key={i}
                         name={spell.name}
-                        info={spell.description}
-                      >
+                        info={spell.description}>
                         <img
                           key={i}
                           alt={spell.name}
@@ -110,8 +111,7 @@ function HistoryCardComplex({
                       <Tooltip
                         key={i}
                         name={perkImage[0].name}
-                        info={perkImage[0].longDesc}
-                      >
+                        info={perkImage[0].longDesc}>
                         <img
                           alt='runes'
                           className={style.summonerSpell}
@@ -137,8 +137,7 @@ function HistoryCardComplex({
                             runeDescription.description
                         )
                         .map((rune) => rune.description)}
-                      key={i}
-                    >
+                      key={i}>
                       <img
                         alt='summoner spell'
                         className={style.summonerSpell2}
@@ -187,8 +186,7 @@ function HistoryCardComplex({
             level {game.playerInfo.stats.champLevel}
           </span>
           <Tooltip
-            moreInfo={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}
-          >
+            moreInfo={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}>
             <div className={style.minionContainer}>
               <img
                 className={style.minionIcon}
@@ -206,8 +204,7 @@ function HistoryCardComplex({
               (game.playerInfo.stats.totalMinionsKilled +
                 game.playerInfo.stats.neutralMinionsKilled) /
               (game.gameDuration / 60)
-            ).toFixed(1)} CS per minute`}
-          >
+            ).toFixed(1)} CS per minute`}>
             <span className={style.level}>
               {(
                 (game.playerInfo.stats.totalMinionsKilled +
@@ -240,8 +237,7 @@ function HistoryCardComplex({
                   game.playerInfo.stats.win
                     ? style.team100Win
                     : style.team100Loss
-                }
-              >
+                }>
                 <div>{`${player.stats.kills} / ${player.stats.deaths} / ${player.stats.assists}`}</div>
 
                 <div>
@@ -264,20 +260,17 @@ function HistoryCardComplex({
               <div name={player.name} className={style.col1} key={i}>
                 <span
                   onClick={
-                    player.name === summInfo.summonerInfo.name
-                      ? null
-                      : getPlayerName
+                    player.name === summonerInfo.name ? null : getPlayerName
                   }
                   className={
-                    summInfo.summonerInfo.name
-                      ? player.name === summInfo.summonerInfo.name
+                    summonerInfo.name
+                      ? player.name === summonerInfo.name
                         ? style.summonerName1
                         : style.name1
                       : style.name1
                   }
                   name={player.name}
-                  region={game.platformId}
-                >
+                  region={game.platformId}>
                   {player.name.replace(/\s/g, '')}
                 </span>
                 <img
@@ -389,20 +382,17 @@ function HistoryCardComplex({
                 />
                 <span
                   onClick={
-                    player.name === summInfo.summonerInfo.name
-                      ? null
-                      : getPlayerName
+                    player.name === summonerInfo.name ? null : getPlayerName
                   }
                   className={
-                    summInfo.summonerInfo.name
-                      ? player.name === summInfo.summonerInfo.name
+                    summonerInfo.name
+                      ? player.name === summonerInfo.name
                         ? style.summonerName2
                         : style.name2
                       : style.name2
                   }
                   region={game.platformId}
-                  name={player.name}
-                >
+                  name={player.name}>
                   {player.name.replace(/\s/g, '')}
                 </span>
               </div>
@@ -417,8 +407,7 @@ function HistoryCardComplex({
                   game.playerInfo.stats.win
                     ? style.team200Win
                     : style.team200Loss
-                }
-              >
+                }>
                 <div>
                   {(
                     (player.stats.totalMinionsKilled +
