@@ -1,36 +1,20 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import style from "./home.module.css";
 import { regions } from "../utils/constant";
 import { AiOutlineSearch, AiOutlineInfoCircle } from "react-icons/ai";
 import { IoSearchCircle } from "react-icons/io5";
 
-function Home({
-  change,
-  submit,
-  region,
-  hideNav,
-  prevSearches,
-  removeSearchedSummoner,
-  inputValue,
-  regionSelect,
-  version,
-  closeStorage,
-  showStorage,
-  hideAnimation,
-  handleFocus,
-  handleBlur,
-}) {
-  //reference to inputbox
-  const inputEl = useRef(false);
+function Home(props) {
+  const [input, setInput] = useState("");
+  const [region, setRegion] = useState(
+    JSON.parse(sessionStorage.getItem("region")) || "NA1"
+  );
 
-  //hide the navbar and set initial recent searches box to closed
-  useEffect(() => {
-    closeStorage(false);
-    hideNav(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const handleChange = () => {};
+  const handleSubmit = () => {};
+  const regionSelect = () => {};
 
-  return version ? (
+  return (
     <div className={style.homeBackgroundContainer}>
       <div className={style.homeContainer}>
         <div className={style.inputContainer}>
@@ -40,7 +24,7 @@ function Home({
             src={process.env.PUBLIC_URL + "/images/logo/leaguestats.png"}
           />
           <div className={style.formContainer}>
-            <form onSubmit={submit} className={style.selectContainer}>
+            <form onSubmit={handleSubmit} className={style.selectContainer}>
               <select
                 defaultValue={region}
                 onChange={regionSelect}
@@ -55,7 +39,7 @@ function Home({
               <input
                 className={style.input}
                 spellCheck="false"
-                onChange={change}
+                onChange={(e) => setInput(e.target.value)}
                 type="text"
                 placeholder="search summoner..."
                 onFocus={handleFocus}
@@ -64,7 +48,10 @@ function Home({
                 ref={inputEl}
               />
             </form>
-            <AiOutlineSearch onClick={submit} className={style.searchIcon} />
+            <AiOutlineSearch
+              onClick={handleSubmit}
+              className={style.searchIcon}
+            />
           </div>
           {showStorage && (
             <div
@@ -90,7 +77,7 @@ function Home({
               {prevSearches.length === 0 ? (
                 <>
                   <div
-                    onMouseDown={submit}
+                    onMouseDown={handleSubmit}
                     value="mistahpig"
                     region="NA1"
                     icon="7"
@@ -107,7 +94,7 @@ function Home({
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
                     />
                     <span
-                      // onMouseDown={submit}
+                      // onMouseDown={handleSubmit}
                       value="mistahpig"
                       region="NA1"
                       icon="7"
@@ -124,7 +111,7 @@ function Home({
                     </div>
                   </div>
                   <div
-                    onMouseDown={submit}
+                    onMouseDown={handleSubmit}
                     value="DambitWes"
                     region="NA1"
                     icon="3466"
@@ -140,7 +127,7 @@ function Home({
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
                     />
                     <span
-                      // onMouseDown={submit}
+                      // onMouseDown={handleSubmit}
                       value="DambitWes"
                       region="NA1"
                       icon="3466"
@@ -162,7 +149,7 @@ function Home({
                   <div key={i} className={style.storageSummoner}>
                     <div
                       className={style.topLayer}
-                      onMouseDown={submit}
+                      onMouseDown={handleSubmit}
                       value={summoner[0]}
                       region={summoner[1]}
                       icon={summoner[2]}
@@ -204,8 +191,6 @@ function Home({
         </div>
       </div>
     </div>
-  ) : (
-    ""
   );
 }
 
