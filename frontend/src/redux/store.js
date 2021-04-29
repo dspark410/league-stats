@@ -17,13 +17,19 @@ const reducers = combineReducers({
   getMoreMatches: moreMatchesReducer,
 })
 
-const initialState = {}
+// const initialState = {
+//   input: {
+//     showPrevSearches: false,
+//     hideAnimation: true,
+//     prevSearches: ['mistahpig'],
+//   },
+// }
 
 const middleware = [thunk]
 
 const store = createStore(
   reducers,
-
+  // initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 )
 

@@ -7,6 +7,7 @@ import {
   HIDE_STORAGE,
   ANIMATE_SHOW,
   ANIMATE_HIDE,
+  REMOVE_SUMMONER,
   LOADING,
   GET_SUMMONER_INFO,
   GET_MORE_MATCHES,
@@ -64,7 +65,7 @@ export const getDependency = () => async (dispatch) => {
   }
 }
 
-export const getInput = (input) => {
+export const getInput = (input, input2) => {
   switch (input) {
     case 'show':
       return {
@@ -84,6 +85,12 @@ export const getInput = (input) => {
       return {
         type: ANIMATE_HIDE,
       }
+    case input:
+      return {
+        type: REMOVE_SUMMONER,
+        payload: [input, input2],
+      }
+
     default: {
       return
     }

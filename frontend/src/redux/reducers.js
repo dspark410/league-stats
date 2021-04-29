@@ -10,14 +10,18 @@ import {
   GET_MORE_MATCHES,
   ANIMATE_SHOW,
   ANIMATE_HIDE,
+  REMOVE_SUMMONER,
 } from './constants'
+
+const prevSearchesLocal =
+  JSON.parse(localStorage.getItem('searchedSummoner')) || []
 
 const dependencyInitial = {}
 
 const inputInitial = {
   showPrevSearches: false,
   hideAnimation: true,
-  prevSearches: [],
+  prevSearches: prevSearchesLocal,
 }
 
 const summonerInfoInitial = {
@@ -82,6 +86,17 @@ export const inputReducer = (state = inputInitial, action) => {
       return {
         ...state,
         hideAnimation: false,
+      }
+    case REMOVE_SUMMONER:
+      return {
+        ...state,
+        prevSearches: state.prevSearches.filter((summoner) => {
+          return (
+            summoner[0] &&
+            summoner[1] !== action.payload[0] &&
+            action.payload[1]
+          )
+        }),
       }
     default:
       return state

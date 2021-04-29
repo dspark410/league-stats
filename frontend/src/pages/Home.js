@@ -14,6 +14,7 @@ function Home(props) {
     JSON.parse(sessionStorage.getItem('region')) || 'NA1'
   )
   const inputEl = useRef(false)
+
   const dispatch = useDispatch()
 
   const {
@@ -34,6 +35,7 @@ function Home(props) {
           e.target.getAttribute('region')
         )
       )
+      handleOnBlur()
       setInput('')
       setRegion(e.target.getAttribute('region'))
     } else {
@@ -58,6 +60,30 @@ function Home(props) {
     setTimeout(() => {
       dispatch(getInput('hide'))
     }, 50)
+  }
+
+  const removeSearchedSummoner = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const summonerName = e.target.getAttribute('value')
+    const region = e.target.getAttribute('region')
+
+    dispatch(getInput(summonerName, region))
+
+    // const prevEntriesArr = [...prevSearches]
+
+    // const remove = prevSearches.map((entry) => {
+    //   return entry[0].includes(summonerName) && entry[1].includes(region)
+    // })
+
+    // const index = remove.indexOf(true)
+
+    // if (index > -1) {
+    //   prevEntriesArr.splice(index, 1)
+    // }
+
+    //setPrevEntries(prevEntriesArr)
   }
 
   return (
@@ -203,13 +229,13 @@ function Home(props) {
                     <span className={style.summoner}>{summoner[0]}</span>
 
                     <div
-                      // onMouseDown={removeSearchedSummoner}
+                      onMouseDown={removeSearchedSummoner}
                       value={summoner[0]}
                       region={summoner[1]}
                       icon={summoner[2]}
                       className={style.removeContainer}>
                       <div
-                        // onMouseDown={removeSearchedSummoner}
+                        onMouseDown={removeSearchedSummoner}
                         value={summoner[0]}
                         region={summoner[1]}
                         icon={summoner[2]}
