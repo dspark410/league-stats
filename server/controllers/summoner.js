@@ -1,5 +1,3 @@
-/** @format */
-
 const axios = require('axios')
 const backupItem = require('../Items/backupItems.json')
 
