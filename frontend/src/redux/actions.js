@@ -1,57 +1,133 @@
 /** @format */
 
-import axios from "axios";
+import axios from 'axios'
 import {
+  GET_DEPENDENCY,
+  SHOW_STORAGE,
+  HIDE_STORAGE,
+  ANIMATE_SHOW,
+  ANIMATE_HIDE,
   LOADING,
   GET_SUMMONER_INFO,
   GET_MORE_MATCHES,
   ERROR,
-} from "./constants";
+} from './constants'
 
-// export const loadingTrue = () => async (dispatch) => {
-//   dispatch({
-//     type: LOADING,
-//   });
-// };
+const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
+
+export const getDependency = () => async (dispatch) => {
+  try {
+    const backupData = await axios.get(`${endpoint}/api/backupjson`)
+
+    const versionData = await axios.get(
+      'https://ddragon.leagueoflegends.com/api/versions.json'
+    )
+
+    const items = await axios.get(
+      `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json`
+    )
+
+    const champInfo = await axios.get(
+      `https://ddragon.leagueoflegends.com/cdn/${versionData.data[0]}/data/en_US/champion.json`
+    )
+
+    const champInfo2 = await axios.get(
+      `https://ddragon.leagueoflegends.com/cdn/${versionData.data[4]}/data/en_US/champion.json`
+    )
+
+    const latest = Object.values(champInfo.data.data).filter(
+      (champ) => !Object.keys(champInfo2.data.data).includes(champ.id)
+    )
+
+    const freeChamps = await axios.get(
+      `http://localhost:5000/api/getChampionRotation/NA1`
+    )
+
+    const data = {
+      version: versionData.data[0],
+      items: items.data,
+      backupItem: backupData.data,
+      champInfo: Object.values(champInfo.data.data),
+      latestChamp: latest,
+      freeChamps: freeChamps.data.freeChampionIds,
+    }
+
+    dispatch({
+      type: GET_DEPENDENCY,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error.message,
+    })
+  }
+}
+
+export const getInput = (input) => {
+  switch (input) {
+    case 'show':
+      return {
+        type: SHOW_STORAGE,
+      }
+
+    case 'hide':
+      return {
+        type: HIDE_STORAGE,
+      }
+    case 'animateShow':
+      return {
+        type: ANIMATE_SHOW,
+      }
+
+    case 'animateHide':
+      return {
+        type: ANIMATE_HIDE,
+      }
+    default: {
+      return
+    }
+  }
+}
 
 export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
   try {
     dispatch({
       type: LOADING,
-    });
+    })
     const { data } = await axios.get(
       `http://localhost:5000/getSummonerInfo/${summonerName}/${region}`
-    );
-    if (data === "summoner not found...") {
+    )
+    if (data === 'summoner not found...') {
       dispatch({
         type: GET_SUMMONER_INFO,
-        payload: { notFound: "summoner not found..." },
-      });
+        payload: { notFound: 'summoner not found...' },
+      })
     } else {
       dispatch({
         type: GET_SUMMONER_INFO,
         payload: data,
-      });
+      })
     }
   } catch (error) {
     dispatch({
       type: ERROR,
       payload: error.message,
-    });
+    })
   }
-};
+}
 
 export const getMoreMatches = (gameIds, summonerInfo, region) => async (
   dispatch
 ) => {
   const { data } = await axios.get(
     `http://localhost:5000/getMoreMatches/${gameIds}/${summonerInfo}/${region}`
-  );
+  )
 
-  console.log("getMoreMatches", data);
+  console.log('getMoreMatches', data)
 
   dispatch({
     type: GET_MORE_MATCHES,
     payload: data,
-  });
-};
+  })
+}
