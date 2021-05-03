@@ -1,54 +1,98 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
-import style from "./navbar.module.css";
-import { Link, useLocation } from "react-router-dom";
-import { regions } from "../utils/constant";
-import { AiOutlineSearch, AiOutlineInfoCircle } from "react-icons/ai";
-import { IoSearchCircle } from "react-icons/io5";
+/** @format */
 
-function Navbar({
-  visibility,
-  change,
-  submit,
-  prevSearches,
-  removeSearchedSummoner,
-  regionSelect,
-  region,
-  inputValue,
-  version,
-  showStorage,
-  hideAnimation,
-  handleFocus,
-  handleBlur,
-}) {
-  const [vis, setVis] = useState(visibility);
-  const currentLocation = useLocation();
-  const inputEl = useRef(false);
+import React, { useEffect, useRef } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getDependency, getInput, getSummonerInfo } from '../redux/actions'
+import style from './navbar.module.css'
+import { Link, useLocation } from 'react-router-dom'
+import { regions } from '../utils/constant'
+import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
+import { IoSearchCircle } from 'react-icons/io5'
+
+function Navbar() {
+  const currentLocation = useLocation()
+  const inputEl = useRef(false)
+  const dispatch = useDispatch()
 
   const {
-    summoner: { summonerInfo },
-  } = useSelector((state) => state);
+    summoner: { data },
+    dependency: { version },
+    input: {
+      summonerInput: { name, region },
+      showPrevSearches,
+      prevSearches,
+      hideAnimation,
+      nav,
+    },
+  } = useSelector((state) => state)
 
-  // trigger handlesubmit for new summoner when clicking on a summoner on the previous searched box
-  const searchInput = (event) => {
-    submit(event);
-    inputEl.current.blur();
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
-  // visibility of the navbar
+    const clickedSummoner = e.target.getAttribute('value')
+    const clickedRegion = e.target.getAttribute('region')
+
+    if (clickedSummoner) {
+      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
+      handleOnBlur()
+      dispatch(getInput('userInput', '', clickedRegion))
+    } else {
+      if (name.trim() === '') {
+        return
+      } else {
+        dispatch(getSummonerInfo(name, region))
+        handleOnBlur()
+        dispatch(getInput('userInput', ''))
+      }
+    }
+  }
+
+  const handleOnFocus = () => {
+    dispatch(getInput('show'))
+    dispatch(getInput('animateShow'))
+  }
+
+  const handleOnBlur = () => {
+    dispatch(getInput('animateHide'))
+
+    setTimeout(() => {
+      dispatch(getInput('hide'))
+    }, 50)
+  }
+
+  const removeSearchedSummoner = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    const summonerName = e.target.getAttribute('value')
+    const region = e.target.getAttribute('region')
+
+    dispatch(getInput('removeSummoner', summonerName, region))
+  }
+
   useEffect(() => {
-    setVis(visibility);
-  }, [visibility]);
+    dispatch(getDependency())
+
+    if (data.summonerInfo)
+      dispatch(
+        getInput(
+          'addSummoner',
+          data.summonerInfo.name,
+          data.rgn,
+          data.summonerInfo.profileIconId.toString()
+        )
+      )
+  }, [dispatch, data])
 
   return version ? (
     <>
-      <nav className={style.navbar} style={{ display: !vis ? "none" : "flex" }}>
+      <nav className={style.navbar} style={{ display: !nav ? 'none' : 'flex' }}>
         <div className={style.navHeader}>
-          <Link to="/" className={style.navbarLogo}>
+          <Link to='/' className={style.navbarLogo}>
             <img
               className={style.logo}
-              alt="League Stats Logo"
-              src={process.env.PUBLIC_URL + "/images/logo/leaguestats.png"}
+              alt='League Stats Logo'
+              src={process.env.PUBLIC_URL + '/images/logo/leaguestats.png'}
             />
           </Link>
         </div>
@@ -56,12 +100,13 @@ function Navbar({
         <div className={style.homeContainer}>
           <div className={style.inputContainer}>
             <div className={style.formContainer}>
-              <form onSubmit={searchInput} className={style.selectContainer}>
+              <form onSubmit={handleSubmit} className={style.selectContainer}>
                 <select
                   value={region}
-                  onChange={regionSelect}
-                  className={style.regionSelect}
-                >
+                  onChange={(e) =>
+                    dispatch(getInput('userInput', name, e.target.value))
+                  }
+                  className={style.regionSelect}>
                   {regions.map((r, i) => (
                     <option className={style.regionOption} value={r} key={i}>
                       {r}
@@ -70,29 +115,30 @@ function Navbar({
                 </select>
                 <input
                   className={style.input}
-                  spellCheck="false"
-                  onChange={change}
-                  type="text"
-                  placeholder="search summoner..."
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
-                  value={inputValue}
+                  spellCheck='false'
+                  onChange={(e) =>
+                    dispatch(getInput('userInput', e.target.value, region))
+                  }
+                  type='text'
+                  placeholder='search summoner...'
+                  onFocus={handleOnFocus}
+                  onBlur={handleOnBlur}
+                  value={name}
                   ref={inputEl}
                 />
               </form>
               <AiOutlineSearch
-                onClick={searchInput}
+                onClick={handleSubmit}
                 className={style.searchIcon}
               />
             </div>
-            {showStorage ? (
+            {showPrevSearches ? (
               <div
                 className={
                   hideAnimation
                     ? style.showStorageContainer
                     : style.hideStorageContainer
-                }
-              >
+                }>
                 <div className={style.recentContainer}>
                   {prevSearches.length === 0 ? (
                     <div className={style.recent}>
@@ -109,69 +155,63 @@ function Navbar({
                 {prevSearches.length === 0 ? (
                   <>
                     <div
-                      onMouseDown={searchInput}
-                      value="mistahpig"
-                      region="NA1"
-                      icon="7"
-                      className={style.storageSummoner}
-                    >
+                      onMouseDown={handleSubmit}
+                      value='mistahpig'
+                      region='NA1'
+                      icon='7'
+                      className={style.storageSummoner}>
                       <div className={style.regionContainer}>
                         <span className={style.region}>NA</span>
                       </div>
 
                       <img
-                        alt="profile icon"
+                        alt='profile icon'
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
                       />
                       <span
                         // onMouseDown={submit}
-                        value="mistahpig"
-                        region="NA1"
-                        icon="7"
-                        className={style.summoner}
-                      >
+                        value='mistahpig'
+                        region='NA1'
+                        icon='7'
+                        className={style.summoner}>
                         mistahpig
                       </span>
 
                       <div
                         onMouseDown={() => inputEl.current.blur()}
-                        className={style.removeContainer}
-                      >
+                        className={style.removeContainer}>
                         <p className={style.remove}>x</p>
                       </div>
                     </div>
                     <div
-                      onMouseDown={searchInput}
-                      value="DambitWes"
-                      region="NA1"
-                      icon="3466"
-                      className={style.storageSummoner}
-                    >
+                      onMouseDown={handleSubmit}
+                      value='DambitWes'
+                      region='NA1'
+                      icon='3466'
+                      className={style.storageSummoner}>
                       <div className={style.regionContainer}>
                         <span className={style.region}>NA</span>
                       </div>
                       <img
-                        alt="profile icon"
+                        alt='profile icon'
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
                       />
                       <span
                         // onMouseDown={submit}
-                        value="DambitWes"
-                        region="NA1"
-                        icon="3466"
-                        className={style.summoner}
-                      >
+                        value='DambitWes'
+                        region='NA1'
+                        icon='3466'
+                        className={style.summoner}>
                         DambitWes
                       </span>
 
                       <div
                         onMouseDown={() => inputEl.current.blur()}
-                        className={style.removeContainer}
-                      >
+                        className={style.removeContainer}>
                         <p className={style.remove}>x</p>
                       </div>
                     </div>
@@ -182,15 +222,15 @@ function Navbar({
                       <div
                         className={style.topLayer}
                         onMouseDown={
-                          summonerInfo
-                            ? summonerInfo.name &&
+                          data.summonerInfo
+                            ? data.summonerInfo.name &&
                               summoner[0].toLowerCase() ===
-                                summonerInfo.name.toLowerCase() &&
+                                data.summonerInfo.name.toLowerCase() &&
                               summoner[1] === region &&
-                              currentLocation.pathname.includes("summoner")
-                              ? handleBlur
-                              : searchInput
-                            : searchInput
+                              currentLocation.pathname.includes('summoner')
+                              ? handleOnBlur
+                              : handleSubmit
+                            : handleSubmit
                         }
                         value={summoner[0]}
                         region={summoner[1]}
@@ -201,7 +241,7 @@ function Navbar({
                       </div>
 
                       <img
-                        alt="profile icon"
+                        alt='profile icon'
                         className={style.profileIcon}
                         // Grab profile icon
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
@@ -213,15 +253,13 @@ function Navbar({
                         value={summoner[0]}
                         region={summoner[1]}
                         icon={summoner[2]}
-                        className={style.removeContainer}
-                      >
+                        className={style.removeContainer}>
                         <div
                           onMouseDown={removeSearchedSummoner}
                           value={summoner[0]}
                           region={summoner[1]}
                           icon={summoner[2]}
-                          className={style.remove}
-                        >
+                          className={style.remove}>
                           x
                         </div>
                       </div>
@@ -235,17 +273,17 @@ function Navbar({
 
         <ul className={style.navMenu}>
           <li className={style.navItem}>
-            <Link to="/" className={style.navLinks}>
+            <Link to='/' className={style.navLinks}>
               Home
             </Link>
           </li>
           <li className={style.navItem}>
-            <Link to="/champions" className={style.navLinks}>
+            <Link to='/champions' className={style.navLinks}>
               Champions
             </Link>
           </li>
           <li className={style.navItem}>
-            <Link to="/leaderboard" className={style.navLinks}>
+            <Link to='/leaderboard' className={style.navLinks}>
               Leaderboard
             </Link>
           </li>
@@ -253,8 +291,8 @@ function Navbar({
       </nav>
     </>
   ) : (
-    ""
-  );
+    ''
+  )
 }
 
-export default Navbar;
+export default Navbar

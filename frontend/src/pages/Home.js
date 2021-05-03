@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDependency, getInput, getSummonerInfo } from '../redux/actions'
 import style from './home.module.css'
@@ -9,23 +9,19 @@ import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoSearchCircle } from 'react-icons/io5'
 
 function Home(props) {
-  const [input, setInput] = useState('')
-  const [region, setRegion] = useState(
-    JSON.parse(sessionStorage.getItem('region')) || 'NA1'
-  )
   const inputEl = useRef(false)
-
   const dispatch = useDispatch()
 
   const {
     summoner: { data },
     dependency: { version },
-    input: { showPrevSearches, prevSearches, hideAnimation },
+    input: {
+      summonerInput: { name, region },
+      showPrevSearches,
+      prevSearches,
+      hideAnimation,
+    },
   } = useSelector((state) => state)
-
-  useEffect(() => {
-    dispatch(getDependency())
-  }, [dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -35,31 +31,18 @@ function Home(props) {
 
     if (clickedSummoner) {
       dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
-      // dispatch(getInput('addSummoner', summonerInfo.name, rgn))
-
       handleOnBlur()
-
-      setInput('')
-
-      setRegion(clickedRegion)
+      dispatch(getInput('userInput', '', clickedRegion))
     } else {
-      if (input.trim() === '') {
+      if (name.trim() === '') {
         return
       } else {
-        dispatch(getSummonerInfo(input, region))
-        // dispatch(getInput('addSummoner', summonerInfo.name, rgn))
-
+        dispatch(getSummonerInfo(name, region))
         handleOnBlur()
-
-        setInput('')
+        dispatch(getInput('userInput', ''))
       }
     }
   }
-
-  // const addSummonerToLocalStorage = (e) => {
-  //   e.preventDefault()
-  //   dispatch(getInput('addSummoner', summonerInfo.name, rgn))
-  // }
 
   const handleOnFocus = () => {
     dispatch(getInput('show'))
@@ -85,6 +68,8 @@ function Home(props) {
   }
 
   useEffect(() => {
+    dispatch(getDependency())
+
     if (data.summonerInfo)
       dispatch(
         getInput(
@@ -108,8 +93,10 @@ function Home(props) {
           <div className={style.formContainer}>
             <form onSubmit={handleSubmit} className={style.selectContainer}>
               <select
-                defaultValue={region}
-                onChange={(e) => setRegion(e.target.value)}
+                value={region}
+                onChange={(e) =>
+                  dispatch(getInput('userInput', name, e.target.value))
+                }
                 className={style.regionSelect}>
                 {regions.map((r, i) => (
                   <option className={style.regionOption} value={r} key={i}>
@@ -120,12 +107,14 @@ function Home(props) {
               <input
                 className={style.input}
                 spellCheck='false'
-                onChange={(e) => setInput(e.target.value)}
+                onChange={(e) =>
+                  dispatch(getInput('userInput', e.target.value, region))
+                }
                 type='text'
                 placeholder='search summoner...'
                 onFocus={handleOnFocus}
                 onBlur={handleOnBlur}
-                value={input}
+                value={name}
                 ref={inputEl}
               />
             </form>

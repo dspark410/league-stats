@@ -12,7 +12,13 @@ import {
   ANIMATE_HIDE,
   REMOVE_SUMMONER,
   ADD_SUMMONER,
+  SHOW_NAV,
+  HIDE_NAV,
+  BRAND_BACKGROUND,
+  CHAMP_BACKGROUND,
+  USER_INPUT,
 } from './constants'
+import BrandBackground from '../components/images/brand.jpg'
 
 const prevSearchesLocal =
   JSON.parse(localStorage.getItem('searchedSummoner')) || []
@@ -20,6 +26,12 @@ const prevSearchesLocal =
 const dependencyInitial = {}
 
 const inputInitial = {
+  summonerInput: {
+    name: '',
+    region: JSON.parse(sessionStorage.getItem('region')) || 'NA1',
+  },
+  background: BrandBackground,
+  nav: true,
   showPrevSearches: false,
   hideAnimation: true,
   prevSearches: prevSearchesLocal,
@@ -46,6 +58,36 @@ export const dependencyReducer = (state = dependencyInitial, action) => {
 
 export const inputReducer = (state = inputInitial, action) => {
   switch (action.type) {
+    case USER_INPUT:
+      console.log(action.payload)
+      return {
+        ...state,
+        summonerInput: {
+          name: action.payload.summoner,
+          region: action.payload.region,
+        },
+      }
+
+    case SHOW_NAV:
+      return {
+        ...state,
+        nav: true,
+      }
+    case HIDE_NAV:
+      return {
+        ...state,
+        nav: false,
+      }
+    case BRAND_BACKGROUND:
+      return {
+        ...state,
+        background: BrandBackground,
+      }
+    case CHAMP_BACKGROUND:
+      return {
+        ...state,
+        background: action.payload,
+      }
     case SHOW_STORAGE:
       return {
         ...state,

@@ -13,6 +13,11 @@ import {
   GET_MORE_MATCHES,
   ERROR,
   ADD_SUMMONER,
+  SHOW_NAV,
+  HIDE_NAV,
+  BRAND_BACKGROUND,
+  CHAMP_BACKGROUND,
+  USER_INPUT,
 } from './constants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
@@ -68,6 +73,36 @@ export const getDependency = () => async (dispatch) => {
 
 export const getInput = (input, summoner, region, icon) => {
   switch (input) {
+    case 'userInput': {
+      return {
+        type: USER_INPUT,
+        payload: {
+          summoner,
+          region,
+        },
+      }
+    }
+
+    case 'showNav': {
+      return {
+        type: SHOW_NAV,
+      }
+    }
+    case 'hideNav': {
+      return {
+        type: HIDE_NAV,
+      }
+    }
+    case 'brandBackground': {
+      return {
+        type: BRAND_BACKGROUND,
+      }
+    }
+    case 'champBackground': {
+      return {
+        type: CHAMP_BACKGROUND,
+      }
+    }
     case 'show':
       return {
         type: SHOW_STORAGE,
@@ -96,7 +131,6 @@ export const getInput = (input, summoner, region, icon) => {
         type: REMOVE_SUMMONER,
         payload: [summoner, region],
       }
-
     default: {
       return
     }

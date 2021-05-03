@@ -1,6 +1,7 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import './App.css'
 import Home from './pages/Home'
 import { Welcome } from './pages/Welcome'
@@ -11,11 +12,17 @@ import ChampionDetail from './pages/ChampionDetail'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import BrandBackground from './components/images/brand.jpg'
 
 function App() {
+  const {
+    input: { nav, background },
+  } = useSelector((state) => state)
+
   return (
-    <div className={'overlay'}>
+    <div
+      className={`backgroundContainerFade`}
+      style={{ backgroundImage: `url(${background})` }}>
+      <div className={nav ? 'overlay' : 'overlay2'}></div>
       <Navbar />
       <Switch>
         <Route exact path='/' component={Home} />
