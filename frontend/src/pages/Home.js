@@ -18,6 +18,7 @@ function Home(props) {
   const dispatch = useDispatch()
 
   const {
+    summoner: { data },
     dependency: { version },
     input: { showPrevSearches, prevSearches, hideAnimation },
   } = useSelector((state) => state)
@@ -28,26 +29,37 @@ function Home(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (e.target.getAttribute('value')) {
-      dispatch(
-        getSummonerInfo(
-          e.target.getAttribute('value'),
-          e.target.getAttribute('region')
-        )
-      )
+
+    const clickedSummoner = e.target.getAttribute('value')
+    const clickedRegion = e.target.getAttribute('region')
+
+    if (clickedSummoner) {
+      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
+      // dispatch(getInput('addSummoner', summonerInfo.name, rgn))
+
       handleOnBlur()
+
       setInput('')
-      setRegion(e.target.getAttribute('region'))
+
+      setRegion(clickedRegion)
     } else {
       if (input.trim() === '') {
         return
       } else {
         dispatch(getSummonerInfo(input, region))
+        // dispatch(getInput('addSummoner', summonerInfo.name, rgn))
+
         handleOnBlur()
+
         setInput('')
       }
     }
   }
+
+  // const addSummonerToLocalStorage = (e) => {
+  //   e.preventDefault()
+  //   dispatch(getInput('addSummoner', summonerInfo.name, rgn))
+  // }
 
   const handleOnFocus = () => {
     dispatch(getInput('show'))
@@ -69,22 +81,20 @@ function Home(props) {
     const summonerName = e.target.getAttribute('value')
     const region = e.target.getAttribute('region')
 
-    dispatch(getInput(summonerName, region))
-
-    // const prevEntriesArr = [...prevSearches]
-
-    // const remove = prevSearches.map((entry) => {
-    //   return entry[0].includes(summonerName) && entry[1].includes(region)
-    // })
-
-    // const index = remove.indexOf(true)
-
-    // if (index > -1) {
-    //   prevEntriesArr.splice(index, 1)
-    // }
-
-    //setPrevEntries(prevEntriesArr)
+    dispatch(getInput('removeSummoner', summonerName, region))
   }
+
+  useEffect(() => {
+    if (data.summonerInfo)
+      dispatch(
+        getInput(
+          'addSummoner',
+          data.summonerInfo.name,
+          data.rgn,
+          data.summonerInfo.profileIconId.toString()
+        )
+      )
+  }, [dispatch, data])
 
   return (
     <div className={style.homeBackgroundContainer}>

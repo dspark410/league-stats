@@ -66,7 +66,7 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
               live: res[2],
               matchHistory: res[3],
               matchList: res[4],
-              region: region,
+              rgn: region,
             })
           })
         }

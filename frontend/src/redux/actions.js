@@ -12,6 +12,7 @@ import {
   GET_SUMMONER_INFO,
   GET_MORE_MATCHES,
   ERROR,
+  ADD_SUMMONER,
 } from './constants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
@@ -65,7 +66,7 @@ export const getDependency = () => async (dispatch) => {
   }
 }
 
-export const getInput = (input, input2) => {
+export const getInput = (input, summoner, region, icon) => {
   switch (input) {
     case 'show':
       return {
@@ -85,10 +86,15 @@ export const getInput = (input, input2) => {
       return {
         type: ANIMATE_HIDE,
       }
-    case input:
+    case 'addSummoner':
+      return {
+        type: ADD_SUMMONER,
+        payload: [summoner, region, icon],
+      }
+    case 'removeSummoner':
       return {
         type: REMOVE_SUMMONER,
-        payload: [input, input2],
+        payload: [summoner, region],
       }
 
     default: {
