@@ -8,7 +8,7 @@ import { regions } from '../utils/constant'
 import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoSearchCircle } from 'react-icons/io5'
 
-function Home(props) {
+function Home({history}) {
   const inputEl = useRef(false)
   const dispatch = useDispatch()
 
@@ -70,7 +70,7 @@ function Home(props) {
   useEffect(() => {
     dispatch(getDependency())
 
-    if (data.summonerInfo)
+    if (data.summonerInfo) {
       dispatch(
         getInput(
           'addSummoner',
@@ -79,6 +79,9 @@ function Home(props) {
           data.summonerInfo.profileIconId.toString()
         )
       )
+      history.push(`/summoner/${data.rgn}/${data.summonerInfo.name}`)
+    }
+      
   }, [dispatch, data])
 
   return (

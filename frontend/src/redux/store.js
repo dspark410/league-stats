@@ -1,36 +1,33 @@
 /** @format */
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { persistStore } from "redux-persist";
+import { persist } from "./reduxPersist";
 import {
   summonerInfoReducer,
   moreMatchesReducer,
   dependencyReducer,
   inputReducer,
-} from './reducers'
-import { composeWithDevTools } from 'redux-devtools-extension'
+} from "./reducers";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+const persistConfig = {
+  key: "root",
+};
 
 const reducers = combineReducers({
+  summoner: persist(persistConfig, summonerInfoReducer),
   dependency: dependencyReducer,
   input: inputReducer,
-  summoner: summonerInfoReducer,
   getMoreMatches: moreMatchesReducer,
-})
+});
 
-// const initialState = {
-//   input: {
-//     showPrevSearches: false,
-//     hideAnimation: true,
-//     prevSearches: ['mistahpig'],
-//   },
-// }
+const middleware = [thunk];
 
-const middleware = [thunk]
-
-const store = createStore(
+export const store = createStore(
   reducers,
-  // initialState,
   composeWithDevTools(applyMiddleware(...middleware))
-)
+);
 
-export default store
+export const persistor = persistStore(store);

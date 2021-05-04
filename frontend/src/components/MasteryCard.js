@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 
 function MasteryCard({ version, selectChampion }) {
   const {
-    summoner: { mastery },
+    summoner: {
+      data: { mastery },
+    },
   } = useSelector((state) => state);
 
   return (

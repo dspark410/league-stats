@@ -6,7 +6,9 @@ function SummonerCard({ version }) {
   const [level, setLevel] = useState(0);
 
   const {
-    summoner: { summonerInfo },
+    summoner: {
+      data: { summonerInfo },
+    },
   } = useSelector((state) => state);
 
   useEffect(() => {
