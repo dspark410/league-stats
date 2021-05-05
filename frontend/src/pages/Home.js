@@ -23,6 +23,7 @@ function Home({ history }) {
     },
   } = useSelector((state) => state)
 
+  console.log(region, 'region')
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -30,16 +31,20 @@ function Home({ history }) {
     const clickedRegion = e.target.getAttribute('region')
 
     if (clickedSummoner) {
-      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
       handleOnBlur()
+      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
+
       dispatch(getInput('userInput', '', clickedRegion))
+      history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
     } else {
       if (name.trim() === '') {
         return
       } else {
-        dispatch(getSummonerInfo(name, region))
         handleOnBlur()
-        dispatch(getInput('userInput', ''))
+        dispatch(getSummonerInfo(name.replace(/\s/g, ''), region))
+
+        dispatch(getInput('userInput', '', region))
+        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
       }
     }
   }
@@ -79,7 +84,6 @@ function Home({ history }) {
           data.summonerInfo.profileIconId.toString()
         )
       )
-      history.push(`/summoner/${data.rgn}/${data.summonerInfo.name}`)
     }
   }, [dispatch, data])
 

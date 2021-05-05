@@ -4,13 +4,14 @@ import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDependency, getInput, getSummonerInfo } from '../redux/actions'
 import style from './navbar.module.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import { regions } from '../utils/constant'
 import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoSearchCircle } from 'react-icons/io5'
 
 function Navbar() {
   const currentLocation = useLocation()
+  const history = useHistory()
   const inputEl = useRef(false)
   const dispatch = useDispatch()
 
@@ -33,16 +34,20 @@ function Navbar() {
     const clickedRegion = e.target.getAttribute('region')
 
     if (clickedSummoner) {
-      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
       handleOnBlur()
+      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
+
       dispatch(getInput('userInput', '', clickedRegion))
+      history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
     } else {
       if (name.trim() === '') {
         return
       } else {
-        dispatch(getSummonerInfo(name, region))
         handleOnBlur()
-        dispatch(getInput('userInput', ''))
+        dispatch(getSummonerInfo(name.replace(/\s/g, ''), region))
+
+        dispatch(getInput('userInput', '', region))
+        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
       }
     }
   }
@@ -73,7 +78,7 @@ function Navbar() {
   useEffect(() => {
     dispatch(getDependency())
 
-    if (data.summonerInfo)
+    if (data.summonerInfo) {
       dispatch(
         getInput(
           'addSummoner',
@@ -82,6 +87,8 @@ function Navbar() {
           data.summonerInfo.profileIconId.toString()
         )
       )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, data])
 
   return version ? (

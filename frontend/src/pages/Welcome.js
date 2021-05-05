@@ -18,27 +18,32 @@ import { MdLiveTv } from 'react-icons/md'
 export const Welcome = ({ getPlayerName, selectChampion }) => {
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
+  const [loading, setLoading] = useState(true)
 
   const {
     summoner: {
       data: { summonerInfo, live, rank, matchHistory, mastery },
-      summLoading: loading,
+      summLoading,
     },
     dependency: { champInfo, version },
-    input: { nav },
   } = useSelector((state) => state)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    // Show nav on the welcome screen
-    //showNav(true);
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  }, [dispatch, summLoading])
 
-    dispatch(getInput('showNav'))
+  useEffect(() => {
+    // Show nav on the welcome screen
+    setTimeout(() => {
+      dispatch(getInput('showNav'))
+    }, 50)
 
     if (summonerInfo) {
-      // Get masteries from state and set into state
-      //setLoading(true);
       window.scrollTo({
         top: 0,
         left: 0,
@@ -107,7 +112,7 @@ export const Welcome = ({ getPlayerName, selectChampion }) => {
             <div className={style.rankCardContainer}>
               {!loading ? (
                 <div className={style.rankContainer}>
-                  {!rank.length ||
+                  {(rank && !rank.length) ||
                   (rank.length === 1 &&
                     rank[0].queueType === 'RANKED_FLEX_SR') ? (
                     <UnrankedCard queue='Solo' />
@@ -127,7 +132,7 @@ export const Welcome = ({ getPlayerName, selectChampion }) => {
                     src={process.env.PUBLIC_URL + `/images/icons/rectangle.png`}
                   />
 
-                  {!rank.length ||
+                  {(rank && !rank.length) ||
                   (rank.length === 1 &&
                     rank[0].queueType === 'RANKED_SOLO_5x5') ? (
                     <UnrankedCard queue='Flex' />
@@ -268,7 +273,10 @@ export const Welcome = ({ getPlayerName, selectChampion }) => {
           </div>
         </div>
         <div className={style.row3}>
-          {display === 'overview' && matchHistory.length === 0 && !loading ? (
+          {matchHistory &&
+          display === 'overview' &&
+          matchHistory.length === 0 &&
+          !loading ? (
             <>
               <div className={style.noMatchContainer}>
                 <div className={style.matchHeader}>Match History</div>

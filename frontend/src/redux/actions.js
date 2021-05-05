@@ -34,6 +34,14 @@ export const getDependency = () => async (dispatch) => {
       `https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json`
     )
 
+    const spells = await axios.get(
+      `https://ddragon.leagueoflegends.com/cdn/${versionData.data[0]}/data/en_US/summoner.json`
+    )
+
+    const runes = await axios.get(
+      `https://ddragon.leagueoflegends.com/cdn/${versionData.data[0]}/data/en_US/runesReforged.json`
+    )
+
     const champInfo = await axios.get(
       `https://ddragon.leagueoflegends.com/cdn/${versionData.data[0]}/data/en_US/champion.json`
     )
@@ -54,6 +62,8 @@ export const getDependency = () => async (dispatch) => {
       version: versionData.data[0],
       items: items.data,
       backupItem: backupData.data,
+      spells: Object.values(spells.data.data),
+      runes: runes.data,
       champInfo: Object.values(champInfo.data.data),
       latestChamp: latest,
       freeChamps: freeChamps.data.freeChampionIds,
