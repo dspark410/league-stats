@@ -8,7 +8,7 @@ import { regions } from '../utils/constant'
 import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoSearchCircle } from 'react-icons/io5'
 
-function Home({history}) {
+function Home({ history }) {
   const inputEl = useRef(false)
   const dispatch = useDispatch()
 
@@ -81,8 +81,11 @@ function Home({history}) {
       )
       history.push(`/summoner/${data.rgn}/${data.summonerInfo.name}`)
     }
-      
   }, [dispatch, data])
+
+  useEffect(() => {
+    dispatch(getInput('hideNav'))
+  }, [])
 
   return (
     <div className={style.homeBackgroundContainer}>
