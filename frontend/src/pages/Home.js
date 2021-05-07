@@ -1,16 +1,16 @@
 /** @format */
 
-import React, { useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getDependency, getInput, getSummonerInfo } from '../redux/actions'
-import style from './home.module.css'
-import { regions } from '../utils/constant'
-import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
-import { IoSearchCircle } from 'react-icons/io5'
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getDependency, getInput, getSummonerInfo } from "../redux/actions";
+import style from "./home.module.css";
+import { regions } from "../utils/constant";
+import { AiOutlineSearch, AiOutlineInfoCircle } from "react-icons/ai";
+import { IoSearchCircle } from "react-icons/io5";
 
 function Home({ history }) {
-  const inputEl = useRef(false)
-  const dispatch = useDispatch()
+  const inputEl = useRef(false);
+  const dispatch = useDispatch();
 
   const {
     summoner: { data },
@@ -21,75 +21,74 @@ function Home({ history }) {
       prevSearches,
       hideAnimation,
     },
-  } = useSelector((state) => state)
+  } = useSelector((state) => state);
 
-  console.log(region, 'region')
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const clickedSummoner = e.target.getAttribute('value')
-    const clickedRegion = e.target.getAttribute('region')
+    const clickedSummoner = e.target.getAttribute("value");
+    const clickedRegion = e.target.getAttribute("region");
 
     if (clickedSummoner) {
-      handleOnBlur()
-      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
+      handleOnBlur();
+      dispatch(getSummonerInfo(clickedSummoner, clickedRegion));
 
-      dispatch(getInput('userInput', '', clickedRegion))
-      history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
+      dispatch(getInput("userInput", "", clickedRegion));
+      history.push(`/summoner/${clickedRegion}/${clickedSummoner}`);
     } else {
-      if (name.trim() === '') {
-        return
+      if (name.trim() === "") {
+        return;
       } else {
-        handleOnBlur()
-        dispatch(getSummonerInfo(name.replace(/\s/g, ''), region))
+        handleOnBlur();
+        dispatch(getSummonerInfo(name.replace(/\s/g, ""), region));
 
-        dispatch(getInput('userInput', '', region))
-        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
+        dispatch(getInput("userInput", "", region));
+        history.push(`/summoner/${region}/${name.replace(/\s/g, "")}`);
       }
     }
-  }
+  };
 
   const handleOnFocus = () => {
-    dispatch(getInput('show'))
-    dispatch(getInput('animateShow'))
-  }
+    dispatch(getInput("show"));
+    dispatch(getInput("animateShow"));
+  };
 
   const handleOnBlur = () => {
-    dispatch(getInput('animateHide'))
+    dispatch(getInput("animateHide"));
 
     setTimeout(() => {
-      dispatch(getInput('hide'))
-    }, 50)
-  }
+      dispatch(getInput("hide"));
+    }, 50);
+  };
 
   const removeSearchedSummoner = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+    e.preventDefault();
+    e.stopPropagation();
 
-    const summonerName = e.target.getAttribute('value')
-    const region = e.target.getAttribute('region')
+    const summonerName = e.target.getAttribute("value");
+    const region = e.target.getAttribute("region");
 
-    dispatch(getInput('removeSummoner', summonerName, region))
-  }
+    dispatch(getInput("removeSummoner", summonerName, region));
+  };
 
   useEffect(() => {
-    dispatch(getDependency())
+    dispatch(getDependency());
 
     if (data.summonerInfo) {
       dispatch(
         getInput(
-          'addSummoner',
+          "addSummoner",
           data.summonerInfo.name,
           data.rgn,
           data.summonerInfo.profileIconId.toString()
         )
-      )
+      );
     }
-  }, [dispatch, data])
+  }, [dispatch, data]);
 
   useEffect(() => {
-    dispatch(getInput('hideNav'))
-  }, [])
+    dispatch(getInput("hideNav"));
+  }, []);
 
   return (
     <div className={style.homeBackgroundContainer}>
@@ -97,17 +96,18 @@ function Home({ history }) {
         <div className={style.inputContainer}>
           <img
             className={style.logo}
-            alt='League Stats Logo'
-            src={process.env.PUBLIC_URL + '/images/logo/leaguestats.png'}
+            alt="League Stats Logo"
+            src={process.env.PUBLIC_URL + "/images/logo/leaguestats.png"}
           />
           <div className={style.formContainer}>
             <form onSubmit={handleSubmit} className={style.selectContainer}>
               <select
                 value={region}
                 onChange={(e) =>
-                  dispatch(getInput('userInput', name, e.target.value))
+                  dispatch(getInput("userInput", name, e.target.value))
                 }
-                className={style.regionSelect}>
+                className={style.regionSelect}
+              >
                 {regions.map((r, i) => (
                   <option className={style.regionOption} value={r} key={i}>
                     {r}
@@ -116,12 +116,12 @@ function Home({ history }) {
               </select>
               <input
                 className={style.input}
-                spellCheck='false'
+                spellCheck="false"
                 onChange={(e) =>
-                  dispatch(getInput('userInput', e.target.value, region))
+                  dispatch(getInput("userInput", e.target.value, region))
                 }
-                type='text'
-                placeholder='search summoner...'
+                type="text"
+                placeholder="search summoner..."
                 onFocus={handleOnFocus}
                 onBlur={handleOnBlur}
                 value={name}
@@ -139,7 +139,8 @@ function Home({ history }) {
                 hideAnimation
                   ? style.showStorageContainer
                   : style.hideStorageContainer
-              }>
+              }
+            >
               <div className={style.recentContainer}>
                 {prevSearches.length === 0 ? (
                   <div className={style.recent}>
@@ -157,60 +158,66 @@ function Home({ history }) {
                 <>
                   <div
                     onMouseDown={handleSubmit}
-                    value='mistahpig'
-                    region='NA1'
-                    icon='7'
-                    className={style.storageSummoner}>
+                    value="mistahpig"
+                    region="NA1"
+                    icon="7"
+                    className={style.storageSummoner}
+                  >
                     <div className={style.regionContainer}>
                       <span className={style.region}>NA</span>
                     </div>
 
                     <img
-                      alt='profile icon'
+                      alt="profile icon"
                       className={style.profileIcon}
                       // Grab profile icon
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
                     />
                     <span
-                      value='mistahpig'
-                      region='NA1'
-                      icon='7'
-                      className={style.summoner}>
+                      value="mistahpig"
+                      region="NA1"
+                      icon="7"
+                      className={style.summoner}
+                    >
                       mistahpig
                     </span>
 
                     <div
                       onMouseDown={() => inputEl.current.blur()}
-                      className={style.removeContainer}>
+                      className={style.removeContainer}
+                    >
                       <p className={style.remove}>x</p>
                     </div>
                   </div>
                   <div
                     onMouseDown={handleSubmit}
-                    value='DambitWes'
-                    region='NA1'
-                    icon='3466'
-                    className={style.storageSummoner}>
+                    value="DambitWes"
+                    region="NA1"
+                    icon="3466"
+                    className={style.storageSummoner}
+                  >
                     <div className={style.regionContainer}>
                       <span className={style.region}>NA</span>
                     </div>
                     <img
-                      alt='profile icon'
+                      alt="profile icon"
                       className={style.profileIcon}
                       // Grab profile icon
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
                     />
                     <span
-                      value='DambitWes'
-                      region='NA1'
-                      icon='3466'
-                      className={style.summoner}>
+                      value="DambitWes"
+                      region="NA1"
+                      icon="3466"
+                      className={style.summoner}
+                    >
                       DambitWes
                     </span>
 
                     <div
                       onMouseDown={() => inputEl.current.blur()}
-                      className={style.removeContainer}>
+                      className={style.removeContainer}
+                    >
                       <p className={style.remove}>x</p>
                     </div>
                   </div>
@@ -230,7 +237,7 @@ function Home({ history }) {
                     </div>
 
                     <img
-                      alt='profile icon'
+                      alt="profile icon"
                       className={style.profileIcon}
                       // Grab profile icon
                       src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
@@ -242,13 +249,15 @@ function Home({ history }) {
                       value={summoner[0]}
                       region={summoner[1]}
                       icon={summoner[2]}
-                      className={style.removeContainer}>
+                      className={style.removeContainer}
+                    >
                       <div
                         onMouseDown={removeSearchedSummoner}
                         value={summoner[0]}
                         region={summoner[1]}
                         icon={summoner[2]}
-                        className={style.remove}>
+                        className={style.remove}
+                      >
                         x
                       </div>
                     </div>
@@ -260,7 +269,7 @@ function Home({ history }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

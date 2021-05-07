@@ -1,12 +1,12 @@
 /** @format */
 
-import React from 'react'
-import { useSelector } from 'react-redux'
-import style from './live.module.css'
+import React from "react";
+import { useSelector } from "react-redux";
+import style from "./live.module.css";
 
-import Tooltip from './Tooltip'
+import Tooltip from "./Tooltip";
 
-import { runeDescriptions } from '../utils/constant'
+import { runeDescriptions } from "../utils/constant";
 
 function Live({ champInfo, version, time }) {
   const {
@@ -14,7 +14,7 @@ function Live({ champInfo, version, time }) {
       data: { live },
     },
     dependency: { runes, spells },
-  } = useSelector((state) => state)
+  } = useSelector((state) => state);
 
   return live && live.rankArray ? (
     <div className={`${style.liveWidthContainer}`}>
@@ -55,7 +55,7 @@ function Live({ champInfo, version, time }) {
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                       />
                     )
-                  )
+                  );
                 })
             )
           )}
@@ -68,10 +68,11 @@ function Live({ champInfo, version, time }) {
             player.teamId === 100 && (
               <div
                 key={i}
-                className={style.champImageRuneSpellNameContainerAlly}>
+                className={style.champImageRuneSpellNameContainerAlly}
+              >
                 <div className={style.summonerName}>
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
@@ -90,7 +91,7 @@ function Live({ champInfo, version, time }) {
                             src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                           />
                         )
-                      )
+                      );
                     })}
                   </div>
                   <div className={style.runeContainer}>
@@ -98,7 +99,7 @@ function Live({ champInfo, version, time }) {
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkStyle === rune.id
+                              return player.perks.perkStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -110,27 +111,28 @@ function Live({ champInfo, version, time }) {
                                       runeDescription.description
                                   )
                                   .map((rune) => rune.description)}
-                                key={i}>
+                                key={i}
+                              >
                                 <img
                                   className={style.runeImage}
                                   alt={rune.name}
                                   key={i}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                     <div>
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkSubStyle === rune.id
+                              return player.perks.perkSubStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -142,21 +144,22 @@ function Live({ champInfo, version, time }) {
                                       runeDescription.description
                                   )
                                   .map((rune) => rune.description)}
-                                key={i}>
+                                key={i}
+                              >
                                 <img
                                   key={i}
                                   className={style.runeImage}
                                   alt={rune.name}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                   </div>
                   <div className={style.spellContainer}>
@@ -167,7 +170,8 @@ function Live({ champInfo, version, time }) {
                             <Tooltip
                               key={i}
                               name={spell.name}
-                              info={spell.description}>
+                              info={spell.description}
+                            >
                               <img
                                 key={i}
                                 className={style.spellimage}
@@ -185,7 +189,8 @@ function Live({ champInfo, version, time }) {
                             <Tooltip
                               key={i}
                               name={spell.name}
-                              info={spell.description}>
+                              info={spell.description}
+                            >
                               <img
                                 key={i}
                                 className={style.spellimage}
@@ -201,20 +206,20 @@ function Live({ champInfo, version, time }) {
                 <div className={style.soloRank}>
                   {live.rankArray
                     .map((s) => {
-                      return s.length !== 0 && s[0].summonerName
+                      return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
                     ? live.rankArray.map((rank) => {
                         return rank.map((game, i) => {
-                          let emblem
+                          let emblem;
                           if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === 'RANKED_SOLO_5x5'
+                            game.queueType === "RANKED_SOLO_5x5"
                           ) {
                             if (
-                              game.tier === 'CHALLENGER' ||
-                              game.tier === 'GRANDMASTER' ||
-                              game.tier === 'MASTER'
+                              game.tier === "CHALLENGER" ||
+                              game.tier === "GRANDMASTER" ||
+                              game.tier === "MASTER"
                             ) {
                               emblem = (
                                 <div key={i} className={style.emblemContainer}>
@@ -229,25 +234,25 @@ function Live({ champInfo, version, time }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              )
+                              );
                             } else {
-                              let playerRank
+                              let playerRank;
 
                               switch (game.rank) {
-                                case 'I':
-                                  playerRank = 1
-                                  break
-                                case 'II':
-                                  playerRank = 2
-                                  break
-                                case 'III':
-                                  playerRank = 3
-                                  break
-                                case 'IV':
-                                  playerRank = 4
-                                  break
+                                case "I":
+                                  playerRank = 1;
+                                  break;
+                                case "II":
+                                  playerRank = 2;
+                                  break;
+                                case "III":
+                                  playerRank = 3;
+                                  break;
+                                case "IV":
+                                  playerRank = 4;
+                                  break;
                                 default:
-                                  playerRank = -1
+                                  playerRank = -1;
                               }
 
                               emblem = (
@@ -263,37 +268,37 @@ function Live({ champInfo, version, time }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              )
+                              );
                             }
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === 'RANKED_FLEX_SR' &&
+                            game.queueType === "RANKED_FLEX_SR" &&
                             rank.length === 1
                           ) {
-                            return '-'
+                            return "-";
                           }
-                          return <div>{emblem}</div>
-                        })
+                          return <div key={i}>{emblem}</div>;
+                        });
                       })
-                    : '-'}
+                    : "-"}
                 </div>
                 <div className={style.flexRank}>
                   {live.rankArray
                     .map((s) => {
-                      return s.length !== 0 && s[0].summonerName
+                      return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
                     ? live.rankArray.map((rank) => {
                         return rank.map((game, i) => {
-                          let emblem
+                          let emblem;
                           if (
                             player.summonerName === game.summonerName &&
-                            game.queueType === 'RANKED_FLEX_SR'
+                            game.queueType === "RANKED_FLEX_SR"
                           ) {
                             if (
-                              game.tier === 'CHALLENGER' ||
-                              game.tier === 'GRANDMASTER' ||
-                              game.tier === 'MASTER'
+                              game.tier === "CHALLENGER" ||
+                              game.tier === "GRANDMASTER" ||
+                              game.tier === "MASTER"
                             ) {
                               emblem = (
                                 <div key={i} className={style.emblemContainer}>
@@ -308,25 +313,25 @@ function Live({ champInfo, version, time }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              )
+                              );
                             } else {
-                              let playerRank
+                              let playerRank;
 
                               switch (game.rank) {
-                                case 'I':
-                                  playerRank = 1
-                                  break
-                                case 'II':
-                                  playerRank = 2
-                                  break
-                                case 'III':
-                                  playerRank = 3
-                                  break
-                                case 'IV':
-                                  playerRank = 4
-                                  break
+                                case "I":
+                                  playerRank = 1;
+                                  break;
+                                case "II":
+                                  playerRank = 2;
+                                  break;
+                                case "III":
+                                  playerRank = 3;
+                                  break;
+                                case "IV":
+                                  playerRank = 4;
+                                  break;
                                 default:
-                                  playerRank = -1
+                                  playerRank = -1;
                               }
 
                               emblem = (
@@ -342,19 +347,19 @@ function Live({ champInfo, version, time }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              )
+                              );
                             }
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === 'RANKED_SOLO_5x5' &&
+                            game.queueType === "RANKED_SOLO_5x5" &&
                             rank.length === 1
                           ) {
-                            return '-'
+                            return "-";
                           }
-                          return <div>{emblem}</div>
-                        })
+                          return <div key={i}>{emblem}</div>;
+                        });
                       })
-                    : '-'}
+                    : "-"}
                 </div>
               </div>
             )
@@ -384,7 +389,7 @@ function Live({ champInfo, version, time }) {
                         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                       />
                     )
-                  )
+                  );
                 })
             )
           )}
@@ -396,10 +401,11 @@ function Live({ champInfo, version, time }) {
             player.teamId === 200 && (
               <div
                 key={i}
-                className={style.champImageRuneSpellNameContainerEnemy}>
+                className={style.champImageRuneSpellNameContainerEnemy}
+              >
                 <div className={style.summonerName}>
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${player.profileIconId}.png`}
@@ -418,7 +424,7 @@ function Live({ champInfo, version, time }) {
                             src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
                           />
                         )
-                      )
+                      );
                     })}
                   </div>
                   <div className={style.runeContainer}>
@@ -426,7 +432,7 @@ function Live({ champInfo, version, time }) {
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkStyle === rune.id
+                              return player.perks.perkStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -438,27 +444,28 @@ function Live({ champInfo, version, time }) {
                                       runeDescription.description
                                   )
                                   .map((rune) => rune.description)}
-                                key={i}>
+                                key={i}
+                              >
                                 <img
                                   className={style.runeImage}
                                   alt={rune.name}
                                   key={i}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                     <div>
                       {player.perks
                         ? runes
                             .filter((rune) => {
-                              return player.perks.perkSubStyle === rune.id
+                              return player.perks.perkSubStyle === rune.id;
                             })
                             .map((rune, i) => (
                               <Tooltip
@@ -470,21 +477,22 @@ function Live({ champInfo, version, time }) {
                                       runeDescription.description
                                   )
                                   .map((rune) => rune.description)}
-                                key={i}>
+                                key={i}
+                              >
                                 <img
                                   key={i}
                                   className={style.runeImage}
                                   alt={rune.name}
                                   src={`https://raw.communitydragon.org/${version
-                                    .split('.')
+                                    .split(".")
                                     .slice(0, 2)
                                     .join(
-                                      '.'
+                                      "."
                                     )}/plugins/rcp-be-lol-game-data/global/default/v1/${rune.icon.toLowerCase()}`}
                                 />
                               </Tooltip>
                             ))
-                        : ''}
+                        : ""}
                     </div>
                   </div>
                   <div className={style.spellContainer}>
@@ -495,7 +503,8 @@ function Live({ champInfo, version, time }) {
                             <Tooltip
                               key={i}
                               name={spell.name}
-                              info={spell.description}>
+                              info={spell.description}
+                            >
                               <img
                                 key={i}
                                 className={style.spellimage}
@@ -513,7 +522,8 @@ function Live({ champInfo, version, time }) {
                             <Tooltip
                               key={i}
                               name={spell.name}
-                              info={spell.description}>
+                              info={spell.description}
+                            >
                               <img
                                 key={i}
                                 className={style.spellimage}
@@ -529,20 +539,20 @@ function Live({ champInfo, version, time }) {
                 <div className={style.soloRank}>
                   {live.rankArray
                     .map((s) => {
-                      return s.length !== 0 && s[0].summonerName
+                      return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
                     ? live.rankArray.map((rank) => {
                         return rank.map((game, i) => {
-                          let emblem
+                          let emblem;
                           if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === 'RANKED_SOLO_5x5'
+                            game.queueType === "RANKED_SOLO_5x5"
                           ) {
                             if (
-                              game.tier === 'CHALLENGER' ||
-                              game.tier === 'GRANDMASTER' ||
-                              game.tier === 'MASTER'
+                              game.tier === "CHALLENGER" ||
+                              game.tier === "GRANDMASTER" ||
+                              game.tier === "MASTER"
                             ) {
                               emblem = (
                                 <div key={i} className={style.emblemContainer}>
@@ -557,25 +567,25 @@ function Live({ champInfo, version, time }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              )
+                              );
                             } else {
-                              let playerRank
+                              let playerRank;
 
                               switch (game.rank) {
-                                case 'I':
-                                  playerRank = 1
-                                  break
-                                case 'II':
-                                  playerRank = 2
-                                  break
-                                case 'III':
-                                  playerRank = 3
-                                  break
-                                case 'IV':
-                                  playerRank = 4
-                                  break
+                                case "I":
+                                  playerRank = 1;
+                                  break;
+                                case "II":
+                                  playerRank = 2;
+                                  break;
+                                case "III":
+                                  playerRank = 3;
+                                  break;
+                                case "IV":
+                                  playerRank = 4;
+                                  break;
                                 default:
-                                  playerRank = -1
+                                  playerRank = -1;
                               }
 
                               emblem = (
@@ -591,37 +601,37 @@ function Live({ champInfo, version, time }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              )
+                              );
                             }
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === 'RANKED_FLEX_SR' &&
+                            game.queueType === "RANKED_FLEX_SR" &&
                             rank.length === 1
                           ) {
-                            return '-'
+                            return "-";
                           }
-                          return <div>{emblem}</div>
-                        })
+                          return <div key={i}>{emblem}</div>;
+                        });
                       })
-                    : '-'}
+                    : "-"}
                 </div>
                 <div className={style.flexRank}>
                   {live.rankArray
                     .map((s) => {
-                      return s.length !== 0 && s[0].summonerName
+                      return s.length !== 0 && s[0].summonerName;
                     })
                     .includes(player.summonerName)
                     ? live.rankArray.map((rank) => {
                         return rank.map((game, i) => {
-                          let emblem
+                          let emblem;
                           if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === 'RANKED_FLEX_SR'
+                            game.queueType === "RANKED_FLEX_SR"
                           ) {
                             if (
-                              game.tier === 'CHALLENGER' ||
-                              game.tier === 'GRANDMASTER' ||
-                              game.tier === 'MASTER'
+                              game.tier === "CHALLENGER" ||
+                              game.tier === "GRANDMASTER" ||
+                              game.tier === "MASTER"
                             ) {
                               emblem = (
                                 <div key={i} className={style.emblemContainer}>
@@ -636,25 +646,25 @@ function Live({ champInfo, version, time }) {
 
                                   {game.leaguePoints}
                                 </div>
-                              )
+                              );
                             } else {
-                              let playerRank
+                              let playerRank;
 
                               switch (game.rank) {
-                                case 'I':
-                                  playerRank = 1
-                                  break
-                                case 'II':
-                                  playerRank = 2
-                                  break
-                                case 'III':
-                                  playerRank = 3
-                                  break
-                                case 'IV':
-                                  playerRank = 4
-                                  break
+                                case "I":
+                                  playerRank = 1;
+                                  break;
+                                case "II":
+                                  playerRank = 2;
+                                  break;
+                                case "III":
+                                  playerRank = 3;
+                                  break;
+                                case "IV":
+                                  playerRank = 4;
+                                  break;
                                 default:
-                                  playerRank = -1
+                                  playerRank = -1;
                               }
 
                               emblem = (
@@ -670,19 +680,19 @@ function Live({ champInfo, version, time }) {
 
                                   {game.tier[0] + playerRank}
                                 </div>
-                              )
+                              );
                             }
                           } else if (
                             game.summonerName === player.summonerName &&
-                            game.queueType === 'RANKED_SOLO_5x5' &&
+                            game.queueType === "RANKED_SOLO_5x5" &&
                             rank.length === 1
                           ) {
-                            return '-'
+                            return "-";
                           }
-                          return <div>{emblem}</div>
-                        })
+                          return <div key={i}>{emblem}</div>;
+                        });
                       })
-                    : '-'}
+                    : "-"}
                 </div>
               </div>
             )
@@ -690,8 +700,8 @@ function Live({ champInfo, version, time }) {
       </div>
     </div>
   ) : (
-    ''
-  )
+    ""
+  );
 }
 
-export default Live
+export default Live;

@@ -1,26 +1,28 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import style from './historycard.module.css'
-import HistoryCardComplex from './HistoryCardComplex'
-import HistoryCardSimple from './HistoryCardSimple'
-import { CSSTransition } from 'react-transition-group'
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import style from "./historycard.module.css";
+import HistoryCardComplex from "./HistoryCardComplex";
+import HistoryCardSimple from "./HistoryCardSimple";
+import { CSSTransition } from "react-transition-group";
 
-function HistoryCard({ game, spells, runes, getPlayerName }) {
-  const [open, setOpen] = useState(false)
+function HistoryCard({ game }) {
+  const [open, setOpen] = useState(false);
 
   const {
-    summoner: { live },
-  } = useSelector((state) => state)
+    summoner: {
+      data: { live },
+    },
+  } = useSelector((state) => state);
 
   useEffect(() => {
-    setOpen(false)
-  }, [game, live])
+    setOpen(false);
+  }, [game, live]);
 
   const clickArrow = () => {
-    setOpen((prev) => !prev)
-  }
+    setOpen((prev) => !prev);
+  };
 
   return (
     <CSSTransition
@@ -33,21 +35,15 @@ function HistoryCard({ game, spells, runes, getPlayerName }) {
         exit: style.exit,
         exitActive: style.exitActive,
         exitDone: style.exitDone,
-      }}>
+      }}
+    >
       <div className={`${style.fadeIn}`}>
         <HistoryCardSimple open={open} game={game} clickArrow={clickArrow} />
 
-        <HistoryCardComplex
-          open={open}
-          game={game}
-          spells={spells}
-          runes={runes}
-          getPlayerName={getPlayerName}
-          clickArrow={clickArrow}
-        />
+        <HistoryCardComplex open={open} game={game} clickArrow={clickArrow} />
       </div>
     </CSSTransition>
-  )
+  );
 }
 
-export default HistoryCard
+export default HistoryCard;

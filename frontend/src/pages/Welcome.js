@@ -15,7 +15,7 @@ import MatchHistoryCardSkeleton from "../components/MatchHistoryCardSkeleton";
 import MasteryCardSkeleton from "../components/MasteryCardSkeleton";
 import { MdLiveTv } from "react-icons/md";
 
-export const Welcome = ({ getPlayerName, selectChampion }) => {
+export const Welcome = ({ selectChampion }) => {
   const [display, setDisplay] = useState("overview");
   const [time, setTime] = useState();
   const [loading, setLoading] = useState(true);
@@ -330,16 +330,7 @@ export const Welcome = ({ getPlayerName, selectChampion }) => {
                   !loading && display === "overview" ? style.row3 : style.none
                 }
               >
-                {/* <MatchHistoryCard
-                  version={version}
-                  summonerInfo={summonerInfo}
-                  champInfo={champInfo}
-                  getPlayerName={getPlayerName}
-                  skeleton={loading}
-                  region={region}
-                  setLoading={setLoading}
-                  summInfo={summoner}
-                /> */}
+                <MatchHistoryCard />
                 <MasteryCard
                   version={version}
                   // selectChampion={selectChampion}
