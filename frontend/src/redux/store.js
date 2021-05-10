@@ -8,7 +8,10 @@ import { persist } from './reduxPersist'
 import { dependencyReducer } from './reducers/dependencyReducer'
 import { inputReducer } from './reducers/inputReducer'
 import { summonerInfoReducer } from './reducers/summonerInfoReducer'
-import { leaderboardReducer } from './reducers/leaderboardReducer'
+import {
+  leaderboardChalltoMasterReducer,
+  leaderboardDiamondtoIronReducer,
+} from './reducers/leaderboardReducer'
 import { moreMatchesReducer } from './reducers/getMoreMatchesReducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -21,7 +24,8 @@ const reducers = combineReducers({
   dependency: dependencyReducer,
   input: inputReducer,
   getMoreMatches: moreMatchesReducer,
-  leaderboardChalltoMaster: leaderboardReducer,
+  leaderboardChalltoMaster: leaderboardChalltoMasterReducer,
+  leaderboardDiamondtoIron: leaderboardDiamondtoIronReducer,
 })
 
 const middleware = [thunk]

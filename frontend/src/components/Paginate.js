@@ -1,4 +1,7 @@
+/** @format */
+
 import React, { useState, useEffect } from 'react'
+
 import style from './paginate.module.css'
 
 function Paginate({
@@ -90,23 +93,20 @@ function Paginate({
         {firstLast ? (
           <li
             onClick={firstPage}
-            className={begin === 0 ? style.liNone : style.li}
-          >
+            className={begin === 0 ? style.liNone : style.li}>
             &#60;&#60;
           </li>
         ) : null}
         {table ? (
           <li
             onClick={before}
-            className={begin === 0 ? style.liNone : style.li}
-          >
+            className={begin === 0 ? style.liNone : style.li}>
             &#60;
           </li>
         ) : (
           <li
             onClick={page > 1 ? prevPaginate : null}
-            className={page > 1 ? style.li : style.liNone}
-          >
+            className={page > 1 ? style.li : style.liNone}>
             &#60;
           </li>
         )}
@@ -115,8 +115,7 @@ function Paginate({
           <li
             onClick={() => paginate(number)}
             className={`${style.li} ${currentPage === number && style.color} `}
-            key={i}
-          >
+            key={i}>
             {page ? (page === 1 ? number : number + (page - 1) * 5) : number}
           </li>
         ))}
@@ -127,15 +126,13 @@ function Paginate({
               end === Math.ceil(pageNumbers.length / 10) * 10
                 ? style.liNone
                 : style.li
-            }
-          >
+            }>
             &#62;
           </li>
         ) : (
           <li
             onClick={totalPosts < 205 ? null : nextPaginate}
-            className={totalPosts < 205 ? style.liNone : style.li}
-          >
+            className={totalPosts < 205 ? style.liNone : style.li}>
             &#62;
           </li>
         )}
@@ -146,8 +143,7 @@ function Paginate({
               end === Math.ceil(pageNumbers.length / 10) * 10
                 ? style.liNone
                 : style.li
-            }
-          >
+            }>
             &#62;&#62;
           </li>
         ) : null}
@@ -157,12 +153,3 @@ function Paginate({
 }
 
 export default Paginate
-
-// state currentPage = 2
-
-// if currentp
-
-// Math currentPage - 1 * 5
-
-// current displayed 1,2,3,4,5
-// want displayed 6,7,8,9,10

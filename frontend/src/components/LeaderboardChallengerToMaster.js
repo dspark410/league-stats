@@ -18,6 +18,8 @@ function LeaderboardChallengerToMaster({
   leaderboardDone,
   setLeaderboardDone,
 }) {
+  // const [profileIcon, setProfileIcon] = useState([])
+
   const [profileIcon, setProfileIcon] = useState([])
 
   const url = process.env.REACT_APP_API_ENDPOINT || ''
@@ -27,27 +29,26 @@ function LeaderboardChallengerToMaster({
   // call for profile icon and adding to the leaderboard object
   useEffect(() => {
     let mounted = true
-    const iconArr = []
 
     if (mounted && leaderboardDone) {
       Promise.all(
-        leaderboard.map((player) => {
-          return axios
-            .get(`${url}/api/getSummonerId/${player.summonerId}/${region}`, {
+        leaderboard.map(async (player) => {
+          const { data } = await axios.get(
+            `${url}/api/getSummonerId/${player.summonerId}/${region}`,
+            {
               cancelToken: source.token,
-            })
-            .then((res) => {
-              if (res.data.profileIconId === 0) {
-                player.icon = res.data.profileIconId.toString()
-              } else {
-                player.icon = res.data.profileIconId
-              }
+            }
+          )
 
-              iconArr.push(player)
-            })
+          if (data.profileIconId === 0) {
+            player.icon = data.profileIconId.toString()
+          } else {
+            player.icon = data.profileIconId
+          }
+          return player
         })
-      ).then(() => {
-        setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints))
+      ).then((res) => {
+        setProfileIcon(res)
         setLeaderboardDone(false)
       })
     }
@@ -133,7 +134,7 @@ function LeaderboardChallengerToMaster({
           ))}
         </tbody>
       </table>
-      {/* <Paginate
+      <Paginate
         postsPerPage={postsPerPage}
         totalPosts={totalPosts}
         paginate={paginate}
@@ -142,7 +143,7 @@ function LeaderboardChallengerToMaster({
         firstLast={true}
         table={true}
         setLeaderboardDone={setLeaderboardDone}
-      /> */}
+      />
     </>
   )
 }
