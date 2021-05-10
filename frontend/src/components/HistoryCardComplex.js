@@ -1,14 +1,14 @@
 /** @format */
 
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getSummonerInfo } from "../redux/actions";
-import { useHistory } from "react-router-dom";
-import style from "./historycardcomplex.module.css";
-import Tooltip from "./Tooltip";
-import ItemHistory from "./ItemHistory";
-import { IoIosArrowUp } from "react-icons/io";
-import { runeDescriptions } from "../utils/constant";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
+import { useHistory } from 'react-router-dom'
+import style from './historycardcomplex.module.css'
+import Tooltip from './Tooltip'
+import ItemHistory from './ItemHistory'
+import { IoIosArrowUp } from 'react-icons/io'
+import { runeDescriptions } from '../utils/constant'
 
 function HistoryCardComplex({ game, clickArrow, open }) {
   const {
@@ -16,55 +16,52 @@ function HistoryCardComplex({ game, clickArrow, open }) {
       data: { summonerInfo },
     },
     dependency: { spells, runes },
-  } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const history = useHistory();
+  } = useSelector((state) => state)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   // Filters out team one
   const teamOne = game.participants.filter((participant) => {
-    return participant.teamId === 100;
-  });
+    return participant.teamId === 100
+  })
   // Filters out team two
   const teamTwo = game.participants.filter((participant) => {
-    return participant.teamId === 200;
-  });
+    return participant.teamId === 200
+  })
 
   const getPlayerName = (e) => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth",
-    });
+      behavior: 'smooth',
+    })
 
-    const summonerName = e.target.getAttribute("name");
-    const region = e.target.getAttribute("region");
-    dispatch(getSummonerInfo(summonerName, region));
-    history.push(`/summoner/${region}/${summonerName}`);
-  };
+    const summonerName = e.target.getAttribute('name')
+    const region = e.target.getAttribute('region')
+    dispatch(getSummonerInfo(summonerName, region))
+    history.push(`/summoner/${region}/${summonerName}`)
+  }
 
   return game.playerInfo && summonerInfo ? (
     <div
       className={`${open ? style.historyCardComplex : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
-      }`}
-    >
+      }`}>
       <div className={`${style.historyCard} `}>
         <div className={style.firstCol}>
-          <p>{game.gameType.split(" ").slice(0, 3).join(" ")}</p>
-          <p>{game.playerInfo.stats.win ? "Victory" : "Defeat"}</p>
+          <p>{game.gameType.split(' ').slice(0, 3).join(' ')}</p>
+          <p>{game.playerInfo.stats.win ? 'Victory' : 'Defeat'}</p>
           <p
             className={
               game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-            }
-          >
-            {game.gameCreation.split(" ").slice(0, 4).join(" ")}
+            }>
+            {game.gameCreation.split(' ').slice(0, 4).join(' ')}
           </p>
 
           <p
             className={
               game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-            }
-          >{`${Math.floor(game.gameDuration / 60)}m ${Math.ceil(
+            }>{`${Math.floor(game.gameDuration / 60)}m ${Math.ceil(
             game.gameDuration % 60
           )}s `}</p>
         </div>
@@ -86,8 +83,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                       <Tooltip
                         key={i}
                         name={spell.name}
-                        info={spell.description}
-                      >
+                        info={spell.description}>
                         <img
                           alt={spell.name}
                           className={style.summonerSpell}
@@ -103,8 +99,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                       <Tooltip
                         key={i}
                         name={spell.name}
-                        info={spell.description}
-                      >
+                        info={spell.description}>
                         <img
                           key={i}
                           alt={spell.name}
@@ -118,33 +113,32 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               <div className={style.summonerSpellContainer}>
                 {runes
                   .filter((rune) => {
-                    return rune.id === game.playerInfo.stats.perkPrimaryStyle;
+                    return rune.id === game.playerInfo.stats.perkPrimaryStyle
                   })
                   .map((rune, i) => {
-                    const perk0 = game.playerInfo.stats.perk0;
+                    const perk0 = game.playerInfo.stats.perk0
                     const perkImage = rune.slots[0].runes.filter((perk) => {
-                      return perk.id === perk0;
-                    });
+                      return perk.id === perk0
+                    })
                     return (
                       <Tooltip
                         key={i}
                         name={perkImage[0].name}
-                        info={perkImage[0].longDesc}
-                      >
+                        info={perkImage[0].longDesc}>
                         <img
-                          alt="runes"
+                          alt='runes'
                           className={style.summonerSpell}
                           src={`https://raw.communitydragon.org/${
                             game.gameVersion
                           }/plugins/rcp-be-lol-game-data/global/default/v1/${perkImage[0].icon.toLowerCase()}`}
                         />
                       </Tooltip>
-                    );
+                    )
                   })}
 
                 {runes
                   .filter((rune) => {
-                    return game.playerInfo.stats.perkSubStyle === rune.id;
+                    return game.playerInfo.stats.perkSubStyle === rune.id
                   })
                   .map((rune, i) => (
                     <Tooltip
@@ -156,10 +150,9 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                             runeDescription.description
                         )
                         .map((rune) => rune.description)}
-                      key={i}
-                    >
+                      key={i}>
                       <img
-                        alt="summoner spell"
+                        alt='summoner spell'
                         className={style.summonerSpell2}
                         src={`https://raw.communitydragon.org/${
                           game.gameVersion
@@ -188,16 +181,16 @@ function HistoryCardComplex({ game, clickArrow, open }) {
       ${game.playerInfo.stats.assists}`}
           </div>
           {game.playerInfo.stats.largestMultiKill <= 1 ? (
-            ""
+            ''
           ) : (
             <div className={style.kdaRatio}>
               {game.playerInfo.stats.largestMultiKill === 2
-                ? "Double Kill"
+                ? 'Double Kill'
                 : game.playerInfo.stats.largestMultiKill === 3
-                ? "Triple Kill"
+                ? 'Triple Kill'
                 : game.playerInfo.stats.largestMultiKill === 4
-                ? "Quadra Kill"
-                : "Penta Kill"}
+                ? 'Quadra Kill'
+                : 'Penta Kill'}
             </div>
           )}
         </div>
@@ -206,17 +199,16 @@ function HistoryCardComplex({ game, clickArrow, open }) {
             level {game.playerInfo.stats.champLevel}
           </span>
           <Tooltip
-            moreInfo={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}
-          >
+            moreInfo={`${game.playerInfo.stats.totalMinionsKilled} minions killed + ${game.playerInfo.stats.neutralMinionsKilled} monsters killed `}>
             <div className={style.minionContainer}>
               <img
                 className={style.minionIcon}
-                alt="minion icon"
-                src={process.env.PUBLIC_URL + "/images/icons/minion_icon.png"}
+                alt='minion icon'
+                src={process.env.PUBLIC_URL + '/images/icons/minion_icon.png'}
               />
               <span className={style.minions}>
                 {game.playerInfo.stats.totalMinionsKilled +
-                  game.playerInfo.stats.neutralMinionsKilled}{" "}
+                  game.playerInfo.stats.neutralMinionsKilled}{' '}
               </span>
             </div>
           </Tooltip>
@@ -225,14 +217,13 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               (game.playerInfo.stats.totalMinionsKilled +
                 game.playerInfo.stats.neutralMinionsKilled) /
               (game.gameDuration / 60)
-            ).toFixed(1)} CS per minute`}
-          >
+            ).toFixed(1)} CS per minute`}>
             <span className={style.level}>
               {(
                 (game.playerInfo.stats.totalMinionsKilled +
                   game.playerInfo.stats.neutralMinionsKilled) /
                 (game.gameDuration / 60)
-              ).toFixed(1)}{" "}
+              ).toFixed(1)}{' '}
               cs/min
             </span>
           </Tooltip>
@@ -259,8 +250,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                   game.playerInfo.stats.win
                     ? style.team100Win
                     : style.team100Loss
-                }
-              >
+                }>
                 <div>{`${player.stats.kills} / ${player.stats.deaths} / ${player.stats.assists}`}</div>
 
                 <div>
@@ -268,11 +258,11 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                     (player.stats.totalMinionsKilled +
                       player.stats.neutralMinionsKilled) /
                     (game.gameDuration / 60)
-                  ).toFixed(1)}{" "}
+                  ).toFixed(1)}{' '}
                   cs/min
                 </div>
               </div>
-            );
+            )
           })}
         </div>
 
@@ -293,9 +283,8 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                       : style.name1
                   }
                   name={player.name}
-                  region={game.platformId}
-                >
-                  {player.name.replace(/\s/g, "")}
+                  region={game.platformId}>
+                  {player.name.replace(/\s/g, '')}
                 </span>
                 <img
                   name={player.name}
@@ -307,86 +296,86 @@ function HistoryCardComplex({ game, clickArrow, open }) {
         </div>
 
         <div className={style.iconContainer}>
-          {game.gameType === "5v5 ARAM games" ? (
+          {game.gameType === '5v5 ARAM games' ? (
             <>
               <img
-                alt="poro"
+                alt='poro'
                 src={
-                  "https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/poro_happy_taunt_selector.png"
+                  'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/poro_happy_taunt_selector.png'
                 }
               />
               <img
-                alt="poro"
+                alt='poro'
                 src={
-                  "https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/poro_happy_cheers_selector.png"
+                  'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/poro_happy_cheers_selector.png'
                 }
               />
               <img
-                alt="poro"
+                alt='poro'
                 src={
-                  "https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/em_poro_buddies_selector.png"
+                  'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/flairs/em_poro_buddies_selector.png'
                 }
               />
               <img
-                alt="poro"
+                alt='poro'
                 src={
-                  "https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/rewards/essence/essence_poro_tier_1_selector.png"
+                  'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/rewards/essence/essence_poro_tier_1_selector.png'
                 }
               />
               <img
-                alt="poro"
+                alt='poro'
                 src={
-                  "https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/rewards/essence/essence_poro_tier_2_selector.png"
+                  'https://raw.communitydragon.org/10.1/game/assets/loadouts/summoneremotes/rewards/essence/essence_poro_tier_2_selector.png'
                 }
               />
             </>
-          ) : game.gameType === "URF games" ? (
+          ) : game.gameType === 'URF games' ? (
             <>
               <img
-                alt="manatee urf"
-                src={process.env.PUBLIC_URL + "/images/icons/manatee.png"}
+                alt='manatee urf'
+                src={process.env.PUBLIC_URL + '/images/icons/manatee.png'}
               />
               <img
-                alt="manatee urf"
-                src={process.env.PUBLIC_URL + "/images/icons/manatee2.png"}
+                alt='manatee urf'
+                src={process.env.PUBLIC_URL + '/images/icons/manatee2.png'}
               />
               <img
-                alt="golden spatula"
-                src={process.env.PUBLIC_URL + "/images/icons/manatee3.png"}
+                alt='golden spatula'
+                src={process.env.PUBLIC_URL + '/images/icons/manatee3.png'}
               />
               <img
-                alt="golden spatula"
-                src={process.env.PUBLIC_URL + "/images/icons/manatee4.png"}
+                alt='golden spatula'
+                src={process.env.PUBLIC_URL + '/images/icons/manatee4.png'}
               />
               <img
-                alt="golden spatula"
-                src={process.env.PUBLIC_URL + "/images/icons/manatee5.png"}
+                alt='golden spatula'
+                src={process.env.PUBLIC_URL + '/images/icons/manatee5.png'}
               />
             </>
-          ) : game.gameType === "5v5 Ranked Solo games" ||
-            game.gameType === "5v5 Draft Pick games" ||
-            game.gameType === "5v5 Ranked Flex games" ||
-            game.gameType === "5v5 Blind Pick games" ? (
+          ) : game.gameType === '5v5 Ranked Solo games' ||
+            game.gameType === '5v5 Draft Pick games' ||
+            game.gameType === '5v5 Ranked Flex games' ||
+            game.gameType === '5v5 Blind Pick games' ? (
             <>
               <img
-                alt="icon"
-                src={process.env.PUBLIC_URL + "/images/icons/Top_icon.png"}
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Top_icon.png'}
               />
               <img
-                alt="icon"
-                src={process.env.PUBLIC_URL + "/images/icons/Jungle_icon.png"}
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Jungle_icon.png'}
               />
               <img
-                alt="icon"
-                src={process.env.PUBLIC_URL + "/images/icons/Middle_icon.png"}
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Middle_icon.png'}
               />
               <img
-                alt="icon"
-                src={process.env.PUBLIC_URL + "/images/icons/Bottom_icon.png"}
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Bottom_icon.png'}
               />
               <img
-                alt="icon"
-                src={process.env.PUBLIC_URL + "/images/icons/Support_icon.png"}
+                alt='icon'
+                src={process.env.PUBLIC_URL + '/images/icons/Support_icon.png'}
               />
             </>
           ) : (
@@ -416,9 +405,8 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                       : style.name2
                   }
                   region={game.platformId}
-                  name={player.name}
-                >
-                  {player.name.replace(/\s/g, "")}
+                  name={player.name}>
+                  {player.name.replace(/\s/g, '')}
                 </span>
               </div>
             ))}
@@ -432,24 +420,23 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                   game.playerInfo.stats.win
                     ? style.team200Win
                     : style.team200Loss
-                }
-              >
+                }>
                 <div>
                   {(
                     (player.stats.totalMinionsKilled +
                       player.stats.neutralMinionsKilled) /
                     (game.gameDuration / 60)
-                  ).toFixed(1)}{" "}
+                  ).toFixed(1)}{' '}
                   cs/min
                 </div>
                 <div>{`${player.stats.kills} / ${player.stats.deaths} / ${player.stats.assists}`}</div>
               </div>
-            );
+            )
           })}
         </div>
       </div>
     </div>
-  ) : null;
+  ) : null
 }
 
-export default HistoryCardComplex;
+export default HistoryCardComplex

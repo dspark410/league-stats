@@ -2,7 +2,9 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getDependency, getInput, getSummonerInfo } from '../redux/actions'
+import { getDependency } from '../redux/actions/dependencyActions'
+import { getInput } from '../redux/actions/inputActions'
+import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import style from './navbar.module.css'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import { regions } from '../utils/constant'

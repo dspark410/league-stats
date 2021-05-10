@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
-import style from "./leaderboardtable.module.css";
-import axios from "axios";
-import Paginate from "./Paginate";
+/** @format */
+
+import React, { useState, useEffect } from 'react'
+import style from './leaderboardtable.module.css'
+import axios from 'axios'
+import Paginate from './Paginate'
 
 function LeaderboardChallengerToMaster({
   version,
@@ -16,16 +18,16 @@ function LeaderboardChallengerToMaster({
   leaderboardDone,
   setLeaderboardDone,
 }) {
-  const [profileIcon, setProfileIcon] = useState([]);
+  const [profileIcon, setProfileIcon] = useState([])
 
-  const url = process.env.REACT_APP_API_ENDPOINT || "";
+  const url = process.env.REACT_APP_API_ENDPOINT || ''
 
-  let source = axios.CancelToken.source();
+  let source = axios.CancelToken.source()
 
   // call for profile icon and adding to the leaderboard object
   useEffect(() => {
-    let mounted = true;
-    const iconArr = [];
+    let mounted = true
+    const iconArr = []
 
     if (mounted && leaderboardDone) {
       Promise.all(
@@ -36,27 +38,27 @@ function LeaderboardChallengerToMaster({
             })
             .then((res) => {
               if (res.data.profileIconId === 0) {
-                player.icon = res.data.profileIconId.toString();
+                player.icon = res.data.profileIconId.toString()
               } else {
-                player.icon = res.data.profileIconId;
+                player.icon = res.data.profileIconId
               }
 
-              iconArr.push(player);
-            });
+              iconArr.push(player)
+            })
         })
       ).then(() => {
-        setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints));
-        setLeaderboardDone(false);
-      });
+        setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints))
+        setLeaderboardDone(false)
+      })
     }
 
     return () => {
-      mounted = false;
+      mounted = false
 
-      source.cancel("leaderboard table component got unmounted");
-    };
+      source.cancel('leaderboard table component got unmounted')
+    }
     // eslint-disable-next-line
-  }, [leaderboardDone, currentPage]);
+  }, [leaderboardDone, currentPage])
 
   return (
     <>
@@ -79,7 +81,7 @@ function LeaderboardChallengerToMaster({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt="profile icon"
+                    alt='profile icon'
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -90,8 +92,7 @@ function LeaderboardChallengerToMaster({
                   name={summoner.summonerName}
                   region={region}
                   icon={summoner.icon}
-                  onClick={getPlayerName}
-                >
+                  onClick={getPlayerName}>
                   {summoner.summonerName}
                 </div>
               </td>
@@ -108,10 +109,9 @@ function LeaderboardChallengerToMaster({
                   </div>
                   <div
                     style={{
-                      minWidth: "25px",
-                      textAlign: "center",
-                    }}
-                  >
+                      minWidth: '25px',
+                      textAlign: 'center',
+                    }}>
                     <div> - </div>
                   </div>
                   <div className={style.lossContainer}>
@@ -133,7 +133,7 @@ function LeaderboardChallengerToMaster({
           ))}
         </tbody>
       </table>
-      <Paginate
+      {/* <Paginate
         postsPerPage={postsPerPage}
         totalPosts={totalPosts}
         paginate={paginate}
@@ -142,9 +142,9 @@ function LeaderboardChallengerToMaster({
         firstLast={true}
         table={true}
         setLeaderboardDone={setLeaderboardDone}
-      />
+      /> */}
     </>
-  );
+  )
 }
 
-export default LeaderboardChallengerToMaster;
+export default LeaderboardChallengerToMaster

@@ -1,24 +1,24 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getInput } from "../redux/actions";
-import style from "./welcome.module.css";
-import MasteryCard from "../components/MasteryCard";
-import RankCard from "../components/RankCard";
-import UnrankedCard from "../components/UnrankedCard";
-import SummonerCard from "../components/SummonerCard";
-import MatchHistoryCard from "../components/MatchHistoryCard";
-import Live from "../components/Live";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import MatchHistoryCardSkeleton from "../components/MatchHistoryCardSkeleton";
-import MasteryCardSkeleton from "../components/MasteryCardSkeleton";
-import { MdLiveTv } from "react-icons/md";
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getInput } from '../redux/actions/inputActions'
+import style from './welcome.module.css'
+import MasteryCard from '../components/MasteryCard'
+import RankCard from '../components/RankCard'
+import UnrankedCard from '../components/UnrankedCard'
+import SummonerCard from '../components/SummonerCard'
+import MatchHistoryCard from '../components/MatchHistoryCard'
+import Live from '../components/Live'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
+import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
+import { MdLiveTv } from 'react-icons/md'
 
 export const Welcome = ({ selectChampion }) => {
-  const [display, setDisplay] = useState("overview");
-  const [time, setTime] = useState();
-  const [loading, setLoading] = useState(true);
+  const [display, setDisplay] = useState('overview')
+  const [time, setTime] = useState()
+  const [loading, setLoading] = useState(true)
 
   const {
     summoner: {
@@ -26,65 +26,65 @@ export const Welcome = ({ selectChampion }) => {
       summLoading,
     },
     dependency: { champInfo, version },
-  } = useSelector((state) => state);
+  } = useSelector((state) => state)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     // Show nav on the welcome screen
     setTimeout(() => {
-      dispatch(getInput("showNav"));
-    }, 50);
+      dispatch(getInput('showNav'))
+    }, 50)
 
     if (summonerInfo) {
       window.scrollTo({
         top: 0,
         left: 0,
-        behavior: "smooth",
-      });
+        behavior: 'smooth',
+      })
     }
     // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setLoading(true);
-    setDisplay("overview");
+    setLoading(true)
+    setDisplay('overview')
     setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  }, [dispatch, summLoading]);
+      setLoading(false)
+    }, 3000)
+  }, [dispatch, summLoading])
 
   useEffect(() => {
-    let time;
-    let mounted = true;
+    let time
+    let mounted = true
 
     if (mounted) {
-      if (live && typeof live.gameLength === "number") {
-        setTime(live.gameLength < 0 ? live.gameLength * -1 : live.gameLength);
+      if (live && typeof live.gameLength === 'number') {
+        setTime(live.gameLength < 0 ? live.gameLength * -1 : live.gameLength)
         time = setInterval(() => {
-          setTime((seconds) => seconds + 1);
-        }, 1000);
+          setTime((seconds) => seconds + 1)
+        }, 1000)
       }
     }
 
     return () => {
-      clearTimeout(time);
-      mounted = false;
-    };
+      clearTimeout(time)
+      mounted = false
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [live]);
+  }, [live])
 
   return (
-    <SkeletonTheme duration={3} color="#7a6b83" highlightColor="#e2c0f7">
+    <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.rowContainer}>
         <div className={style.row1}>
           <div className={style.emblemContainer}>
             {!loading ? (
               <div className={style.nameLive}>
                 <SummonerCard version={version} />
-                {live !== "Not In Live Game" && (
+                {live !== 'Not In Live Game' && (
                   <div className={`${style.inGame}`}>
                     <div className={style.circlePulse} />
                     In Game
@@ -95,7 +95,7 @@ export const Welcome = ({ selectChampion }) => {
               <div className={style.nameLiveSkeleton}>
                 <Skeleton circle={true} width={115} height={115} />
                 <Skeleton
-                  style={{ marginLeft: "25px" }}
+                  style={{ marginLeft: '25px' }}
                   width={250}
                   height={55}
                 />
@@ -113,49 +113,48 @@ export const Welcome = ({ selectChampion }) => {
                 <div className={style.rankContainer}>
                   {(rank && !rank.length) ||
                   (rank.length === 1 &&
-                    rank[0].queueType === "RANKED_FLEX_SR") ? (
-                    <UnrankedCard queue="Solo" />
+                    rank[0].queueType === 'RANKED_FLEX_SR') ? (
+                    <UnrankedCard queue='Solo' />
                   ) : (
                     rank.map((ranking, i) => {
-                      return ranking.queueType === "RANKED_SOLO_5x5" ? (
-                        <RankCard key={i} rank={ranking} queue="Solo" />
+                      return ranking.queueType === 'RANKED_SOLO_5x5' ? (
+                        <RankCard key={i} rank={ranking} queue='Solo' />
                       ) : (
-                        ranking.queueType === "RANKED_FLEX_SR" && ""
-                      );
+                        ranking.queueType === 'RANKED_FLEX_SR' && ''
+                      )
                     })
                   )}
 
                   <img
-                    alt="Unranked"
+                    alt='Unranked'
                     className={style.rectangle}
                     src={process.env.PUBLIC_URL + `/images/icons/rectangle.png`}
                   />
 
                   {(rank && !rank.length) ||
                   (rank.length === 1 &&
-                    rank[0].queueType === "RANKED_SOLO_5x5") ? (
-                    <UnrankedCard queue="Flex" />
+                    rank[0].queueType === 'RANKED_SOLO_5x5') ? (
+                    <UnrankedCard queue='Flex' />
                   ) : (
                     rank.map((ranking, i) => {
-                      return ranking.queueType === "RANKED_FLEX_SR" ? (
-                        <RankCard key={i} rank={ranking} queue="Flex" />
+                      return ranking.queueType === 'RANKED_FLEX_SR' ? (
+                        <RankCard key={i} rank={ranking} queue='Flex' />
                       ) : (
-                        ranking.queueType === "RANKED_SOLO_5x5" && ""
-                      );
+                        ranking.queueType === 'RANKED_SOLO_5x5' && ''
+                      )
                     })
                   )}
                 </div>
               ) : (
                 <div
                   style={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    margin: "25px 0px 25px 0px",
-                  }}
-                >
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    margin: '25px 0px 25px 0px',
+                  }}>
                   <div>
                     <Skeleton
-                      style={{ marginLeft: "10px" }}
+                      style={{ marginLeft: '10px' }}
                       circle={true}
                       width={75}
                       height={75}
@@ -163,28 +162,27 @@ export const Welcome = ({ selectChampion }) => {
                   </div>
                   <div
                     style={{
-                      display: "flex",
-                      marginLeft: "10px",
-                      flexDirection: "column",
-                    }}
-                  >
+                      display: 'flex',
+                      marginLeft: '10px',
+                      flexDirection: 'column',
+                    }}>
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={20}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={180}
                       height={35}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={25}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={130}
                       height={25}
                     />
@@ -204,28 +202,27 @@ export const Welcome = ({ selectChampion }) => {
 
                   <div
                     style={{
-                      display: "flex",
-                      marginLeft: "10px",
-                      flexDirection: "column",
-                    }}
-                  >
+                      display: 'flex',
+                      marginLeft: '10px',
+                      flexDirection: 'column',
+                    }}>
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={20}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={180}
                       height={35}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={40}
                       height={25}
                     />
                     <Skeleton
-                      style={{ marginBottom: "2px" }}
+                      style={{ marginBottom: '2px' }}
                       width={130}
                       height={25}
                     />
@@ -240,36 +237,34 @@ export const Welcome = ({ selectChampion }) => {
           <div className={style.linksContainer}>
             {!loading ? (
               <span
-                onClick={() => setDisplay("overview")}
-                to="#"
+                onClick={() => setDisplay('overview')}
+                to='#'
                 className={
-                  !loading && display === "overview"
+                  !loading && display === 'overview'
                     ? style.underline
                     : style.live
-                }
-              >
+                }>
                 Overview
               </span>
             ) : (
               <Skeleton
-                style={{ display: "inlineBlock", marginLeft: "15px" }}
+                style={{ display: 'inlineBlock', marginLeft: '15px' }}
                 height={30}
                 width={74}
               />
             )}
             {!loading ? (
               <span
-                onClick={() => setDisplay("live")}
-                to="/live"
+                onClick={() => setDisplay('live')}
+                to='/live'
                 className={
-                  !loading && display === "live" ? style.underline : style.live
-                }
-              >
+                  !loading && display === 'live' ? style.underline : style.live
+                }>
                 Live Game
               </span>
             ) : (
               <Skeleton
-                style={{ display: "inlineBlock", marginLeft: "15px" }}
+                style={{ display: 'inlineBlock', marginLeft: '15px' }}
                 height={30}
                 width={84}
               />
@@ -278,7 +273,7 @@ export const Welcome = ({ selectChampion }) => {
         </div>
         <div className={style.row3}>
           {matchHistory &&
-          display === "overview" &&
+          display === 'overview' &&
           matchHistory.length === 0 &&
           !loading ? (
             <>
@@ -290,8 +285,8 @@ export const Welcome = ({ selectChampion }) => {
               <div className={style.masteryCard}>
                 <div className={style.header}>
                   <img
-                    alt="mastery icon"
-                    src={process.env.PUBLIC_URL + "/images/icons/mastery.png"}
+                    alt='mastery icon'
+                    src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
                   />
                   CHAMPION MASTERY
                 </div>
@@ -304,7 +299,7 @@ export const Welcome = ({ selectChampion }) => {
                   <div className={style.noChamps}>No Champions Found.</div>
                 )}
               </div>
-              {live === "Not In Live Game" && display === "live" && (
+              {live === 'Not In Live Game' && display === 'live' && (
                 <div className={style.notInGame}>
                   <div className={style.liveGameHeader}>
                     <MdLiveTv className={style.liveIcon} />
@@ -319,17 +314,15 @@ export const Welcome = ({ selectChampion }) => {
             <>
               <div
                 className={
-                  loading && display === "overview" ? style.row3 : style.none
-                }
-              >
+                  loading && display === 'overview' ? style.row3 : style.none
+                }>
                 <MatchHistoryCardSkeleton />
                 <MasteryCardSkeleton />
               </div>
               <div
                 className={
-                  !loading && display === "overview" ? style.row3 : style.none
-                }
-              >
+                  !loading && display === 'overview' ? style.row3 : style.none
+                }>
                 <MatchHistoryCard />
                 <MasteryCard
                   version={version}
@@ -338,11 +331,10 @@ export const Welcome = ({ selectChampion }) => {
               </div>
               <div
                 className={
-                  live === "Not In Live Game" && display === "live"
+                  live === 'Not In Live Game' && display === 'live'
                     ? style.notInGame
                     : style.none
-                }
-              >
+                }>
                 <div className={style.liveGameHeader}>
                   <MdLiveTv className={style.liveIcon} />
                   <span className={style.liveGame}>Live Game</span>
@@ -352,10 +344,9 @@ export const Welcome = ({ selectChampion }) => {
               </div>
               <div
                 className={
-                  live && display === "live" ? style.liveContainer : style.none
-                }
-              >
-                {live !== "Not In Live Game" && (
+                  live && display === 'live' ? style.liveContainer : style.none
+                }>
+                {live !== 'Not In Live Game' && (
                   <Live champInfo={champInfo} version={version} time={time} />
                 )}
               </div>
@@ -364,5 +355,5 @@ export const Welcome = ({ selectChampion }) => {
         </div>
       </div>
     </SkeletonTheme>
-  );
-};
+  )
+}

@@ -1,0 +1,7 @@
+/** @format */
+
+// Leaderboard Reducer
+export const LEADERBOARD_LOADING = 'LEADERBOARD_LOADING'
+export const GET_LEADERBOARD_CHAL = 'GET_LEADERBOARD_CHAL'
+export const GET_LEADERBOARD_DIA = 'GET_LEADERBOARD_DIA'
+export const LEADERBOARD_ERROR = 'LEADERBOARD_ERROR'

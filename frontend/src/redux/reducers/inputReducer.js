@@ -1,29 +1,22 @@
 /** @format */
 
+import BrandBackground from '../../components/images/brand.jpg'
 import {
-  GET_DEPENDENCY,
-  SHOW_STORAGE,
-  HIDE_STORAGE,
-  GET_SUMMONER_INFO,
-  LOADING,
-  ERROR,
-  GET_MORE_MATCHES,
-  ANIMATE_SHOW,
-  ANIMATE_HIDE,
-  REMOVE_SUMMONER,
   ADD_SUMMONER,
-  SHOW_NAV,
-  HIDE_NAV,
+  ANIMATE_HIDE,
+  ANIMATE_SHOW,
   BRAND_BACKGROUND,
   CHAMP_BACKGROUND,
+  HIDE_NAV,
+  HIDE_STORAGE,
+  REMOVE_SUMMONER,
+  SHOW_NAV,
+  SHOW_STORAGE,
   USER_INPUT,
-} from './constants'
-import BrandBackground from '../components/images/brand.jpg'
+} from '../constants/inputConstants'
 
 const prevSearchesLocal =
   JSON.parse(localStorage.getItem('searchedSummoner')) || []
-
-const dependencyInitial = {}
 
 const inputInitial = {
   summonerInput: {
@@ -35,25 +28,6 @@ const inputInitial = {
   showPrevSearches: false,
   hideAnimation: true,
   prevSearches: prevSearchesLocal,
-}
-
-const summonerInfoInitial = {
-  summLoading: false,
-  data: {},
-  error: '',
-}
-
-const moreMatchesInitial = {}
-
-export const dependencyReducer = (state = dependencyInitial, action) => {
-  switch (action.type) {
-    case GET_DEPENDENCY:
-      return { ...state, ...action.payload }
-    case ERROR:
-      return { ...state, error: action.payload }
-    default:
-      return state
-  }
 }
 
 export const inputReducer = (state = inputInitial, action) => {
@@ -160,28 +134,6 @@ export const inputReducer = (state = inputInitial, action) => {
         ...state,
         prevSearches: searchedSummoners,
       }
-    default:
-      return state
-  }
-}
-
-export const summonerInfoReducer = (state = summonerInfoInitial, action) => {
-  switch (action.type) {
-    case LOADING:
-      return { ...state, summLoading: true }
-    case GET_SUMMONER_INFO:
-      return { ...state, summLoading: false, data: action.payload }
-    case ERROR:
-      return { ...state, summLoading: false, error: action.payload }
-    default:
-      return state
-  }
-}
-
-export const moreMatchesReducer = (state = moreMatchesInitial, action) => {
-  switch (action.type) {
-    case GET_MORE_MATCHES:
-      return { ...state, ...action.payload }
     default:
       return state
   }
