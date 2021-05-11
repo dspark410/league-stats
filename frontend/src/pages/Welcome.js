@@ -50,9 +50,12 @@ export const Welcome = ({ selectChampion }) => {
   useEffect(() => {
     setLoading(true);
     setDisplay("overview");
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [dispatch, summLoading]);
 
   useEffect(() => {

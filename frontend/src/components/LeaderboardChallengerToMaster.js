@@ -1,19 +1,14 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import style from "./leaderboardtable.module.css";
 import axios from "axios";
 import Paginate from "./Paginate";
 
 function LeaderboardChallengerToMaster({
-  version,
   leaderboard,
-  postsPerPage,
-  totalPosts,
   paginate,
-  currentPage,
-  rank,
-  region,
   getPlayerName,
 }) {
   // const [profileIcon, setProfileIcon] = useState([])
@@ -21,6 +16,13 @@ function LeaderboardChallengerToMaster({
   const [profileIcon, setProfileIcon] = useState([]);
 
   const url = process.env.REACT_APP_API_ENDPOINT || "";
+
+  const {
+    dependency: { version },
+    input: {
+      summonerInput: { region },
+    },
+  } = useSelector((state) => state);
 
   let source = axios.CancelToken.source();
 
@@ -131,15 +133,7 @@ function LeaderboardChallengerToMaster({
           ))}
         </tbody>
       </table>
-      <Paginate
-        postsPerPage={postsPerPage}
-        totalPosts={totalPosts}
-        paginate={paginate}
-        currentPage={currentPage}
-        rank={rank}
-        firstLast={true}
-        table={true}
-      />
+      <Paginate paginate={paginate} prevNext={true} firstLast={true} />
     </>
   );
 }

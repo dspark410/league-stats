@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getLeaderboardChalltoMaster,
   getLeaderboardDiamondtoIron,
+  setCurrentPage,
+  set_Rank,
 } from "../redux/actions/leaderboardActions";
 import { getInput } from "../redux/actions/inputActions";
 import style from "./leaderboard.module.css";
@@ -14,38 +16,26 @@ import LeaderboardSkeleton from "./LeaderboardSkeleton";
 import { getSummonerInfo } from "../redux/actions/summonerInfoActions";
 
 function Leaderboard({ history }) {
-  const [rank, setRank] = useState("CHALLENGER");
   const [division, setDivision] = useState("I");
   const [mapDivision, setMapDivision] = useState(["I", "II", "III", "IV"]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(25);
 
   const dispatch = useDispatch();
   const {
-    dependency: { version },
     input: {
       summonerInput: { region },
     },
-    leaderboardChalltoMaster,
-    leaderboardDiamondtoIron,
+    leaderboard: { data, rank, page, currentPage, postsPerPage },
   } = useSelector((state) => state);
 
   //pagination info
   const indexOfLastPost = currentPage * postsPerPage;
   const indexofFirstPost = indexOfLastPost - postsPerPage;
-
-  let data =
-    postsPerPage === 25
-      ? leaderboardChalltoMaster.data
-      : leaderboardDiamondtoIron.data;
-
   const currentPosts = data.slice(indexofFirstPost, indexOfLastPost);
 
   // change page
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    dispatch(setCurrentPage("setPage", pageNumber));
     window.scrollTo({
       top: 0,
       left: 0,
@@ -68,15 +58,15 @@ function Leaderboard({ history }) {
 
   // function to get the next page of summoners on the leaderboard pages for Diamond to Iron ranks
   const nextPage = () => {
-    if (leaderboardDiamondtoIron.data.length < 205) {
+    if (data.length < 205) {
       return;
     } else {
-      setPage((prev) => prev + 1);
+      dispatch(setCurrentPage("increment", page));
     }
   };
   // function to get the prev page of summoners on leaderboard pages for Diamond to Iron
   const prevPage = () => {
-    setPage((prev) => prev - 1);
+    dispatch(setCurrentPage("decrement", page));
   };
 
   //show nav bar and render skeleton
@@ -99,12 +89,12 @@ function Leaderboard({ history }) {
         rank === "GRANDMASTER" ||
         rank === "MASTER"
       ) {
-        setPostsPerPage(25);
+        //setPostsPerPage(25);
         setMapDivision(["I"]);
         //changeLeaderBoardChallengertoMaster(rank, region)
         dispatch(getLeaderboardChalltoMaster(region, rank));
       } else {
-        setPostsPerPage(41);
+        //setPostsPerPage(41);
         setMapDivision(["I", "II", "III", "IV"]);
         dispatch(getLeaderboardDiamondtoIron(region, rank, division, page));
         //changeLeaderBoardDiamondToIron(rank, division, page)
@@ -133,9 +123,8 @@ function Leaderboard({ history }) {
         <div className={style.selectContainer}>
           <select
             onChange={(e) => {
-              setRank(e.target.value);
-
-              setPage(1);
+              dispatch(set_Rank(e.target.value));
+              //setPage(1);
             }}
           >
             <option defaultValue value="CHALLENGER">
@@ -153,7 +142,7 @@ function Leaderboard({ history }) {
           <select
             onChange={(e) => {
               setDivision(e.target.value);
-              setPage(1);
+              //setPage(1);
               setCurrentPage(1);
             }}
           >
@@ -168,26 +157,18 @@ function Leaderboard({ history }) {
         rank === "GRANDMASTER" ||
         rank === "MASTER" ? (
           <LeaderboardChallengerToMaster
-            version={version}
             leaderboard={currentPosts}
-            postsPerPage={postsPerPage}
-            totalPosts={leaderboardChalltoMaster.data.length}
             paginate={paginate}
-            currentPage={currentPage}
-            rank={rank}
-            region={region}
             getPlayerName={getPlayerName}
           />
         ) : (
           <LeaderboardDiamondToIron
-            version={version}
             leaderboard={currentPosts}
             postsPerPage={postsPerPage}
-            totalPosts={leaderboardDiamondtoIron.data.length}
+            totalPosts={data.length}
             paginate={paginate}
             currentPage={currentPage}
             rank={rank}
-            region={region}
             getPlayerName={getPlayerName}
             page={page}
             nextPage={nextPage}

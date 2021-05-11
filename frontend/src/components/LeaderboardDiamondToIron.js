@@ -1,22 +1,28 @@
-import React from 'react'
-import style from './leaderboardtable.module.css'
-import Paginate from './Paginate'
-import { AiOutlineInfoCircle } from 'react-icons/ai'
+import React from "react";
+import { useSelector } from "react-redux";
+import style from "./leaderboardtable.module.css";
+import Paginate from "./Paginate";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 function LeaderboardDiamondToIron({
-  version,
   leaderboard,
-  totalPosts,
   postsPerPage,
-  currentPage,
+  totalPosts,
   paginate,
+  currentPage,
   rank,
-  region,
   getPlayerName,
   page,
   nextPage,
   prevPage,
 }) {
+  const {
+    dependency: { version },
+    input: {
+      summonerInput: { region },
+    },
+  } = useSelector((state) => state);
+
   return (
     <>
       <div className={style.sorted}>
@@ -45,7 +51,7 @@ function LeaderboardDiamondToIron({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt='profile icon'
+                    alt="profile icon"
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -74,8 +80,8 @@ function LeaderboardDiamondToIron({
                   </div>
                   <div
                     style={{
-                      minWidth: '25px',
-                      textAlign: 'center',
+                      minWidth: "25px",
+                      textAlign: "center",
                     }}
                   >
                     <div> - </div>
@@ -105,14 +111,14 @@ function LeaderboardDiamondToIron({
         paginate={paginate}
         currentPage={currentPage}
         rank={rank}
+        prevNext={false}
         firstLast={false}
-        table={false}
         nextPage={nextPage}
         prevPage={prevPage}
         page={page}
       />
     </>
-  )
+  );
 }
 
-export default LeaderboardDiamondToIron
+export default LeaderboardDiamondToIron;

@@ -1,112 +1,109 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import style from './paginate.module.css'
+import style from "./paginate.module.css";
 
-function Paginate({
-  postsPerPage,
-  totalPosts,
-  paginate,
-  currentPage,
-  rank,
-  firstLast,
-  table,
-  nextPage,
-  prevPage,
-  page,
-}) {
-  const [begin, setBegin] = useState(0)
-  const [end, setEnd] = useState(10)
+function Paginate({ paginate, prevNext, firstLast, nextPage, prevPage }) {
+  const [begin, setBegin] = useState(0);
+  const [end, setEnd] = useState(10);
 
-  const pageNumbers = []
+  const {
+    leaderboard: { rank, page, currentPage, postsPerPage, totalPosts },
+  } = useSelector((state) => state);
+
+  const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i)
+    pageNumbers.push(i);
   }
 
   useEffect(() => {
-    setBegin(0)
-    setEnd(10)
-    paginate(1)
+    setBegin(0);
+    setEnd(10);
+    paginate(1);
     // eslint-disable-next-line
-  }, [rank])
+  }, [rank]);
 
   const next = () => {
     if (pageNumbers.length > end) {
-      const start = begin
-      setEnd((prev) => prev + 10)
-      setBegin((prev) => prev + 10)
-      paginate(start + 11)
+      const start = begin;
+      setEnd((prev) => prev + 10);
+      setBegin((prev) => prev + 10);
+      paginate(start + 11);
     }
-  }
+  };
 
   const before = () => {
     if (currentPage === 1 || end <= 10) {
-      return
+      return;
     }
     if (pageNumbers.length > begin && begin > 10) {
-      setEnd((prev) => prev - 10)
+      setEnd((prev) => prev - 10);
       if (begin > 10) {
-        const start = begin
-        setBegin((prev) => prev - 10)
+        const start = begin;
+        setBegin((prev) => prev - 10);
 
-        paginate(start - 9)
+        paginate(start - 9);
       }
     } else if (begin <= 10) {
-      setBegin(0)
-      setEnd(10)
-      paginate(1)
+      setBegin(0);
+      setEnd(10);
+      paginate(1);
     }
-  }
+  };
 
   const firstPage = () => {
     if (end <= 10 || currentPage === 1) {
-      return
+      return;
     }
-    setBegin(0)
-    setEnd(10)
-    paginate(1)
-  }
+    setBegin(0);
+    setEnd(10);
+    paginate(1);
+  };
 
   const lastPage = () => {
     if (end < pageNumbers.length) {
-      setEnd(Math.ceil(pageNumbers.length / 10) * 10)
-      setBegin(Math.ceil(pageNumbers.length / 10) * 10 - 10)
-      paginate(Math.ceil(pageNumbers.length / 10) * 10 - 9)
+      setEnd(Math.ceil(pageNumbers.length / 10) * 10);
+      setBegin(Math.ceil(pageNumbers.length / 10) * 10 - 10);
+      paginate(Math.ceil(pageNumbers.length / 10) * 10 - 9);
     }
-  }
+  };
 
   const nextPaginate = () => {
-    nextPage()
-    paginate(1)
-  }
+    nextPage();
+    paginate(1);
+  };
 
   const prevPaginate = () => {
-    prevPage()
-    paginate(1)
-  }
+    prevPage();
+    paginate(1);
+  };
 
   return (
     <div>
       <ul className={style.ul}>
-        {firstLast ? (
+        {prevNext ? (
           <li
             onClick={firstPage}
-            className={begin === 0 ? style.liNone : style.li}>
+            className={begin === 0 ? style.liNone : style.li}
+          >
             &#60;&#60;
           </li>
         ) : null}
-        {table ? (
+        {firstLast ? (
           <li
             onClick={before}
-            className={begin === 0 ? style.liNone : style.li}>
+            className={begin === 0 ? style.liNone : style.li}
+          >
             &#60;
           </li>
         ) : (
           <li
             onClick={page > 1 ? prevPaginate : null}
-            className={page > 1 ? style.li : style.liNone}>
+            className={page > 1 ? style.li : style.liNone}
+          >
             &#60;
           </li>
         )}
@@ -115,41 +112,45 @@ function Paginate({
           <li
             onClick={() => paginate(number)}
             className={`${style.li} ${currentPage === number && style.color} `}
-            key={i}>
+            key={i}
+          >
             {page ? (page === 1 ? number : number + (page - 1) * 5) : number}
           </li>
         ))}
-        {table ? (
+        {firstLast ? (
           <li
             onClick={next}
             className={
               end === Math.ceil(pageNumbers.length / 10) * 10
                 ? style.liNone
                 : style.li
-            }>
+            }
+          >
             &#62;
           </li>
         ) : (
           <li
             onClick={totalPosts < 205 ? null : nextPaginate}
-            className={totalPosts < 205 ? style.liNone : style.li}>
+            className={totalPosts < 205 ? style.liNone : style.li}
+          >
             &#62;
           </li>
         )}
-        {firstLast ? (
+        {prevNext ? (
           <li
             onClick={lastPage}
             className={
               end === Math.ceil(pageNumbers.length / 10) * 10
                 ? style.liNone
                 : style.li
-            }>
+            }
+          >
             &#62;&#62;
           </li>
         ) : null}
       </ul>
     </div>
-  )
+  );
 }
 
-export default Paginate
+export default Paginate;
