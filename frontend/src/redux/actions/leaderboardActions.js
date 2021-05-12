@@ -1,13 +1,15 @@
 /** @format */
 import axios from 'axios'
 import {
-  INCREMENT,
-  DECREMENT,
   GET_LEADERBOARD,
   LEADERBOARD_ERROR,
   LEADERBOARD_LOADING,
   SET_CURRENT_PAGE,
   SET_RANK,
+  SET_POSTS_PER_PAGE,
+  INCREMENT_PAGE,
+  DECREMENT_PAGE,
+  SET_PAGE,
 } from '../constants/leaderboardConstants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
@@ -76,10 +78,28 @@ export const getLeaderboardDiamondtoIron =
 
 export const getCurrentPage = (action, pageNumber) => {
   switch (action) {
-    case 'setPage': {
+    case 'setCurrentPage': {
       return {
         type: SET_CURRENT_PAGE,
         payload: pageNumber,
+      }
+    }
+    case 'setPage': {
+      return {
+        type: SET_PAGE,
+        payload: pageNumber,
+      }
+    }
+    case 'incrementPage': {
+      return {
+        type: INCREMENT_PAGE,
+        payload: pageNumber + 1,
+      }
+    }
+    case 'decrementPage': {
+      return {
+        type: DECREMENT_PAGE,
+        payload: pageNumber - 1,
       }
     }
     default:
@@ -91,5 +111,12 @@ export const getSelectRank = (rank) => {
   return {
     type: SET_RANK,
     payload: rank,
+  }
+}
+
+export const setPostsPerPage = (number) => {
+  return {
+    type: SET_POSTS_PER_PAGE,
+    payload: number,
   }
 }

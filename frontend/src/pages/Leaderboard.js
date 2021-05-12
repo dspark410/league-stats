@@ -1,19 +1,18 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react'
+import style from './leaderboard.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   getLeaderboardChalltoMaster,
   getLeaderboardDiamondtoIron,
   getCurrentPage,
   getSelectRank,
+  setPostsPerPage,
 } from '../redux/actions/leaderboardActions'
 import { getInput } from '../redux/actions/inputActions'
-import style from './leaderboard.module.css'
+import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import LeaderboardChallengerToMaster from '../components/LeaderboardChallengerToMaster'
 import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
 import LeaderboardSkeleton from './LeaderboardSkeleton'
-import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 
 function Leaderboard({ history }) {
   const [division, setDivision] = useState('I')
@@ -35,7 +34,7 @@ function Leaderboard({ history }) {
 
   // change page
   const paginate = (pageNumber) => {
-    dispatch(getCurrentPage('setPage', pageNumber))
+    dispatch(getCurrentPage('setCurrentPage', pageNumber))
     window.scrollTo({
       top: 0,
       left: 0,
@@ -56,22 +55,8 @@ function Leaderboard({ history }) {
     history.push(`/summoner/${region}/${summonerName}`)
   }
 
-  // function to get the next page of summoners on the leaderboard pages for Diamond to Iron ranks
-  const nextPage = () => {
-    if (data.length < 205) {
-      return
-    } else {
-      dispatch(getCurrentPage('increment', page))
-    }
-  }
-  // function to get the prev page of summoners on leaderboard pages for Diamond to Iron
-  const prevPage = () => {
-    dispatch(getCurrentPage('decrement', page))
-  }
-
-  //show nav bar and render skeleton
   useEffect(() => {
-    // Show nav on the welcome screen
+    // Show nav on the leaderboard screen
     setTimeout(() => {
       dispatch(getInput('showNav'))
     }, 50)
@@ -89,12 +74,12 @@ function Leaderboard({ history }) {
         rank === 'GRANDMASTER' ||
         rank === 'MASTER'
       ) {
-        //setPostsPerPage(25);
+        dispatch(setPostsPerPage(25))
         setMapDivision(['I'])
         //changeLeaderBoardChallengertoMaster(rank, region)
         dispatch(getLeaderboardChalltoMaster(region, rank))
       } else {
-        //setPostsPerPage(41);
+        dispatch(setPostsPerPage(41))
         setMapDivision(['I', 'II', 'III', 'IV'])
         dispatch(getLeaderboardDiamondtoIron(region, rank, division, page))
         //changeLeaderBoardDiamondToIron(rank, division, page)
@@ -110,7 +95,6 @@ function Leaderboard({ history }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rank, division, page, region])
-  // if CurrentPage is added to depency, it loads but we don't want skeleTimer
 
   return (
     <>
@@ -123,7 +107,8 @@ function Leaderboard({ history }) {
           <select
             onChange={(e) => {
               dispatch(getSelectRank(e.target.value))
-              //setPage(1);
+              dispatch(getCurrentPage('setPage', 1))
+              dispatch(getCurrentPage('setCurrentPage', 1))
             }}>
             <option defaultValue value='CHALLENGER'>
               Challenger
@@ -140,8 +125,8 @@ function Leaderboard({ history }) {
           <select
             onChange={(e) => {
               setDivision(e.target.value)
-              //setPage(1);
               dispatch(getCurrentPage('setPage', 1))
+              dispatch(getCurrentPage('setCurrentPage', 1))
             }}>
             {mapDivision.map((div, i) => (
               <option key={i} defaultValue={div === 'I'} value={div}>
@@ -161,15 +146,8 @@ function Leaderboard({ history }) {
         ) : (
           <LeaderboardDiamondToIron
             leaderboard={currentPosts}
-            postsPerPage={postsPerPage}
-            totalPosts={data.length}
             paginate={paginate}
-            currentPage={currentPage}
-            rank={rank}
             getPlayerName={getPlayerName}
-            page={page}
-            nextPage={nextPage}
-            prevPage={prevPage}
           />
         )}
       </div>

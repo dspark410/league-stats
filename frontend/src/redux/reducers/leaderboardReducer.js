@@ -1,10 +1,14 @@
 /** @format */
 
 import {
+  DECREMENT_PAGE,
   GET_LEADERBOARD,
+  INCREMENT_PAGE,
   LEADERBOARD_ERROR,
   LEADERBOARD_LOADING,
   SET_CURRENT_PAGE,
+  SET_PAGE,
+  SET_POSTS_PER_PAGE,
   SET_RANK,
 } from '../constants/leaderboardConstants'
 
@@ -37,6 +41,26 @@ export const leaderboardReducer = (state = leaderboardInitial, action) => {
       return {
         ...state,
         currentPage: action.payload,
+      }
+    case SET_PAGE:
+      return {
+        ...state,
+        page: action.payload,
+      }
+    case SET_POSTS_PER_PAGE:
+      return {
+        ...state,
+        postsPerPage: action.payload,
+      }
+    case INCREMENT_PAGE:
+      return {
+        ...state,
+        page: action.payload,
+      }
+    case DECREMENT_PAGE:
+      return {
+        ...state,
+        page: action.payload,
       }
     case SET_RANK:
       return { ...state, rank: action.payload }

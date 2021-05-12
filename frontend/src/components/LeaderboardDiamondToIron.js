@@ -1,27 +1,16 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import style from "./leaderboardtable.module.css";
-import Paginate from "./Paginate";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import React from 'react'
+import style from './leaderboardtable.module.css'
+import { useSelector } from 'react-redux'
+import { AiOutlineInfoCircle } from 'react-icons/ai'
+import Paginate from './Paginate'
 
-function LeaderboardDiamondToIron({
-  leaderboard,
-  postsPerPage,
-  totalPosts,
-  paginate,
-  currentPage,
-  rank,
-  getPlayerName,
-  page,
-  nextPage,
-  prevPage,
-}) {
+function LeaderboardDiamondToIron({ leaderboard, paginate, getPlayerName }) {
   const {
     dependency: { version },
     input: {
       summonerInput: { region },
     },
-  } = useSelector((state) => state);
+  } = useSelector((state) => state)
 
   return (
     <>
@@ -51,7 +40,7 @@ function LeaderboardDiamondToIron({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt="profile icon"
+                    alt='profile icon'
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -62,8 +51,7 @@ function LeaderboardDiamondToIron({
                   name={summoner.summonerName}
                   region={region}
                   icon={summoner.icon}
-                  onClick={getPlayerName}
-                >
+                  onClick={getPlayerName}>
                   {summoner.summonerName}
                 </div>
               </td>
@@ -80,10 +68,9 @@ function LeaderboardDiamondToIron({
                   </div>
                   <div
                     style={{
-                      minWidth: "25px",
-                      textAlign: "center",
-                    }}
-                  >
+                      minWidth: '25px',
+                      textAlign: 'center',
+                    }}>
                     <div> - </div>
                   </div>
                   <div className={style.lossContainer}>
@@ -105,20 +92,9 @@ function LeaderboardDiamondToIron({
           ))}
         </tbody>
       </table>
-      <Paginate
-        postsPerPage={postsPerPage}
-        totalPosts={totalPosts}
-        paginate={paginate}
-        currentPage={currentPage}
-        rank={rank}
-        prevNext={false}
-        firstLast={false}
-        nextPage={nextPage}
-        prevPage={prevPage}
-        page={page}
-      />
+      <Paginate paginate={paginate} prevNext={false} firstLast={false} />
     </>
-  );
+  )
 }
 
-export default LeaderboardDiamondToIron;
+export default LeaderboardDiamondToIron
