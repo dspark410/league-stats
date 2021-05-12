@@ -42,7 +42,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
     history.push(`/summoner/${region}/${summonerName}`)
   }
 
-  return game.playerInfo && summonerInfo ? (
+  return game.playerInfo && summonerInfo && runes && spells ? (
     <div
       className={`${open ? style.historyCardComplex : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
@@ -229,10 +229,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
           </Tooltip>
         </div>
         <div className={style.fifthCol}>
-          <ItemHistory
-            details={game.playerInfo.stats}
-            version={game.gameVersion}
-          />
+          <ItemHistory details={game.playerInfo.stats} />
         </div>
         <IoIosArrowUp className={style.sixthCol} onClick={clickArrow} />
       </div>
