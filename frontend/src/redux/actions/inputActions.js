@@ -1,4 +1,3 @@
-/** @format */
 import {
   ADD_SUMMONER,
   ANIMATE_HIDE,

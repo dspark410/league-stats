@@ -1,5 +1,3 @@
-/** @format */
-
 import { GET_MORE_MATCHES } from '../constants/moreMatchesConstants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''

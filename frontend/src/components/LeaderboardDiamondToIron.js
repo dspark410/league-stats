@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './leaderboardtable.module.css'
+import style from './leaderboard.module.css'
 import { useSelector } from 'react-redux'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 import Paginate from './Paginate'

@@ -1,8 +1,6 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import style from './summonercard.module.css'
+import { useSelector } from 'react-redux'
 
 function SummonerCard({ version }) {
   const [level, setLevel] = useState(0)

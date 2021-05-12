@@ -1,5 +1,3 @@
-/** @format */
-
 import { GET_MORE_MATCHES } from '../constants/moreMatchesConstants'
 
 const moreMatchesInitial = {}

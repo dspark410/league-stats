@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import style from "./championdetail.module.css";
-import Tooltip from "../components/Tooltip";
-import BrandBackground from "../components/images/brand.jpg";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import React, { useState, useEffect } from 'react'
+import style from './championdetail.module.css'
+import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
+import Tooltip from '../components/Tooltip'
+import BrandBackground from '../components/images/brand.jpg'
 
 export default function ChampionDetail({
   version,
@@ -14,11 +14,11 @@ export default function ChampionDetail({
   match,
 }) {
   useEffect(() => {
-    console.log("props", match);
-    return () => {};
-  }, []);
+    console.log('props', match)
+    return () => {}
+  }, [])
 
-  return "CHampion detail";
+  return 'CHampion detail'
   // return champDetail &&
   //   itemObj &&
   //   championDetails &&

@@ -1,4 +1,3 @@
-/** @format */
 import axios from 'axios'
 import {
   DEPENDENCY_ERROR,

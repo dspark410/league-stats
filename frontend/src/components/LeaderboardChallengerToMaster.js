@@ -1,7 +1,5 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react'
-import style from './leaderboardtable.module.css'
+import style from './leaderboard.module.css'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Paginate from './Paginate'

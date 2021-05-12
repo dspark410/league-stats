@@ -1,5 +1,3 @@
-/** @format */
-
 import BrandBackground from '../../components/images/brand.jpg'
 import {
   ADD_SUMMONER,

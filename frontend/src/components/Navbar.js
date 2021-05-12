@@ -1,15 +1,16 @@
-/** @format */
-
 import React, { useEffect, useRef } from 'react'
+import style from './navbar.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import { getInput } from '../redux/actions/inputActions'
 import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
-import style from './navbar.module.css'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import { regions } from '../utils/constant'
-import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
-import { IoSearchCircle } from 'react-icons/io5'
+import {
+  AiOutlineSearch,
+  AiOutlineInfoCircle,
+  IoSearchCircle,
+} from 'react-icons/all'
 
 function Navbar() {
   const currentLocation = useLocation()

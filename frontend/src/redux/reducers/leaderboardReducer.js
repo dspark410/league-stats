@@ -1,5 +1,3 @@
-/** @format */
-
 import {
   DECREMENT_PAGE,
   GET_LEADERBOARD,

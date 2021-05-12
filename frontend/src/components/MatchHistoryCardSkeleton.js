@@ -3,16 +3,14 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import style from './historycardsimpleskeleton.module.css'
 
 function MatchHistoryCardSkeleton() {
-  const matchArr = [1, 2, 3, 4, 5, 6, 7]
   return (
     <div className={style.matchContainer}>
-      {matchArr.map((match, i) => (
+      {Array.from({ length: 7 }).map((_, i) => (
         <SkeletonTheme
           key={i}
           duration={3}
           color=' rgba(59, 43, 68)'
-          highlightColor='rgb(91, 66, 105)'
-        >
+          highlightColor='rgb(91, 66, 105)'>
           <div className={`${style.historyCard}`}>
             <div className={style.firstCol}>
               <Skeleton circle={true} width={75} height={75} />
@@ -49,6 +47,7 @@ function MatchHistoryCardSkeleton() {
           </div>
         </SkeletonTheme>
       ))}
+
       <Skeleton
         style={{ display: 'flex', margin: '0 auto' }}
         height={44}

@@ -1,5 +1,3 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getInput } from '../redux/actions/inputActions'
@@ -16,7 +14,7 @@ import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
 import { MdLiveTv } from 'react-icons/md'
 import NotFound from './NotFound'
 
-export const Welcome = ({ selectChampion }) => {
+const Welcome = ({ selectChampion }) => {
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
   const [loading, setLoading] = useState(true)
@@ -371,3 +369,5 @@ export const Welcome = ({ selectChampion }) => {
     )
   }
 }
+
+export default Welcome

@@ -1,14 +1,15 @@
-/** @format */
-
 import React, { useEffect, useRef } from 'react'
+import style from './home.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import { getInput } from '../redux/actions/inputActions'
 import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
-import style from './home.module.css'
 import { regions } from '../utils/constant'
-import { AiOutlineSearch, AiOutlineInfoCircle } from 'react-icons/ai'
-import { IoSearchCircle } from 'react-icons/io5'
+import {
+  AiOutlineSearch,
+  AiOutlineInfoCircle,
+  IoSearchCircle,
+} from 'react-icons/all'
 
 function Home({ history }) {
   const inputEl = useRef(false)
@@ -87,10 +88,12 @@ function Home({ history }) {
         )
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, data])
 
   useEffect(() => {
     dispatch(getInput('hideNav'))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -1,5 +1,3 @@
-/** @format */
-
 import {
   GET_SUMMONER_INFO,
   SUMMONER_INFO_ERROR,
@@ -9,7 +7,6 @@ import {
 const summonerInfoInitial = {
   summLoading: false,
   data: {
-    // summonerInfo: {},
     mastery: [],
     rank: [],
     live: 'Not In Live Game',

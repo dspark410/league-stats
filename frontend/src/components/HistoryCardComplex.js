@@ -1,14 +1,12 @@
-/** @format */
-
 import React from 'react'
+import style from './historycardcomplex.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import { useHistory } from 'react-router-dom'
-import style from './historycardcomplex.module.css'
-import Tooltip from './Tooltip'
-import ItemHistory from './ItemHistory'
 import { IoIosArrowUp } from 'react-icons/io'
 import { runeDescriptions } from '../utils/constant'
+import Tooltip from './Tooltip'
+import ItemHistory from './ItemHistory'
 
 function HistoryCardComplex({ game, clickArrow, open }) {
   const {

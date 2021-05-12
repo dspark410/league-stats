@@ -1,16 +1,13 @@
-/** @format */
-
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
 import './App.css'
-import Home from './pages/Home'
-import { Welcome } from './pages/Welcome'
-import NotFound from './pages/NotFound'
-import Champions from './pages/Champions'
-import Leaderboard from './pages/Leaderboard'
-import ChampionDetail from './pages/ChampionDetail'
+import { useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import Welcome from './pages/Welcome'
+import Champions from './pages/Champions'
+import ChampionDetail from './pages/ChampionDetail'
+import Leaderboard from './pages/Leaderboard'
 import Footer from './components/Footer'
 
 function App() {
@@ -27,9 +24,9 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/summoner/:region/:summonerName' component={Welcome} />
-          <Route exact path='/leaderboard' component={Leaderboard} />
           {/* <Route exact path="/champions" component={Champions} />
         <Route path="/champions/:champion" component={ChampionDetail} /> */}
+          <Route exact path='/leaderboard' component={Leaderboard} />
           <Redirect to='/' />
         </Switch>
         <Footer />

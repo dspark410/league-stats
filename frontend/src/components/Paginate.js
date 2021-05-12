@@ -1,9 +1,7 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react'
+import style from './paginate.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCurrentPage } from '../redux/actions/leaderboardActions'
-import style from './paginate.module.css'
 
 function Paginate({ paginate, prevNext, firstLast }) {
   const [begin, setBegin] = useState(0)

@@ -1,5 +1,3 @@
-/** @format */
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
@@ -63,20 +61,17 @@
 
 .ReactModal__Overlay {
   opacity: 0;
-  /* transform: translateX(-100px); */
   transition: all 500ms ease-in-out;
   background-color: rgba(124, 107, 131, 0.75) !important;
 }
 
 .ReactModal__Overlay--after-open {
   opacity: 1;
-  /* transform: translateX(0px); */
   background-color: rgba(124, 107, 131, 0.75) !important;
 }
 
 .ReactModal__Overlay--before-close {
   opacity: 0;
-  /* transform: translateX(-100px); */
 }
 
 ::-webkit-scrollbar {
