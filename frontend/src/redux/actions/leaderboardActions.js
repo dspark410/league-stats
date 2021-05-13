@@ -29,11 +29,12 @@ export const getLeaderboardChalltoMaster =
           entry.tier = data.tier.toUpperCase()
           entry.number = i + 1
         })
-
-      dispatch({
-        type: GET_LEADERBOARD,
-        payload: data.entries,
-      })
+      setTimeout(() => {
+        dispatch({
+          type: GET_LEADERBOARD,
+          payload: data.entries,
+        })
+      }, 2000)
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,
@@ -49,7 +50,7 @@ export const getLeaderboardDiamondtoIron =
         type: LEADERBOARD_LOADING,
       })
 
-      const { data } = await axios.get(
+      let { data } = await axios.get(
         `${endpoint}/api/leaderboard/${region}/${rank}/${division}/${page}`
       )
 
@@ -63,10 +64,12 @@ export const getLeaderboardDiamondtoIron =
         data = []
       }
 
-      dispatch({
-        type: GET_LEADERBOARD,
-        payload: data,
-      })
+      setTimeout(() => {
+        dispatch({
+          type: GET_LEADERBOARD,
+          payload: data,
+        })
+      }, 2000)
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,

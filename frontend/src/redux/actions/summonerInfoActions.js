@@ -15,17 +15,19 @@ export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
     const { data } = await axios.get(
       `${endpoint}/getSummonerInfo/${summonerName}/${region}`
     )
-    if (data === 'summoner not found...') {
-      dispatch({
-        type: GET_SUMMONER_INFO,
-        payload: { notFound: 'summoner not found...' },
-      })
-    } else {
-      dispatch({
-        type: GET_SUMMONER_INFO,
-        payload: data,
-      })
-    }
+    setTimeout(() => {
+      if (data === 'summoner not found...') {
+        dispatch({
+          type: GET_SUMMONER_INFO,
+          payload: { notFound: 'summoner not found...' },
+        })
+      } else {
+        dispatch({
+          type: GET_SUMMONER_INFO,
+          payload: data,
+        })
+      }
+    }, 3000)
   } catch (error) {
     dispatch({
       type: SUMMONER_INFO_ERROR,

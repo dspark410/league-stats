@@ -17,7 +17,6 @@ import NotFound from './NotFound'
 const Welcome = ({ selectChampion }) => {
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
-  const [loading, setLoading] = useState(true)
 
   const {
     summoner: {
@@ -47,15 +46,8 @@ const Welcome = ({ selectChampion }) => {
   }, [])
 
   useEffect(() => {
-    setLoading(true)
     setDisplay('overview')
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 3000)
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [dispatch, summLoading])
+  }, [dispatch])
 
   useEffect(() => {
     let time
@@ -86,7 +78,7 @@ const Welcome = ({ selectChampion }) => {
         <div className={style.rowContainer}>
           <div className={style.row1}>
             <div className={style.emblemContainer}>
-              {!loading ? (
+              {!summLoading ? (
                 <div className={style.nameLive}>
                   <SummonerCard version={version} />
                   {live !== 'Not In Live Game' && (
@@ -114,7 +106,7 @@ const Welcome = ({ selectChampion }) => {
                 </div>
               )}
               <div className={style.rankCardContainer}>
-                {!loading ? (
+                {!summLoading ? (
                   <div className={style.rankContainer}>
                     {(rank && !rank.length) ||
                     (rank.length === 1 &&
@@ -242,12 +234,12 @@ const Welcome = ({ selectChampion }) => {
 
           <div className={style.row2}>
             <div className={style.linksContainer}>
-              {!loading ? (
+              {!summLoading ? (
                 <span
                   onClick={() => setDisplay('overview')}
                   to='#'
                   className={
-                    !loading && display === 'overview'
+                    !summLoading && display === 'overview'
                       ? style.underline
                       : style.live
                   }>
@@ -260,12 +252,12 @@ const Welcome = ({ selectChampion }) => {
                   width={74}
                 />
               )}
-              {!loading ? (
+              {!summLoading ? (
                 <span
                   onClick={() => setDisplay('live')}
                   to='/live'
                   className={
-                    !loading && display === 'live'
+                    !summLoading && display === 'live'
                       ? style.underline
                       : style.live
                   }>
@@ -284,7 +276,7 @@ const Welcome = ({ selectChampion }) => {
             {matchHistory &&
             display === 'overview' &&
             matchHistory.length === 0 &&
-            !loading ? (
+            !summLoading ? (
               <>
                 <div className={style.noMatchContainer}>
                   <div className={style.matchHeader}>Match History</div>
@@ -323,14 +315,18 @@ const Welcome = ({ selectChampion }) => {
               <>
                 <div
                   className={
-                    loading && display === 'overview' ? style.row3 : style.none
+                    summLoading && display === 'overview'
+                      ? style.row3
+                      : style.none
                   }>
                   <MatchHistoryCardSkeleton />
                   <MasteryCardSkeleton />
                 </div>
                 <div
                   className={
-                    !loading && display === 'overview' ? style.row3 : style.none
+                    !summLoading && display === 'overview'
+                      ? style.row3
+                      : style.none
                   }>
                   <MatchHistoryCard />
                   <MasteryCard

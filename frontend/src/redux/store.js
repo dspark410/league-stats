@@ -10,16 +10,20 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 const persistConfig = {
-  key: 'root',
+  key: 'summoner',
+  blacklist: ['dependency', 'input', 'getMoreMatches', 'leaderboard'],
 }
 
-const reducers = combineReducers({
-  summoner: persist(persistConfig, summonerInfoReducer),
-  dependency: dependencyReducer,
-  input: inputReducer,
-  getMoreMatches: moreMatchesReducer,
-  leaderboard: leaderboardReducer,
-})
+const reducers = persist(
+  persistConfig,
+  combineReducers({
+    summoner: summonerInfoReducer,
+    dependency: dependencyReducer,
+    input: inputReducer,
+    getMoreMatches: moreMatchesReducer,
+    leaderboard: leaderboardReducer,
+  })
+)
 
 const middleware = [thunk]
 

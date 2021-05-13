@@ -38,7 +38,6 @@ export const inputReducer = (state = inputInitial, action) => {
           region: action.payload.region,
         },
       }
-
     case SHOW_NAV:
       return {
         ...state,
@@ -127,7 +126,6 @@ export const inputReducer = (state = inputInitial, action) => {
         'searchedSummoner',
         JSON.stringify(searchedSummoners)
       )
-
       return {
         ...state,
         prevSearches: searchedSummoners,

@@ -17,14 +17,20 @@ import LeaderboardSkeleton from './LeaderboardSkeleton'
 function Leaderboard({ history }) {
   const [division, setDivision] = useState('I')
   const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
-  const [loading, setLoading] = useState(true)
 
   const dispatch = useDispatch()
   const {
     input: {
       summonerInput: { region },
     },
-    leaderboard: { data, rank, page, currentPage, postsPerPage },
+    leaderboard: {
+      data,
+      rank,
+      page,
+      currentPage,
+      postsPerPage,
+      leaderboardLoading,
+    },
   } = useSelector((state) => state)
 
   //pagination info
@@ -67,7 +73,7 @@ function Leaderboard({ history }) {
   // render skeleton when rank changes on leaderboard
   useEffect(() => {
     let mounted = true
-    setLoading(true)
+
     if (mounted) {
       if (
         rank === 'CHALLENGER' ||
@@ -76,31 +82,24 @@ function Leaderboard({ history }) {
       ) {
         dispatch(setPostsPerPage(25))
         setMapDivision(['I'])
-        //changeLeaderBoardChallengertoMaster(rank, region)
         dispatch(getLeaderboardChalltoMaster(region, rank))
       } else {
         dispatch(setPostsPerPage(41))
         setMapDivision(['I', 'II', 'III', 'IV'])
         dispatch(getLeaderboardDiamondtoIron(region, rank, division, page))
-        //changeLeaderBoardDiamondToIron(rank, division, page)
       }
     }
-    let skeleTimer = setTimeout(() => {
-      setLoading(false)
-    }, 3000)
-
     return () => {
-      clearTimeout(skeleTimer)
       mounted = false
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rank, division, page, region])
+  }, [region, rank, division, page])
 
   return (
     <>
-      <LeaderboardSkeleton loading={loading} />
+      <LeaderboardSkeleton loading={leaderboardLoading} />
       <div
-        style={!loading ? { display: 'block' } : { display: 'none' }}
+        style={!leaderboardLoading ? { display: 'block' } : { display: 'none' }}
         className={style.leaderboardContainer}>
         <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
         <div className={style.selectContainer}>

@@ -32,9 +32,8 @@ export const leaderboardReducer = (state = leaderboardInitial, action) => {
         data: action.payload,
         totalPosts: action.payload.length,
       }
-
     case LEADERBOARD_ERROR:
-      return { ...state, leaderboardLoading: false, error: action.payload }
+      return { ...state, error: action.payload }
     case SET_CURRENT_PAGE:
       return {
         ...state,
