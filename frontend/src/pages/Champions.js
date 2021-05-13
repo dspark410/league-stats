@@ -1,62 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import style from './champions.module.css'
-import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { getInput } from '../redux/actions/inputActions'
+import {
+  getChampion,
+  setChampion,
+  setFade,
+  setRole,
+  setInput,
+} from '../redux/actions/championActions'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { laneChamp } from '../utils/constant'
 import ChampionSkeleton from './ChampionSkeleton'
 import Tooltip from '../components/Tooltip'
 
-function Champions({
-  champInfo,
-  version,
-  selectChampion,
-  showNav,
-  latest,
-  region,
-}) {
-  const [input, setInput] = useState('')
-  const [role, setRole] = useState('all')
-  const [champs, setChamps] = useState([])
-  const [autofill, setAutofill] = useState([])
-  const [freeChamps, setFreeChamps] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [fade, setFade] = useState(true)
+function Champions({ selectChampion }) {
+  const dispatch = useDispatch()
 
-  const url = process.env.REACT_APP_API_ENDPOINT || ''
-  let source = axios.CancelToken.source()
+  const {
+    dependency: { version, champInfo, freeChamps, latestChamp },
+    champion: { championLoading, autofill, role, input },
+  } = useSelector((state) => state)
 
   // Getting free champion rotation, showing navbar
   useEffect(() => {
     //show nav
-    showNav(true)
+    dispatch(getInput('showNav'))
+    dispatch(getChampion(champInfo))
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'auto',
     })
-    let skeleTimer = setTimeout(() => {
-      axios
-        .get(`${url}/api/getChampionRotation/${region}`, {
-          cancelToken: source.token,
-        })
-        .then((res) => {
-          // Store array of numbers for free champion rotation in variable
-          const championRotation = res.data.freeChampionIds
-          // Filter through champInfo to keep only the object for free champions
-          const rotationChamp = champInfo.filter((champ) =>
-            // If chamption rotation matches key of free champs, returns true
-            championRotation.includes(Number(champ.key))
-          )
-          // Save free champs into state
-          setFreeChamps(rotationChamp)
-          setLoading(false)
-        })
-    }, 2500)
-    return () => {
-      clearTimeout(skeleTimer)
-      source.cancel('champion component got unmounted')
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champInfo])
 
@@ -64,10 +40,12 @@ function Champions({
   useEffect(() => {
     switch (role) {
       case 'all':
-        setChamps(champInfo)
+        //dispatch(setFade())
+        dispatch(setChampion(champInfo))
         break
       case 'free':
-        setChamps(freeChamps)
+        //dispatch(setFade())
+        dispatch(setChampion(freeChamps))
         break
       case 'top':
         const topS = laneChamp.Top.s.map((champion) => {
@@ -82,7 +60,7 @@ function Champions({
           return champInfo.filter((champ) => champ.name === champion)[0]
         })
 
-        setChamps(topS.concat(topA).concat(topB))
+        dispatch(setChampion(topS.concat(topA).concat(topB)))
 
         break
       case 'mid':
@@ -98,7 +76,7 @@ function Champions({
           return champInfo.filter((champ) => champ.name === champion)[0]
         })
 
-        setChamps(midS.concat(midA).concat(midB))
+        dispatch(setChampion(midS.concat(midA).concat(midB)))
         break
       case 'adcarry':
         const adcS = laneChamp.Adc.s.map((champion) => {
@@ -113,7 +91,7 @@ function Champions({
           return champInfo.filter((champ) => champ.name === champion)[0]
         })
 
-        setChamps(adcS.concat(adcA).concat(adcB))
+        dispatch(setChampion(adcS.concat(adcA).concat(adcB)))
         break
       case 'support':
         const supportS = laneChamp.Support.s.map((champion) => {
@@ -128,7 +106,7 @@ function Champions({
           return champInfo.filter((champ) => champ.name === champion)[0]
         })
 
-        setChamps(supportS.concat(supportA).concat(supportB))
+        dispatch(setChampion(supportS.concat(supportA).concat(supportB)))
         break
       case 'jungle':
         const jungleS = laneChamp.Jungle.s.map((champion) => {
@@ -143,45 +121,38 @@ function Champions({
           return champInfo.filter((champ) => champ.name === champion)[0]
         })
 
-        setChamps(jungleS.concat(jungleA).concat(jungleB))
+        dispatch(setChampion(jungleS.concat(jungleA).concat(jungleB)))
         break
       default:
-        setChamps(champInfo)
+        dispatch(setChampion(champInfo))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [role, champInfo])
+  }, [role])
 
   //fade animation for seraching champions in the inputbox
-  useEffect(() => {
-    setFade(false)
-    let timer = setTimeout(() => {
-      setFade(true)
-    }, 200)
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [champs, autofill])
+  // useEffect(() => {
+  //   dispatch(setFade())
+  // }, [dispatch, autofill])
 
   // Change Handler for input
   const changeHandler = (event) => {
-    setInput(event.target.value)
-
+    dispatch(setInput(event.target.value))
     // Filters as user types to display only champion with matching string
-    const filtered = champs.filter((champ) =>
+    const filtered = autofill.filter((champ) =>
       champ.name.toLowerCase().includes(event.target.value.toLowerCase())
     )
-    setAutofill(filtered)
+    dispatch(setChampion(filtered))
   }
 
   return (
     <>
-      {Array.isArray(latest) && (
+      {Array.isArray(latestChamp) && (
         <>
           <div className={style.searchContainer}>
             <h1 className={style.championList}>Champion List</h1>
             <div className={style.rolesContainer}>
               <div
-                onClick={() => setRole('all')}
+                onClick={() => dispatch(setRole('all'))}
                 className={
                   role === 'all' ? style.currentRole : style.roleContainer
                 }>
@@ -193,7 +164,7 @@ function Champions({
                 <label className={style.roleLabel}>All</label>
               </div>
               <div
-                onClick={() => setRole('free')}
+                onClick={() => dispatch(setRole('free'))}
                 className={
                   role === 'free' ? style.currentRole : style.roleContainer
                 }>
@@ -205,7 +176,7 @@ function Champions({
                 <label className={style.roleLabel}>Free</label>
               </div>
               <div
-                onClick={() => setRole('top')}
+                onClick={() => dispatch(setRole('top'))}
                 className={
                   role === 'top' ? style.currentRole : style.roleContainer
                 }>
@@ -217,7 +188,7 @@ function Champions({
                 <label className={style.roleLabel}>Top</label>
               </div>
               <div
-                onClick={() => setRole('jungle')}
+                onClick={() => dispatch(setRole('jungle'))}
                 className={
                   role === 'jungle' ? style.currentRole : style.roleContainer
                 }>
@@ -229,7 +200,7 @@ function Champions({
                 <label className={style.roleLabel}>Jungler</label>
               </div>
               <div
-                onClick={() => setRole('mid')}
+                onClick={() => dispatch(setRole('mid'))}
                 className={
                   role === 'mid' ? style.currentRole : style.roleContainer
                 }>
@@ -241,7 +212,7 @@ function Champions({
                 <label className={style.roleLabel}>Mid</label>
               </div>
               <div
-                onClick={() => setRole('adcarry')}
+                onClick={() => dispatch(setRole('adcarry'))}
                 className={
                   role === 'adcarry' ? style.currentRole : style.roleContainer
                 }>
@@ -253,7 +224,7 @@ function Champions({
                 <label className={style.roleLabel}>AD Carry</label>
               </div>
               <div
-                onClick={() => setRole('support')}
+                onClick={() => dispatch(setRole('support'))}
                 className={
                   role === 'support' ? style.currentRole : style.roleContainer
                 }>
@@ -282,39 +253,41 @@ function Champions({
               />
             </div>
           </div>
-          {!loading ? (
+          {!championLoading && autofill ? (
             <>
               <div className={style.screenContainer}>
-                {latest.length === 0 ? null : (
-                  <h2>Latest Champion{latest.length > 1 ? 's' : ''}</h2>
+                {latestChamp.length === 0 ? null : (
+                  <h2>Latest Champion{latestChamp.length > 1 ? 's' : ''}</h2>
                 )}
 
                 <div
                   className={
-                    !loading
+                    !championLoading
                       ? style.latestContainerAnimate
                       : style.latestContainer
                   }>
                   <>
-                    {latest.map((latest, i) => {
+                    {latestChamp.map((latestChamp, i) => {
                       return (
                         <Tooltip
                           key={i}
-                          name={latest.name}
-                          info={latest.title}
-                          moreInfo={latest.blurb}>
+                          name={latestChamp.name}
+                          info={latestChamp.title}
+                          moreInfo={latestChamp.blurb}>
                           <div className={style.latestImage}>
                             <Link to='/champion/:champions'>
                               <img
-                                alt={latest.image.full}
+                                alt={latestChamp.image.full}
                                 onClick={selectChampion}
-                                name={latest.id}
-                                realname={latest.name}
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latest.image.full}`}
+                                name={latestChamp.id}
+                                realname={latestChamp.name}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latestChamp.image.full}`}
                               />
                             </Link>
 
-                            <div className={style.champName}>{latest.name}</div>
+                            <div className={style.champName}>
+                              {latestChamp.name}
+                            </div>
                           </div>
                         </Tooltip>
                       )
@@ -323,69 +296,44 @@ function Champions({
                 </div>
                 <div className={style.imageContainer}>
                   <>
-                    {fade && input === ''
-                      ? champs
-                          .sort(function (a, b) {
-                            if (a.name < b.name) {
-                              return -1
-                            }
-                            if (a.name > b.name) {
-                              return 1
-                            }
-                            return 0
-                          })
-                          .map((champ, i) => (
-                            <Tooltip
-                              key={i}
-                              name={champ.name}
-                              info={champ.title}
-                              moreInfo={champ.blurb}>
-                              <div className={!loading && style.latestImage}>
-                                <Link
-                                  to={`/champions/${champ.id.toLowerCase()}`}>
-                                  <img
-                                    alt={champ.image.full}
-                                    onClick={selectChampion}
-                                    name={champ.id}
-                                    realname={champ.name}
-                                    src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                                  />
-                                </Link>
+                    {autofill
+                      .sort(function (a, b) {
+                        if (a.name < b.name) {
+                          return -1
+                        }
+                        if (a.name > b.name) {
+                          return 1
+                        }
+                        return 0
+                      })
+                      .map((champ, i) => (
+                        <Tooltip
+                          key={i}
+                          name={champ.name}
+                          info={champ.title}
+                          moreInfo={champ.blurb}>
+                          <div
+                            className={!championLoading && style.latestImage}>
+                            <Link to={`/champions/${champ.id.toLowerCase()}`}>
+                              <img
+                                alt={champ.image.full}
+                                onClick={selectChampion}
+                                name={champ.id}
+                                realname={champ.name}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                              />
+                            </Link>
 
-                                <div className={style.champName}>
-                                  {champ.name}
-                                </div>
-                              </div>
-                            </Tooltip>
-                          ))
-                      : autofill.map((champ, i) => (
-                          <Tooltip
-                            key={i}
-                            name={champ.name}
-                            info={champ.title}
-                            moreInfo={champ.blurb}>
-                            <div className={style.latestImage}>
-                              <Link to={`/champions/${champ.id.toLowerCase()}`}>
-                                <img
-                                  alt={champ.image.full}
-                                  onClick={selectChampion}
-                                  name={champ.id}
-                                  realname={champ.name}
-                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                                />
-                              </Link>
-                              <div className={style.champName}>
-                                {champ.name}
-                              </div>
-                            </div>
-                          </Tooltip>
-                        ))}
+                            <div className={style.champName}>{champ.name}</div>
+                          </div>
+                        </Tooltip>
+                      ))}
                   </>
                 </div>
               </div>
             </>
           ) : (
-            <ChampionSkeleton latest={latest} champs={champInfo} />
+            <ChampionSkeleton latest={latestChamp} champs={champInfo} />
           )}
         </>
       )}

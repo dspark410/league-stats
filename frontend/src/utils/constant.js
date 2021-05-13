@@ -36,7 +36,6 @@ export const regions = [
 ]
 
 export const laneChamp = {
-  Latest: ['Viego'],
   Top: {
     s: [
       'Darius',

@@ -3,7 +3,7 @@ import style from './masterycard.module.css'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-function MasteryCard({ version, selectChampion }) {
+function MasteryCard({ version }) {
   const {
     summoner: {
       data: { mastery },
@@ -35,7 +35,7 @@ function MasteryCard({ version, selectChampion }) {
                 <div className={style.champImgContainer}>
                   <Link to={`/champions/${champ.id.toLowerCase()}`}>
                     <img
-                      onClick={selectChampion}
+                      onClick={null}
                       key={i}
                       name={champ.id}
                       className={style.championImage}
@@ -45,10 +45,7 @@ function MasteryCard({ version, selectChampion }) {
                   </Link>
                 </div>
                 <Link to={`/champions/${champ.id.toLowerCase()}`}>
-                  <div
-                    onClick={selectChampion}
-                    name={champ.id}
-                    className={style.name}>
+                  <div onClick={null} name={champ.id} className={style.name}>
                     {champ.id === 'MonkeyKing' ? champ.name : champ.id}
                   </div>
                 </Link>

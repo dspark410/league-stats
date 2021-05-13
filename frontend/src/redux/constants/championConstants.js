@@ -1,0 +1,7 @@
+export const CHAMPION_LOADING = 'CHAMPION_LOADING'
+export const SET_ROLE = 'SET_ROLE'
+export const SET_INPUT = 'SET_INPUT'
+export const GET_CHAMPION = 'GET_CHAMPION'
+export const SET_CHAMPION = 'SET_CHAMPION'
+export const SET_FADE_FALSE = 'SET_FADE_FALSE'
+export const SET_FADE_TRUE = 'SET_FADE_TRUE'

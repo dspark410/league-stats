@@ -14,7 +14,7 @@ import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
 import { MdLiveTv } from 'react-icons/md'
 import NotFound from './NotFound'
 
-const Welcome = ({ selectChampion }) => {
+const Welcome = () => {
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
 
@@ -329,10 +329,7 @@ const Welcome = ({ selectChampion }) => {
                       : style.none
                   }>
                   <MatchHistoryCard />
-                  <MasteryCard
-                    version={version}
-                    // selectChampion={selectChampion}
-                  />
+                  <MasteryCard version={version} />
                 </div>
                 <div
                   className={

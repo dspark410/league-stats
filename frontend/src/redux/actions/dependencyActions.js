@@ -41,6 +41,13 @@ export const getDependency = () => async (dispatch) => {
     const freeChamps = await axios.get(
       `${endpoint}/api/getChampionRotation/NA1`
     )
+    // Store array of numbers for free champion rotation in variable
+    const championRotation = freeChamps.data.freeChampionIds
+    // Filter through champInfo to keep only the object for free champions
+    const rotationChamp = Object.values(champInfo.data.data).filter((champ) =>
+      // If chamption rotation matches key of free champs, returns true
+      championRotation.includes(Number(champ.key))
+    )
 
     const data = {
       version: versionData.data[0],
@@ -50,7 +57,7 @@ export const getDependency = () => async (dispatch) => {
       runes: runes.data,
       champInfo: Object.values(champInfo.data.data),
       latestChamp: latest,
-      freeChamps: freeChamps.data.freeChampionIds,
+      freeChamps: rotationChamp,
     }
 
     dispatch({

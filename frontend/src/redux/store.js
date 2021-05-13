@@ -6,12 +6,19 @@ import { inputReducer } from './reducers/inputReducer'
 import { summonerInfoReducer } from './reducers/summonerInfoReducer'
 import { leaderboardReducer } from './reducers/leaderboardReducer'
 import { moreMatchesReducer } from './reducers/getMoreMatchesReducer'
+import { championReducer } from './reducers/championReducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 const persistConfig = {
   key: 'summoner',
-  blacklist: ['dependency', 'input', 'getMoreMatches', 'leaderboard'],
+  blacklist: [
+    'dependency',
+    'input',
+    'getMoreMatches',
+    'leaderboard',
+    'champion',
+  ],
 }
 
 const reducers = persist(
@@ -22,6 +29,7 @@ const reducers = persist(
     input: inputReducer,
     getMoreMatches: moreMatchesReducer,
     leaderboard: leaderboardReducer,
+    champion: championReducer,
   })
 )
 
