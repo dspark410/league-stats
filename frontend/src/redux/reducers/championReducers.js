@@ -14,6 +14,7 @@ const championInitial = {
   role: 'all',
   input: '',
   autofill: [],
+  champs: [],
 }
 
 export const championReducer = (state = championInitial, action) => {
@@ -28,12 +29,18 @@ export const championReducer = (state = championInitial, action) => {
     case SET_INPUT:
       return {
         ...state,
-        input: action.payload,
+        input: action.payload[0],
+        autofill: action.payload[1],
       }
     case GET_CHAMPION:
-      return { ...state, championLoading: false, autofill: action.payload }
+      return {
+        ...state,
+        championLoading: false,
+        autofill: action.payload,
+        champs: action.payload,
+      }
     case SET_CHAMPION:
-      return { ...state, autofill: action.payload }
+      return { ...state, autofill: action.payload, champs: action.payload }
     case SET_FADE_FALSE:
       return { ...state, fade: false }
     case SET_FADE_TRUE:

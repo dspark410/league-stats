@@ -27,10 +27,10 @@ export const setRole = (role) => async (dispatch) => {
   })
 }
 
-export const setInput = (input) => async (dispatch) => {
+export const setInput = (input, filteredChamp) => async (dispatch) => {
   dispatch({
     type: SET_INPUT,
-    payload: input,
+    payload: [input, filteredChamp],
   })
 }
 

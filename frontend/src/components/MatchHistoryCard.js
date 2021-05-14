@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import style from './matchhistorycard.module.css'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { getMoreMatches } from '../redux/actions/summonerInfoActions'
 import { CgSmileSad } from 'react-icons/cg'
 import HistoryCard from './HistoryCard'
 import MatchesLoader from './MatchesLoader'
 
 function MatchHistoryCard() {
-  const [gameDetails, setGameDetails] = useState([])
-  const [matchesLoader, setMatchesLoader] = useState(false)
-  const [allMatchesReady, setAllMatchesReady] = useState(true)
+  const dispatch = useDispatch()
+  const refreshPage = () => window.location.reload()
 
   const {
     summoner: {
+      matchesLoader,
       data: {
         summonerInfo,
         matchHistory,
@@ -20,33 +20,13 @@ function MatchHistoryCard() {
         rgn,
       },
     },
-    dependency: { version },
   } = useSelector((state) => state)
 
-  const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
-  let source = axios.CancelToken.source()
-
-  //let moreMatchesMounted = useRef();
-
-  const refreshPage = () => window.location.reload()
-
-  const getMoreMatches = () => {
-    // setMatchesLoader(true);
-    // const matchesQuery = matches
-    //   .slice(gameDetails.length, gameDetails.length + 5)
-    //   .map((match) => match.gameId);
-    // axios
-    //   .get(
-    //     `${endpoint}/getMoreMatches/[${matchesQuery}]/${JSON.stringify(
-    //       summInfo.summonerInfo
-    //     )}/${region}`
-    //   )
-    //   .then((res) => {
-    //     setTimeout(() => {
-    //       setGameDetails((prev) => prev.concat(res.data));
-    //       setMatchesLoader(false);
-    //     }, 2000);
-    //   });
+  const getMoreMatchesBtn = () => {
+    const matchesQuery = matches
+      .slice(matchHistory.length, matchHistory.length + 5)
+      .map((match) => match.gameId)
+    dispatch(getMoreMatches(matchesQuery, summonerInfo, rgn))
   }
 
   return (
@@ -65,7 +45,7 @@ function MatchHistoryCard() {
               ) : (
                 <div className={style.failedMatchContainer}>
                   <div className={style.failedMatch}>
-                    Failed To Load Match History{' '}
+                    Failed To Load Match History
                     <CgSmileSad className={style.sad} />
                   </div>
                   <button className={style.retry} onClick={refreshPage}>
@@ -77,22 +57,21 @@ function MatchHistoryCard() {
           </div>
         )}
 
-        {/* {gameDetails.length <= summInfo.matchList.matches.length &&
-          allMatchesReady && (
-            <div onClick={!matchesLoader ? getMoreMatches : null}>
-              {gameDetails.length >= summInfo.matchList.matches.length ? (
-                <button disabled className={style.none}>
-                  More Matches Unavailable
-                </button>
-              ) : (
-                <button
-                  disabled={matchesLoader}
-                  className={style.moreMatchesContainer}>
-                  More Matches {matchesLoader && <MatchesLoader />}
-                </button>
-              )}
-            </div>
-          )} */}
+        {matchHistory.length <= matches.length && (
+          <div onClick={!matchesLoader ? getMoreMatchesBtn : null}>
+            {matchHistory.length >= matches.length ? (
+              <button disabled className={style.none}>
+                More Matches Unavailable
+              </button>
+            ) : (
+              <button
+                disabled={matchesLoader}
+                className={style.moreMatchesContainer}>
+                More Matches {matchesLoader && <MatchesLoader />}
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

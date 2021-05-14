@@ -19,8 +19,17 @@ function Champions({ selectChampion }) {
 
   const {
     dependency: { version, champInfo, freeChamps, latestChamp },
-    champion: { championLoading, autofill, role, input, fade },
+    champion: { championLoading, autofill, champs, role, input, fade },
   } = useSelector((state) => state)
+
+  // Change Handler for input
+  const changeHandler = (event) => {
+    // Filters as user types to display only champion with matching string
+    const filtered = champs.filter((champ) =>
+      champ.name.toLowerCase().includes(event.target.value.toLowerCase())
+    )
+    dispatch(setInput(event.target.value, filtered))
+  }
 
   useEffect(() => {
     dispatch(getInput('showNav'))
@@ -38,9 +47,11 @@ function Champions({ selectChampion }) {
     switch (role) {
       case 'all':
         dispatch(setChampion(champInfo))
+        dispatch(setInput('', champInfo))
         break
       case 'free':
         dispatch(setChampion(freeChamps))
+        dispatch(setInput('', champInfo))
         break
       case 'top':
         const topS = laneChamp.Top.s.map((champion) => {
@@ -56,7 +67,7 @@ function Champions({ selectChampion }) {
         })
 
         dispatch(setChampion(topS.concat(topA).concat(topB)))
-
+        dispatch(setInput('', champInfo))
         break
       case 'mid':
         const midS = laneChamp.Mid.s.map((champion) => {
@@ -72,6 +83,7 @@ function Champions({ selectChampion }) {
         })
 
         dispatch(setChampion(midS.concat(midA).concat(midB)))
+        dispatch(setInput('', champInfo))
         break
       case 'adcarry':
         const adcS = laneChamp.Adc.s.map((champion) => {
@@ -87,6 +99,7 @@ function Champions({ selectChampion }) {
         })
 
         dispatch(setChampion(adcS.concat(adcA).concat(adcB)))
+        dispatch(setInput('', champInfo))
         break
       case 'support':
         const supportS = laneChamp.Support.s.map((champion) => {
@@ -102,6 +115,7 @@ function Champions({ selectChampion }) {
         })
 
         dispatch(setChampion(supportS.concat(supportA).concat(supportB)))
+        dispatch(setInput('', champInfo))
         break
       case 'jungle':
         const jungleS = laneChamp.Jungle.s.map((champion) => {
@@ -117,6 +131,7 @@ function Champions({ selectChampion }) {
         })
 
         dispatch(setChampion(jungleS.concat(jungleA).concat(jungleB)))
+        dispatch(setInput('', champInfo))
         break
       default:
         dispatch(setChampion(champInfo))
@@ -124,19 +139,9 @@ function Champions({ selectChampion }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role])
 
-  // Change Handler for input
-  const changeHandler = (event) => {
-    dispatch(setInput(event.target.value))
-    // Filters as user types to display only champion with matching string
-    const filtered = autofill.filter((champ) =>
-      champ.name.toLowerCase().includes(event.target.value.toLowerCase())
-    )
-    dispatch(setChampion(filtered))
-  }
-
   return (
     <>
-      {Array.isArray(latestChamp) && (
+      {latestChamp && (
         <>
           <div className={style.searchContainer}>
             <h1 className={style.championList}>Champion List</h1>

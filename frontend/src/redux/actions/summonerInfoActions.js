@@ -3,6 +3,9 @@ import {
   GET_SUMMONER_INFO,
   SUMMONER_INFO_ERROR,
   SUMMONER_INFO_LOADING,
+  GET_MORE_MATCHES,
+  MATCHES_LOADING,
+  MATCHES_ERROR,
 } from '../constants/summonerInfoConstants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
@@ -35,3 +38,28 @@ export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
     })
   }
 }
+
+export const getMoreMatches =
+  (gameIds, summonerInfo, region) => async (dispatch) => {
+    try {
+      dispatch({
+        type: MATCHES_LOADING,
+      })
+      const { data } = await axios.get(
+        `${endpoint}/getMoreMatches/[${gameIds}]/${JSON.stringify(
+          summonerInfo
+        )}/${region}`
+      )
+      setTimeout(() => {
+        dispatch({
+          type: GET_MORE_MATCHES,
+          payload: data,
+        })
+      }, 2000)
+    } catch (error) {
+      dispatch({
+        type: MATCHES_ERROR,
+        payload: error.message,
+      })
+    }
+  }

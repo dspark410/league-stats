@@ -15,6 +15,58 @@
   font-size: 32px;
 }
 
+.skeletonContainer {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  justify-content: initial;
+  align-items: center;
+  background-color: #7a6b83;
+  border-radius: 8px;
+  margin: 7px 0;
+  padding: 5px;
+  max-height: 122px;
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.moreMatchesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border: none;
+  outline: none;
+  background-color: #7a6b83;
+  color: #e1e1e1;
+  padding: 10px 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  animation: fadeIn ease 1.5s;
+}
+
+.none {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  color: #e7cbcb;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background-color: #7a6b83;
+}
+
+.none:hover {
+  cursor: no-drop;
+}
+
 .moreMatchesContainer:hover {
   background-color: #836894;
   cursor: pointer;
