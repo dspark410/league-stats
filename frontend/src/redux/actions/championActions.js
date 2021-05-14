@@ -47,17 +47,5 @@ export const setChampion = (champInfo) => async (dispatch) => {
     dispatch({
       type: SET_FADE_TRUE,
     })
-  }, 200)
-}
-
-export const setFade = () => async (dispatch) => {
-  dispatch({
-    type: SET_FADE_FALSE,
-  })
-
-  setTimeout(() => {
-    dispatch({
-      type: SET_FADE_TRUE,
-    })
-  }, 2000)
+  }, 50)
 }

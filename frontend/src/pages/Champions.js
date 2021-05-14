@@ -5,7 +5,6 @@ import { getInput } from '../redux/actions/inputActions'
 import {
   getChampion,
   setChampion,
-  setFade,
   setRole,
   setInput,
 } from '../redux/actions/championActions'
@@ -20,12 +19,10 @@ function Champions({ selectChampion }) {
 
   const {
     dependency: { version, champInfo, freeChamps, latestChamp },
-    champion: { championLoading, autofill, role, input },
+    champion: { championLoading, autofill, role, input, fade },
   } = useSelector((state) => state)
 
-  // Getting free champion rotation, showing navbar
   useEffect(() => {
-    //show nav
     dispatch(getInput('showNav'))
     dispatch(getChampion(champInfo))
     window.scrollTo({
@@ -40,11 +37,9 @@ function Champions({ selectChampion }) {
   useEffect(() => {
     switch (role) {
       case 'all':
-        //dispatch(setFade())
         dispatch(setChampion(champInfo))
         break
       case 'free':
-        //dispatch(setFade())
         dispatch(setChampion(freeChamps))
         break
       case 'top':
@@ -128,11 +123,6 @@ function Champions({ selectChampion }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [role])
-
-  //fade animation for seraching champions in the inputbox
-  // useEffect(() => {
-  //   dispatch(setFade())
-  // }, [dispatch, autofill])
 
   // Change Handler for input
   const changeHandler = (event) => {
@@ -296,38 +286,41 @@ function Champions({ selectChampion }) {
                 </div>
                 <div className={style.imageContainer}>
                   <>
-                    {autofill
-                      .sort(function (a, b) {
-                        if (a.name < b.name) {
-                          return -1
-                        }
-                        if (a.name > b.name) {
-                          return 1
-                        }
-                        return 0
-                      })
-                      .map((champ, i) => (
-                        <Tooltip
-                          key={i}
-                          name={champ.name}
-                          info={champ.title}
-                          moreInfo={champ.blurb}>
-                          <div
-                            className={!championLoading && style.latestImage}>
-                            <Link to={`/champions/${champ.id.toLowerCase()}`}>
-                              <img
-                                alt={champ.image.full}
-                                onClick={selectChampion}
-                                name={champ.id}
-                                realname={champ.name}
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                              />
-                            </Link>
+                    {fade &&
+                      autofill
+                        .sort(function (a, b) {
+                          if (a.name < b.name) {
+                            return -1
+                          }
+                          if (a.name > b.name) {
+                            return 1
+                          }
+                          return 0
+                        })
+                        .map((champ, i) => (
+                          <Tooltip
+                            key={i}
+                            name={champ.name}
+                            info={champ.title}
+                            moreInfo={champ.blurb}>
+                            <div
+                              className={!championLoading && style.latestImage}>
+                              <Link to={`/champions/${champ.id.toLowerCase()}`}>
+                                <img
+                                  alt={champ.image.full}
+                                  onClick={selectChampion}
+                                  name={champ.id}
+                                  realname={champ.name}
+                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                                />
+                              </Link>
 
-                            <div className={style.champName}>{champ.name}</div>
-                          </div>
-                        </Tooltip>
-                      ))}
+                              <div className={style.champName}>
+                                {champ.name}
+                              </div>
+                            </div>
+                          </Tooltip>
+                        ))}
                   </>
                 </div>
               </div>
