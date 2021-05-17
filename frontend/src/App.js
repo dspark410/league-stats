@@ -25,7 +25,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route path='/summoner/:region/:summonerName' component={Welcome} />
           <Route exact path='/champions' component={Champions} />
-          {/* <Route path="/champions/:champion" component={ChampionDetail} /> */}
+          <Route path='/champions/:champion' component={ChampionDetail} />
           <Route exact path='/leaderboard' component={Leaderboard} />
           <Redirect to='/' />
         </Switch>

@@ -83,6 +83,7 @@ app.get(
     const summonerRes = JSON.parse(req.params.summonerInfo);
     const gameIds = JSON.parse(req.params.gameIds);
     const region = req.params.region;
+    console.log('gameIds', gameIds, 'summonerRes', summonerRes, 'region', region)
     try {
       getMoreMatches(
         gameIds,

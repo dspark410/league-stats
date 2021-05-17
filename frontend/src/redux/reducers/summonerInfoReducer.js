@@ -41,7 +41,7 @@ export const summonerInfoReducer = (state = summonerInfoInitial, action) => {
         matchesLoader: false,
       }
     case MATCHES_ERROR:
-      return { ...state, error: action.payload }
+      return { ...state, error: action.payload, matchesLoader: false }
     default:
       return state
   }

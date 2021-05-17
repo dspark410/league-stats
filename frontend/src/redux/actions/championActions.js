@@ -1,3 +1,4 @@
+import axios from 'axios'
 import {
   CHAMPION_LOADING,
   SET_ROLE,
@@ -6,6 +7,13 @@ import {
   SET_CHAMPION,
   SET_FADE_FALSE,
   SET_FADE_TRUE,
+  SELECT_CHAMPION,
+  SELECT_CHAMPION_ERROR,
+  SELECT_VIDEO,
+  VIDEO_LOADING,
+  SKIN_FADE,
+  PREV_SKIN,
+  NEXT_SKIN,
 } from '../constants/championConstants'
 
 export const getChampion = (champInfo) => async (dispatch) => {
@@ -49,3 +57,56 @@ export const setChampion = (champInfo) => async (dispatch) => {
     })
   }, 50)
 }
+
+export const selectChampion = (version, champ) => async (dispatch) => {
+  try {
+    const {
+      data: { data },
+    } = await axios.get(
+      `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion/${champ}.json`
+    )
+    dispatch({
+      type: SELECT_CHAMPION,
+      payload: data[champ],
+    })
+  } catch (error) {
+    dispatch({
+      type: SELECT_CHAMPION_ERROR,
+      payload: error.message,
+    })
+  }
+}
+
+export const setVideo = (key) => async (dispatch) => {
+  dispatch({
+    type: VIDEO_LOADING,
+  })
+
+  setTimeout(() => {
+    dispatch({
+      type: SELECT_VIDEO,
+      payload: key,
+    })
+  }, 100)
+}
+
+export const changeSkin =
+  (action, currentSkin, skinLength) => async (dispatch) => {
+    dispatch({
+      type: SKIN_FADE,
+    })
+
+    setTimeout(() => {
+      if (action === 'prev') {
+        dispatch({
+          type: PREV_SKIN,
+          payload: currentSkin === 0 ? skinLength - 1 : currentSkin - 1,
+        })
+      } else {
+        dispatch({
+          type: NEXT_SKIN,
+          payload: currentSkin === skinLength - 1 ? 0 : currentSkin + 1,
+        })
+      }
+    }, 200)
+  }

@@ -7,6 +7,7 @@ import {
   setChampion,
   setRole,
   setInput,
+  selectChampion,
 } from '../redux/actions/championActions'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
@@ -14,7 +15,7 @@ import { laneChamp } from '../utils/constant'
 import ChampionSkeleton from './ChampionSkeleton'
 import Tooltip from '../components/Tooltip'
 
-function Champions({ selectChampion }) {
+function Champions() {
   const dispatch = useDispatch()
 
   const {
@@ -29,6 +30,11 @@ function Champions({ selectChampion }) {
       champ.name.toLowerCase().includes(event.target.value.toLowerCase())
     )
     dispatch(setInput(event.target.value, filtered))
+  }
+
+  const clickHandler = (event) => {
+    const getChamp = event.target.getAttribute('name')
+    dispatch(selectChampion(version, getChamp))
   }
 
   useEffect(() => {
@@ -273,7 +279,7 @@ function Champions({ selectChampion }) {
                             <Link to='/champion/:champions'>
                               <img
                                 alt={latestChamp.image.full}
-                                onClick={selectChampion}
+                                onClick={clickHandler}
                                 name={latestChamp.id}
                                 realname={latestChamp.name}
                                 src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latestChamp.image.full}`}
@@ -313,7 +319,7 @@ function Champions({ selectChampion }) {
                               <Link to={`/champions/${champ.id.toLowerCase()}`}>
                                 <img
                                   alt={champ.image.full}
-                                  onClick={selectChampion}
+                                  onClick={clickHandler}
                                   name={champ.id}
                                   realname={champ.name}
                                   src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
