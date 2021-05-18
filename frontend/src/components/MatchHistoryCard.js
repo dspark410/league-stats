@@ -40,19 +40,19 @@ function MatchHistoryCard() {
           <div className={style.noMatchContainer}>
             <div className={style.matchHeader}>Match History</div>
             <div className={style.noMatches}>
-              {matchHistory.length === 0 ? (
-                'No Matches Were Found.'
-              ) : (
-                <div className={style.failedMatchContainer}>
-                  <div className={style.failedMatch}>
-                    Failed To Load Match History
-                    <CgSmileSad className={style.sad} />
-                  </div>
-                  <button className={style.retry} onClick={refreshPage}>
-                    Retry
-                  </button>
-                </div>
-              )}
+              {matchHistory.length === 0
+                ? 'No Matches Were Found.'
+                : matchHistory.includes(null) && (
+                    <div className={style.failedMatchContainer}>
+                      <div className={style.failedMatch}>
+                        Failed To Load Match History
+                        <CgSmileSad className={style.sad} />
+                      </div>
+                      <button className={style.retry} onClick={refreshPage}>
+                        Retry
+                      </button>
+                    </div>
+                  )}
             </div>
           </div>
         )}

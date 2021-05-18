@@ -14,6 +14,7 @@ import {
   SKIN_FADE,
   PREV_SKIN,
   NEXT_SKIN,
+  RESET_SKIN,
 } from '../constants/championConstants'
 
 export const getChampion = (champInfo) => async (dispatch) => {
@@ -102,10 +103,15 @@ export const changeSkin =
           type: PREV_SKIN,
           payload: currentSkin === 0 ? skinLength - 1 : currentSkin - 1,
         })
-      } else {
+      } else if (action === 'next') {
         dispatch({
           type: NEXT_SKIN,
           payload: currentSkin === skinLength - 1 ? 0 : currentSkin + 1,
+        })
+      } else {
+        dispatch({
+          type: RESET_SKIN,
+          payload: 0,
         })
       }
     }, 200)

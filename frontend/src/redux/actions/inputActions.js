@@ -41,6 +41,7 @@ export const getInput = (input, summoner, region, icon) => {
     case 'champBackground': {
       return {
         type: CHAMP_BACKGROUND,
+        payload: summoner,
       }
     }
     case 'show':

@@ -254,7 +254,7 @@ function Champions() {
               />
             </div>
           </div>
-          {!championLoading && autofill ? (
+          {!championLoading ? (
             <>
               <div className={style.screenContainer}>
                 {latestChamp.length === 0 ? null : (
@@ -276,7 +276,7 @@ function Champions() {
                           info={latestChamp.title}
                           moreInfo={latestChamp.blurb}>
                           <div className={style.latestImage}>
-                            <Link to='/champion/:champions'>
+                            <Link to='/champions/:champions'>
                               <img
                                 alt={latestChamp.image.full}
                                 onClick={clickHandler}

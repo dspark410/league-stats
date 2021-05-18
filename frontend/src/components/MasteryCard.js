@@ -1,6 +1,7 @@
 import React from 'react'
 import style from './masterycard.module.css'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectChampion } from '../redux/actions/championActions'
 import { Link } from 'react-router-dom'
 
 function MasteryCard({ version }) {
@@ -9,6 +10,13 @@ function MasteryCard({ version }) {
       data: { mastery },
     },
   } = useSelector((state) => state)
+
+  const dispatch = useDispatch()
+
+  const clickHandler = (event) => {
+    const getChamp = event.target.getAttribute('name')
+    dispatch(selectChampion(version, getChamp))
+  }
 
   return version ? (
     <div className={style.masteryCard}>
@@ -35,7 +43,7 @@ function MasteryCard({ version }) {
                 <div className={style.champImgContainer}>
                   <Link to={`/champions/${champ.id.toLowerCase()}`}>
                     <img
-                      onClick={null}
+                      onClick={clickHandler}
                       key={i}
                       name={champ.id}
                       className={style.championImage}
@@ -45,7 +53,10 @@ function MasteryCard({ version }) {
                   </Link>
                 </div>
                 <Link to={`/champions/${champ.id.toLowerCase()}`}>
-                  <div onClick={null} name={champ.id} className={style.name}>
+                  <div
+                    onClick={clickHandler}
+                    name={champ.id}
+                    className={style.name}>
                     {champ.id === 'MonkeyKing' ? champ.name : champ.id}
                   </div>
                 </Link>

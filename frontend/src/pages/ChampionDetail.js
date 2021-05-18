@@ -5,7 +5,6 @@ import { setVideo, changeSkin } from '../redux/actions/championActions'
 import style from './championdetail.module.css'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 import Tooltip from '../components/Tooltip'
-import BrandBackground from '../components/images/brand.jpg'
 
 export default function ChampionDetail({
   // changeBackground,
@@ -39,19 +38,15 @@ export default function ChampionDetail({
   }
 
   const selectVideo = (e) => {
-    // setLoading(true)
     const key = e.target.getAttribute('value')
     dispatch(setVideo(key))
-    // setVideo(key)
-    // setTimeout(() => {
-    //   setLoading(false)
-    // }, 100)
   }
 
   // onClick, increases skin + 1
   const nextSkin = () => {
     dispatch(changeSkin('next', currentSkin, selectedChampion.skins.length))
   }
+
   // onClick, increases skin - 1
   const prevSkin = () => {
     dispatch(changeSkin('prev', currentSkin, selectedChampion.skins.length))
@@ -59,10 +54,26 @@ export default function ChampionDetail({
 
   useEffect(() => {
     dispatch(getInput('showNav'))
+
+    window.scrollTo({
+      top: 0,
+    })
+
+    if (selectedChampion.skins) {
+      dispatch(
+        getInput(
+          'champBackground',
+          `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${selectedChampion.id}_${selectedChampion.skins[currentSkin].num}.jpg`
+        )
+      )
+    }
     console.log('props', match)
-    return () => {}
+    return () => {
+      dispatch(getInput('brandBackground'))
+      dispatch(changeSkin('reset'))
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [dispatch, selectedChampion.skins])
 
   return selectedChampion.key && backupItem ? (
     <div className={style.fadeContainer}>
@@ -109,7 +120,7 @@ export default function ChampionDetail({
           <div className={style.row1}>
             <h2>Ally Tips</h2>
             {selectedChampion.allytips.length === 0 ? (
-              <div>No ally tips were provided by the RIOT API.</div>
+              <div>No ally tips were provided by the Riot API.</div>
             ) : (
               selectedChampion.allytips.map((tip, i) => (
                 <span key={i}>{tip}&nbsp;</span>
@@ -120,7 +131,7 @@ export default function ChampionDetail({
           <div className={style.row2}>
             <h2>Enemy Tips</h2>
             {selectedChampion.enemytips.length === 0 ? (
-              <div>No enemy tips were provided by the RIOT API.</div>
+              <div>No enemy tips were provided by the Riot API.</div>
             ) : (
               selectedChampion.enemytips.map((tip, i) => (
                 <span key={i}>{tip}&nbsp;</span>
@@ -135,7 +146,7 @@ export default function ChampionDetail({
           <div className={style.recBuild}>RECOMMENDED ITEM BUILD</div>
           {selectedChampion.recommended.length === 0 ? (
             <div className={style.noBuild}>
-              No builds were provided by the RIOT API.
+              No builds were provided by the Riot API.
             </div>
           ) : (
             selectedChampion.recommended.map((build, i) => {
