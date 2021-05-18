@@ -328,8 +328,8 @@ const Welcome = () => {
                       ? style.row3
                       : style.none
                   }>
-                  <MatchHistoryCard />
-                  <MasteryCard version={version} />
+                  {!summLoading && <MatchHistoryCard />}
+                  {!summLoading && <MasteryCard version={version} />}
                 </div>
                 <div
                   className={

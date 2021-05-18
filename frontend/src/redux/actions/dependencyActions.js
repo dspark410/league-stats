@@ -56,6 +56,7 @@ export const getDependency = () => async (dispatch) => {
       spells: Object.values(spells.data.data),
       runes: runes.data,
       champInfo: Object.values(champInfo.data.data),
+      champMap: champInfo.data.data,
       latestChamp: latest,
       freeChamps: rotationChamp,
     }

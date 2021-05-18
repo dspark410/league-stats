@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getInput } from '../redux/actions/inputActions'
-import { setVideo, changeSkin } from '../redux/actions/championActions'
+import {
+  setVideo,
+  changeSkin,
+  selectChampion,
+} from '../redux/actions/championActions'
 import style from './championdetail.module.css'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 import Tooltip from '../components/Tooltip'
@@ -13,7 +17,7 @@ export default function ChampionDetail({
 }) {
   const dispatch = useDispatch()
   const {
-    dependency: { version, backupItem },
+    dependency: { version, backupItem, champMap },
     champion: {
       selectedChampion,
       videoKey,
@@ -55,6 +59,18 @@ export default function ChampionDetail({
   useEffect(() => {
     dispatch(getInput('showNav'))
 
+    if (version) {
+      let champName
+      new Promise((resolve) => {
+        for (let key in champMap) {
+          if (key.toLowerCase() === match.params.champion) {
+            champName = key
+          }
+        }
+        resolve()
+      }).then(() => dispatch(selectChampion(version, champName)))
+    }
+
     window.scrollTo({
       top: 0,
     })
@@ -67,13 +83,13 @@ export default function ChampionDetail({
         )
       )
     }
-    console.log('props', match)
+
     return () => {
       dispatch(getInput('brandBackground'))
       dispatch(changeSkin('reset'))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, selectedChampion.skins])
+  }, [dispatch, selectedChampion.skins, version])
 
   return selectedChampion.key && backupItem ? (
     <div className={style.fadeContainer}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import style from './welcome.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getInput } from '../redux/actions/inputActions'
@@ -7,11 +7,10 @@ import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
 import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
 
 export default function NotFound() {
-  const [loading, setLoading] = useState(true)
-
   const {
     summoner: {
       data: { notFound },
+      summLoading,
     },
   } = useSelector((state) => state)
 
@@ -21,18 +20,10 @@ export default function NotFound() {
     setTimeout(() => {
       dispatch(getInput('showNav'))
     }, 50)
-
-    let timer = setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-
-    return () => {
-      clearTimeout(timer)
-    }
     // eslint-disable-next-line
-  }, [])
+  }, [dispatch])
 
-  return loading ? (
+  return summLoading ? (
     <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.rowContainer}>
         <div className={style.row1}>

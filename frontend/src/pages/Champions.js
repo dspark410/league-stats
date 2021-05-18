@@ -38,6 +38,7 @@ function Champions() {
   }
 
   useEffect(() => {
+    console.log('running')
     dispatch(getInput('showNav'))
     dispatch(getChampion(champInfo))
     window.scrollTo({
@@ -46,7 +47,7 @@ function Champions() {
       behavior: 'auto',
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [champInfo])
+  }, [champInfo, dispatch])
 
   // filtering onClick by role
   useEffect(() => {
@@ -254,7 +255,7 @@ function Champions() {
               />
             </div>
           </div>
-          {!championLoading ? (
+          {!championLoading && champInfo && version && autofill ? (
             <>
               <div className={style.screenContainer}>
                 {latestChamp.length === 0 ? null : (
@@ -298,6 +299,7 @@ function Champions() {
                 <div className={style.imageContainer}>
                   <>
                     {fade &&
+                      autofill &&
                       autofill
                         .sort(function (a, b) {
                           if (a.name < b.name) {
@@ -337,7 +339,10 @@ function Champions() {
               </div>
             </>
           ) : (
-            <ChampionSkeleton latest={latestChamp} champs={champInfo} />
+            latestChamp &&
+            champInfo && (
+              <ChampionSkeleton latest={latestChamp} champs={champInfo} />
+            )
           )}
         </>
       )}

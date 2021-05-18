@@ -79,7 +79,9 @@ function Navbar() {
   }
 
   useEffect(() => {
-    dispatch(getDependency())
+    if (!version) {
+      dispatch(getDependency())
+    }
 
     if (data.summonerInfo) {
       dispatch(
