@@ -1,17 +1,17 @@
-/** @format */
-
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import style from './historycard.module.css'
+import { useSelector } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import HistoryCardComplex from './HistoryCardComplex'
 import HistoryCardSimple from './HistoryCardSimple'
-import { CSSTransition } from 'react-transition-group'
 
-function HistoryCard({ game, spells, runes, getPlayerName }) {
+function HistoryCard({ game }) {
   const [open, setOpen] = useState(false)
 
   const {
-    summoner: { live },
+    summoner: {
+      data: { live },
+    },
   } = useSelector((state) => state)
 
   useEffect(() => {
@@ -37,14 +37,7 @@ function HistoryCard({ game, spells, runes, getPlayerName }) {
       <div className={`${style.fadeIn}`}>
         <HistoryCardSimple open={open} game={game} clickArrow={clickArrow} />
 
-        <HistoryCardComplex
-          open={open}
-          game={game}
-          spells={spells}
-          runes={runes}
-          getPlayerName={getPlayerName}
-          clickArrow={clickArrow}
-        />
+        <HistoryCardComplex open={open} game={game} clickArrow={clickArrow} />
       </div>
     </CSSTransition>
   )

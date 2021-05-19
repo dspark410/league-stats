@@ -1,18 +1,36 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { summonerInfoReducer, moreMatchesReducer } from "./reducers";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { persistStore } from 'redux-persist'
+import { persist } from './reduxPersist'
+import { dependencyReducer } from './reducers/dependencyReducer'
+import { inputReducer } from './reducers/inputReducer'
+import { summonerInfoReducer } from './reducers/summonerInfoReducer'
+import { leaderboardReducer } from './reducers/leaderboardReducer'
+import { championReducer } from './reducers/championReducers'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import thunk from 'redux-thunk'
 
-const reducers = combineReducers({
-  summoner: summonerInfoReducer,
-  getMoreMatches: moreMatchesReducer,
-});
+const persistConfig = {
+  key: 'summoner',
+  blacklist: ['dependency', 'input', 'leaderboard', 'champion'],
+}
 
-const middleware = [thunk];
+const reducers =
+  // persist(
+  //   persistConfig,
+  combineReducers({
+    summoner: summonerInfoReducer,
+    dependency: dependencyReducer,
+    input: inputReducer,
+    leaderboard: leaderboardReducer,
+    champion: championReducer,
+  })
+// )
 
-const store = createStore(
+const middleware = [thunk]
+
+export const store = createStore(
   reducers,
   composeWithDevTools(applyMiddleware(...middleware))
-);
+)
 
-export default store;
+//export const persistor = persistStore(store)

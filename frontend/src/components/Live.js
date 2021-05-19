@@ -1,42 +1,18 @@
-/** @format */
-
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
 import style from './live.module.css'
-import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { runeDescriptions } from '../utils/constant'
 import Tooltip from './Tooltip'
 
-import { runeDescriptions } from '../utils/constant'
-
 function Live({ champInfo, version, time }) {
-  const [runes, setRunes] = useState([])
-  const [spells, setSpells] = useState([])
-
   const {
-    summoner: { live },
+    summoner: {
+      data: { live },
+    },
+    dependency: { runes, spells },
   } = useSelector((state) => state)
 
-  useEffect(() => {
-    if (version !== '') {
-      // Retrieve list of summoner spells from Riot API
-      axios
-        .get(
-          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/summoner.json`
-        )
-        .then((res) => {
-          setSpells(Object.values(res.data.data))
-        })
-      axios
-        .get(
-          `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/runesReforged.json`
-        )
-        .then((res) => {
-          setRunes(res.data)
-        })
-    }
-  }, [version])
-
-  return live.rankArray ? (
+  return live && live.rankArray ? (
     <div className={`${style.liveWidthContainer}`}>
       <div className={style.liveContainer}>
         <div className={style.timerQueueContainer}>
@@ -292,7 +268,7 @@ function Live({ champInfo, version, time }) {
                           ) {
                             return '-'
                           }
-                          return <div>{emblem}</div>
+                          return <div key={i}>{emblem}</div>
                         })
                       })
                     : '-'}
@@ -371,7 +347,7 @@ function Live({ champInfo, version, time }) {
                           ) {
                             return '-'
                           }
-                          return <div>{emblem}</div>
+                          return <div key={i}>{emblem}</div>
                         })
                       })
                     : '-'}
@@ -620,7 +596,7 @@ function Live({ champInfo, version, time }) {
                           ) {
                             return '-'
                           }
-                          return <div>{emblem}</div>
+                          return <div key={i}>{emblem}</div>
                         })
                       })
                     : '-'}
@@ -699,7 +675,7 @@ function Live({ champInfo, version, time }) {
                           ) {
                             return '-'
                           }
-                          return <div>{emblem}</div>
+                          return <div key={i}>{emblem}</div>
                         })
                       })
                     : '-'}

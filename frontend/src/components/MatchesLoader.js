@@ -1,5 +1,5 @@
 import React from 'react'
-var Spinner = require('react-spinkit')
+import Spinner from 'react-spinkit'
 
 function MatchesLoader() {
   return (

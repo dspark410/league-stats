@@ -107,18 +107,17 @@ exports.getLive = async (id, region, queues) => {
     const liveData = await axios.get(
       `https://${region}.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/${id}?api_key=${api}`
     )
-    const liveRankArray = []
-    liveData.data.participants.forEach(async (player) => {
-      const res = await axios.get(
-        `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${player.summonerId}?api_key=${api}`
-      )
-
-      liveRankArray.push(res.data)
-
-      if (liveRankArray.length === liveData.data.participants.length) {
-        liveData.data['rankArray'] = liveRankArray
-      }
+    await Promise.all(
+      liveData.data.participants.map(async (player) => {
+        const response = await axios.get(
+          `https://${region}.api.riotgames.com/lol/league/v4/entries/by-summoner/${player.summonerId}?api_key=${api}`
+        )
+        return response.data
+      })
+    ).then((res) => {
+      liveData.data['rankArray'] = res
     })
+
     queues.forEach((queue) => {
       if (liveData.data.gameQueueConfigId === queue.queueId) {
         liveData.data['queueName'] = queue.description

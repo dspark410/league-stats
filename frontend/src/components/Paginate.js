@@ -1,33 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import style from './paginate.module.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCurrentPage } from '../redux/actions/leaderboardActions'
 
-function Paginate({
-  postsPerPage,
-  totalPosts,
-  paginate,
-  currentPage,
-  rank,
-  firstLast,
-  table,
-  nextPage,
-  prevPage,
-  page,
-}) {
+function Paginate({ paginate, prevNext, firstLast }) {
   const [begin, setBegin] = useState(0)
   const [end, setEnd] = useState(10)
+
+  const dispatch = useDispatch()
+  const {
+    leaderboard: { data, rank, page, currentPage, postsPerPage, totalPosts },
+  } = useSelector((state) => state)
 
   const pageNumbers = []
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i)
   }
-
-  useEffect(() => {
-    setBegin(0)
-    setEnd(10)
-    paginate(1)
-    // eslint-disable-next-line
-  }, [rank])
 
   const next = () => {
     if (pageNumbers.length > end) {
@@ -74,6 +63,20 @@ function Paginate({
     }
   }
 
+  // function to get the next page of summoners on the leaderboard pages for Diamond to Iron ranks
+  const nextPage = () => {
+    if (data.length < 205) {
+      return
+    } else {
+      dispatch(getCurrentPage('incrementPage', page))
+    }
+  }
+
+  // function to get the prev page of summoners on leaderboard pages for Diamond to Iron
+  const prevPage = () => {
+    dispatch(getCurrentPage('decrementPage', page))
+  }
+
   const nextPaginate = () => {
     nextPage()
     paginate(1)
@@ -84,29 +87,33 @@ function Paginate({
     paginate(1)
   }
 
+  useEffect(() => {
+    setBegin(0)
+    setEnd(10)
+    paginate(1)
+    // eslint-disable-next-line
+  }, [rank])
+
   return (
     <div>
       <ul className={style.ul}>
-        {firstLast ? (
+        {prevNext ? (
           <li
             onClick={firstPage}
-            className={begin === 0 ? style.liNone : style.li}
-          >
+            className={begin === 0 ? style.liNone : style.li}>
             &#60;&#60;
           </li>
         ) : null}
-        {table ? (
+        {firstLast ? (
           <li
             onClick={before}
-            className={begin === 0 ? style.liNone : style.li}
-          >
+            className={begin === 0 ? style.liNone : style.li}>
             &#60;
           </li>
         ) : (
           <li
             onClick={page > 1 ? prevPaginate : null}
-            className={page > 1 ? style.li : style.liNone}
-          >
+            className={page > 1 ? style.li : style.liNone}>
             &#60;
           </li>
         )}
@@ -115,39 +122,35 @@ function Paginate({
           <li
             onClick={() => paginate(number)}
             className={`${style.li} ${currentPage === number && style.color} `}
-            key={i}
-          >
+            key={i}>
             {page ? (page === 1 ? number : number + (page - 1) * 5) : number}
           </li>
         ))}
-        {table ? (
+        {firstLast ? (
           <li
             onClick={next}
             className={
               end === Math.ceil(pageNumbers.length / 10) * 10
                 ? style.liNone
                 : style.li
-            }
-          >
+            }>
             &#62;
           </li>
         ) : (
           <li
             onClick={totalPosts < 205 ? null : nextPaginate}
-            className={totalPosts < 205 ? style.liNone : style.li}
-          >
+            className={totalPosts < 205 ? style.liNone : style.li}>
             &#62;
           </li>
         )}
-        {firstLast ? (
+        {prevNext ? (
           <li
             onClick={lastPage}
             className={
               end === Math.ceil(pageNumbers.length / 10) * 10
                 ? style.liNone
                 : style.li
-            }
-          >
+            }>
             &#62;&#62;
           </li>
         ) : null}
@@ -157,12 +160,3 @@ function Paginate({
 }
 
 export default Paginate
-
-// state currentPage = 2
-
-// if currentp
-
-// Math currentPage - 1 * 5
-
-// current displayed 1,2,3,4,5
-// want displayed 6,7,8,9,10

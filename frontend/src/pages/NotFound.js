@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from "react";
-import style from "./welcome.module.css";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import MatchHistoryCardSkeleton from "../components/MatchHistoryCardSkeleton";
-import MasteryCardSkeleton from "../components/MasteryCardSkeleton";
+import React, { useEffect } from 'react'
+import style from './welcome.module.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { getInput } from '../redux/actions/inputActions'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
+import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
 
-export default function NotFound({ showNav, noRegion, nonExist }) {
-  const [loading, setLoading] = useState(true);
+export default function NotFound({ noRegion }) {
+  const {
+    summoner: { summLoading },
+  } = useSelector((state) => state)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    showNav(true);
-    let timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timer);
-    };
+    setTimeout(() => {
+      dispatch(getInput('showNav'))
+    }, 50)
     // eslint-disable-next-line
-  }, []);
+  }, [dispatch])
 
-  return loading ? (
-    <SkeletonTheme duration={3} color="#7a6b83" highlightColor="#e2c0f7">
+  return summLoading ? (
+    <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
       <div className={style.rowContainer}>
         <div className={style.row1}>
           <div className={style.emblemContainer}>
             <div className={style.nameLiveSkeleton}>
               <Skeleton circle={true} width={115} height={115} />
               <Skeleton
-                style={{ marginLeft: "25px" }}
+                style={{ marginLeft: '25px' }}
                 width={250}
                 height={55}
               />
@@ -43,14 +44,13 @@ export default function NotFound({ showNav, noRegion, nonExist }) {
             <div className={style.rankCardContainer}>
               <div
                 style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  margin: "25px 0px 25px 0px",
-                }}
-              >
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  margin: '25px 0px 25px 0px',
+                }}>
                 <div>
                   <Skeleton
-                    style={{ marginLeft: "10px" }}
+                    style={{ marginLeft: '10px' }}
                     circle={true}
                     width={75}
                     height={75}
@@ -58,28 +58,27 @@ export default function NotFound({ showNav, noRegion, nonExist }) {
                 </div>
                 <div
                   style={{
-                    display: "flex",
-                    marginLeft: "10px",
-                    flexDirection: "column",
-                  }}
-                >
+                    display: 'flex',
+                    marginLeft: '10px',
+                    flexDirection: 'column',
+                  }}>
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={40}
                     height={20}
                   />
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={180}
                     height={35}
                   />
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={40}
                     height={25}
                   />
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={130}
                     height={25}
                   />
@@ -99,28 +98,27 @@ export default function NotFound({ showNav, noRegion, nonExist }) {
 
                 <div
                   style={{
-                    display: "flex",
-                    marginLeft: "10px",
-                    flexDirection: "column",
-                  }}
-                >
+                    display: 'flex',
+                    marginLeft: '10px',
+                    flexDirection: 'column',
+                  }}>
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={40}
                     height={20}
                   />
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={180}
                     height={35}
                   />
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={40}
                     height={25}
                   />
                   <Skeleton
-                    style={{ marginBottom: "2px" }}
+                    style={{ marginBottom: '2px' }}
                     width={130}
                     height={25}
                   />
@@ -133,13 +131,13 @@ export default function NotFound({ showNav, noRegion, nonExist }) {
         <div className={style.row2}>
           <div className={style.linksContainer}>
             <Skeleton
-              style={{ display: "inlineBlock", marginLeft: "15px" }}
+              style={{ display: 'inlineBlock', marginLeft: '15px' }}
               height={30}
               width={74}
             />
 
             <Skeleton
-              style={{ display: "inlineBlock", marginLeft: "15px" }}
+              style={{ display: 'inlineBlock', marginLeft: '15px' }}
               height={30}
               width={84}
             />
@@ -153,11 +151,9 @@ export default function NotFound({ showNav, noRegion, nonExist }) {
         </div>
       </div>
     </SkeletonTheme>
-  ) : !noRegion ? (
+  ) : noRegion ? (
     <div className={style.notFound}>Invalid Region</div>
   ) : (
-    <div className={style.notFound}>
-      Summoner Not Found {nonExist > 1 ? "(" + nonExist + ")" : ""}
-    </div>
-  );
+    <div className={style.notFound}>Summoner Not Found</div>
+  )
 }

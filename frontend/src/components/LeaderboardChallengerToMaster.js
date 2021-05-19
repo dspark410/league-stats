@@ -1,62 +1,57 @@
-import React, { useState, useEffect } from "react";
-import style from "./leaderboardtable.module.css";
-import axios from "axios";
-import Paginate from "./Paginate";
+import React, { useState, useEffect } from 'react'
+import style from './leaderboard.module.css'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import Paginate from './Paginate'
 
 function LeaderboardChallengerToMaster({
-  version,
   leaderboard,
-  postsPerPage,
-  totalPosts,
   paginate,
-  currentPage,
-  rank,
-  region,
   getPlayerName,
-  leaderboardDone,
-  setLeaderboardDone,
 }) {
-  const [profileIcon, setProfileIcon] = useState([]);
+  const [profileIcon, setProfileIcon] = useState([])
 
-  const url = process.env.REACT_APP_API_ENDPOINT || "";
+  const url = process.env.REACT_APP_API_ENDPOINT || ''
+  let source = axios.CancelToken.source()
 
-  let source = axios.CancelToken.source();
+  const {
+    dependency: { version },
+    input: {
+      summonerInput: { region },
+    },
+  } = useSelector((state) => state)
 
   // call for profile icon and adding to the leaderboard object
   useEffect(() => {
-    let mounted = true;
-    const iconArr = [];
-
-    if (mounted && leaderboardDone) {
+    let mounted = true
+    if (mounted && leaderboard.length > 0) {
       Promise.all(
-        leaderboard.map((player) => {
-          return axios
-            .get(`${url}/api/getSummonerId/${player.summonerId}/${region}`, {
+        leaderboard.map(async (player) => {
+          const { data } = await axios.get(
+            `${url}/api/getSummonerId/${player.summonerId}/${region}`,
+            {
               cancelToken: source.token,
-            })
-            .then((res) => {
-              if (res.data.profileIconId === 0) {
-                player.icon = res.data.profileIconId.toString();
-              } else {
-                player.icon = res.data.profileIconId;
-              }
+            }
+          )
 
-              iconArr.push(player);
-            });
+          if (data.profileIconId === 0) {
+            player.icon = data.profileIconId.toString()
+          } else {
+            player.icon = data.profileIconId
+          }
+          return player
         })
-      ).then(() => {
-        setProfileIcon(iconArr.sort((a, b) => b.leaguePoints - a.leaguePoints));
-        setLeaderboardDone(false);
-      });
+      ).then((res) => {
+        setProfileIcon(res)
+      })
     }
 
     return () => {
-      mounted = false;
-
-      source.cancel("leaderboard table component got unmounted");
-    };
+      mounted = false
+      source.cancel('leaderboardChallengertoMaster component got unmounted')
+    }
     // eslint-disable-next-line
-  }, [leaderboardDone, currentPage]);
+  }, [leaderboard])
 
   return (
     <>
@@ -79,7 +74,7 @@ function LeaderboardChallengerToMaster({
               <td className={style.tdName}>
                 {summoner.icon ? (
                   <img
-                    alt="profile icon"
+                    alt='profile icon'
                     className={style.profileIcon}
                     // Grab profile icon
                     src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner.icon}.png`}
@@ -90,8 +85,7 @@ function LeaderboardChallengerToMaster({
                   name={summoner.summonerName}
                   region={region}
                   icon={summoner.icon}
-                  onClick={getPlayerName}
-                >
+                  onClick={getPlayerName}>
                   {summoner.summonerName}
                 </div>
               </td>
@@ -108,10 +102,9 @@ function LeaderboardChallengerToMaster({
                   </div>
                   <div
                     style={{
-                      minWidth: "25px",
-                      textAlign: "center",
-                    }}
-                  >
+                      minWidth: '25px',
+                      textAlign: 'center',
+                    }}>
                     <div> - </div>
                   </div>
                   <div className={style.lossContainer}>
@@ -133,18 +126,9 @@ function LeaderboardChallengerToMaster({
           ))}
         </tbody>
       </table>
-      <Paginate
-        postsPerPage={postsPerPage}
-        totalPosts={totalPosts}
-        paginate={paginate}
-        currentPage={currentPage}
-        rank={rank}
-        firstLast={true}
-        table={true}
-        setLeaderboardDone={setLeaderboardDone}
-      />
+      <Paginate paginate={paginate} prevNext={true} firstLast={true} />
     </>
-  );
+  )
 }
 
-export default LeaderboardChallengerToMaster;
+export default LeaderboardChallengerToMaster

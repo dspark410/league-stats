@@ -1,22 +1,17 @@
 import React from 'react'
-import style from './leaderboardtable.module.css'
-import Paginate from './Paginate'
+import style from './leaderboard.module.css'
+import { useSelector } from 'react-redux'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
+import Paginate from './Paginate'
 
-function LeaderboardDiamondToIron({
-  version,
-  leaderboard,
-  totalPosts,
-  postsPerPage,
-  currentPage,
-  paginate,
-  rank,
-  region,
-  getPlayerName,
-  page,
-  nextPage,
-  prevPage,
-}) {
+function LeaderboardDiamondToIron({ leaderboard, paginate, getPlayerName }) {
+  const {
+    dependency: { version },
+    input: {
+      summonerInput: { region },
+    },
+  } = useSelector((state) => state)
+
   return (
     <>
       <div className={style.sorted}>
@@ -56,8 +51,7 @@ function LeaderboardDiamondToIron({
                   name={summoner.summonerName}
                   region={region}
                   icon={summoner.icon}
-                  onClick={getPlayerName}
-                >
+                  onClick={getPlayerName}>
                   {summoner.summonerName}
                 </div>
               </td>
@@ -76,8 +70,7 @@ function LeaderboardDiamondToIron({
                     style={{
                       minWidth: '25px',
                       textAlign: 'center',
-                    }}
-                  >
+                    }}>
                     <div> - </div>
                   </div>
                   <div className={style.lossContainer}>
@@ -99,18 +92,7 @@ function LeaderboardDiamondToIron({
           ))}
         </tbody>
       </table>
-      <Paginate
-        postsPerPage={postsPerPage}
-        totalPosts={totalPosts}
-        paginate={paginate}
-        currentPage={currentPage}
-        rank={rank}
-        firstLast={false}
-        table={false}
-        nextPage={nextPage}
-        prevPage={prevPage}
-        page={page}
-      />
+      <Paginate paginate={paginate} prevNext={false} firstLast={false} />
     </>
   )
 }

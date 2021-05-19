@@ -1,10 +1,10 @@
 import React from 'react'
 import style from './unrankedcard.module.css'
+import 'react-circular-progressbar/dist/styles.css'
 import {
   CircularProgressbarWithChildren,
   buildStyles,
 } from 'react-circular-progressbar'
-import 'react-circular-progressbar/dist/styles.css'
 
 function UnrankedCard({ queue }) {
   return (
@@ -18,8 +18,7 @@ function UnrankedCard({ queue }) {
           styles={buildStyles({
             pathColor: 'transparent',
             trailColor: '#917C9E',
-          })}
-        >
+          })}>
           <img
             alt='Unranked'
             className={style.emblemImage}

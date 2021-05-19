@@ -1,24 +1,22 @@
-/** @format */
-
 import React from 'react'
-import { useSelector } from 'react-redux'
 import style from './historycardcomplex.module.css'
-import Tooltip from './Tooltip'
-import ItemHistory from './ItemHistory'
+import { useDispatch, useSelector } from 'react-redux'
+import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
+import { useHistory } from 'react-router-dom'
 import { IoIosArrowUp } from 'react-icons/io'
 import { runeDescriptions } from '../utils/constant'
+import Tooltip from './Tooltip'
+import ItemHistory from './ItemHistory'
 
-function HistoryCardComplex({
-  game,
-  spells,
-  runes,
-  getPlayerName,
-  clickArrow,
-  open,
-}) {
+function HistoryCardComplex({ game, clickArrow, open }) {
   const {
-    summoner: { summonerInfo },
+    summoner: {
+      data: { summonerInfo },
+    },
+    dependency: { spells, runes },
   } = useSelector((state) => state)
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   // Filters out team one
   const teamOne = game.participants.filter((participant) => {
@@ -29,7 +27,20 @@ function HistoryCardComplex({
     return participant.teamId === 200
   })
 
-  return game.playerInfo && summonerInfo ? (
+  const getPlayerName = (e) => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
+
+    const summonerName = e.target.getAttribute('name')
+    const region = e.target.getAttribute('region')
+    dispatch(getSummonerInfo(summonerName, region))
+    history.push(`/summoner/${region}/${summonerName}`)
+  }
+
+  return game.playerInfo && summonerInfo && runes && spells ? (
     <div
       className={`${open ? style.historyCardComplex : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
@@ -216,10 +227,7 @@ function HistoryCardComplex({
           </Tooltip>
         </div>
         <div className={style.fifthCol}>
-          <ItemHistory
-            details={game.playerInfo.stats}
-            version={game.gameVersion}
-          />
+          <ItemHistory details={game.playerInfo.stats} />
         </div>
         <IoIosArrowUp className={style.sixthCol} onClick={clickArrow} />
       </div>

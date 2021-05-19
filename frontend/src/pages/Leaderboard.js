@@ -1,102 +1,114 @@
 import React, { useState, useEffect } from 'react'
 import style from './leaderboard.module.css'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  getLeaderboardChalltoMaster,
+  getLeaderboardDiamondtoIron,
+  getCurrentPage,
+  getSelectRank,
+  setPostsPerPage,
+} from '../redux/actions/leaderboardActions'
+import { getInput } from '../redux/actions/inputActions'
+import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import LeaderboardChallengerToMaster from '../components/LeaderboardChallengerToMaster'
 import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
 import LeaderboardSkeleton from './LeaderboardSkeleton'
 
-function Leaderboard({
-  version,
-  showNav,
-  changeLeaderBoardChallengertoMaster,
-  leaderboard,
-  postsPerPage,
-  totalPosts,
-  totalPosts2,
-  paginate,
-  currentPage,
-  region,
-  getPlayerName,
-  changeLeaderBoardDiamondToIron,
-  leaderboardDiamondToIron,
-  postsperPageDiamondToIron,
-  fullLeaderboard,
-  setCurrentPage,
-  leaderboardDone,
-  setLeaderboardDone,
-}) {
-  const [rank, setRank] = useState('CHALLENGER')
+function Leaderboard({ history }) {
   const [division, setDivision] = useState('I')
   const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
-  const [page, setPage] = useState(1)
-  const [loading, setLoading] = useState(true)
 
-  //show nav bar and render skeleton
+  const dispatch = useDispatch()
+  const {
+    input: {
+      summonerInput: { region },
+    },
+    leaderboard: {
+      data,
+      rank,
+      page,
+      currentPage,
+      postsPerPage,
+      leaderboardLoading,
+    },
+  } = useSelector((state) => state)
+
+  //pagination info
+  const indexOfLastPost = currentPage * postsPerPage
+  const indexofFirstPost = indexOfLastPost - postsPerPage
+  const currentPosts = data.slice(indexofFirstPost, indexOfLastPost)
+
+  // change page
+  const paginate = (pageNumber) => {
+    dispatch(getCurrentPage('setCurrentPage', pageNumber))
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
+  }
+
+  const getPlayerName = (e) => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
+
+    const summonerName = e.target.getAttribute('name')
+    const region = e.target.getAttribute('region')
+    dispatch(getSummonerInfo(summonerName, region))
+    history.push(`/summoner/${region}/${summonerName}`)
+  }
+
   useEffect(() => {
-    showNav(true)
-    let timer
-    timer = setTimeout(() => {
-      setLoading(false)
-    }, 3000)
-
-    return () => {
-      clearTimeout(timer)
-    }
+    // Show nav on the leaderboard screen
+    setTimeout(() => {
+      dispatch(getInput('showNav'))
+    }, 50)
+    dispatch(getLeaderboardChalltoMaster(region, rank))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // render skeleton when rank changes on leaderboard
   useEffect(() => {
     let mounted = true
-    setLoading(true)
+
     if (mounted) {
       if (
         rank === 'CHALLENGER' ||
         rank === 'GRANDMASTER' ||
         rank === 'MASTER'
       ) {
+        dispatch(setPostsPerPage(25))
         setMapDivision(['I'])
-        changeLeaderBoardChallengertoMaster(rank, region)
+        dispatch(getLeaderboardChalltoMaster(region, rank))
       } else {
+        dispatch(setPostsPerPage(41))
         setMapDivision(['I', 'II', 'III', 'IV'])
-        changeLeaderBoardDiamondToIron(rank, division, page)
+        dispatch(getLeaderboardDiamondtoIron(region, rank, division, page))
       }
     }
-    let skeleTimer = setTimeout(() => {
-      setLoading(false)
-    }, 3000)
-
     return () => {
-      clearTimeout(skeleTimer)
       mounted = false
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rank, division, page, region])
-  // if CurrentPage is added to depency, it loads but we don't want skeleTimer
-
-  // function to get the next page of summoners on the leaderboard pages for Diamond to Iron ranks
-  const nextPage = () => {
-    if (fullLeaderboard.length < 205) {
-      return
-    } else {
-      setPage((prev) => prev + 1)
-    }
-  }
+  }, [region, rank, division, page])
 
   return (
     <>
-      <LeaderboardSkeleton loading={loading} />
+      <LeaderboardSkeleton loading={leaderboardLoading} />
       <div
-        style={!loading ? { display: 'block' } : { display: 'none' }}
-        className={style.leaderboardContainer}
-      >
+        style={!leaderboardLoading ? { display: 'block' } : { display: 'none' }}
+        className={style.leaderboardContainer}>
         <h1 className={style.leaderHeader}> Ranked Leaderboard</h1>
         <div className={style.selectContainer}>
           <select
             onChange={(e) => {
-              setRank(e.target.value)
-              setPage(1)
-            }}
-          >
+              dispatch(getSelectRank(e.target.value))
+              dispatch(getCurrentPage('setPage', 1))
+              dispatch(getCurrentPage('setCurrentPage', 1))
+            }}>
             <option defaultValue value='CHALLENGER'>
               Challenger
             </option>
@@ -112,10 +124,9 @@ function Leaderboard({
           <select
             onChange={(e) => {
               setDivision(e.target.value)
-              setPage(1)
-              setCurrentPage(1)
-            }}
-          >
+              dispatch(getCurrentPage('setPage', 1))
+              dispatch(getCurrentPage('setCurrentPage', 1))
+            }}>
             {mapDivision.map((div, i) => (
               <option key={i} defaultValue={div === 'I'} value={div}>
                 {div}
@@ -127,35 +138,15 @@ function Leaderboard({
         rank === 'GRANDMASTER' ||
         rank === 'MASTER' ? (
           <LeaderboardChallengerToMaster
-            version={version}
-            leaderboard={leaderboard}
-            postsPerPage={postsPerPage}
-            totalPosts={totalPosts}
+            leaderboard={currentPosts}
             paginate={paginate}
-            currentPage={currentPage}
-            rank={rank}
-            region={region}
             getPlayerName={getPlayerName}
-            leaderboardDone={leaderboardDone}
-            setLeaderboardDone={setLeaderboardDone}
           />
         ) : (
           <LeaderboardDiamondToIron
-            version={version}
-            leaderboard={leaderboardDiamondToIron}
-            postsPerPage={postsperPageDiamondToIron}
-            totalPosts={totalPosts2}
+            leaderboard={currentPosts}
             paginate={paginate}
-            currentPage={currentPage}
-            rank={rank}
-            region={region}
             getPlayerName={getPlayerName}
-            page={page}
-            nextPage={nextPage}
-            prevPage={() => {
-              setPage((prev) => prev - 1)
-            }}
-            fullLeaderboard={fullLeaderboard}
           />
         )}
       </div>
