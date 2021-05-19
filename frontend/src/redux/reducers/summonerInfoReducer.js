@@ -17,6 +17,7 @@ const summonerInfoInitial = {
     matchHistory: [],
     matchList: {},
     rgn: 'NA1',
+    notFound: 'summoner not found...',
   },
   error: '',
 }

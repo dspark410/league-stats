@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getInput } from '../redux/actions/inputActions'
+import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import style from './welcome.module.css'
 import MasteryCard from '../components/MasteryCard'
 import RankCard from '../components/RankCard'
@@ -13,10 +14,12 @@ import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
 import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
 import { MdLiveTv } from 'react-icons/md'
 import NotFound from './NotFound'
+import { regions } from '../utils/constant'
 
-const Welcome = () => {
+const Welcome = ({ match }) => {
   const [display, setDisplay] = useState('overview')
   const [time, setTime] = useState()
+  const [noRegion, setNoRegion] = useState(false)
 
   const {
     summoner: {
@@ -41,12 +44,19 @@ const Welcome = () => {
         behavior: 'smooth',
       })
     }
-    // Dependency, rerenders when summonerInfo.id is ready
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
+    // Dispatches getSummonerInfo from URL
+    if (regions.includes(match.params.region)) {
+      setNoRegion(false)
+      dispatch(getSummonerInfo(match.params.summonerName, match.params.region))
+    } else {
+      setNoRegion(true)
+    }
     setDisplay('overview')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
 
   useEffect(() => {
@@ -71,14 +81,14 @@ const Welcome = () => {
   }, [live])
 
   if (notFound) {
-    return <NotFound />
+    return <NotFound noRegion={noRegion} />
   } else {
     return (
       <SkeletonTheme duration={3} color='#7a6b83' highlightColor='#e2c0f7'>
         <div className={style.rowContainer}>
           <div className={style.row1}>
             <div className={style.emblemContainer}>
-              {!summLoading ? (
+              {!summLoading && matchHistory ? (
                 <div className={style.nameLive}>
                   <SummonerCard version={version} />
                   {live !== 'Not In Live Game' && (

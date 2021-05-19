@@ -71,6 +71,10 @@ export default function ChampionDetail({
       }).then(() => dispatch(selectChampion(version, champName)))
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, version])
+
+  useEffect(() => {
     window.scrollTo({
       top: 0,
     })
@@ -89,7 +93,7 @@ export default function ChampionDetail({
       dispatch(changeSkin('reset'))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, selectedChampion.skins, version])
+  }, [selectedChampion])
 
   return selectedChampion.key && backupItem ? (
     <div className={style.fadeContainer}>
@@ -158,7 +162,8 @@ export default function ChampionDetail({
       </div>
 
       <div className={style.grid2}>
-        <div className={style.buildContainer}>
+        {/* Commented out build container */}
+        {/* <div className={style.buildContainer}>
           <div className={style.recBuild}>RECOMMENDED ITEM BUILD</div>
           {selectedChampion.recommended.length === 0 ? (
             <div className={style.noBuild}>
@@ -202,7 +207,7 @@ export default function ChampionDetail({
               ) : null
             })
           )}
-        </div>
+        </div> */}
 
         <div className={style.Container}>
           <div className={style.skillsHeader}>Champion Skills</div>

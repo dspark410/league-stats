@@ -19,6 +19,9 @@ function Champions() {
   const dispatch = useDispatch()
 
   const {
+    summoner: {
+      data: { mastery },
+    },
     dependency: { version, champInfo, freeChamps, latestChamp },
     champion: { championLoading, autofill, champs, role, input, fade },
   } = useSelector((state) => state)
@@ -320,6 +323,13 @@ function Champions() {
                               className={!championLoading && style.latestImage}>
                               <Link to={`/champions/${champ.id.toLowerCase()}`}>
                                 <img
+                                  style={{
+                                    border: mastery
+                                      .filter((master) => {
+                                        return master.id === champ.id
+                                      })
+                                      .map((mast) => 'solid 2px #e1e1e1'),
+                                  }}
                                   alt={champ.image.full}
                                   onClick={clickHandler}
                                   name={champ.id}

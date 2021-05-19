@@ -10,6 +10,7 @@ import {
   SHOW_NAV,
   SHOW_STORAGE,
   USER_INPUT,
+  INVALID_SUMMONER_COUNT,
 } from '../constants/inputConstants'
 
 export const getInput = (input, summoner, region, icon) => {

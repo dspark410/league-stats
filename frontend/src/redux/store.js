@@ -14,8 +14,9 @@ const persistConfig = {
   blacklist: ['dependency', 'input', 'leaderboard', 'champion'],
 }
 
-const reducers = persist(
-  persistConfig,
+const reducers =
+  // persist(
+  //   persistConfig,
   combineReducers({
     summoner: summonerInfoReducer,
     dependency: dependencyReducer,
@@ -23,7 +24,7 @@ const reducers = persist(
     leaderboard: leaderboardReducer,
     champion: championReducer,
   })
-)
+// )
 
 const middleware = [thunk]
 
@@ -32,4 +33,4 @@ export const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware))
 )
 
-export const persistor = persistStore(store)
+//export const persistor = persistStore(store)

@@ -6,12 +6,9 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
 import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
 
-export default function NotFound() {
+export default function NotFound({ noRegion }) {
   const {
-    summoner: {
-      data: { notFound },
-      summLoading,
-    },
+    summoner: { summLoading },
   } = useSelector((state) => state)
 
   const dispatch = useDispatch()
@@ -154,7 +151,9 @@ export default function NotFound() {
         </div>
       </div>
     </SkeletonTheme>
+  ) : noRegion ? (
+    <div className={style.notFound}>Invalid Region</div>
   ) : (
-    notFound && <div className={style.notFound}>Invalid Summoner</div>
+    <div className={style.notFound}>Summoner Not Found</div>
   )
 }
