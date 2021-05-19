@@ -11,7 +11,6 @@ import {
   SHOW_NAV,
   SHOW_STORAGE,
   USER_INPUT,
-  INVALID_SUMMONER_COUNT,
 } from '../constants/inputConstants'
 
 const prevSearchesLocal =

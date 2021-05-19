@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { persistStore } from 'redux-persist'
-import { persist } from './reduxPersist'
+// import { persistStore } from 'redux-persist'
+// import { persist } from './reduxPersist'
 import { dependencyReducer } from './reducers/dependencyReducer'
 import { inputReducer } from './reducers/inputReducer'
 import { summonerInfoReducer } from './reducers/summonerInfoReducer'
@@ -9,10 +9,10 @@ import { championReducer } from './reducers/championReducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
-const persistConfig = {
-  key: 'summoner',
-  blacklist: ['dependency', 'input', 'leaderboard', 'champion'],
-}
+// const persistConfig = {
+//   key: 'summoner',
+//   blacklist: ['dependency', 'input', 'leaderboard', 'champion'],
+// }
 
 const reducers =
   // persist(
