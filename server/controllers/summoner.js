@@ -90,7 +90,7 @@ exports.getMatchList = async (id, region) => {
 exports.getMatchDetails = async (id, region) => {
   try {
     const api = process.env.API_KEY
-    // if (id === 3722895943) id = 2229249294305829485290; // Error on purpose, remove after finish
+    // if (id === 3722895943) id = 2229249294305829485290 // Error on purpose, remove after finish
     const matchDetails = await axios.get(
       `https://${region}.api.riotgames.com/lol/match/v4/matches/${id}?api_key=${api}`
     )

@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import style from './live.module.css'
 import { useSelector } from 'react-redux'
 import { runeDescriptions } from '../utils/constant'
 import Tooltip from './Tooltip'
 
-function Live({ champInfo, version, time }) {
+function Live({ time }) {
   const {
     summoner: {
       data: { live },
     },
-    dependency: { runes, spells },
+    dependency: { champInfo, version, runes, spells },
   } = useSelector((state) => state)
 
   return live && live.rankArray ? (
@@ -38,7 +38,7 @@ function Live({ champInfo, version, time }) {
               -&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-
             </span>
           ) : (
-            live.bannedChampions.forEach(
+            live.bannedChampions.map(
               (banned) =>
                 banned.teamId === 100 &&
                 champInfo.map((champ, i) => {
@@ -367,7 +367,7 @@ function Live({ champInfo, version, time }) {
               -&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;-
             </span>
           ) : (
-            live.bannedChampions.forEach(
+            live.bannedChampions.map(
               (banned) =>
                 banned.teamId === 200 &&
                 champInfo.map((champ, i) => {

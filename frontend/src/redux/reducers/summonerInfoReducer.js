@@ -1,6 +1,7 @@
 import {
   GET_MORE_MATCHES,
   GET_SUMMONER_INFO,
+  GET_SUMMONER_REGION,
   MATCHES_ERROR,
   MATCHES_LOADING,
   SUMMONER_INFO_ERROR,
@@ -43,6 +44,8 @@ export const summonerInfoReducer = (state = summonerInfoInitial, action) => {
       }
     case MATCHES_ERROR:
       return { ...state, error: action.payload, matchesLoader: false }
+    case GET_SUMMONER_REGION:
+      return { ...state, summLoading: false }
     default:
       return state
   }

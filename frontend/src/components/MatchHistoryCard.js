@@ -32,7 +32,7 @@ function MatchHistoryCard() {
   return (
     <div className={style.matchContainer}>
       <div>
-        {matchHistory.length > 0 ? (
+        {matchHistory.length > 0 && !matchHistory.includes(null) ? (
           matchHistory.map((game, i) => {
             return <HistoryCard key={i} game={game} />
           })
@@ -40,24 +40,24 @@ function MatchHistoryCard() {
           <div className={style.noMatchContainer}>
             <div className={style.matchHeader}>Match History</div>
             <div className={style.noMatches}>
-              {matchHistory.length === 0
-                ? 'No Matches Were Found.'
-                : matchHistory.includes(null) && (
-                    <div className={style.failedMatchContainer}>
-                      <div className={style.failedMatch}>
-                        Failed To Load Match History
-                        <CgSmileSad className={style.sad} />
-                      </div>
-                      <button className={style.retry} onClick={refreshPage}>
-                        Retry
-                      </button>
-                    </div>
-                  )}
+              {matchHistory.length === 0 ? (
+                'No Matches Were Found.'
+              ) : (
+                <div className={style.failedMatchContainer}>
+                  <div className={style.failedMatch}>
+                    Failed To Load Match History
+                    <CgSmileSad className={style.sad} />
+                  </div>
+                  <button className={style.retry} onClick={refreshPage}>
+                    Retry
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
 
-        {matchHistory.length <= matches.length && (
+        {matchHistory.length <= matches.length && !matchHistory.includes(null) && (
           <div onClick={!matchesLoader ? getMoreMatchesBtn : null}>
             {matchHistory.length >= matches.length ? (
               <button disabled className={style.none}>

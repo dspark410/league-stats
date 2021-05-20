@@ -23,6 +23,7 @@ function LeaderboardChallengerToMaster({
 
   // call for profile icon and adding to the leaderboard object
   useEffect(() => {
+    console.log(leaderboard)
     let mounted = true
     if (mounted && leaderboard.length > 0) {
       Promise.all(

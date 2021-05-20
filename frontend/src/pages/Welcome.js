@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getInput } from '../redux/actions/inputActions'
-import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
+import {
+  getSummonerInfo,
+  getSummonerRegion,
+} from '../redux/actions/summonerInfoActions'
 import style from './welcome.module.css'
 import MasteryCard from '../components/MasteryCard'
 import RankCard from '../components/RankCard'
@@ -26,7 +29,7 @@ const Welcome = ({ match }) => {
       data: { summonerInfo, live, rank, matchHistory, mastery, notFound },
       summLoading,
     },
-    dependency: { champInfo, version },
+    dependency: { version },
   } = useSelector((state) => state)
 
   const dispatch = useDispatch()
@@ -53,9 +56,10 @@ const Welcome = ({ match }) => {
       setNoRegion(false)
       dispatch(getSummonerInfo(match.params.summonerName, match.params.region))
     } else {
+      dispatch(getSummonerRegion())
       setNoRegion(true)
     }
-    setDisplay('overview')
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
 
@@ -79,6 +83,10 @@ const Welcome = ({ match }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [live])
+
+  useEffect(() => {
+    setDisplay('overview')
+  }, [summLoading])
 
   if (notFound) {
     return <NotFound noRegion={noRegion} />
@@ -360,9 +368,7 @@ const Welcome = ({ match }) => {
                       ? style.liveContainer
                       : style.none
                   }>
-                  {live !== 'Not In Live Game' && (
-                    <Live champInfo={champInfo} version={version} time={time} />
-                  )}
+                  {live !== 'Not In Live Game' && <Live time={time} />}
                 </div>
               </>
             )}

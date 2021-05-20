@@ -325,10 +325,15 @@ function Champions() {
                                 <img
                                   style={{
                                     border: mastery
-                                      .filter((master) => {
-                                        return master.id === champ.id
-                                      })
-                                      .map((mast) => 'solid 2px #e1e1e1'),
+                                      ? mastery
+                                          .filter((master) => {
+                                            return master.id === champ.id
+                                          })
+                                          .map(
+                                            (mast) =>
+                                              'solid 3px rgb(199 169 100'
+                                          )
+                                      : 'solid 2px #9865b6',
                                   }}
                                   alt={champ.image.full}
                                   onClick={clickHandler}

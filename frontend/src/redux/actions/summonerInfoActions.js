@@ -6,6 +6,7 @@ import {
   GET_MORE_MATCHES,
   MATCHES_LOADING,
   MATCHES_ERROR,
+  GET_SUMMONER_REGION,
 } from '../constants/summonerInfoConstants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
@@ -63,3 +64,15 @@ export const getMoreMatches =
       })
     }
   }
+
+export const getSummonerRegion = () => async (dispatch) => {
+  dispatch({
+    type: SUMMONER_INFO_LOADING,
+  })
+
+  setTimeout(() => {
+    dispatch({
+      type: GET_SUMMONER_REGION,
+    })
+  }, 3000)
+}

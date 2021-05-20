@@ -67,6 +67,12 @@ function Leaderboard({ history }) {
       dispatch(getInput('showNav'))
     }, 50)
     dispatch(getLeaderboardChalltoMaster(region, rank))
+
+    return () => {
+      dispatch(getSelectRank('CHALLENGER'))
+      setDivision('I')
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
