@@ -8,6 +8,7 @@ function LeaderboardChallengerToMaster({
   leaderboard,
   paginate,
   getPlayerName,
+  match,
 }) {
   const [profileIcon, setProfileIcon] = useState([])
 
@@ -23,7 +24,6 @@ function LeaderboardChallengerToMaster({
 
   // call for profile icon and adding to the leaderboard object
   useEffect(() => {
-    console.log(leaderboard)
     let mounted = true
     if (mounted && leaderboard.length > 0) {
       Promise.all(
@@ -49,8 +49,9 @@ function LeaderboardChallengerToMaster({
 
     return () => {
       mounted = false
-      source.cancel('leaderboardChallengertoMaster component got unmounted')
+      //source.cancel('leaderboardChallengertoMaster component got unmounted')
     }
+
     // eslint-disable-next-line
   }, [leaderboard])
 

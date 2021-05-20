@@ -14,23 +14,17 @@ import LeaderboardChallengerToMaster from '../components/LeaderboardChallengerTo
 import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
 import LeaderboardSkeleton from './LeaderboardSkeleton'
 
-function Leaderboard({ history }) {
+function Leaderboard({ history, match }) {
   const [division, setDivision] = useState('I')
   const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
+  const [leaderboardLoading, setLeaderboardLoading] = useState(true)
 
   const dispatch = useDispatch()
   const {
     input: {
       summonerInput: { region },
     },
-    leaderboard: {
-      data,
-      rank,
-      page,
-      currentPage,
-      postsPerPage,
-      leaderboardLoading,
-    },
+    leaderboard: { data, rank, page, currentPage, postsPerPage },
   } = useSelector((state) => state)
 
   //pagination info
@@ -62,15 +56,21 @@ function Leaderboard({ history }) {
   }
 
   useEffect(() => {
+    let timer
     // Show nav on the leaderboard screen
     setTimeout(() => {
       dispatch(getInput('showNav'))
     }, 50)
     dispatch(getLeaderboardChalltoMaster(region, rank))
 
+    timer = setTimeout(() => {
+      setLeaderboardLoading(false)
+    }, 3000)
+
     return () => {
       dispatch(getSelectRank('CHALLENGER'))
       setDivision('I')
+      clearTimeout(timer)
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,6 +79,8 @@ function Leaderboard({ history }) {
   // render skeleton when rank changes on leaderboard
   useEffect(() => {
     let mounted = true
+    let timer
+    setLeaderboardLoading(true)
 
     if (mounted) {
       if (
@@ -94,9 +96,15 @@ function Leaderboard({ history }) {
         setMapDivision(['I', 'II', 'III', 'IV'])
         dispatch(getLeaderboardDiamondtoIron(region, rank, division, page))
       }
+
+      timer = setTimeout(() => {
+        setLeaderboardLoading(false)
+      }, 3000)
     }
+
     return () => {
       mounted = false
+      clearTimeout(timer)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [region, rank, division, page])
@@ -147,6 +155,7 @@ function Leaderboard({ history }) {
             leaderboard={currentPosts}
             paginate={paginate}
             getPlayerName={getPlayerName}
+            match={match}
           />
         ) : (
           <LeaderboardDiamondToIron

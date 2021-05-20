@@ -2,7 +2,6 @@ import axios from 'axios'
 import {
   GET_LEADERBOARD,
   LEADERBOARD_ERROR,
-  LEADERBOARD_LOADING,
   SET_CURRENT_PAGE,
   SET_RANK,
   SET_POSTS_PER_PAGE,
@@ -16,9 +15,6 @@ const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
 export const getLeaderboardChalltoMaster =
   (region, rank) => async (dispatch) => {
     try {
-      dispatch({
-        type: LEADERBOARD_LOADING,
-      })
       const { data } = await axios.get(
         `${endpoint}/api/leaderboard/${rank}/${region}`
       )
@@ -29,12 +25,11 @@ export const getLeaderboardChalltoMaster =
           entry.tier = data.tier.toUpperCase()
           entry.number = i + 1
         })
-      setTimeout(() => {
-        dispatch({
-          type: GET_LEADERBOARD,
-          payload: data.entries,
-        })
-      }, 2000)
+
+      dispatch({
+        type: GET_LEADERBOARD,
+        payload: data.entries,
+      })
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,
@@ -46,10 +41,6 @@ export const getLeaderboardChalltoMaster =
 export const getLeaderboardDiamondtoIron =
   (region, rank, division, page) => async (dispatch) => {
     try {
-      dispatch({
-        type: LEADERBOARD_LOADING,
-      })
-
       let { data } = await axios.get(
         `${endpoint}/api/leaderboard/${region}/${rank}/${division}/${page}`
       )
@@ -64,12 +55,10 @@ export const getLeaderboardDiamondtoIron =
         data = []
       }
 
-      setTimeout(() => {
-        dispatch({
-          type: GET_LEADERBOARD,
-          payload: data,
-        })
-      }, 2000)
+      dispatch({
+        type: GET_LEADERBOARD,
+        payload: data,
+      })
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,

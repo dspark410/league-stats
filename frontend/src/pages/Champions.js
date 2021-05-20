@@ -41,7 +41,6 @@ function Champions() {
   }
 
   useEffect(() => {
-    console.log('running')
     dispatch(getInput('showNav'))
     dispatch(getChampion(champInfo))
     window.scrollTo({
