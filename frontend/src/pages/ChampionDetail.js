@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getInput } from '../redux/actions/inputActions'
+import { changeNav, changeBackground } from '../redux/actions/inputActions'
 import {
   setVideo,
   changeSkin,
@@ -10,11 +10,7 @@ import style from './championdetail.module.css'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 import Tooltip from '../components/Tooltip'
 
-export default function ChampionDetail({
-  // changeBackground,
-  // championLoading,
-  match,
-}) {
+export default function ChampionDetail({ match }) {
   const dispatch = useDispatch()
   const {
     dependency: { version, backupItem, champMap },
@@ -57,7 +53,7 @@ export default function ChampionDetail({
   }
 
   useEffect(() => {
-    dispatch(getInput('showNav'))
+    dispatch(changeNav('showNav'))
 
     if (version) {
       let champName
@@ -81,7 +77,7 @@ export default function ChampionDetail({
 
     if (selectedChampion.skins) {
       dispatch(
-        getInput(
+        changeBackground(
           'champBackground',
           `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${selectedChampion.id}_${selectedChampion.skins[currentSkin].num}.jpg`
         )
@@ -89,7 +85,7 @@ export default function ChampionDetail({
     }
 
     return () => {
-      dispatch(getInput('brandBackground'))
+      dispatch(changeBackground('brandBackground'))
       dispatch(changeSkin('reset'))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -11,6 +11,7 @@ import {
   SHOW_NAV,
   SHOW_STORAGE,
   USER_INPUT,
+  SET_FADE,
 } from '../constants/inputConstants'
 
 const prevSearchesLocal =
@@ -26,6 +27,7 @@ const inputInitial = {
   showPrevSearches: false,
   hideAnimation: true,
   prevSearches: prevSearchesLocal,
+  fade: false,
 }
 
 export const inputReducer = (state = inputInitial, action) => {
@@ -52,11 +54,13 @@ export const inputReducer = (state = inputInitial, action) => {
       return {
         ...state,
         background: BrandBackground,
+        fade: false,
       }
     case CHAMP_BACKGROUND:
       return {
         ...state,
         background: action.payload,
+        fade: false,
       }
     case SHOW_STORAGE:
       return {
@@ -129,6 +133,11 @@ export const inputReducer = (state = inputInitial, action) => {
       return {
         ...state,
         prevSearches: searchedSummoners,
+      }
+    case SET_FADE:
+      return {
+        ...state,
+        fade: true,
       }
     default:
       return state

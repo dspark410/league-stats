@@ -8,7 +8,7 @@ import {
   getSelectRank,
   setPostsPerPage,
 } from '../redux/actions/leaderboardActions'
-import { getInput } from '../redux/actions/inputActions'
+import { changeNav } from '../redux/actions/inputActions'
 import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import LeaderboardChallengerToMaster from '../components/LeaderboardChallengerToMaster'
 import LeaderboardDiamondToIron from '../components/LeaderboardDiamondToIron'
@@ -59,7 +59,7 @@ function Leaderboard({ history, match }) {
     let timer
     // Show nav on the leaderboard screen
     setTimeout(() => {
-      dispatch(getInput('showNav'))
+      dispatch(changeNav('showNav'))
     }, 50)
     dispatch(getLeaderboardChalltoMaster(region, rank))
 

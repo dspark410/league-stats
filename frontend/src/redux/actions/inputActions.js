@@ -10,6 +10,7 @@ import {
   SHOW_NAV,
   SHOW_STORAGE,
   USER_INPUT,
+  SET_FADE,
 } from '../constants/inputConstants'
 
 export const getInput = (input, summoner, region, icon) => {
@@ -21,27 +22,6 @@ export const getInput = (input, summoner, region, icon) => {
           summoner,
           region,
         },
-      }
-    }
-    case 'showNav': {
-      return {
-        type: SHOW_NAV,
-      }
-    }
-    case 'hideNav': {
-      return {
-        type: HIDE_NAV,
-      }
-    }
-    case 'brandBackground': {
-      return {
-        type: BRAND_BACKGROUND,
-      }
-    }
-    case 'champBackground': {
-      return {
-        type: CHAMP_BACKGROUND,
-        payload: summoner,
       }
     }
     case 'show':
@@ -75,3 +55,44 @@ export const getInput = (input, summoner, region, icon) => {
     }
   }
 }
+
+export const changeNav = (input) => {
+  switch (input) {
+    case 'showNav': {
+      return {
+        type: SHOW_NAV,
+      }
+    }
+    case 'hideNav': {
+      return {
+        type: HIDE_NAV,
+      }
+    }
+    default:
+      break
+  }
+}
+
+export const changeBackground =
+  (input, championBackground) => async (dispatch) => {
+    if (input === 'brandBackground') {
+      dispatch({
+        type: SET_FADE,
+      })
+      setTimeout(() => {
+        dispatch({
+          type: BRAND_BACKGROUND,
+        })
+      }, 500)
+    } else if (input === 'champBackground') {
+      dispatch({
+        type: SET_FADE,
+      })
+      setTimeout(() => {
+        dispatch({
+          type: CHAMP_BACKGROUND,
+          payload: championBackground,
+        })
+      }, 500)
+    }
+  }

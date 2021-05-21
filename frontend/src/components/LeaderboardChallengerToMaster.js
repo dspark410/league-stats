@@ -8,7 +8,6 @@ function LeaderboardChallengerToMaster({
   leaderboard,
   paginate,
   getPlayerName,
-  match,
 }) {
   const [profileIcon, setProfileIcon] = useState([])
 
@@ -49,7 +48,9 @@ function LeaderboardChallengerToMaster({
 
     return () => {
       mounted = false
-      //source.cancel('leaderboardChallengertoMaster component got unmounted')
+      if (profileIcon.length === 25) {
+        source.cancel('leaderboardChallengertoMaster component got unmounted')
+      }
     }
 
     // eslint-disable-next-line

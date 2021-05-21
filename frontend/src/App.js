@@ -12,13 +12,17 @@ import Footer from './components/Footer'
 
 function App() {
   const {
-    input: { nav, background },
+    input: { nav, background, fade },
   } = useSelector((state) => state)
 
   return (
-    <div
-      className={`backgroundContainerFade`}
-      style={{ backgroundImage: `url(${background})` }}>
+    <>
+      {!fade ? (
+        <div
+          className={!fade && 'backgroundContainerFade'}
+          style={{ backgroundImage: `url(${background})` }}
+        />
+      ) : null}
       <div className={nav ? 'overlay' : 'overlay2'}>
         <Navbar />
         <Switch>
@@ -35,7 +39,7 @@ function App() {
         </Switch>
         <Footer />
       </div>
-    </div>
+    </>
   )
 }
 

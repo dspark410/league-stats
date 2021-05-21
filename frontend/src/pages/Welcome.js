@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getInput } from '../redux/actions/inputActions'
+import { changeNav } from '../redux/actions/inputActions'
 import {
   getSummonerInfo,
   getSummonerRegion,
@@ -37,7 +37,7 @@ const Welcome = ({ match }) => {
   useEffect(() => {
     // Show nav on the welcome screen
     setTimeout(() => {
-      dispatch(getInput('showNav'))
+      dispatch(changeNav('showNav'))
     }, 50)
 
     if (summonerInfo) {

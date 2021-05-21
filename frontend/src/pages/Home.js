@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import style from './home.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
-import { getInput } from '../redux/actions/inputActions'
+import { getInput, changeNav } from '../redux/actions/inputActions'
 import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import { regions } from '../utils/constant'
 import {
@@ -92,7 +92,7 @@ function Home({ history }) {
   }, [dispatch, data])
 
   useEffect(() => {
-    dispatch(getInput('hideNav'))
+    dispatch(changeNav('hideNav'))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

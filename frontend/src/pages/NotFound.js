@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import style from './welcome.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { getInput } from '../redux/actions/inputActions'
+import { changeNav } from '../redux/actions/inputActions'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import MatchHistoryCardSkeleton from '../components/MatchHistoryCardSkeleton'
 import MasteryCardSkeleton from '../components/MasteryCardSkeleton'
@@ -15,7 +15,7 @@ export default function NotFound({ noRegion }) {
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getInput('showNav'))
+      dispatch(changeNav('showNav'))
     }, 50)
     // eslint-disable-next-line
   }, [dispatch])

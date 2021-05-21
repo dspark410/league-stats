@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import style from './champions.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { getInput } from '../redux/actions/inputActions'
+import { changeNav } from '../redux/actions/inputActions'
 import {
   getChampion,
   setChampion,
@@ -41,7 +41,7 @@ function Champions() {
   }
 
   useEffect(() => {
-    dispatch(getInput('showNav'))
+    dispatch(changeNav('showNav'))
     dispatch(getChampion(champInfo))
     window.scrollTo({
       top: 0,
