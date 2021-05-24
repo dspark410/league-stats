@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import style from './leaderboard.module.css'
-import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Paginate from './Paginate'
-import { Promise } from 'bluebird'
-
-Promise.config({
-  warnings: true,
-  cancellation: true,
-})
 
 function LeaderboardChallengerToMaster({
   leaderboard,
@@ -16,7 +9,6 @@ function LeaderboardChallengerToMaster({
   getPlayerName,
 }) {
   const [profileIcon, setProfileIcon] = useState([])
-
   const url = process.env.REACT_APP_API_ENDPOINT || ''
 
   const {
@@ -29,34 +21,38 @@ function LeaderboardChallengerToMaster({
   // call for profile icon and adding to the leaderboard object
   useEffect(() => {
     let mounted = true
-    let promise
-    if (mounted && leaderboard.length > 0) {
-      promise = Promise.all(
+    const controller = new AbortController()
+
+    if (leaderboard.length > 0) {
+      Promise.all(
         leaderboard.map(async (player) => {
-          const { data } = await axios.get(
-            `${url}/api/getSummonerId/${player.summonerId}/${region}`
-          )
+          try {
+            const res = await fetch(
+              `${url}/api/getSummonerId/${player.summonerId}/${region}`,
+              { signal: controller.signal }
+            )
+            const data = await res.json()
 
-          if (data.profileIconId === 0) {
-            player.icon = data.profileIconId.toString()
-          } else {
-            player.icon = data.profileIconId
+            if (data.profileIconId === 0) {
+              player.icon = data.profileIconId.toString()
+            } else {
+              player.icon = data.profileIconId
+            }
+            return player
+          } catch (error) {
+            console.log(error)
           }
-          // bluebird cancel for leaving leaderboard page before finishing axios calls- triggers cleanup
-          if (!mounted) {
-            promise.cancel()
-          }
-          return player
         })
-      )
-
-      promise.then((res) => {
-        setProfileIcon(res)
+      ).then((res) => {
+        if (mounted) {
+          setProfileIcon(res)
+        }
       })
     }
 
     return () => {
       mounted = false
+      controller.abort()
     }
 
     // eslint-disable-next-line
