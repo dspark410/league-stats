@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-// Call from frontend to retrieve free champion rotation for the week
+// Call to get free champion rotation for the week
 exports.getFreeChamps = async (req, res) => {
   try {
     const region = req.params.region
@@ -14,6 +14,7 @@ exports.getFreeChamps = async (req, res) => {
   }
 }
 
+// Call to get info for each champion
 exports.getChampInfo = async (version) => {
   const champInfo = await axios.get(
     `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`

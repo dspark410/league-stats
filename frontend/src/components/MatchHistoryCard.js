@@ -33,9 +33,11 @@ function MatchHistoryCard() {
     <div className={style.matchContainer}>
       <div>
         {matchHistory.length > 0 && !matchHistory.includes(null) ? (
-          matchHistory.map((game, i) => {
-            return <HistoryCard key={i} game={game} />
-          })
+          matchHistory
+            .sort((a, b) => new Date(b.gameCreation) - new Date(a.gameCreation))
+            .map((game, i) => {
+              return <HistoryCard key={i} game={game} />
+            })
         ) : (
           <div className={style.noMatchContainer}>
             <div className={style.matchHeader}>Match History</div>

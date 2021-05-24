@@ -1,6 +1,7 @@
 const axios = require('axios')
 const backupItem = require('../Items/backupItems.json')
 
+// Call to get summoner info
 exports.getSummonerName = async (summoner, region) => {
   try {
     const api = process.env.API_KEY
@@ -9,13 +10,13 @@ exports.getSummonerName = async (summoner, region) => {
         summoner
       )}?api_key=${api}`
     )
-    // console.log(summonerData.data)
     return summonerData.data
   } catch (error) {
     console.log('Summoner not Found')
   }
 }
 
+// Call to get masteries for the summoner entered
 exports.getMasteries = async (id, region) => {
   try {
     const api = process.env.API_KEY
@@ -40,7 +41,7 @@ exports.getRank = async (id, region) => {
     console.log('Error with Rank')
   }
 }
-
+// Call to get current game version
 exports.getVersion = async () => {
   try {
     const versionData = await axios.get(
@@ -53,6 +54,7 @@ exports.getVersion = async () => {
   }
 }
 
+// Call to get list of map ids
 exports.getMaps = async () => {
   try {
     const mapListData = await axios.get(
@@ -64,6 +66,7 @@ exports.getMaps = async () => {
   }
 }
 
+// Call to get list of queue ids
 exports.getQueues = async () => {
   try {
     const queueTypeData = await axios.get(
@@ -75,6 +78,7 @@ exports.getQueues = async () => {
   }
 }
 
+// Call to get list of match ids for the summoner
 exports.getMatchList = async (id, region) => {
   try {
     const api = process.env.API_KEY
@@ -87,6 +91,7 @@ exports.getMatchList = async (id, region) => {
   }
 }
 
+// Call to get match info with matchid
 exports.getMatchDetails = async (id, region) => {
   try {
     const api = process.env.API_KEY
@@ -101,6 +106,7 @@ exports.getMatchDetails = async (id, region) => {
   }
 }
 
+// Call to see if the summoner is in a currnet game
 exports.getLive = async (id, region, queues) => {
   try {
     const api = process.env.API_KEY
@@ -134,8 +140,8 @@ exports.getLive = async (id, region, queues) => {
   }
 }
 
-//Call for live game for summoner
-exports.getBackup = async (_, res) => {
+// Call for the backup item json
+exports.getBackup = (_, res) => {
   try {
     res.json(backupItem)
   } catch (error) {

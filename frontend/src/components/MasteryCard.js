@@ -23,7 +23,7 @@ function MasteryCard({ version }) {
       <div className={style.header}>
         <img
           alt='mastery icon'
-          src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
+          src='https://res.cloudinary.com/mistahpig/image/upload/v1621882123/league-stats/icons/mastery_yqwggf.png'
         />
         CHAMPION MASTERY
       </div>

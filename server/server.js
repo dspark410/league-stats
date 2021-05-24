@@ -1,11 +1,5 @@
-/** @format */
-
-// Enable access to .env file
-require('dotenv').config()
-require('./itemCompiler')
-const routes = require('./routes/routes')
 const express = require('express')
-const app = express()
+const routes = require('./routes/routes')
 const path = require('path')
 const {
   getSummonerName,
@@ -22,7 +16,17 @@ const {
   getSummonerMatches,
   getMoreMatches,
 } = require('./controllers/utils')
+
+require('dotenv').config()
+require('./itemCompiler')
+
+const app = express()
 const port = process.env.PORT || 5000
+
+let maps
+let queues
+let version
+let champInfo
 
 // Allow CORS
 app.use((req, res, next) => {
@@ -41,76 +45,67 @@ app.use((req, res, next) => {
 
 app.use('/api', routes)
 
-let maps
-let queues
-let version
-let champInfo
+const getDependencies = async () => {
+  maps = await getMaps()
+  queues = await getQueues()
+  version = await getVersion()
+  champInfo = await getChampInfo(version)
+}
 
-getMaps().then((res) => (maps = res))
-getQueues().then((res) => (queues = res))
-getVersion().then((res) => {
-  version = res
-  getChampInfo(res).then((response) => (champInfo = response))
-})
+getDependencies()
 
-app.get('/getSummonerInfo/:summoner/:region', async (req, response) => {
+app.get('/getSummonerInfo/:summoner/:region', async (req, res) => {
   try {
     const summoner = req.params.summoner
     const region = req.params.region
 
-    getSummonerName(summoner, region)
-      .then((summonerRes) => {
-        if (summonerRes.id) {
-          Promise.all([
-            getSummonerMasteries(summonerRes.id, region, champInfo),
-            getRank(summonerRes.id, region),
-            getLive(summonerRes.id, region, queues),
-            getSummonerMatches(summonerRes, region, queues, champInfo),
-            getMatchList(summonerRes.accountId, region),
-          ]).then((res) => {
-            response.json({
-              summonerInfo: summonerRes,
-              mastery: res[0],
-              rank: res[1],
-              live: res[2],
-              matchHistory: res[3],
-              matchList: res[4],
-              rgn: region,
-            })
-          })
-        }
-      })
-      .catch(() => response.send('summoner not found...'))
+    const summonerRes = await getSummonerName(summoner, region)
+    try {
+      if (summonerRes.id) {
+        const data = await Promise.all([
+          getSummonerMasteries(summonerRes.id, region, champInfo),
+          getRank(summonerRes.id, region),
+          getLive(summonerRes.id, region, queues),
+          getSummonerMatches(summonerRes, region, queues, champInfo),
+          getMatchList(summonerRes.accountId, region),
+        ])
+        res.json({
+          summonerInfo: summonerRes,
+          mastery: data[0],
+          rank: data[1],
+          live: data[2],
+          matchHistory: data[3],
+          matchList: data[4],
+          rgn: region,
+        })
+      }
+    } catch (error) {
+      res.send('summoner not found...')
+    }
   } catch (error) {
     console.log(error)
   }
 })
 
-app.get(
-  '/getMoreMatches/:gameIds/:summonerInfo/:region',
-  async (req, response) => {
-    const summonerRes = JSON.parse(req.params.summonerInfo)
-    const gameIds = JSON.parse(req.params.gameIds)
-    const region = req.params.region
-    console.log(
-      'gameIds',
+app.get('/getMoreMatches/:gameIds/:summonerInfo/:region', async (req, res) => {
+  const summonerRes = JSON.parse(req.params.summonerInfo)
+  const gameIds = JSON.parse(req.params.gameIds)
+  const region = req.params.region
+  try {
+    const data = await getMoreMatches(
       gameIds,
-      'summonerRes',
       summonerRes,
-      'region',
-      region
+      region,
+      queues,
+      champInfo
     )
-    try {
-      getMoreMatches(gameIds, summonerRes, region, queues, champInfo).then(
-        (res) => response.json(res)
-      )
-    } catch (error) {
-      console.log(error)
-    }
+    res.json(data)
+  } catch (error) {
+    console.log(error)
   }
-)
+})
 
-// Serve up static assets (usually on heroku)
+// Serve up static assets
 if (process.env.NODE_ENV === 'production') {
   // Sends static folder
   app.use(express.static('../frontend/build'))
@@ -121,7 +116,7 @@ if (process.env.NODE_ENV === 'production') {
     else next()
   })
 
-  app.get('/*', function (req, res) {
+  app.get('/*', (_, res) => {
     res.sendFile(
       path.join(__dirname, '../frontend/build/index.html'),
       function (err) {
@@ -134,5 +129,5 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(port, () => {
-  console.log(`Example app listening at https://localhost:${port}`)
+  console.log(`Listening at https://localhost:${port}`)
 })

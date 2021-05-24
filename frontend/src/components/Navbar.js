@@ -62,7 +62,7 @@ function Navbar() {
 
   const handleOnBlur = () => {
     dispatch(getInput('animateHide'))
-
+    inputEl.current.blur()
     setTimeout(() => {
       dispatch(getInput('hide'))
     }, 50)

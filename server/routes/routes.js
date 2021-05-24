@@ -1,12 +1,13 @@
 const express = require('express')
-const router = express.Router()
 const { getBackup } = require('../controllers/summoner')
+const { getFreeChamps } = require('../controllers/champions')
 const {
   getSummonerId,
   getLeaderboardDiamondtoIron,
   getChallengerGrandMasterMaster,
 } = require('../controllers/leaderboard')
-const { getFreeChamps } = require('../controllers/champions')
+
+const router = express.Router()
 
 router.get('/getSummonerId/:summoner/:region', getSummonerId)
 router.get('/getChampionRotation/:region', getFreeChamps)
