@@ -143,9 +143,7 @@ const Welcome = ({ match }) => {
                     <img
                       alt='Unranked'
                       className={style.rectangle}
-                      src={
-                        process.env.PUBLIC_URL + `/images/icons/rectangle.png`
-                      }
+                      src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/rectangle_jfxtfk.png'
                     />
 
                     {(rank && !rank.length) ||
@@ -305,7 +303,7 @@ const Welcome = ({ match }) => {
                   <div className={style.header}>
                     <img
                       alt='mastery icon'
-                      src={process.env.PUBLIC_URL + '/images/icons/mastery.png'}
+                      src='https://res.cloudinary.com/mistahpig/image/upload/v1621882123/league-stats/icons/mastery_yqwggf.png'
                     />
                     CHAMPION MASTERY
                   </div>

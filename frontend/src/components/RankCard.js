@@ -51,7 +51,7 @@ function RankCard({ rank, queue }) {
           <img
             alt={rank.tier}
             className={style.emblemImage}
-            src={process.env.PUBLIC_URL + `/images/emblems/${rank.tier}.png`}
+            src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${rank.tier}.png`}
           />
         </CircularProgressbarWithChildren>
       </div>

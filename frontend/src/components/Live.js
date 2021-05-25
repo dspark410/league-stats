@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import style from './live.module.css'
 import { useSelector } from 'react-redux'
 import { runeDescriptions } from '../utils/constant'
@@ -217,10 +217,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.leaguePoints}
@@ -251,10 +248,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.tier[0] + playerRank}
@@ -296,10 +290,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.leaguePoints}
@@ -330,10 +321,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.tier[0] + playerRank}
@@ -545,10 +533,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.leaguePoints}
@@ -579,10 +564,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.tier[0] + playerRank}
@@ -624,10 +606,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.leaguePoints}
@@ -658,10 +637,7 @@ function Live({ time }) {
                                   <img
                                     alt={game.tier}
                                     className={style.emblemImage}
-                                    src={
-                                      process.env.PUBLIC_URL +
-                                      `/images/emblems/${game.tier}.png`
-                                    }
+                                    src={`https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/${game.tier}.png`}
                                   />
 
                                   {game.tier[0] + playerRank}

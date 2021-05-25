@@ -202,7 +202,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               <img
                 className={style.minionIcon}
                 alt='minion icon'
-                src={process.env.PUBLIC_URL + '/images/icons/minion_icon.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/minion_icon_iiwm5u.png'
               />
               <span className={style.minions}>
                 {game.playerInfo.stats.totalMinionsKilled +
@@ -328,23 +328,23 @@ function HistoryCardComplex({ game, clickArrow, open }) {
             <>
               <img
                 alt='manatee urf'
-                src={process.env.PUBLIC_URL + '/images/icons/manatee.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/manatee_lubzjx.png'
               />
               <img
                 alt='manatee urf'
-                src={process.env.PUBLIC_URL + '/images/icons/manatee2.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/manatee2_qace59.png'
               />
               <img
-                alt='golden spatula'
-                src={process.env.PUBLIC_URL + '/images/icons/manatee3.png'}
+                alt='manatee urf'
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/manatee3_vu2ogp.png'
               />
               <img
-                alt='golden spatula'
-                src={process.env.PUBLIC_URL + '/images/icons/manatee4.png'}
+                alt='manatee urf'
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/manatee4_r6vdvz.png'
               />
               <img
-                alt='golden spatula'
-                src={process.env.PUBLIC_URL + '/images/icons/manatee5.png'}
+                alt='manatee urf'
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/manatee5_eikten.png'
               />
             </>
           ) : game.gameType === '5v5 Ranked Solo games' ||
@@ -354,23 +354,23 @@ function HistoryCardComplex({ game, clickArrow, open }) {
             <>
               <img
                 alt='icon'
-                src={process.env.PUBLIC_URL + '/images/icons/Top_icon.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898819/league-stats/role%20icons/Top_icon_reqrfv.png'
               />
               <img
                 alt='icon'
-                src={process.env.PUBLIC_URL + '/images/icons/Jungle_icon.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/Jungle_icon_zde7ju.png'
               />
               <img
                 alt='icon'
-                src={process.env.PUBLIC_URL + '/images/icons/Middle_icon.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/Middle_icon_etwa26.png'
               />
               <img
                 alt='icon'
-                src={process.env.PUBLIC_URL + '/images/icons/Bottom_icon.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/Bottom_icon_zkoaud.png'
               />
               <img
                 alt='icon'
-                src={process.env.PUBLIC_URL + '/images/icons/Support_icon.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/Support_icon_h6uicp.png'
               />
             </>
           ) : (

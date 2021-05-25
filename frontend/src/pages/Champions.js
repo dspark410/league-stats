@@ -162,8 +162,8 @@ function Champions() {
                 }>
                 <img
                   className={style.roleImage}
-                  alt='Role-Top'
-                  src={process.env.PUBLIC_URL + '/images/roles/all.png'}
+                  alt='Role-All'
+                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/all_bqujx7.png'
                 />
                 <label className={style.roleLabel}>All</label>
               </div>
@@ -174,8 +174,8 @@ function Champions() {
                 }>
                 <img
                   className={`${style.roleImage} ${style.rotateImage}`}
-                  alt='Role-Top'
-                  src={process.env.PUBLIC_URL + '/images/roles/all.png'}
+                  alt='Role-Free'
+                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/all_bqujx7.png'
                 />
                 <label className={style.roleLabel}>Free</label>
               </div>
@@ -187,7 +187,7 @@ function Champions() {
                 <img
                   className={style.roleImage}
                   alt='Role-Top'
-                  src={process.env.PUBLIC_URL + '/images/roles/top.png'}
+                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/top_wn1frf.png'
                 />
                 <label className={style.roleLabel}>Top</label>
               </div>
@@ -199,7 +199,7 @@ function Champions() {
                 <img
                   className={style.roleImage}
                   alt='Role-Jungle'
-                  src={process.env.PUBLIC_URL + '/images/roles/jungle.png'}
+                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/jungle_dhfvec.png'
                 />
                 <label className={style.roleLabel}>Jungler</label>
               </div>
@@ -211,7 +211,7 @@ function Champions() {
                 <img
                   className={style.roleImage}
                   alt='Role-Mid'
-                  src={process.env.PUBLIC_URL + '/images/roles/mid.png'}
+                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/mid_asfpe3.png'
                 />
                 <label className={style.roleLabel}>Mid</label>
               </div>
@@ -223,7 +223,7 @@ function Champions() {
                 <img
                   className={style.roleImage}
                   alt='Role-AD Carry'
-                  src={process.env.PUBLIC_URL + '/images/roles/adcarry.png'}
+                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/adcarry_bftkia.png'
                 />
                 <label className={style.roleLabel}>AD Carry</label>
               </div>
@@ -235,7 +235,7 @@ function Champions() {
                 <img
                   className={style.roleImage}
                   alt='Role-Support'
-                  src={process.env.PUBLIC_URL + '/images/roles/support.png'}
+                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/support_dzleug.png'
                 />
                 <label className={style.roleLabel}>Support</label>
               </div>

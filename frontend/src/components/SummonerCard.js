@@ -26,13 +26,14 @@ function SummonerCard({ version }) {
           src={
             // Ternary to grab correct border depending on Summoner Level
             level < 30
-              ? process.env.PUBLIC_URL + `/images/summonerborder/lvl1.png`
+              ? 'https://res.cloudinary.com/mistahpig/image/upload/v1621882189/league-stats/borders/lvl1.png'
               : level >= 30 && level < 50
-              ? process.env.PUBLIC_URL + `/images/summonerborder/lvl30.png`
+              ? 'https://res.cloudinary.com/mistahpig/image/upload/v1621882189/league-stats/borders/lvl30.png'
               : level <= 500
-              ? process.env.PUBLIC_URL +
-                `/images/summonerborder/lvl${Math.floor(level / 25) * 25}.png`
-              : process.env.PUBLIC_URL + `/images/summonerborder/lvl${500}.png`
+              ? `https://res.cloudinary.com/mistahpig/image/upload/v1621882189/league-stats/borders/lvl${
+                  Math.floor(level / 25) * 25
+                }.png`
+              : 'https://res.cloudinary.com/mistahpig/image/upload/v1621882189/league-stats/borders/lvl500.png'
           }
         />
         <img

@@ -22,7 +22,7 @@ function UnrankedCard({ queue }) {
           <img
             alt='Unranked'
             className={style.emblemImage}
-            src={process.env.PUBLIC_URL + `/images/emblems/UNRANKED.png`}
+            src='https://res.cloudinary.com/mistahpig/image/upload/v1621898668/league-stats/emblems/UNRANKED.png'
           />
         </CircularProgressbarWithChildren>
       </div>

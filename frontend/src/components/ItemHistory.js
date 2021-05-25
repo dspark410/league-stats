@@ -34,7 +34,7 @@ export default function ItemHistory({ details }) {
             ) : (
               <img
                 alt='item'
-                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621899018/league-stats/icons/emptyitem_cgiatq.png'
               />
             )}
 
@@ -58,7 +58,7 @@ export default function ItemHistory({ details }) {
             ) : (
               <img
                 alt='item'
-                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621899018/league-stats/icons/emptyitem_cgiatq.png'
               />
             )}
 
@@ -82,7 +82,7 @@ export default function ItemHistory({ details }) {
             ) : (
               <img
                 alt='item'
-                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621899018/league-stats/icons/emptyitem_cgiatq.png'
               />
             )}
 
@@ -102,7 +102,7 @@ export default function ItemHistory({ details }) {
             ) : (
               <img
                 alt='item'
-                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621899018/league-stats/icons/emptyitem_cgiatq.png'
               />
             )}
           </div>
@@ -127,7 +127,7 @@ export default function ItemHistory({ details }) {
             ) : (
               <img
                 alt='item'
-                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621899018/league-stats/icons/emptyitem_cgiatq.png'
               />
             )}
             {details.item4 ? (
@@ -150,7 +150,7 @@ export default function ItemHistory({ details }) {
             ) : (
               <img
                 alt='item'
-                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621899018/league-stats/icons/emptyitem_cgiatq.png'
               />
             )}
             {details.item5 ? (
@@ -173,7 +173,7 @@ export default function ItemHistory({ details }) {
             ) : (
               <img
                 alt='item'
-                src={process.env.PUBLIC_URL + '/images/emptyitem.png'}
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621899018/league-stats/icons/emptyitem_cgiatq.png'
               />
             )}
           </div>

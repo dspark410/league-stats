@@ -66,10 +66,8 @@ function MasteryCard({ version }) {
                     alt={champ.level}
                     src={
                       champ.level
-                        ? process.env.PUBLIC_URL +
-                          `/images/masteryicons/level${champ.level}.png`
-                        : process.env.PUBLIC_URL +
-                          '/images/masteryicons/level1.png'
+                        ? `https://res.cloudinary.com/mistahpig/image/upload/v1621898522/league-stats/mastery%20icons/level${champ.level}.png`
+                        : 'https://res.cloudinary.com/mistahpig/image/upload/v1621898522/league-stats/mastery%20icons/level1.png'
                     }
                   />
                 </div>

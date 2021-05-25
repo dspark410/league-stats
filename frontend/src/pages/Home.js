@@ -103,7 +103,7 @@ function Home({ history }) {
           <img
             className={style.logo}
             alt='League Stats Logo'
-            src={process.env.PUBLIC_URL + '/images/logo/leaguestats.png'}
+            src='https://res.cloudinary.com/mistahpig/image/upload/v1621898557/league-stats/logo/leaguestats_fhwj6u.png'
           />
           <div className={style.formContainer}>
             <form onSubmit={handleSubmit} className={style.selectContainer}>
