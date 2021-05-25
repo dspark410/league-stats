@@ -1,4 +1,5 @@
 export const CHAMPION_LOADING = 'CHAMPION_LOADING'
+export const CLEAR_CHAMP_LOADING = 'CLEAR_CHAMP_LOADING'
 export const SET_ROLE = 'SET_ROLE'
 export const SET_INPUT = 'SET_INPUT'
 export const GET_CHAMPION = 'GET_CHAMPION'

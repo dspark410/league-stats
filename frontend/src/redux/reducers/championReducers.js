@@ -1,5 +1,6 @@
 import {
   CHAMPION_LOADING,
+  CLEAR_CHAMP_LOADING,
   SET_ROLE,
   SET_INPUT,
   GET_CHAMPION,
@@ -36,6 +37,8 @@ export const championReducer = (state = championInitial, action) => {
   switch (action.type) {
     case CHAMPION_LOADING:
       return { ...state, championLoading: true }
+    case CLEAR_CHAMP_LOADING:
+      return { ...state, championLoading: false }
     case SET_ROLE:
       return {
         ...state,

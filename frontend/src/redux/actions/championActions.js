@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {
   CHAMPION_LOADING,
+  CLEAR_CHAMP_LOADING,
   SET_ROLE,
   SET_INPUT,
   GET_CHAMPION,
@@ -17,16 +18,26 @@ import {
   RESET_SKIN,
 } from '../constants/championConstants'
 
+let timer
+
 export const getChampion = (champInfo) => async (dispatch) => {
   dispatch({
     type: CHAMPION_LOADING,
   })
-  setTimeout(() => {
+  timer = setTimeout(() => {
+    console.log('champion timer 2.5')
     dispatch({
       type: GET_CHAMPION,
       payload: champInfo,
     })
   }, 2500)
+}
+
+export const clearTimer = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_CHAMP_LOADING,
+  })
+  clearTimeout(timer)
 }
 
 export const setRole = (role) => async (dispatch) => {

@@ -8,6 +8,7 @@ import {
   setRole,
   setInput,
   selectChampion,
+  clearTimer,
 } from '../redux/actions/championActions'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
@@ -48,6 +49,11 @@ function Champions() {
       left: 0,
       behavior: 'auto',
     })
+
+    return () => {
+      dispatch(clearTimer())
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champInfo, dispatch])
 

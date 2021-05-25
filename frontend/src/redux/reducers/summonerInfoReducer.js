@@ -1,7 +1,9 @@
 import {
+  SET_INITIAL,
   GET_MORE_MATCHES,
   GET_SUMMONER_INFO,
   GET_SUMMONER_REGION,
+  CLEAR_SUMMONER_INFO,
   MATCHES_ERROR,
   MATCHES_LOADING,
   SUMMONER_INFO_ERROR,
@@ -25,8 +27,12 @@ const summonerInfoInitial = {
 
 export const summonerInfoReducer = (state = summonerInfoInitial, action) => {
   switch (action.type) {
+    case SET_INITIAL:
+      return action.payload
     case SUMMONER_INFO_LOADING:
       return { ...state, summLoading: true }
+    case CLEAR_SUMMONER_INFO:
+      return { ...state, summLoading: false }
     case GET_SUMMONER_INFO:
       return { ...state, summLoading: false, data: action.payload }
     case SUMMONER_INFO_ERROR:

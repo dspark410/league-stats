@@ -4,6 +4,8 @@ import { changeNav } from '../redux/actions/inputActions'
 import {
   getSummonerInfo,
   getSummonerRegion,
+  clearSummoner,
+  setInitial,
 } from '../redux/actions/summonerInfoActions'
 import style from './welcome.module.css'
 import MasteryCard from '../components/MasteryCard'
@@ -47,6 +49,10 @@ const Welcome = ({ match }) => {
         behavior: 'smooth',
       })
     }
+    return () => {
+      console.log('clearSummoner Dispatched')
+      dispatch(setInitial())
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -86,6 +92,8 @@ const Welcome = ({ match }) => {
 
   useEffect(() => {
     setDisplay('overview')
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [summLoading])
 
   if (notFound) {

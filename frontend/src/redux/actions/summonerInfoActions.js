@@ -1,6 +1,8 @@
 import axios from 'axios'
 import {
+  SET_INITIAL,
   GET_SUMMONER_INFO,
+  CLEAR_SUMMONER_INFO,
   SUMMONER_INFO_ERROR,
   SUMMONER_INFO_LOADING,
   GET_MORE_MATCHES,
@@ -8,24 +10,31 @@ import {
   MATCHES_ERROR,
   GET_SUMMONER_REGION,
 } from '../constants/summonerInfoConstants'
-
+const controller = new AbortController()
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
+
+let timer
 
 export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
   try {
     dispatch({
       type: SUMMONER_INFO_LOADING,
     })
-    const { data } = await axios.get(
-      `${endpoint}/getSummonerInfo/${summonerName}/${region}`
+    const res = await fetch(
+      `${endpoint}/getSummonerInfo/${summonerName}/${region}`,
+      { signal: controller.signal }
     )
-    setTimeout(() => {
+    const data = await res.json()
+
+    timer = setTimeout(() => {
+      console.log('timer running')
       if (data === 'summoner not found...') {
         dispatch({
           type: GET_SUMMONER_INFO,
           payload: { notFound: 'summoner not found...' },
         })
       } else {
+        console.log('dispatch for summonerInfo Running')
         dispatch({
           type: GET_SUMMONER_INFO,
           payload: data,
@@ -38,6 +47,37 @@ export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
       payload: error.message,
     })
   }
+}
+
+export const setInitial = () => async (dispatch) => {
+  console.log('setInitial in action running')
+  clearTimeout(timer)
+  controller.abort()
+  dispatch({
+    type: SET_INITIAL,
+    payload: {
+      summLoading: false,
+      matchesLoader: false,
+      data: {
+        mastery: [],
+        rank: [],
+        live: 'Not In Live Game',
+        matchHistory: [],
+        matchList: {},
+        rgn: 'NA1',
+        notFound: 'summoner not found...',
+      },
+      error: '',
+    },
+  })
+}
+
+export const clearSummoner = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_SUMMONER_INFO,
+  })
+  clearTimeout(timer)
+  controller.abort()
 }
 
 export const getMoreMatches =

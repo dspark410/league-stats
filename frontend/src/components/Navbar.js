@@ -3,7 +3,7 @@ import style from './navbar.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import { getInput } from '../redux/actions/inputActions'
-import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
+import { clearSummoner } from '../redux/actions/summonerInfoActions'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import { regions } from '../utils/constant'
 import {
@@ -33,12 +33,13 @@ function Navbar() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    //dispatch(clearSummoner())
+
     const clickedSummoner = e.target.getAttribute('value')
     const clickedRegion = e.target.getAttribute('region')
 
     if (clickedSummoner) {
       handleOnBlur()
-      //dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
 
       dispatch(getInput('userInput', '', clickedRegion))
       history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
@@ -47,7 +48,6 @@ function Navbar() {
         return
       } else {
         handleOnBlur()
-        //dispatch(getSummonerInfo(name.replace(/\s/g, ''), region))
 
         dispatch(getInput('userInput', '', region))
         history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
