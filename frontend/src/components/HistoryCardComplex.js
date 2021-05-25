@@ -202,7 +202,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               <img
                 className={style.minionIcon}
                 alt='minion icon'
-                src='https://res.cloudinary.com/mistahpig/image/upload/v1621898818/league-stats/role%20icons/minion_icon_iiwm5u.png'
+                src='https://res.cloudinary.com/mistahpig/image/upload/v1621958945/league-stats/role%20icons/Minion_icon_tgeisg.png'
               />
               <span className={style.minions}>
                 {game.playerInfo.stats.totalMinionsKilled +

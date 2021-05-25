@@ -38,7 +38,7 @@ function Navbar() {
 
     if (clickedSummoner) {
       handleOnBlur()
-      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
+      //dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
 
       dispatch(getInput('userInput', '', clickedRegion))
       history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
@@ -47,7 +47,7 @@ function Navbar() {
         return
       } else {
         handleOnBlur()
-        dispatch(getSummonerInfo(name.replace(/\s/g, ''), region))
+        //dispatch(getSummonerInfo(name.replace(/\s/g, ''), region))
 
         dispatch(getInput('userInput', '', region))
         history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)

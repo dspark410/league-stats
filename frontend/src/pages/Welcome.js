@@ -61,7 +61,7 @@ const Welcome = ({ match }) => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
+  }, [dispatch, match.params.summonerName, match.params.region])
 
   useEffect(() => {
     let time
