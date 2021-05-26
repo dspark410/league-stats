@@ -3,7 +3,6 @@ import style from './navbar.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import { getInput } from '../redux/actions/inputActions'
-import { clearSummoner } from '../redux/actions/summonerInfoActions'
 import { Link, useLocation, useHistory } from 'react-router-dom'
 import { regions } from '../utils/constant'
 import {
@@ -32,8 +31,6 @@ function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    //dispatch(clearSummoner())
 
     const clickedSummoner = e.target.getAttribute('value')
     const clickedRegion = e.target.getAttribute('region')

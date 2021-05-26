@@ -51,7 +51,8 @@ const Welcome = ({ match }) => {
     }
     return () => {
       console.log('clearSummoner Dispatched')
-      dispatch(setInitial())
+
+      dispatch(clearSummoner())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

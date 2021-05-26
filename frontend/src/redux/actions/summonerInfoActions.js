@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {
-  SET_INITIAL,
   GET_SUMMONER_INFO,
   CLEAR_SUMMONER_INFO,
   SUMMONER_INFO_ERROR,
@@ -9,23 +8,29 @@ import {
   MATCHES_LOADING,
   MATCHES_ERROR,
   GET_SUMMONER_REGION,
+  GET_TOKEN,
 } from '../constants/summonerInfoConstants'
-const controller = new AbortController()
-const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
 
+const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
 let timer
+let source
 
 export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
+  source = axios.CancelToken.source()
   try {
+    dispatch({
+      type: GET_TOKEN,
+      payload: source,
+    })
     dispatch({
       type: SUMMONER_INFO_LOADING,
     })
-    const res = await fetch(
+    const { data } = await axios(
       `${endpoint}/getSummonerInfo/${summonerName}/${region}`,
-      { signal: controller.signal }
+      { cancelToken: source.token }
     )
-    const data = await res.json()
 
+    console.log(data)
     timer = setTimeout(() => {
       console.log('timer running')
       if (data === 'summoner not found...') {
@@ -49,35 +54,12 @@ export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
   }
 }
 
-export const setInitial = () => async (dispatch) => {
-  console.log('setInitial in action running')
-  clearTimeout(timer)
-  controller.abort()
-  dispatch({
-    type: SET_INITIAL,
-    payload: {
-      summLoading: false,
-      matchesLoader: false,
-      data: {
-        mastery: [],
-        rank: [],
-        live: 'Not In Live Game',
-        matchHistory: [],
-        matchList: {},
-        rgn: 'NA1',
-        notFound: 'summoner not found...',
-      },
-      error: '',
-    },
-  })
-}
-
-export const clearSummoner = () => async (dispatch) => {
+export const clearSummoner = () => (dispatch) => {
   dispatch({
     type: CLEAR_SUMMONER_INFO,
   })
+  source.cancel('cancelled getSummonerInfo')
   clearTimeout(timer)
-  controller.abort()
 }
 
 export const getMoreMatches =
@@ -105,7 +87,7 @@ export const getMoreMatches =
     }
   }
 
-export const getSummonerRegion = () => async (dispatch) => {
+export const getSummonerRegion = () => (dispatch) => {
   dispatch({
     type: SUMMONER_INFO_LOADING,
   })

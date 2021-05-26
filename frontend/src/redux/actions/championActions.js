@@ -25,7 +25,6 @@ export const getChampion = (champInfo) => async (dispatch) => {
     type: CHAMPION_LOADING,
   })
   timer = setTimeout(() => {
-    console.log('champion timer 2.5')
     dispatch({
       type: GET_CHAMPION,
       payload: champInfo,
