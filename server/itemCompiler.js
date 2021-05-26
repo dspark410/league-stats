@@ -38,7 +38,7 @@ const newJson = () => {
   fs.writeFile(
     './items/backupItems.json',
     JSON.stringify(oldItems, null, 4),
-    function (err) {
+    (err) => {
       if (err) {
         console.log('Error occured', err)
       }
@@ -55,11 +55,12 @@ const init = async () => {
   version = res.data.filter((num) => !num.includes('lolpatch'))
 
   if (oldItems) {
+    console.log(oldItems['1001'].version)
     if (oldItems['1001'].version === version[0]) {
       console.log('No Change')
     } else {
       const start = version.indexOf(oldItems['1001'].version)
-      getItem(start)
+      await getItem(start)
       newJson()
     }
   } else {
