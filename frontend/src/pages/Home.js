@@ -3,13 +3,14 @@ import style from './home.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import { getInput, changeNav } from '../redux/actions/inputActions'
-import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
 import { regions } from '../utils/constant'
 import {
   AiOutlineSearch,
   AiOutlineInfoCircle,
   IoSearchCircle,
 } from 'react-icons/all'
+import DefaultSearchHistory from '../components/DefaultSearchHistory'
+import PreviousSearchHistory from '../components/PreviousSearchHistory'
 
 function Home({ history }) {
   const inputEl = useRef(false)
@@ -91,7 +92,7 @@ function Home({ history }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
+  return version ? (
     <div className={style.homeBackgroundContainer}>
       <div className={style.homeContainer}>
         <div className={style.inputContainer}>
@@ -103,11 +104,11 @@ function Home({ history }) {
           <div className={style.formContainer}>
             <form onSubmit={handleSubmit} className={style.selectContainer}>
               <select
+                className={style.selectContainerSelect}
                 value={region}
                 onChange={(e) =>
                   dispatch(getInput('userInput', name, e.target.value))
-                }
-                className={style.regionSelect}>
+                }>
                 {regions.map((r, i) => (
                   <option className={style.regionOption} value={r} key={i}>
                     {r}
@@ -154,105 +155,20 @@ function Home({ history }) {
                 )}
               </div>
               {prevSearches.length === 0 ? (
-                <>
-                  <div
-                    onMouseDown={handleSubmit}
-                    value='mistahpig'
-                    region='NA1'
-                    icon='7'
-                    className={style.storageSummoner}>
-                    <div className={style.regionContainer}>
-                      <span className={style.region}>NA</span>
-                    </div>
-
-                    <img
-                      alt='profile icon'
-                      className={style.profileIcon}
-                      // Grab profile icon
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
-                    />
-                    <span
-                      value='mistahpig'
-                      region='NA1'
-                      icon='7'
-                      className={style.summoner}>
-                      mistahpig
-                    </span>
-
-                    <div
-                      onMouseDown={() => inputEl.current.blur()}
-                      className={style.removeContainer}>
-                      <p className={style.remove}>x</p>
-                    </div>
-                  </div>
-                  <div
-                    onMouseDown={handleSubmit}
-                    value='DambitWes'
-                    region='NA1'
-                    icon='3466'
-                    className={style.storageSummoner}>
-                    <div className={style.regionContainer}>
-                      <span className={style.region}>NA</span>
-                    </div>
-                    <img
-                      alt='profile icon'
-                      className={style.profileIcon}
-                      // Grab profile icon
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
-                    />
-                    <span
-                      value='DambitWes'
-                      region='NA1'
-                      icon='3466'
-                      className={style.summoner}>
-                      DambitWes
-                    </span>
-
-                    <div
-                      onMouseDown={() => inputEl.current.blur()}
-                      className={style.removeContainer}>
-                      <p className={style.remove}>x</p>
-                    </div>
-                  </div>
-                </>
+                <DefaultSearchHistory
+                  version={version}
+                  handleSubmit={handleSubmit}
+                  inputEl={inputEl}
+                />
               ) : (
                 prevSearches.map((summoner, i) => (
-                  <div key={i} className={style.storageSummoner}>
-                    <div
-                      className={style.topLayer}
-                      onMouseDown={handleSubmit}
-                      value={summoner[0]}
-                      region={summoner[1]}
-                      icon={summoner[2]}
-                    />
-                    <div className={style.regionContainer}>
-                      <span className={style.region}>{summoner[1]}</span>
-                    </div>
-
-                    <img
-                      alt='profile icon'
-                      className={style.profileIcon}
-                      // Grab profile icon
-                      src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
-                    />
-                    <span className={style.summoner}>{summoner[0]}</span>
-
-                    <div
-                      onMouseDown={removeSearchedSummoner}
-                      value={summoner[0]}
-                      region={summoner[1]}
-                      icon={summoner[2]}
-                      className={style.removeContainer}>
-                      <div
-                        onMouseDown={removeSearchedSummoner}
-                        value={summoner[0]}
-                        region={summoner[1]}
-                        icon={summoner[2]}
-                        className={style.remove}>
-                        x
-                      </div>
-                    </div>
-                  </div>
+                  <PreviousSearchHistory
+                    key={i}
+                    summoner={summoner}
+                    handleSubmit={handleSubmit}
+                    removeSearchedSummoner={removeSearchedSummoner}
+                    version={version}
+                  />
                 ))
               )}
             </div>
@@ -260,7 +176,7 @@ function Home({ history }) {
         </div>
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default Home

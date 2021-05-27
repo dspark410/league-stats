@@ -301,6 +301,6 @@ export default function ChampionDetail({ match }) {
       </div>
     </div>
   ) : (
-    ''
+    <div className={style.notFound}>Champion Not Found</div>
   )
 }

@@ -148,7 +148,7 @@
   align-items: center;
 }
 
-.selectContainer select {
+.selectContainerSelect {
   border: none;
   outline: none;
   background-color: rgb(43, 34, 58);
@@ -161,8 +161,9 @@
   opacity: 0.7;
 }
 
-.selectContainer select:hover {
+.selectContainerSelect:hover {
   cursor: pointer;
+  background-color: #54425f;
   opacity: 1;
   border: none;
   outline: none;

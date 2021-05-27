@@ -4,16 +4,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import { clearSummoner } from '../redux/actions/summonerInfoActions'
 import { getInput } from '../redux/actions/inputActions'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { regions } from '../utils/constant'
 import {
   AiOutlineSearch,
   AiOutlineInfoCircle,
   IoSearchCircle,
 } from 'react-icons/all'
+import DefaultSearchHistory from './DefaultSearchHistory'
+import PreviousSearchHistory from './PreviousSearchHistory'
 
 function Navbar() {
-  const currentLocation = useLocation()
   const history = useHistory()
   const inputEl = useRef(false)
   const dispatch = useDispatch()
@@ -46,9 +47,10 @@ function Navbar() {
         return
       } else {
         handleOnBlur()
-
+        if (data.summonerInfo.name.toLowerCase() !== name.toLowerCase()) {
+          history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
+        }
         dispatch(getInput('userInput', '', region))
-        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
       }
     }
   }
@@ -112,11 +114,11 @@ function Navbar() {
             <div className={style.formContainer}>
               <form onSubmit={handleSubmit} className={style.selectContainer}>
                 <select
+                  className={style.selectContainerSelect}
                   value={region}
                   onChange={(e) =>
                     dispatch(getInput('userInput', name, e.target.value))
-                  }
-                  className={style.regionSelect}>
+                  }>
                   {regions.map((r, i) => (
                     <option className={style.regionOption} value={r} key={i}>
                       {r}
@@ -163,117 +165,20 @@ function Navbar() {
                   )}
                 </div>
                 {prevSearches.length === 0 ? (
-                  <>
-                    <div
-                      onMouseDown={handleSubmit}
-                      value='mistahpig'
-                      region='NA1'
-                      icon='7'
-                      className={style.storageSummoner}>
-                      <div className={style.regionContainer}>
-                        <span className={style.region}>NA</span>
-                      </div>
-
-                      <img
-                        alt='profile icon'
-                        className={style.profileIcon}
-                        // Grab profile icon
-                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/7.png`}
-                      />
-                      <span
-                        // onMouseDown={submit}
-                        value='mistahpig'
-                        region='NA1'
-                        icon='7'
-                        className={style.summoner}>
-                        mistahpig
-                      </span>
-
-                      <div
-                        onMouseDown={() => inputEl.current.blur()}
-                        className={style.removeContainer}>
-                        <p className={style.remove}>x</p>
-                      </div>
-                    </div>
-                    <div
-                      onMouseDown={handleSubmit}
-                      value='DambitWes'
-                      region='NA1'
-                      icon='3466'
-                      className={style.storageSummoner}>
-                      <div className={style.regionContainer}>
-                        <span className={style.region}>NA</span>
-                      </div>
-                      <img
-                        alt='profile icon'
-                        className={style.profileIcon}
-                        // Grab profile icon
-                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/3466.png`}
-                      />
-                      <span
-                        // onMouseDown={submit}
-                        value='DambitWes'
-                        region='NA1'
-                        icon='3466'
-                        className={style.summoner}>
-                        DambitWes
-                      </span>
-
-                      <div
-                        onMouseDown={() => inputEl.current.blur()}
-                        className={style.removeContainer}>
-                        <p className={style.remove}>x</p>
-                      </div>
-                    </div>
-                  </>
+                  <DefaultSearchHistory
+                    version={version}
+                    handleSubmit={handleSubmit}
+                    inputEl={inputEl}
+                  />
                 ) : (
                   prevSearches.map((summoner, i) => (
-                    <div key={i} className={style.storageSummoner}>
-                      <div
-                        className={style.topLayer}
-                        onMouseDown={
-                          data.summonerInfo
-                            ? data.summonerInfo.name &&
-                              summoner[0].toLowerCase() ===
-                                data.summonerInfo.name.toLowerCase() &&
-                              summoner[1] === region &&
-                              currentLocation.pathname.includes('summoner')
-                              ? handleOnBlur
-                              : handleSubmit
-                            : handleSubmit
-                        }
-                        value={summoner[0]}
-                        region={summoner[1]}
-                        icon={summoner[2]}
-                      />
-                      <div className={style.regionContainer}>
-                        <span className={style.region}>{summoner[1]}</span>
-                      </div>
-
-                      <img
-                        alt='profile icon'
-                        className={style.profileIcon}
-                        // Grab profile icon
-                        src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
-                      />
-                      <span className={style.summoner}>{summoner[0]}</span>
-
-                      <div
-                        onMouseDown={removeSearchedSummoner}
-                        value={summoner[0]}
-                        region={summoner[1]}
-                        icon={summoner[2]}
-                        className={style.removeContainer}>
-                        <div
-                          onMouseDown={removeSearchedSummoner}
-                          value={summoner[0]}
-                          region={summoner[1]}
-                          icon={summoner[2]}
-                          className={style.remove}>
-                          x
-                        </div>
-                      </div>
-                    </div>
+                    <PreviousSearchHistory
+                      key={i}
+                      summoner={summoner}
+                      handleSubmit={handleSubmit}
+                      removeSearchedSummoner={removeSearchedSummoner}
+                      version={version}
+                    />
                   ))
                 )}
               </div>
