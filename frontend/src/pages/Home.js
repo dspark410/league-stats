@@ -34,8 +34,6 @@ function Home({ history }) {
 
     if (clickedSummoner) {
       handleOnBlur()
-      dispatch(getSummonerInfo(clickedSummoner, clickedRegion))
-
       dispatch(getInput('userInput', '', clickedRegion))
       history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
     } else {
@@ -43,10 +41,7 @@ function Home({ history }) {
         return
       } else {
         handleOnBlur()
-        dispatch(getSummonerInfo(name.replace(/\s/g, ''), region))
-
         dispatch(getInput('userInput', '', region))
-
         history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
       }
     }

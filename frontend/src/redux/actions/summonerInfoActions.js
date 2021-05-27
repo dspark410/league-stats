@@ -30,16 +30,13 @@ export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
       { cancelToken: source.token }
     )
 
-    console.log(data)
     timer = setTimeout(() => {
-      console.log('timer running')
       if (data === 'summoner not found...') {
         dispatch({
           type: GET_SUMMONER_INFO,
           payload: { notFound: 'summoner not found...' },
         })
       } else {
-        console.log('dispatch for summonerInfo Running')
         dispatch({
           type: GET_SUMMONER_INFO,
           payload: data,

@@ -73,26 +73,25 @@ export const changeNav = (input) => {
   }
 }
 
-export const changeBackground =
-  (input, championBackground) => async (dispatch) => {
-    if (input === 'brandBackground') {
+export const changeBackground = (input, championBackground) => (dispatch) => {
+  if (input === 'brandBackground') {
+    dispatch({
+      type: SET_FADE,
+    })
+    setTimeout(() => {
       dispatch({
-        type: SET_FADE,
+        type: BRAND_BACKGROUND,
       })
-      setTimeout(() => {
-        dispatch({
-          type: BRAND_BACKGROUND,
-        })
-      }, 500)
-    } else if (input === 'champBackground') {
+    }, 500)
+  } else if (input === 'champBackground') {
+    dispatch({
+      type: SET_FADE,
+    })
+    setTimeout(() => {
       dispatch({
-        type: SET_FADE,
+        type: CHAMP_BACKGROUND,
+        payload: championBackground,
       })
-      setTimeout(() => {
-        dispatch({
-          type: CHAMP_BACKGROUND,
-          payload: championBackground,
-        })
-      }, 500)
-    }
+    }, 500)
   }
+}

@@ -7,6 +7,7 @@ import {
   getCurrentPage,
   getSelectRank,
   setPostsPerPage,
+  clearLeaderboard,
 } from '../redux/actions/leaderboardActions'
 import { changeNav } from '../redux/actions/inputActions'
 import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
@@ -17,14 +18,20 @@ import LeaderboardSkeleton from './LeaderboardSkeleton'
 function Leaderboard({ history, match }) {
   const [division, setDivision] = useState('I')
   const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
-  const [leaderboardLoading, setLeaderboardLoading] = useState(true)
 
   const dispatch = useDispatch()
   const {
     input: {
       summonerInput: { region },
     },
-    leaderboard: { data, rank, page, currentPage, postsPerPage },
+    leaderboard: {
+      data,
+      rank,
+      page,
+      currentPage,
+      postsPerPage,
+      leaderboardLoading,
+    },
   } = useSelector((state) => state)
 
   //pagination info
@@ -56,21 +63,16 @@ function Leaderboard({ history, match }) {
   }
 
   useEffect(() => {
-    let timer
     // Show nav on the leaderboard screen
     setTimeout(() => {
       dispatch(changeNav('showNav'))
     }, 50)
     dispatch(getLeaderboardChalltoMaster(region, rank))
 
-    timer = setTimeout(() => {
-      setLeaderboardLoading(false)
-    }, 3000)
-
     return () => {
       dispatch(getSelectRank('CHALLENGER'))
       setDivision('I')
-      clearTimeout(timer)
+      dispatch(clearLeaderboard())
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,8 +81,6 @@ function Leaderboard({ history, match }) {
   // render skeleton when rank changes on leaderboard
   useEffect(() => {
     let mounted = true
-    let timer
-    setLeaderboardLoading(true)
 
     if (mounted) {
       if (
@@ -96,15 +96,10 @@ function Leaderboard({ history, match }) {
         setMapDivision(['I', 'II', 'III', 'IV'])
         dispatch(getLeaderboardDiamondtoIron(region, rank, division, page))
       }
-
-      timer = setTimeout(() => {
-        setLeaderboardLoading(false)
-      }, 3000)
     }
 
     return () => {
       mounted = false
-      clearTimeout(timer)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [region, rank, division, page])

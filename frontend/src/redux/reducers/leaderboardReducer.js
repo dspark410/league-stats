@@ -1,4 +1,5 @@
 import {
+  LEADERBOARD_LOADING,
   DECREMENT_PAGE,
   GET_LEADERBOARD,
   INCREMENT_PAGE,
@@ -7,25 +8,42 @@ import {
   SET_PAGE,
   SET_POSTS_PER_PAGE,
   SET_RANK,
+  LEADERBOARD_TOKEN,
+  CLEAR_LEADERBOARD,
 } from '../constants/leaderboardConstants'
 
 const leaderboardInitial = {
   data: [],
   error: '',
   rank: 'CHALLENGER',
+  controller: '',
   page: 1,
   currentPage: 1,
   postsPerPage: 25,
   totalPosts: 0,
+  leaderboardLoading: false,
 }
 
 export const leaderboardReducer = (state = leaderboardInitial, action) => {
   switch (action.type) {
+    case CLEAR_LEADERBOARD:
+      return {
+        ...state,
+        leaderboardLoading: false,
+      }
+    case LEADERBOARD_TOKEN:
+      return { ...state, controller: action.payload }
+    case LEADERBOARD_LOADING:
+      return {
+        ...state,
+        leaderboardLoading: true,
+      }
     case GET_LEADERBOARD:
       return {
         ...state,
         data: action.payload,
         totalPosts: action.payload.length,
+        leaderboardLoading: false,
       }
     case LEADERBOARD_ERROR:
       return { ...state, error: action.payload }

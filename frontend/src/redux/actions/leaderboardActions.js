@@ -8,15 +8,39 @@ import {
   INCREMENT_PAGE,
   DECREMENT_PAGE,
   SET_PAGE,
+  LEADERBOARD_LOADING,
+  CLEAR_LEADERBOARD,
+  LEADERBOARD_TOKEN,
 } from '../constants/leaderboardConstants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
 
+let timer
+let source
+
+export const clearLeaderboard = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_LEADERBOARD,
+  })
+  clearTimeout(timer)
+  source.cancel('Leaderboard cancelled')
+}
+
 export const getLeaderboardChalltoMaster =
   (region, rank) => async (dispatch) => {
+    source = axios.CancelToken.source()
     try {
+      dispatch({
+        type: LEADERBOARD_TOKEN,
+        payload: source,
+      })
+      dispatch({
+        type: LEADERBOARD_LOADING,
+      })
+
       const { data } = await axios.get(
-        `${endpoint}/api/leaderboard/${rank}/${region}`
+        `${endpoint}/api/leaderboard/${rank}/${region}`,
+        { cancelToken: source.token }
       )
 
       data.entries
@@ -25,11 +49,12 @@ export const getLeaderboardChalltoMaster =
           entry.tier = data.tier.toUpperCase()
           entry.number = i + 1
         })
-
-      dispatch({
-        type: GET_LEADERBOARD,
-        payload: data.entries,
-      })
+      timer = setTimeout(() => {
+        dispatch({
+          type: GET_LEADERBOARD,
+          payload: data.entries,
+        })
+      }, 3000)
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,
@@ -40,9 +65,18 @@ export const getLeaderboardChalltoMaster =
 
 export const getLeaderboardDiamondtoIron =
   (region, rank, division, page) => async (dispatch) => {
+    source = axios.CancelToken.source()
     try {
+      dispatch({
+        type: LEADERBOARD_TOKEN,
+        payload: source,
+      })
+      dispatch({
+        type: LEADERBOARD_LOADING,
+      })
       let { data } = await axios.get(
-        `${endpoint}/api/leaderboard/${region}/${rank}/${division}/${page}`
+        `${endpoint}/api/leaderboard/${region}/${rank}/${division}/${page}`,
+        { cancelToken: source.token }
       )
 
       data
@@ -54,11 +88,12 @@ export const getLeaderboardDiamondtoIron =
       if (data.length === 0) {
         data = []
       }
-
-      dispatch({
-        type: GET_LEADERBOARD,
-        payload: data,
-      })
+      timer = setTimeout(() => {
+        dispatch({
+          type: GET_LEADERBOARD,
+          payload: data,
+        })
+      }, 2000)
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,

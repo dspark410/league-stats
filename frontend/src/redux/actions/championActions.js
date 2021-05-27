@@ -20,7 +20,7 @@ import {
 
 let timer
 
-export const getChampion = (champInfo) => async (dispatch) => {
+export const getChampion = (champInfo) => (dispatch) => {
   dispatch({
     type: CHAMPION_LOADING,
   })
@@ -32,28 +32,28 @@ export const getChampion = (champInfo) => async (dispatch) => {
   }, 2500)
 }
 
-export const clearTimer = () => async (dispatch) => {
+export const clearTimer = () => (dispatch) => {
   dispatch({
     type: CLEAR_CHAMP_LOADING,
   })
   clearTimeout(timer)
 }
 
-export const setRole = (role) => async (dispatch) => {
+export const setRole = (role) => (dispatch) => {
   dispatch({
     type: SET_ROLE,
     payload: role,
   })
 }
 
-export const setInput = (input, filteredChamp) => async (dispatch) => {
+export const setInput = (input, filteredChamp) => (dispatch) => {
   dispatch({
     type: SET_INPUT,
     payload: [input, filteredChamp],
   })
 }
 
-export const setChampion = (champInfo) => async (dispatch) => {
+export const setChampion = (champInfo) => (dispatch) => {
   dispatch({
     type: SET_FADE_FALSE,
   })
@@ -88,7 +88,7 @@ export const selectChampion = (version, champ) => async (dispatch) => {
   }
 }
 
-export const setVideo = (key) => async (dispatch) => {
+export const setVideo = (key) => (dispatch) => {
   dispatch({
     type: VIDEO_LOADING,
   })
@@ -101,28 +101,27 @@ export const setVideo = (key) => async (dispatch) => {
   }, 100)
 }
 
-export const changeSkin =
-  (action, currentSkin, skinLength) => async (dispatch) => {
-    dispatch({
-      type: SKIN_FADE,
-    })
+export const changeSkin = (action, currentSkin, skinLength) => (dispatch) => {
+  dispatch({
+    type: SKIN_FADE,
+  })
 
-    setTimeout(() => {
-      if (action === 'prev') {
-        dispatch({
-          type: PREV_SKIN,
-          payload: currentSkin === 0 ? skinLength - 1 : currentSkin - 1,
-        })
-      } else if (action === 'next') {
-        dispatch({
-          type: NEXT_SKIN,
-          payload: currentSkin === skinLength - 1 ? 0 : currentSkin + 1,
-        })
-      } else {
-        dispatch({
-          type: RESET_SKIN,
-          payload: 0,
-        })
-      }
-    }, 200)
-  }
+  setTimeout(() => {
+    if (action === 'prev') {
+      dispatch({
+        type: PREV_SKIN,
+        payload: currentSkin === 0 ? skinLength - 1 : currentSkin - 1,
+      })
+    } else if (action === 'next') {
+      dispatch({
+        type: NEXT_SKIN,
+        payload: currentSkin === skinLength - 1 ? 0 : currentSkin + 1,
+      })
+    } else {
+      dispatch({
+        type: RESET_SKIN,
+        payload: 0,
+      })
+    }
+  }, 200)
+}
