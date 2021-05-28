@@ -2,17 +2,17 @@ import React, { useEffect, useRef } from 'react'
 import style from './navbar.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
-import { clearSummoner } from '../redux/actions/summonerInfoActions'
+import {
+  clearRegion,
+  clearSummoner,
+} from '../redux/actions/summonerInfoActions'
 import { getInput } from '../redux/actions/inputActions'
 import { Link, useHistory } from 'react-router-dom'
-import { regions } from '../utils/constant'
-import {
-  AiOutlineSearch,
-  AiOutlineInfoCircle,
-  IoSearchCircle,
-} from 'react-icons/all'
+
+import { AiOutlineInfoCircle, IoSearchCircle } from 'react-icons/all'
 import DefaultSearchHistory from './DefaultSearchHistory'
 import PreviousSearchHistory from './PreviousSearchHistory'
+import FormInput from './FormInput'
 
 function Navbar() {
   const history = useHistory()
@@ -31,9 +31,21 @@ function Navbar() {
     },
   } = useSelector((state) => state)
 
+  const handleOnBlur = () => {
+    dispatch(getInput('animateHide'))
+    inputEl.current.blur()
+    setTimeout(() => {
+      dispatch(getInput('hide'))
+    }, 50)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(clearSummoner())
+    if (data.summonerInfo) {
+      dispatch(clearSummoner())
+    }
+    dispatch(clearRegion())
+
     const clickedSummoner = e.target.getAttribute('value')
     const clickedRegion = e.target.getAttribute('region')
 
@@ -47,25 +59,17 @@ function Navbar() {
         return
       } else {
         handleOnBlur()
-        if (data.summonerInfo.name.toLowerCase() !== name.toLowerCase()) {
+        if (data.notFound) {
+          history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
+        } else if (
+          data.summonerInfo.name.toLowerCase() !==
+          name.toLowerCase().replace(/\s/g, '')
+        ) {
           history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
         }
         dispatch(getInput('userInput', '', region))
       }
     }
-  }
-
-  const handleOnFocus = () => {
-    dispatch(getInput('show'))
-    dispatch(getInput('animateShow'))
-  }
-
-  const handleOnBlur = () => {
-    dispatch(getInput('animateHide'))
-    inputEl.current.blur()
-    setTimeout(() => {
-      dispatch(getInput('hide'))
-    }, 50)
   }
 
   const removeSearchedSummoner = (e) => {
@@ -111,39 +115,11 @@ function Navbar() {
 
         <div className={style.homeContainer}>
           <div className={style.inputContainer}>
-            <div className={style.formContainer}>
-              <form onSubmit={handleSubmit} className={style.selectContainer}>
-                <select
-                  className={style.selectContainerSelect}
-                  value={region}
-                  onChange={(e) =>
-                    dispatch(getInput('userInput', name, e.target.value))
-                  }>
-                  {regions.map((r, i) => (
-                    <option className={style.regionOption} value={r} key={i}>
-                      {r}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  className={style.input}
-                  spellCheck='false'
-                  onChange={(e) =>
-                    dispatch(getInput('userInput', e.target.value, region))
-                  }
-                  type='text'
-                  placeholder='search summoner...'
-                  onFocus={handleOnFocus}
-                  onBlur={handleOnBlur}
-                  value={name}
-                  ref={inputEl}
-                />
-              </form>
-              <AiOutlineSearch
-                onClick={handleSubmit}
-                className={style.searchIcon}
-              />
-            </div>
+            <FormInput
+              handleSubmit={handleSubmit}
+              inputEl={inputEl}
+              handleOnBlur={handleOnBlur}
+            />
             {showPrevSearches ? (
               <div
                 className={

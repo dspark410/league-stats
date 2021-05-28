@@ -1,4 +1,3 @@
-import BrandBackground from '../../components/images/brand.jpg'
 import {
   ADD_SUMMONER,
   ANIMATE_HIDE,
@@ -16,6 +15,9 @@ import {
 
 const prevSearchesLocal =
   JSON.parse(localStorage.getItem('searchedSummoner')) || []
+
+const BrandBackground =
+  'https://res.cloudinary.com/mistahpig/image/upload/v1622152280/league-stats/brand/brand_jpceet.jpg'
 
 const inputInitial = {
   summonerInput: {

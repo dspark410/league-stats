@@ -3,14 +3,10 @@ import style from './home.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import { getInput, changeNav } from '../redux/actions/inputActions'
-import { regions } from '../utils/constant'
-import {
-  AiOutlineSearch,
-  AiOutlineInfoCircle,
-  IoSearchCircle,
-} from 'react-icons/all'
+import { AiOutlineInfoCircle, IoSearchCircle } from 'react-icons/all'
 import DefaultSearchHistory from '../components/DefaultSearchHistory'
 import PreviousSearchHistory from '../components/PreviousSearchHistory'
+import FormInput from '../components/FormInput'
 
 function Home({ history }) {
   const inputEl = useRef(false)
@@ -46,11 +42,6 @@ function Home({ history }) {
         history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
       }
     }
-  }
-
-  const handleOnFocus = () => {
-    dispatch(getInput('show'))
-    dispatch(getInput('animateShow'))
   }
 
   const handleOnBlur = () => {
@@ -101,39 +92,11 @@ function Home({ history }) {
             alt='League Stats Logo'
             src='https://res.cloudinary.com/mistahpig/image/upload/v1621898557/league-stats/logo/leaguestats_fhwj6u.png'
           />
-          <div className={style.formContainer}>
-            <form onSubmit={handleSubmit} className={style.selectContainer}>
-              <select
-                className={style.selectContainerSelect}
-                value={region}
-                onChange={(e) =>
-                  dispatch(getInput('userInput', name, e.target.value))
-                }>
-                {regions.map((r, i) => (
-                  <option className={style.regionOption} value={r} key={i}>
-                    {r}
-                  </option>
-                ))}
-              </select>
-              <input
-                className={style.input}
-                spellCheck='false'
-                onChange={(e) =>
-                  dispatch(getInput('userInput', e.target.value, region))
-                }
-                type='text'
-                placeholder='search summoner...'
-                onFocus={handleOnFocus}
-                onBlur={handleOnBlur}
-                value={name}
-                ref={inputEl}
-              />
-            </form>
-            <AiOutlineSearch
-              onClick={handleSubmit}
-              className={style.searchIcon}
-            />
-          </div>
+          <FormInput
+            handleSubmit={handleSubmit}
+            inputEl={inputEl}
+            handleOnBlur={handleOnBlur}
+          />
           {showPrevSearches && (
             <div
               className={

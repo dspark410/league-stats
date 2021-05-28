@@ -5,6 +5,7 @@ import {
   getSummonerInfo,
   getSummonerRegion,
   clearSummoner,
+  clearSummonerState,
 } from '../redux/actions/summonerInfoActions'
 import style from './welcome.module.css'
 import MasteryCard from '../components/MasteryCard'
@@ -49,12 +50,13 @@ const Welcome = ({ match }) => {
       })
     }
     return () => {
-      dispatch(clearSummoner())
+      if (summonerInfo) dispatch(clearSummoner())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
+    dispatch(clearSummonerState())
     // Dispatches getSummonerInfo from URL
     if (regions.includes(match.params.region)) {
       setNoRegion(false)

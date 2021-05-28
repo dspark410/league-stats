@@ -9,6 +9,8 @@ import {
   MATCHES_ERROR,
   GET_SUMMONER_REGION,
   GET_TOKEN,
+  CLEAR_SUMMONER_STATE,
+  CLEAR_REGION,
 } from '../constants/summonerInfoConstants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
@@ -59,6 +61,13 @@ export const clearSummoner = () => (dispatch) => {
   clearTimeout(timer)
 }
 
+export const clearSummonerState = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_SUMMONER_STATE,
+  })
+  clearTimeout(timer)
+}
+
 export const getMoreMatches =
   (gameIds, summonerInfo, region) => async (dispatch) => {
     try {
@@ -70,7 +79,7 @@ export const getMoreMatches =
           summonerInfo
         )}/${region}`
       )
-      setTimeout(() => {
+      timer = setTimeout(() => {
         dispatch({
           type: GET_MORE_MATCHES,
           payload: data,
@@ -89,9 +98,17 @@ export const getSummonerRegion = () => (dispatch) => {
     type: SUMMONER_INFO_LOADING,
   })
 
-  setTimeout(() => {
+  timer = setTimeout(() => {
     dispatch({
       type: GET_SUMMONER_REGION,
     })
   }, 3000)
+}
+
+export const clearRegion = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_REGION,
+  })
+
+  clearTimeout(timer)
 }
