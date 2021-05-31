@@ -10,7 +10,7 @@ import {
   GET_SUMMONER_REGION,
   GET_TOKEN,
   CLEAR_SUMMONER_STATE,
-  CLEAR_REGION,
+  CLEAR_SEARCH,
 } from '../constants/summonerInfoConstants'
 
 const endpoint = process.env.REACT_APP_API_ENDPOINT || ''
@@ -105,9 +105,9 @@ export const getSummonerRegion = () => (dispatch) => {
   }, 3000)
 }
 
-export const clearRegion = () => (dispatch) => {
+export const clearSearch = () => (dispatch) => {
   dispatch({
-    type: CLEAR_REGION,
+    type: CLEAR_SEARCH,
   })
 
   clearTimeout(timer)

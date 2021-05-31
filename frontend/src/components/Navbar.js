@@ -3,7 +3,7 @@ import style from './navbar.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { getDependency } from '../redux/actions/dependencyActions'
 import {
-  clearRegion,
+  clearSearch,
   clearSummoner,
 } from '../redux/actions/summonerInfoActions'
 import { getInput } from '../redux/actions/inputActions'
@@ -44,7 +44,7 @@ function Navbar() {
     if (data.summonerInfo) {
       dispatch(clearSummoner())
     }
-    dispatch(clearRegion())
+    dispatch(clearSearch())
 
     const clickedSummoner = e.target.getAttribute('value')
     const clickedRegion = e.target.getAttribute('region')

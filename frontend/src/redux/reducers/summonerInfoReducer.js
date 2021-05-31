@@ -9,7 +9,7 @@ import {
   SUMMONER_INFO_ERROR,
   SUMMONER_INFO_LOADING,
   GET_TOKEN,
-  CLEAR_REGION,
+  CLEAR_SEARCH,
 } from '../constants/summonerInfoConstants'
 
 const summonerInfoInitial = {
@@ -61,8 +61,8 @@ export const summonerInfoReducer = (state = summonerInfoInitial, action) => {
       return { ...state, error: action.payload, matchesLoader: false }
     case GET_SUMMONER_REGION:
       return { ...state, summLoading: false }
-    case CLEAR_REGION:
-      return { ...state, summLoading: true }
+    case CLEAR_SEARCH:
+      return { ...state, summLoading: false }
     default:
       return state
   }
