@@ -29,7 +29,15 @@ const Welcome = ({ match }) => {
 
   const {
     summoner: {
-      data: { summonerInfo, live, rank, matchHistory, mastery, notFound },
+      data: {
+        summonerInfo,
+        live,
+        rank,
+        matchHistory,
+        mastery,
+        notFound,
+        controller,
+      },
       summLoading,
     },
     dependency: { version },
@@ -51,7 +59,7 @@ const Welcome = ({ match }) => {
       })
     }
     return () => {
-      if (summonerInfo) dispatch(clearSummoner())
+      if (controller !== '' && summonerInfo) dispatch(clearSummoner())
       dispatch(clearSearch())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,6 +70,7 @@ const Welcome = ({ match }) => {
     // Dispatches getSummonerInfo from URL
     if (regions.includes(match.params.region)) {
       setNoRegion(false)
+
       dispatch(getSummonerInfo(match.params.summonerName, match.params.region))
     } else {
       dispatch(getSummonerRegion())

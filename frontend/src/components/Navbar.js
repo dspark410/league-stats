@@ -20,7 +20,7 @@ function Navbar() {
   const dispatch = useDispatch()
 
   const {
-    summoner: { data },
+    summoner: { data, controller },
     dependency: { version },
     input: {
       summonerInput: { name, region },
@@ -41,24 +41,35 @@ function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (data.summonerInfo) {
-      dispatch(clearSummoner())
-    }
-    dispatch(clearSearch())
 
     const clickedSummoner = e.target.getAttribute('value')
+      ? e.target.getAttribute('value').toLowerCase()
+      : null
     const clickedRegion = e.target.getAttribute('region')
 
-    if (clickedSummoner) {
-      handleOnBlur()
+    const urlSummonerName = history.location.pathname.split('/')[3]
+      ? history.location.pathname.split('/')[3].toLowerCase()
+      : null
 
+    if (
+      urlSummonerName !== name.replace(/\s/g, '') &&
+      urlSummonerName !== clickedSummoner
+    ) {
+      if (controller !== '') {
+        dispatch(clearSummoner())
+      }
+      dispatch(clearSearch())
+    }
+
+    handleOnBlur()
+
+    if (clickedSummoner && clickedSummoner.toLowerCase() !== urlSummonerName) {
       dispatch(getInput('userInput', '', clickedRegion))
       history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
     } else {
       if (name.trim() === '') {
         return
       } else {
-        handleOnBlur()
         if (data.notFound) {
           history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
         } else if (
@@ -66,6 +77,9 @@ function Navbar() {
           name.toLowerCase().replace(/\s/g, '')
         ) {
           history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
+        } else {
+          dispatch(getInput('userInput', '', region))
+          return
         }
         dispatch(getInput('userInput', '', region))
       }
@@ -83,7 +97,7 @@ function Navbar() {
   }
 
   useEffect(() => {
-    if (!version) {
+    if (!version && history.location.pathname !== '/') {
       dispatch(getDependency())
     }
 
