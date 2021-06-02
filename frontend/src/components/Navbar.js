@@ -51,6 +51,8 @@ function Navbar() {
       ? history.location.pathname.split('/')[3].toLowerCase()
       : null
 
+    const urlRegion = history.location.pathname.split('/')[2]
+
     if (
       urlSummonerName !== name.replace(/\s/g, '') &&
       urlSummonerName !== clickedSummoner
@@ -63,7 +65,11 @@ function Navbar() {
 
     handleOnBlur()
 
-    if (clickedSummoner && clickedSummoner.toLowerCase() !== urlSummonerName) {
+    if (
+      clickedSummoner &&
+      (clickedSummoner.toLowerCase() !== urlSummonerName ||
+        urlRegion !== clickedRegion)
+    ) {
       dispatch(getInput('userInput', '', clickedRegion))
       history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
     } else {
