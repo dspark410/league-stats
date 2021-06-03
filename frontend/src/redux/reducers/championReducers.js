@@ -15,6 +15,7 @@ import {
   NEXT_SKIN,
   PREV_SKIN,
   RESET_SKIN,
+  RESET_CHAMPION_DETAIL,
 } from '../constants/championConstants'
 
 const championInitial = {
@@ -79,6 +80,8 @@ export const championReducer = (state = championInitial, action) => {
       return { ...state, skinFade: false, currentSkin: action.payload }
     case RESET_SKIN:
       return { ...state, skinFade: false, currentSkin: action.payload }
+    case RESET_CHAMPION_DETAIL:
+      return championInitial
     default:
       return state
   }

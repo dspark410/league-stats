@@ -16,6 +16,7 @@ import {
   PREV_SKIN,
   NEXT_SKIN,
   RESET_SKIN,
+  RESET_CHAMPION_DETAIL,
 } from '../constants/championConstants'
 
 let timer
@@ -30,6 +31,12 @@ export const getChampion = (champInfo) => (dispatch) => {
       payload: champInfo,
     })
   }, 2500)
+}
+
+export const resetChampDetail = () => (dispatch) => {
+  dispatch({
+    type: RESET_CHAMPION_DETAIL,
+  })
 }
 
 export const clearTimer = () => (dispatch) => {

@@ -5,6 +5,7 @@ import {
   setVideo,
   changeSkin,
   selectChampion,
+  resetChampDetail,
 } from '../redux/actions/championActions'
 import style from './championdetail.module.css'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
@@ -20,6 +21,7 @@ export default function ChampionDetail({ match }) {
       videoLoading,
       currentSkin,
       skinFade,
+      error,
     },
   } = useSelector((state) => state)
 
@@ -63,8 +65,8 @@ export default function ChampionDetail({ match }) {
             champName = key
           }
         }
-        resolve()
-      }).then(() => dispatch(selectChampion(version, champName)))
+        resolve(champName)
+      }).then((res) => dispatch(selectChampion(version, res)))
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -76,6 +78,7 @@ export default function ChampionDetail({ match }) {
     })
 
     if (selectedChampion.skins) {
+      console.log('selectedChampion running')
       dispatch(
         changeBackground(
           'champBackground',
@@ -83,13 +86,17 @@ export default function ChampionDetail({ match }) {
         )
       )
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedChampion])
 
+  useEffect(() => {
     return () => {
       dispatch(changeBackground('brandBackground'))
       dispatch(changeSkin('reset'))
+      dispatch(resetChampDetail())
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedChampion])
+  }, [])
 
   return selectedChampion.key && backupItem ? (
     <div className={style.fadeContainer}>
@@ -300,7 +307,7 @@ export default function ChampionDetail({ match }) {
         </h3>
       </div>
     </div>
-  ) : (
+  ) : error !== '' ? (
     <div className={style.notFound}>Champion Not Found</div>
-  )
+  ) : null
 }

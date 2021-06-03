@@ -7,16 +7,14 @@ import {
   setChampion,
   setRole,
   setInput,
-  selectChampion,
   clearTimer,
 } from '../redux/actions/championActions'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
 import { laneChamp } from '../utils/constant'
 import ChampionSkeleton from './ChampionSkeleton'
 import Tooltip from '../components/Tooltip'
 
-function Champions() {
+function Champions({ history }) {
   const dispatch = useDispatch()
 
   const {
@@ -38,7 +36,7 @@ function Champions() {
 
   const clickHandler = (event) => {
     const getChamp = event.target.getAttribute('name')
-    dispatch(selectChampion(version, getChamp))
+    history.push(`/champions/${getChamp.toLowerCase()}`)
   }
 
   useEffect(() => {
@@ -285,16 +283,13 @@ function Champions() {
                           info={latestChamp.title}
                           moreInfo={latestChamp.blurb}>
                           <div className={style.latestImage}>
-                            <Link to='/champions/:champions'>
-                              <img
-                                alt={latestChamp.image.full}
-                                onClick={clickHandler}
-                                name={latestChamp.id}
-                                realname={latestChamp.name}
-                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latestChamp.image.full}`}
-                              />
-                            </Link>
-
+                            <img
+                              alt={latestChamp.image.full}
+                              onClick={clickHandler}
+                              name={latestChamp.id}
+                              realname={latestChamp.name}
+                              src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${latestChamp.image.full}`}
+                            />
                             <div className={style.champName}>
                               {latestChamp.name}
                             </div>
@@ -326,27 +321,24 @@ function Champions() {
                             moreInfo={champ.blurb}>
                             <div
                               className={!championLoading && style.latestImage}>
-                              <Link to={`/champions/${champ.id.toLowerCase()}`}>
-                                <img
-                                  style={{
-                                    border: mastery
-                                      ? mastery
-                                          .filter((master) => {
-                                            return master.id === champ.id
-                                          })
-                                          .map(
-                                            (mast) =>
-                                              'solid 3px rgb(199 169 100'
-                                          )
-                                      : 'solid 2px #9865b6',
-                                  }}
-                                  alt={champ.image.full}
-                                  onClick={clickHandler}
-                                  name={champ.id}
-                                  realname={champ.name}
-                                  src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
-                                />
-                              </Link>
+                              <img
+                                style={{
+                                  border: mastery
+                                    ? mastery
+                                        .filter((master) => {
+                                          return master.id === champ.id
+                                        })
+                                        .map(
+                                          (mast) => 'solid 3px rgb(199 169 100'
+                                        )
+                                    : 'solid 2px #9865b6',
+                                }}
+                                alt={champ.image.full}
+                                onClick={clickHandler}
+                                name={champ.id}
+                                realname={champ.name}
+                                src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/champion/${champ.image.full}`}
+                              />
 
                               <div className={style.champName}>
                                 {champ.name}
