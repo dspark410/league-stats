@@ -1,8 +1,7 @@
 import React from 'react'
 import style from './masterycard.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectChampion } from '../redux/actions/championActions'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
 
 function MasteryCard({ version }) {
   const {
@@ -11,11 +10,11 @@ function MasteryCard({ version }) {
     },
   } = useSelector((state) => state)
 
-  const dispatch = useDispatch()
+  const history = useHistory()
 
   const clickHandler = (event) => {
     const getChamp = event.target.getAttribute('name')
-    dispatch(selectChampion(version, getChamp))
+    history.push(`/champions/${getChamp.toLowerCase()}`)
   }
 
   return version ? (

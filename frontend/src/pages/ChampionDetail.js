@@ -78,7 +78,6 @@ export default function ChampionDetail({ match }) {
     })
 
     if (selectedChampion.skins) {
-      console.log('selectedChampion running')
       dispatch(
         changeBackground(
           'champBackground',

@@ -1,7 +1,6 @@
 import React from 'react'
 import style from './historycardcomplex.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { getSummonerInfo } from '../redux/actions/summonerInfoActions'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { IoIosArrowUp } from 'react-icons/io'
 import { runeDescriptions } from '../utils/constant'
@@ -15,7 +14,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
     },
     dependency: { spells, runes },
   } = useSelector((state) => state)
-  const dispatch = useDispatch()
   const history = useHistory()
 
   // Filters out team one
@@ -36,7 +34,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
 
     const summonerName = e.target.getAttribute('name')
     const region = e.target.getAttribute('region')
-    dispatch(getSummonerInfo(summonerName, region))
     history.push(`/summoner/${region}/${summonerName}`)
   }
 

@@ -265,7 +265,6 @@
 .notInGame {
   color: #e1e1e1;
   background-color: #7a6b83;
-
   border-radius: 8px;
   margin-top: 15px;
   animation: fadeIn ease 1.5s;

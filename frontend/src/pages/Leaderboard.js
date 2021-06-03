@@ -67,7 +67,6 @@ function Leaderboard({ history, match }) {
     setTimeout(() => {
       dispatch(changeNav('showNav'))
     }, 50)
-    dispatch(getLeaderboardChalltoMaster(region, rank))
 
     return () => {
       dispatch(getSelectRank('CHALLENGER'))
