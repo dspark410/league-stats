@@ -174,6 +174,7 @@ function Navbar() {
                       handleSubmit={handleSubmit}
                       removeSearchedSummoner={removeSearchedSummoner}
                       version={version}
+                      nav={true}
                     />
                   ))
                 )}

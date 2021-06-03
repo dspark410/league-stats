@@ -15,10 +15,10 @@
   border: none;
   outline: none;
   background-color: rgb(43, 34, 58);
-  /* padding: 9px 10px; */
+  padding: 11px 10px;
   border-radius: 5px;
   color: #e1e1e1;
-  /* font-size: 14px; */
+  font-size: 16px;
   font-weight: 600;
   margin-right: 15px;
   opacity: 0.7;
@@ -32,9 +32,14 @@
   outline: none;
 }
 
+.input[type='text'] {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .searchIcon {
   color: #e1e1e1;
-  /* font-size: 21px; */
+  font-size: 25px;
   font-weight: bold;
   margin-left: -35px;
   align-items: center;

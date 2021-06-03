@@ -241,6 +241,13 @@
   min-width: 150px;
 }
 
+.summonerNav {
+  font-size: 15px;
+  margin-left: 10px;
+  font-weight: 300;
+  min-width: 150px;
+}
+
 .removeContainer {
   display: flex;
   justify-content: center;

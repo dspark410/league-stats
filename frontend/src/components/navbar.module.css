@@ -5,8 +5,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 13px;
-
   letter-spacing: 1px;
   z-index: 100;
 }
@@ -58,6 +56,7 @@
   text-decoration: none;
   padding: 1rem 1rem;
   margin-right: 15px;
+  font-size: 13px;
 }
 
 .navLinks:hover {

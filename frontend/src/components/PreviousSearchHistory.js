@@ -6,6 +6,7 @@ export default function PreviousSearchHistory({
   removeSearchedSummoner,
   summoner,
   version,
+  nav,
 }) {
   return (
     <div className={style.storageSummoner}>
@@ -26,7 +27,9 @@ export default function PreviousSearchHistory({
         // Grab profile icon
         src={`https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${summoner[2]}.png`}
       />
-      <span className={style.summoner}>{summoner[0]}</span>
+      <span className={nav ? style.summonerNav : style.summoner}>
+        {summoner[0]}
+      </span>
 
       <div
         onMouseDown={removeSearchedSummoner}
