@@ -80,7 +80,8 @@ function Navbar() {
           history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
         } else if (
           data.summonerInfo.name.toLowerCase() !==
-          name.toLowerCase().replace(/\s/g, '')
+            name.toLowerCase().replace(/\s/g, '') ||
+          urlRegion !== region
         ) {
           history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
         } else {
