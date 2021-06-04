@@ -82,6 +82,16 @@ input[type='text'] {
   cursor: pointer;
 }
 
+.noHover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #7a6b83;
+  margin: 0px 5px 15px 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
 .roleImage {
   width: 35px;
   height: auto;

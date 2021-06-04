@@ -177,7 +177,9 @@ function Champions({ history }) {
                           )
                   }
                   className={
-                    role === roles.toLowerCase().replace(/\s/g, '')
+                    championLoading
+                      ? style.noHover
+                      : role === roles.toLowerCase().replace(/\s/g, '')
                       ? style.currentRole
                       : style.roleContainer
                   }>
