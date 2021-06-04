@@ -88,6 +88,8 @@ input[type='text'] {
 }
 
 .rotateImage {
+  width: 35px;
+  height: auto;
   transform: rotate(30deg);
 }
 

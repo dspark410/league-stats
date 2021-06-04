@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import style from './welcome.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeNav } from '../redux/actions/inputActions'
 import {
@@ -8,17 +9,14 @@ import {
   clearSummonerState,
   clearSearch,
 } from '../redux/actions/summonerInfoActions'
-import style from './welcome.module.css'
-import MasteryCard from '../components/MasteryCard'
+import { regions } from '../utils/constant'
 import RankCard from '../components/RankCard'
 import UnrankedCard from '../components/UnrankedCard'
 import SummonerCard from '../components/SummonerCard'
-import MatchHistoryCard from '../components/MatchHistoryCard'
-import Live from '../components/Live'
-import { MdLiveTv } from 'react-icons/md'
 import NotFound from './NotFound'
 import WelcomeSkeleton from './WelcomeSkeleton'
-import { regions } from '../utils/constant'
+import NoMatchHistoryMasteryAndLive from '../components/NoMatchHistoryAndLive'
+import MatchHistoryMasteryandLive from '../components/MatchHistoryMasteryandLive'
 
 const Welcome = ({ match }) => {
   const [display, setDisplay] = useState('overview')
@@ -180,63 +178,18 @@ const Welcome = ({ match }) => {
         </div>
         <div className={style.row3}>
           {display === 'overview' && matchHistory.length === 0 ? (
-            <>
-              <div className={style.noMatchContainer}>
-                <div className={style.matchHeader}>Match History</div>
-                <div className={style.noMatches}>No Matches Were Found.</div>
-              </div>
-              <div className={style.masteryCard}>
-                <div className={style.header}>
-                  <img
-                    alt='mastery icon'
-                    src='https://res.cloudinary.com/mistahpig/image/upload/v1621882123/league-stats/icons/mastery_yqwggf.png'
-                  />
-                  CHAMPION MASTERY
-                </div>
-                <div className={style.masteryHeader}>
-                  <div className={style.championHeader}>CHAMPION</div>
-                  <div className={style.levelHeader}>LEVEL</div>
-                  <div className={style.pointsHeader}>POINTS</div>
-                </div>
-                {mastery.length === 0 && (
-                  <div className={style.noChamps}>No Champions Found.</div>
-                )}
-              </div>
-              {live === 'Not In Live Game' && display === 'live' && (
-                <div className={style.notInGame}>
-                  <div className={style.liveGameHeader}>
-                    <MdLiveTv className={style.liveIcon} />
-                    <span className={style.liveGame}>Live Game</span>
-                  </div>
-                  <div className={style.text}>Summoner Is Not In Game.</div>
-                </div>
-              )}
-            </>
+            <NoMatchHistoryMasteryAndLive
+              mastery={mastery}
+              live={live}
+              display={display}
+            />
           ) : (
-            <div>
-              <div className={display === 'overview' ? style.row3 : style.none}>
-                <MatchHistoryCard />
-                <MasteryCard version={version} />
-              </div>
-              <div
-                className={
-                  live === 'Not In Live Game' && display === 'live'
-                    ? style.notInGame
-                    : style.none
-                }>
-                <div className={style.liveGameHeader}>
-                  <MdLiveTv className={style.liveIcon} />
-                  <span className={style.liveGame}>Live Game</span>
-                </div>
-                <div className={style.text}>Summoner Is Not In Game.</div>
-              </div>
-              <div
-                className={
-                  live && display === 'live' ? style.liveContainer : style.none
-                }>
-                {live !== 'Not In Live Game' && <Live time={time} />}
-              </div>
-            </div>
+            <MatchHistoryMasteryandLive
+              version={version}
+              display={display}
+              time={time}
+              live={live}
+            />
           )}
         </div>
       </div>

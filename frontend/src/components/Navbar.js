@@ -8,7 +8,6 @@ import {
 } from '../redux/actions/summonerInfoActions'
 import { getInput } from '../redux/actions/inputActions'
 import { Link, useHistory } from 'react-router-dom'
-
 import { AiOutlineInfoCircle, IoSearchCircle } from 'react-icons/all'
 import DefaultSearchHistory from './DefaultSearchHistory'
 import PreviousSearchHistory from './PreviousSearchHistory'

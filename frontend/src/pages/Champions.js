@@ -16,6 +16,7 @@ import Tooltip from '../components/Tooltip'
 
 function Champions({ history }) {
   const dispatch = useDispatch()
+  const roleArr = ['All', 'Free', 'Top', 'Jungle', 'Mid', 'AD Carry', 'Support']
 
   const {
     summoner: {
@@ -50,10 +51,15 @@ function Champions({ history }) {
 
     return () => {
       dispatch(clearTimer())
+      dispatch(setRole('all'))
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [champInfo, dispatch])
+
+  // useEffect(() => {
+  //   dispatch(setChampion(champInfo))
+  // }, [champs, role])
 
   // filtering onClick by role
   useEffect(() => {
@@ -150,7 +156,7 @@ function Champions({ history }) {
         dispatch(setChampion(champInfo))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [role])
+  }, [role, champInfo])
 
   return (
     <>
@@ -159,90 +165,40 @@ function Champions({ history }) {
           <div className={style.searchContainer}>
             <h1 className={style.championList}>Champion List</h1>
             <div className={style.rolesContainer}>
-              <div
-                onClick={() => dispatch(setRole('all'))}
-                className={
-                  role === 'all' ? style.currentRole : style.roleContainer
-                }>
-                <img
-                  className={style.roleImage}
-                  alt='Role-All'
-                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/all_bqujx7.png'
-                />
-                <label className={style.roleLabel}>All</label>
-              </div>
-              <div
-                onClick={() => dispatch(setRole('free'))}
-                className={
-                  role === 'free' ? style.currentRole : style.roleContainer
-                }>
-                <img
-                  className={`${style.roleImage} ${style.rotateImage}`}
-                  alt='Role-Free'
-                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/all_bqujx7.png'
-                />
-                <label className={style.roleLabel}>Free</label>
-              </div>
-              <div
-                onClick={() => dispatch(setRole('top'))}
-                className={
-                  role === 'top' ? style.currentRole : style.roleContainer
-                }>
-                <img
-                  className={style.roleImage}
-                  alt='Role-Top'
-                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/top_wn1frf.png'
-                />
-                <label className={style.roleLabel}>Top</label>
-              </div>
-              <div
-                onClick={() => dispatch(setRole('jungle'))}
-                className={
-                  role === 'jungle' ? style.currentRole : style.roleContainer
-                }>
-                <img
-                  className={style.roleImage}
-                  alt='Role-Jungle'
-                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/jungle_dhfvec.png'
-                />
-                <label className={style.roleLabel}>Jungler</label>
-              </div>
-              <div
-                onClick={() => dispatch(setRole('mid'))}
-                className={
-                  role === 'mid' ? style.currentRole : style.roleContainer
-                }>
-                <img
-                  className={style.roleImage}
-                  alt='Role-Mid'
-                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/mid_asfpe3.png'
-                />
-                <label className={style.roleLabel}>Mid</label>
-              </div>
-              <div
-                onClick={() => dispatch(setRole('adcarry'))}
-                className={
-                  role === 'adcarry' ? style.currentRole : style.roleContainer
-                }>
-                <img
-                  className={style.roleImage}
-                  alt='Role-AD Carry'
-                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/adcarry_bftkia.png'
-                />
-                <label className={style.roleLabel}>AD Carry</label>
-              </div>
-              <div
-                onClick={() => dispatch(setRole('support'))}
-                className={
-                  role === 'support' ? style.currentRole : style.roleContainer
-                }>
-                <img
-                  className={style.roleImage}
-                  alt='Role-Support'
-                  src='https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/support_dzleug.png'
-                />
-                <label className={style.roleLabel}>Support</label>
-              </div>
+              {roleArr.map((roles, i) => (
+                <div
+                  key={i}
+                  onClick={
+                    championLoading
+                      ? null
+                      : () =>
+                          dispatch(
+                            setRole(roles.toLowerCase().replace(/\s/g, ''))
+                          )
+                  }
+                  className={
+                    role === roles.toLowerCase().replace(/\s/g, '')
+                      ? style.currentRole
+                      : style.roleContainer
+                  }>
+                  <img
+                    className={
+                      roles === 'Free'
+                        ? `${style.rotateImage}`
+                        : `${style.roleImage}`
+                    }
+                    alt={role.toLowerCase()}
+                    src={
+                      roles === 'Free'
+                        ? `https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/all.png`
+                        : `https://res.cloudinary.com/mistahpig/image/upload/v1621898912/league-stats/champion%20role%20icons/${roles
+                            .toLowerCase()
+                            .replace(/\s/g, '')}.png`
+                    }
+                  />
+                  <label className={style.roleLabel}>{roles}</label>
+                </div>
+              ))}
             </div>
 
             <div className={style.inputContainer}>

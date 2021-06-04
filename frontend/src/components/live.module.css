@@ -127,7 +127,7 @@
   margin-left: 10px;
 }
 
-.champImageRuneSpellNameContainerAlly {
+.allyChampImageRuneSpellNameContainer {
   display: flex;
   background-image: linear-gradient(
     90deg,
@@ -140,7 +140,7 @@
   padding: 10px 15px;
 }
 
-.champImageRuneSpellNameContainerEnemy {
+.enemyChampImageRuneSpellNameContainer {
   display: flex;
   background-image: linear-gradient(
     90deg,
@@ -153,21 +153,21 @@
   padding: 10px 15px;
 }
 
-.champImageRuneSpellContainerAlly {
+.allyChampImageRuneSpellContainer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   min-width: 100px;
 }
 
-.champImageRuneSpellContainerEnemy {
+.enemyChampImageRuneSpellContainer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   min-width: 100px;
 }
 
-.champImageAlly {
+.allyChampImage {
   width: 40px;
   height: auto;
   border-radius: 50%;
@@ -175,7 +175,7 @@
   margin-right: 5px;
 }
 
-.champImageEnemy {
+.enemyChampImage {
   width: 40px;
   height: auto;
   border-radius: 50%;

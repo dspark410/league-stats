@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import style from './championdetail.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { changeNav, changeBackground } from '../redux/actions/inputActions'
 import {
@@ -7,7 +8,6 @@ import {
   selectChampion,
   resetChampDetail,
 } from '../redux/actions/championActions'
-import style from './championdetail.module.css'
 import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
 import Tooltip from '../components/Tooltip'
 

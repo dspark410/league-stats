@@ -1,6 +1,6 @@
 import React from 'react'
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import style from './historycardsimpleskeleton.module.css'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 
 function MatchHistoryCardSkeleton() {
   return (
