@@ -32,7 +32,7 @@ function Champions({ history }) {
     const filtered = champs.filter((champ) =>
       champ.name.toLowerCase().includes(event.target.value.toLowerCase())
     )
-    dispatch(setInput(event.target.value, filtered))
+    if (!championLoading) dispatch(setInput(event.target.value, filtered))
   }
 
   const clickHandler = (event) => {

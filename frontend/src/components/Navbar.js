@@ -56,7 +56,8 @@ function Navbar() {
       urlSummonerName !== name.replace(/\s/g, '') &&
       urlSummonerName !== clickedSummoner
     ) {
-      if (controller !== '') {
+      if (name.trim() === '' && !clickedSummoner) return
+      else if (controller !== '') {
         dispatch(clearSummoner())
       }
       dispatch(clearSearch())
@@ -72,23 +73,19 @@ function Navbar() {
       dispatch(getInput('userInput', '', clickedRegion))
       history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
     } else {
-      if (name.trim() === '') {
-        return
+      if (data.notFound) {
+        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
+      } else if (
+        data.summonerInfo.name.toLowerCase() !==
+          name.toLowerCase().replace(/\s/g, '') ||
+        urlRegion !== region
+      ) {
+        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
       } else {
-        if (data.notFound) {
-          history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
-        } else if (
-          data.summonerInfo.name.toLowerCase() !==
-            name.toLowerCase().replace(/\s/g, '') ||
-          urlRegion !== region
-        ) {
-          history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
-        } else {
-          dispatch(getInput('userInput', '', region))
-          return
-        }
         dispatch(getInput('userInput', '', region))
+        return
       }
+      dispatch(getInput('userInput', '', region))
     }
   }
 
