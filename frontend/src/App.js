@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import { useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -15,11 +15,18 @@ function App() {
     input: { nav, background, fade },
   } = useSelector((state) => state)
 
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(true)
+    }, 1000)
+  }, [nav])
   return (
     <>
-      {!fade ? (
+      {loading && !fade ? (
         <div
-          className={!fade && 'backgroundContainerFade'}
+          className='backgroundContainerFade'
           style={{ backgroundImage: `url(${background})` }}
         />
       ) : null}

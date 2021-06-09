@@ -73,19 +73,23 @@ function Navbar() {
       dispatch(getInput('userInput', '', clickedRegion))
       history.push(`/summoner/${clickedRegion}/${clickedSummoner}`)
     } else {
-      if (data.notFound) {
-        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
-      } else if (
-        data.summonerInfo.name.toLowerCase() !==
-          name.toLowerCase().replace(/\s/g, '') ||
-        urlRegion !== region
-      ) {
-        history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
-      } else {
-        dispatch(getInput('userInput', '', region))
+      if (name.trim() === '') {
         return
+      } else {
+        if (data.notFound) {
+          history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
+        } else if (
+          data.summonerInfo.name.toLowerCase() !==
+            name.toLowerCase().replace(/\s/g, '') ||
+          urlRegion !== region
+        ) {
+          history.push(`/summoner/${region}/${name.replace(/\s/g, '')}`)
+        } else {
+          dispatch(getInput('userInput', '', region))
+          return
+        }
+        dispatch(getInput('userInput', '', region))
       }
-      dispatch(getInput('userInput', '', region))
     }
   }
 

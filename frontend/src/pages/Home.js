@@ -84,7 +84,7 @@ function Home({ history }) {
   }, [])
 
   return version ? (
-    <div className={style.homeBackgroundContainer}>
+    <>
       <div className={style.homeContainer}>
         <div className={style.inputContainer}>
           <img
@@ -138,7 +138,7 @@ function Home({ history }) {
           )}
         </div>
       </div>
-    </div>
+    </>
   ) : null
 }
 
