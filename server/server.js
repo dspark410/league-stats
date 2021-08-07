@@ -67,7 +67,7 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, res) => {
           getRank(summonerRes.id, region),
           getLive(summonerRes.id, region, queues),
           getSummonerMatches(summonerRes, region, queues, champInfo),
-          getMatchList(summonerRes.accountId, region),
+          getMatchList(summonerRes.puuid, region),
         ])
         res.json({
           summonerInfo: summonerRes,

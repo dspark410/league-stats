@@ -34,18 +34,15 @@ exports.getSummonerMasteries = async (id, region, champInfo) => {
 
 // Call to get only 7 matches from the list of match ids
 exports.getSummonerMatches = async (summonerRes, region, queues, champInfo) => {
-  const matchList = await getMatchList(summonerRes.accountId, region)
+  const matchList = await getMatchList(summonerRes.puuid, region)
 
   const matchArr = []
-  if (matchList.matches.length === 0) return matchArr
-  const matches = matchList.matches.length < 7 ? matchList.matches.length : 7
+  if (matchList.length === 0) return matchArr
+  const matches = matchList.length < 7 ? matchList.length : 7
 
   return new Promise(async (resolve) => {
     for (let i = 0; i < matches; i++) {
-      const matchDetails = await getMatchDetails(
-        matchList.matches[i].gameId,
-        region
-      )
+      const matchDetails = await getMatchDetails(matchList[i], region)
       matchArr.push(
         createGameObject(summonerRes, queues, champInfo, matchDetails)
       )
@@ -96,11 +93,8 @@ const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
 
   let playerObj
 
-  matchDetails.participantIdentities.forEach((id) => {
-    if (
-      id.player.accountId === summonerRes.accountId ||
-      id.player.summonerId === summonerRes.id
-    ) {
+  matchDetails.participants.forEach((id) => {
+    if (id.puuid === summonerRes.puuid || id.summonerId === summonerRes.id) {
       matchObj.participantId = id.participantId
     }
     // Champion Icon for summoner and summoner name
@@ -109,7 +103,7 @@ const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
       if (id.participantId === part.participantId) {
         playerObj = {
           id: id.participantId,
-          name: id.player.summonerName,
+          name: id.name,
           champId: part.championId,
         }
       }

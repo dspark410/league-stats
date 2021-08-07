@@ -83,11 +83,11 @@ exports.getMatchList = async (id, region) => {
   try {
     const api = process.env.API_KEY
     const matchList = await axios.get(
-      `https://${region}.api.riotgames.com/lol/match/v4/matchlists/by-account/${id}?api_key=${api}`
+      `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${id}/ids?start=0&count=100&api_key=${api}`
     )
     return matchList.data
   } catch (error) {
-    return { matches: [] }
+    return []
   }
 }
 
@@ -97,12 +97,11 @@ exports.getMatchDetails = async (id, region) => {
     const api = process.env.API_KEY
     // if (id === 3722895943) id = 2229249294305829485290 // Error on purpose, remove after finish
     const matchDetails = await axios.get(
-      `https://${region}.api.riotgames.com/lol/match/v4/matches/${id}?api_key=${api}`
+      `https://americas.api.riotgames.com/lol/match/v5/matches/${id}?api_key=${api}`
     )
-    return matchDetails.data
+    return matchDetails.data.info
   } catch (error) {
-    if (error.response.status)
-      return { participantIdentities: [], participants: [] }
+    if (error.response.status) return { participants: [] }
   }
 }
 
