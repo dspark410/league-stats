@@ -44,7 +44,11 @@ function HistoryCardComplex({ game, clickArrow, open }) {
       }`}>
       <div className={`${style.historyCard} `}>
         <div className={style.firstCol}>
-          <p>{game.gameType.split(' ').slice(0, 3).join(' ')}</p>
+          <p>
+            {game.gameType === 'Ultimate Spellbook games'
+              ? 'Ult Spellbook'
+              : game.gameType.split(' ').slice(0, 3).join(' ')}
+          </p>
           <p>{game.playerInfo.stats.win ? 'Victory' : 'Defeat'}</p>
           <p
             className={

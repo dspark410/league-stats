@@ -30,8 +30,7 @@ function HistoryCardSimple({ game, clickArrow, open }) {
     <div
       className={`${!open ? style.historyCard : style.hideHistoryCard} ${
         game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
-      }`}
-    >
+      }`}>
       <div className={style.firstCol}>
         <img
           alt={game.championImage}
@@ -39,12 +38,15 @@ function HistoryCardSimple({ game, clickArrow, open }) {
         />
       </div>
       <div className={style.secondCol}>
-        <p>{game.gameType.split(' ').slice(0, 3).join(' ')}</p>
+        <p>
+          {game.gameType === 'Ultimate Spellbook games'
+            ? 'Ult Spellbook'
+            : game.gameType.split(' ').slice(0, 3).join(' ')}
+        </p>
         <p
           className={
             game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-          }
-        >
+          }>
           {timeConverter(Date.now() - game.originalDate, game.gameDuration)}
         </p>
       </div>
@@ -53,8 +55,7 @@ function HistoryCardSimple({ game, clickArrow, open }) {
         <p
           className={
             game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-          }
-        >{`${Math.floor(game.gameDuration / 60)}m ${Math.ceil(
+          }>{`${Math.floor(game.gameDuration / 60)}m ${Math.ceil(
           game.gameDuration % 60
         )}s `}</p>
       </div>
@@ -68,8 +69,7 @@ function HistoryCardSimple({ game, clickArrow, open }) {
         <div
           className={
             game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-          }
-        >
+          }>
           KDA
         </div>
       </div>
@@ -84,8 +84,7 @@ function HistoryCardSimple({ game, clickArrow, open }) {
         <div
           className={
             game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-          }
-        >
+          }>
           cs/min
         </div>
       </div>
