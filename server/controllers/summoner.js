@@ -78,7 +78,7 @@ exports.getQueues = async () => {
   }
 }
 
-// Call to get list of match ids for the summoner
+// Call to get list of match ids for the summoner - matchv5
 exports.getMatchList = async (id, region) => {
   try {
     const api = process.env.API_KEY
@@ -91,7 +91,7 @@ exports.getMatchList = async (id, region) => {
   }
 }
 
-// Call to get match info with matchid
+// Call to get match info with matchid - matchv5
 exports.getMatchDetails = async (id, region) => {
   try {
     const api = process.env.API_KEY
