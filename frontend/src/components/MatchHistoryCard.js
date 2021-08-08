@@ -22,6 +22,8 @@ function MatchHistoryCard() {
     },
   } = useSelector((state) => state)
 
+  console.log('matchHistoyr', matchHistory)
+
   const getMoreMatchesBtn = () => {
     const matchesQuery = matches
       .slice(matchHistory.length, matchHistory.length + 5)

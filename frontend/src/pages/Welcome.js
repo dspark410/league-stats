@@ -185,6 +185,7 @@ const Welcome = ({ match }) => {
             />
           ) : (
             <MatchHistoryMasteryandLive
+              history={matchHistory}
               version={version}
               display={display}
               time={time}
