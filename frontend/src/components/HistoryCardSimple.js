@@ -25,11 +25,10 @@ function HistoryCardSimple({ game, clickArrow, open }) {
       return game.gameCreation.split(' ').slice(0, 4).join(' ')
     }
   }
-
   return game.playerInfo ? (
     <div
       className={`${!open ? style.historyCard : style.hideHistoryCard} ${
-        game.playerInfo.stats.win ? style.historyCardWin : style.historyCardLoss
+        game.playerInfo.win ? style.historyCardWin : style.historyCardLoss
       }`}>
       <div className={style.firstCol}>
         <img
@@ -45,45 +44,57 @@ function HistoryCardSimple({ game, clickArrow, open }) {
         </p>
         <p
           className={
-            game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
+            game.playerInfo.win ? style.subTextWin : style.subTextLoss
           }>
-          {timeConverter(Date.now() - game.originalDate, game.gameDuration)}
+          {timeConverter(
+            Date.now() - game.originalDate,
+            game.gameDuration / 1000 / 60
+          )}
         </p>
       </div>
       <div className={style.thirdCol}>
-        <p>{game.playerInfo.stats.win ? 'Victory' : 'Defeat'}</p>
+        <p>{game.playerInfo.win ? 'Victory' : 'Defeat'}</p>
         <p
           className={
-            game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
-          }>{`${Math.floor(game.gameDuration / 60)}m ${Math.ceil(
-          game.gameDuration % 60
+            game.playerInfo.win ? style.subTextWin : style.subTextLoss
+          }>{`${Math.floor(game.gameDuration / 1000 / 60)}m ${Math.floor(
+          (game.gameDuration / 1000) % 60
         )}s `}</p>
       </div>
       <div className={style.fourthCol}>
         <p>
-          {`${game.playerInfo.stats.kills} /
-    ${game.playerInfo.stats.deaths} /
-    ${game.playerInfo.stats.assists}`}
+          {`${game.playerInfo.kills} /
+    ${game.playerInfo.deaths} /
+    ${game.playerInfo.assists}`}
         </p>
 
         <div
           className={
-            game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
+            game.playerInfo.win ? style.subTextWin : style.subTextLoss
           }>
           KDA
         </div>
       </div>
       <div className={style.fifthCol}>
         <span>
+          {console.log(
+            ((game.playerInfo.totalMinionsKilled +
+              game.playerInfo.neutralMinionsKilled) /
+              game.gameDuration) *
+              1000 *
+              60
+          )}
           {(
-            (game.playerInfo.stats.totalMinionsKilled +
-              game.playerInfo.stats.neutralMinionsKilled) /
-            (game.gameDuration / 60)
+            ((game.playerInfo.totalMinionsKilled +
+              game.playerInfo.neutralMinionsKilled) /
+              game.gameDuration) *
+            1000 *
+            60
           ).toFixed(1)}
         </span>
         <div
           className={
-            game.playerInfo.stats.win ? style.subTextWin : style.subTextLoss
+            game.playerInfo.win ? style.subTextWin : style.subTextLoss
           }>
           cs/min
         </div>

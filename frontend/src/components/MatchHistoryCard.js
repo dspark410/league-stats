@@ -22,8 +22,6 @@ function MatchHistoryCard() {
     },
   } = useSelector((state) => state)
 
-  console.log('matchHistoyr', matchHistory)
-
   const getMoreMatchesBtn = () => {
     const matchesQuery = matches
       .slice(matchHistory.length, matchHistory.length + 5)
@@ -61,7 +59,7 @@ function MatchHistoryCard() {
           </div>
         )}
 
-        {matchHistory.length <= matches.length && !matchHistory.includes(null) && (
+        {/* {matchHistory.length <= matches.length && !matchHistory.includes(null) && (
           <div onClick={!matchesLoader ? getMoreMatchesBtn : null}>
             {matchHistory.length >= matches.length ? (
               <button disabled className={style.none}>
@@ -75,7 +73,7 @@ function MatchHistoryCard() {
               </button>
             )}
           </div>
-        )}
+        )} */}
       </div>
     </div>
   )
