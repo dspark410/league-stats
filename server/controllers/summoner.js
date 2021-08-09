@@ -80,11 +80,34 @@ exports.getQueues = async () => {
 
 // Call to get list of match ids for the summoner - matchv5
 exports.getMatchList = async (id, region) => {
+  const convertRegion = (region) => {
+    if (
+      region === 'NA1' ||
+      region === 'BR1' ||
+      region === 'LA1' ||
+      region === 'LA1'
+    ) {
+      return 'americas'
+    } else if (
+      region === 'EUN1' ||
+      region === 'EUW1' ||
+      region === 'RU' ||
+      region === 'TR1'
+    ) {
+      return 'europe'
+    } else if (region === 'JP1' || region === 'KR' || region === 'OC1') {
+      return 'asia'
+    }
+  }
+
   try {
     const api = process.env.API_KEY
     const matchList = await axios.get(
-      `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${id}/ids?start=0&count=100&api_key=${api}`
+      `https://${convertRegion(
+        region
+      )}.api.riotgames.com/lol/match/v5/matches/by-puuid/${id}/ids?start=0&count=100&api_key=${api}`
     )
+
     return matchList.data
   } catch (error) {
     return []
@@ -93,11 +116,32 @@ exports.getMatchList = async (id, region) => {
 
 // Call to get match info with matchid - matchv5
 exports.getMatchDetails = async (id, region) => {
+  const convertRegion = (region) => {
+    if (
+      region === 'NA1' ||
+      region === 'BR1' ||
+      region === 'LA1' ||
+      region === 'LA1'
+    ) {
+      return 'americas'
+    } else if (
+      region === 'EUN1' ||
+      region === 'EUW1' ||
+      region === 'RU' ||
+      region === 'TR1'
+    ) {
+      return 'europe'
+    } else if (region === 'JP1' || region === 'KR' || region === 'OC1') {
+      return 'asia'
+    }
+  }
   try {
     const api = process.env.API_KEY
     // if (id === 3722895943) id = 2229249294305829485290 // Error on purpose, remove after finish
     const matchDetails = await axios.get(
-      `https://americas.api.riotgames.com/lol/match/v5/matches/${id}?api_key=${api}`
+      `https://${convertRegion(
+        region
+      )}.api.riotgames.com/lol/match/v5/matches/${id}?api_key=${api}`
     )
     return matchDetails.data.info
   } catch (error) {

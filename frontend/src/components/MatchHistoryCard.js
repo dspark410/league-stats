@@ -13,19 +13,16 @@ function MatchHistoryCard() {
   const {
     summoner: {
       matchesLoader,
-      data: {
-        summonerInfo,
-        matchHistory,
-        matchList: { matches },
-        rgn,
-      },
+      data: { summonerInfo, matchHistory, matchList, rgn },
     },
   } = useSelector((state) => state)
 
   const getMoreMatchesBtn = () => {
-    const matchesQuery = matches
-      .slice(matchHistory.length, matchHistory.length + 5)
-      .map((match) => match.gameId)
+    const matchesQuery = matchList.slice(
+      matchHistory.length,
+      // Change to 5 before going to production
+      matchHistory.length + 1
+    )
     dispatch(getMoreMatches(matchesQuery, summonerInfo, rgn))
   }
 
@@ -59,21 +56,22 @@ function MatchHistoryCard() {
           </div>
         )}
 
-        {/* {matchHistory.length <= matches.length && !matchHistory.includes(null) && (
-          <div onClick={!matchesLoader ? getMoreMatchesBtn : null}>
-            {matchHistory.length >= matches.length ? (
-              <button disabled className={style.none}>
-                More Matches Unavailable
-              </button>
-            ) : (
-              <button
-                disabled={matchesLoader}
-                className={style.moreMatchesContainer}>
-                More Matches {matchesLoader && <MatchesLoader />}
-              </button>
-            )}
-          </div>
-        )} */}
+        {matchHistory.length <= matchList.length &&
+          !matchHistory.includes(null) && (
+            <div onClick={!matchesLoader ? getMoreMatchesBtn : null}>
+              {matchHistory.length >= matchList.length ? (
+                <button disabled className={style.none}>
+                  More Matches Unavailable
+                </button>
+              ) : (
+                <button
+                  disabled={matchesLoader}
+                  className={style.moreMatchesContainer}>
+                  More Matches {matchesLoader && <MatchesLoader />}
+                </button>
+              )}
+            </div>
+          )}
       </div>
     </div>
   )

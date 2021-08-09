@@ -77,13 +77,6 @@ function HistoryCardSimple({ game, clickArrow, open }) {
       </div>
       <div className={style.fifthCol}>
         <span>
-          {console.log(
-            ((game.playerInfo.totalMinionsKilled +
-              game.playerInfo.neutralMinionsKilled) /
-              game.gameDuration) *
-              1000 *
-              60
-          )}
           {(
             ((game.playerInfo.totalMinionsKilled +
               game.playerInfo.neutralMinionsKilled) /

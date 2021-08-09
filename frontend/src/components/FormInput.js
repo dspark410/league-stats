@@ -41,7 +41,7 @@ function FormInput({ handleSubmit, inputEl, handleOnBlur }) {
               className={nav ? styleNav.regionOption : styleHome.regionOption}
               value={r}
               key={i}>
-              {r}
+              {r.toUpperCase()}
             </option>
           ))}
         </select>

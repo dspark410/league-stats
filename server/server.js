@@ -60,6 +60,7 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, res) => {
     const region = req.params.region
 
     const summonerRes = await getSummonerName(summoner, region)
+
     try {
       if (summonerRes.id) {
         const data = await Promise.all([
@@ -69,6 +70,7 @@ app.get('/getSummonerInfo/:summoner/:region', async (req, res) => {
           getSummonerMatches(summonerRes, region, queues, champInfo),
           getMatchList(summonerRes.puuid, region),
         ])
+
         res.json({
           summonerInfo: summonerRes,
           mastery: data[0],

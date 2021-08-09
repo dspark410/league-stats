@@ -38,7 +38,8 @@ exports.getSummonerMatches = async (summonerRes, region, queues, champInfo) => {
 
   const matchArr = []
   if (matchList.length === 0) return matchArr
-  const matches = matchList.length < 7 ? matchList.length : 7
+  // Change to 7 before going to production
+  const matches = matchList.length < 2 ? matchList.length : 2
 
   return new Promise(async (resolve) => {
     for (let i = 0; i < matches; i++) {
@@ -105,10 +106,15 @@ const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
           id: id.participantId,
           name: id.name,
           champId: part.championId,
+          champName: part.championName,
         }
       }
       champInfo.forEach((key) => {
-        if (playerObj.champId === +key.key) {
+        //console.log('champ id', playerObj.champId, key.key)
+        // if (playerObj.champId === +key.key) {
+        //   playerObj.image = key.image.full
+        // }
+        if (playerObj.champName == key.id) {
           playerObj.image = key.image.full
         }
       })
@@ -126,7 +132,7 @@ const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
 
   // get relevant image for player's champion for that game
   champInfo.forEach((champ) => {
-    if (matchObj?.playerInfo?.championId === +champ.key) {
+    if (matchObj?.playerInfo?.championName === champ.id) {
       matchObj.championName = champ.name
       matchObj.championImage = champ.image.full
     }

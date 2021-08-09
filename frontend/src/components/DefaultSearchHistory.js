@@ -15,7 +15,7 @@ export default function DefaultSearchHistory({
         icon='7'
         className={style.storageSummoner}>
         <div className={style.regionContainer}>
-          <span className={style.region}>NA</span>
+          <span className={style.region}>NA1</span>
         </div>
 
         <img
@@ -45,7 +45,7 @@ export default function DefaultSearchHistory({
         icon='3466'
         className={style.storageSummoner}>
         <div className={style.regionContainer}>
-          <span className={style.region}>NA</span>
+          <span className={style.region}>NA1</span>
         </div>
         <img
           alt='profile icon'

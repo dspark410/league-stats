@@ -75,7 +75,7 @@ export const getMoreMatches =
         type: MATCHES_LOADING,
       })
       const { data } = await axios.get(
-        `${endpoint}/getMoreMatches/[${gameIds}]/${JSON.stringify(
+        `${endpoint}/getMoreMatches/${JSON.stringify(gameIds)}/${JSON.stringify(
           summonerInfo
         )}/${region}`
       )

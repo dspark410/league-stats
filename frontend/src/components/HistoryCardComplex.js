@@ -112,7 +112,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               <div className={style.summonerSpellContainer}>
                 {runes
                   .filter((rune) => {
-                    console.log(rune.id)
                     return rune.id === game.playerInfo.perks.styles[0].style
                   })
                   .map((rune, i) => {

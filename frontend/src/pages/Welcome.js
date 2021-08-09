@@ -66,7 +66,6 @@ const Welcome = ({ match }) => {
     // Dispatches getSummonerInfo from URL
     if (regions.includes(match.params.region)) {
       setNoRegion(false)
-
       dispatch(getSummonerInfo(match.params.summonerName, match.params.region))
     } else {
       dispatch(getSummonerRegion())
