@@ -128,7 +128,10 @@ const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
 
   // get relevant image for player's champion for that game
   champInfo.forEach((champ) => {
-    if (matchObj?.playerInfo?.championName === champ.id) {
+    if (
+      matchObj?.playerInfo?.championName.toLowerCase() ===
+      champ.id.toLowerCase()
+    ) {
       matchObj.championName = champ.name
       matchObj.championImage = champ.image.full
     }
