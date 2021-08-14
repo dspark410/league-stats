@@ -307,7 +307,13 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               <img
                 name={player.summonerName}
                 alt={player.image}
-                src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.championName}.png`}
+                src={`https://ddragon.leagueoflegends.com/cdn/${
+                  game.gameVersion
+                }.1/img/champion/${
+                  player.championName === 'FiddleSticks'
+                    ? 'Fiddlesticks'
+                    : player.championName
+                }.png`}
               />
             </div>
           ))}
@@ -407,7 +413,13 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               <img
                 name={player.summonerName}
                 alt={`${player.championName}.png`}
-                src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.championName}.png`}
+                src={`https://ddragon.leagueoflegends.com/cdn/${
+                  game.gameVersion
+                }.1/img/champion/${
+                  player.championName === 'FiddleSticks'
+                    ? 'Fiddlesticks'
+                    : player.championName
+                }.png`}
               />
               <span
                 onClick={
