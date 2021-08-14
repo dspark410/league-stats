@@ -85,7 +85,8 @@ exports.getMatchList = async (id, region) => {
       region === 'NA1' ||
       region === 'BR1' ||
       region === 'LA1' ||
-      region === 'LA1'
+      region === 'LA1' ||
+      region === 'OC1'
     ) {
       return 'americas'
     } else if (
@@ -95,7 +96,7 @@ exports.getMatchList = async (id, region) => {
       region === 'TR1'
     ) {
       return 'europe'
-    } else if (region === 'JP1' || region === 'KR' || region === 'OC1') {
+    } else if (region === 'JP1' || region === 'KR') {
       return 'asia'
     }
   }
@@ -121,7 +122,8 @@ exports.getMatchDetails = async (id, region) => {
       region === 'NA1' ||
       region === 'BR1' ||
       region === 'LA1' ||
-      region === 'LA1'
+      region === 'LA1' ||
+      region === 'OC1'
     ) {
       return 'americas'
     } else if (
@@ -131,7 +133,7 @@ exports.getMatchDetails = async (id, region) => {
       region === 'TR1'
     ) {
       return 'europe'
-    } else if (region === 'JP1' || region === 'KR' || region === 'OC1') {
+    } else if (region === 'JP1' || region === 'KR') {
       return 'asia'
     }
   }

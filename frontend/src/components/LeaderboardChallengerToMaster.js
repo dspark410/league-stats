@@ -7,6 +7,7 @@ function LeaderboardChallengerToMaster({
   leaderboard,
   paginate,
   getPlayerName,
+  data,
 }) {
   const [profileIcon, setProfileIcon] = useState([])
   const url = process.env.REACT_APP_API_ENDPOINT || ''
@@ -27,11 +28,16 @@ function LeaderboardChallengerToMaster({
       Promise.all(
         leaderboard.map(async (player) => {
           try {
+            console.log('player', player)
             const res = await fetch(
               `${url}/api/getSummonerId/${player.summonerId}/${region}`,
               { signal: controller.signal }
             )
             const data = await res.json()
+            console.log(
+              `${url}/api/getSummonerId/${player.summonerId}/${region}`,
+              data
+            )
 
             if (data.profileIconId === 0) {
               player.icon = data.profileIconId.toString()
@@ -56,7 +62,7 @@ function LeaderboardChallengerToMaster({
     }
 
     // eslint-disable-next-line
-  }, [leaderboard])
+  }, [data])
 
   return (
     <>

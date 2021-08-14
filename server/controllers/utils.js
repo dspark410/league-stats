@@ -39,7 +39,7 @@ exports.getSummonerMatches = async (summonerRes, region, queues, champInfo) => {
   const matchArr = []
   if (matchList.length === 0) return matchArr
   // Change to 7 before going to production
-  const matches = matchList.length < 2 ? matchList.length : 2
+  const matches = matchList.length < 7 ? matchList.length : 7
 
   return new Promise(async (resolve) => {
     for (let i = 0; i < matches; i++) {
@@ -110,11 +110,7 @@ const createGameObject = (summonerRes, queues, champInfo, matchDetails) => {
         }
       }
       champInfo.forEach((key) => {
-        //console.log('champ id', playerObj.champId, key.key)
-        // if (playerObj.champId === +key.key) {
-        //   playerObj.image = key.image.full
-        // }
-        if (playerObj.champName == key.id) {
+        if (playerObj.champName.toLowerCase() == key.id.toLowerCase()) {
           playerObj.image = key.image.full
         }
       })

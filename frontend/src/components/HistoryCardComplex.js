@@ -16,14 +16,32 @@ function HistoryCardComplex({ game, clickArrow, open }) {
   } = useSelector((state) => state)
   const history = useHistory()
 
+  const position = ['TOP', 'JUNGLE', 'MIDDLE', 'BOTTOM', 'UTILITY']
+
   // Filters out team one
   const teamOne = game.participants.filter((participant) => {
     return participant.teamId === 100
   })
+
   // Filters out team two
   const teamTwo = game.participants.filter((participant) => {
     return participant.teamId === 200
   })
+
+  const sortTeam = (team) => {
+    const sortedTeam = [...team]
+    console.log(sortedTeam)
+    if (sortedTeam[0].individualPosition === 'Invalid') {
+      return sortedTeam
+    } else {
+      console.log('invalid')
+      sortedTeam.sort(
+        (a, b) =>
+          position.indexOf(a.teamPosition) - position.indexOf(b.teamPosition)
+      )
+    }
+    return sortedTeam
+  }
 
   const getPlayerName = (e) => {
     window.scrollTo({
@@ -68,6 +86,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
           <div className={style.secondCard}>
             <div className={style.imageContainer}>
               <div className={style.championImg}>
+                {console.log(game.championImage)}
                 <img
                   className={style.secondColImg}
                   alt={game.championImage}
@@ -239,58 +258,59 @@ function HistoryCardComplex({ game, clickArrow, open }) {
       <div className={game.playerInfo.win ? style.lineWin : style.lineLoss} />
       <div className={style.historyCard2}>
         <div className={style.statsContainer}>
-          {teamOne.map((player, i) => {
-            return (
-              <div
-                key={i}
-                className={
-                  game.playerInfo.win ? style.team100Win : style.team100Loss
-                }>
-                <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
+          {game.participants
+            .slice(0, Math.ceil(game.participants.length / 2))
+            .map((player, i) => {
+              return (
+                <div
+                  key={i}
+                  className={
+                    game.playerInfo.win ? style.team100Win : style.team100Loss
+                  }>
+                  <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
 
-                <div>
-                  {(
-                    ((player.totalMinionsKilled + player.neutralMinionsKilled) /
-                      game.gameDuration) *
-                    1000 *
-                    60
-                  ).toFixed(1)}
-                  cs/min
+                  <div>
+                    {(
+                      ((player.totalMinionsKilled +
+                        player.neutralMinionsKilled) /
+                        game.gameDuration) *
+                      1000 *
+                      60
+                    ).toFixed(1)}
+                    cs/min
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
 
         <div className={style.sixthCard}>
-          {game.participants
-            .slice(0, Math.ceil(game.participants.length / 2))
-            .map((player, i) => (
-              <div name={player.summonerName} className={style.col1} key={i}>
-                <span
-                  onClick={
-                    player.summonerName === summonerInfo.name
-                      ? null
-                      : getPlayerName
-                  }
-                  className={
-                    summonerInfo.name
-                      ? player.summonerName === summonerInfo.name
-                        ? style.summonerName1
-                        : style.name1
+          {sortTeam(teamOne).map((player, i) => (
+            <div name={player.summonerName} className={style.col1} key={i}>
+              <span
+                onClick={
+                  player.summonerName === summonerInfo.name
+                    ? null
+                    : getPlayerName
+                }
+                className={
+                  summonerInfo.name
+                    ? player.summonerName === summonerInfo.name
+                      ? style.summonerName1
                       : style.name1
-                  }
-                  name={player.summonerName}
-                  region={game.platformId}>
-                  {player.summonerName.replace(/\s/g, '')}
-                </span>
-                <img
-                  name={player.summonerName}
-                  alt={player.image}
-                  src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.championName}.png`}
-                />
-              </div>
-            ))}
+                    : style.name1
+                }
+                name={player.summonerName}
+                region={game.platformId}>
+                {player.summonerName.replace(/\s/g, '')}
+              </span>
+              <img
+                name={player.summonerName}
+                alt={player.image}
+                src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.championName}.png`}
+              />
+            </div>
+          ))}
         </div>
 
         <div className={style.iconContainer}>
@@ -382,59 +402,60 @@ function HistoryCardComplex({ game, clickArrow, open }) {
         </div>
 
         <div className={style.seventhCard}>
+          {sortTeam(teamTwo).map((player, i) => (
+            <div name={player.summonerName} className={style.col2} key={i}>
+              <img
+                name={player.summonerName}
+                alt={`${player.championName}.png`}
+                src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.championName}.png`}
+              />
+              <span
+                onClick={
+                  player.summonerName === summonerInfo.name
+                    ? null
+                    : getPlayerName
+                }
+                className={
+                  summonerInfo.name
+                    ? player.summonerName === summonerInfo.name
+                      ? style.summonerName2
+                      : style.name2
+                    : style.name2
+                }
+                region={game.platformId}
+                name={player.summonerName}>
+                {player.summonerName.replace(/\s/g, '')}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className={style.statsContainer2}>
           {game.participants
             .slice(
               Math.ceil(game.participants.length / 2),
               game.participants.length
             )
-            .map((player, i) => (
-              <div name={player.summonerName} className={style.col2} key={i}>
-                <img
-                  name={player.summonerName}
-                  alt={`${player.championName}.png`}
-                  src={`https://ddragon.leagueoflegends.com/cdn/${game.gameVersion}.1/img/champion/${player.championName}.png`}
-                />
-                <span
-                  onClick={
-                    player.summonerName === summonerInfo.name
-                      ? null
-                      : getPlayerName
-                  }
+            .map((player, i) => {
+              return (
+                <div
+                  key={i}
                   className={
-                    summonerInfo.name
-                      ? player.summonerName === summonerInfo.name
-                        ? style.summonerName2
-                        : style.name2
-                      : style.name2
-                  }
-                  region={game.platformId}
-                  name={player.summonerName}>
-                  {player.summonerName.replace(/\s/g, '')}
-                </span>
-              </div>
-            ))}
-        </div>
-        <div className={style.statsContainer2}>
-          {teamTwo.map((player, i) => {
-            return (
-              <div
-                key={i}
-                className={
-                  game.playerInfo.win ? style.team200Win : style.team200Loss
-                }>
-                <div>
-                  {(
-                    ((player.totalMinionsKilled + player.neutralMinionsKilled) /
-                      game.gameDuration) *
-                    1000 *
-                    60
-                  ).toFixed(1)}
-                  cs/min
+                    game.playerInfo.win ? style.team200Win : style.team200Loss
+                  }>
+                  <div>
+                    {(
+                      ((player.totalMinionsKilled +
+                        player.neutralMinionsKilled) /
+                        game.gameDuration) *
+                      1000 *
+                      60
+                    ).toFixed(1)}
+                    cs/min
+                  </div>
+                  <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
                 </div>
-                <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
       </div>
     </div>

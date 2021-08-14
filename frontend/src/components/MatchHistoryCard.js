@@ -21,7 +21,7 @@ function MatchHistoryCard() {
     const matchesQuery = matchList.slice(
       matchHistory.length,
       // Change to 5 before going to production
-      matchHistory.length + 1
+      matchHistory.length + 5
     )
     dispatch(getMoreMatches(matchesQuery, summonerInfo, rgn))
   }

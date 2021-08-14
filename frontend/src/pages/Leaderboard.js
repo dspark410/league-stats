@@ -150,6 +150,7 @@ function Leaderboard({ history, match }) {
             paginate={paginate}
             getPlayerName={getPlayerName}
             match={match}
+            data={data}
           />
         ) : (
           <LeaderboardDiamondToIron
