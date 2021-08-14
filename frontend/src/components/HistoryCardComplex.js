@@ -258,30 +258,27 @@ function HistoryCardComplex({ game, clickArrow, open }) {
       <div className={game.playerInfo.win ? style.lineWin : style.lineLoss} />
       <div className={style.historyCard2}>
         <div className={style.statsContainer}>
-          {game.participants
-            .slice(0, Math.ceil(game.participants.length / 2))
-            .map((player, i) => {
-              return (
-                <div
-                  key={i}
-                  className={
-                    game.playerInfo.win ? style.team100Win : style.team100Loss
-                  }>
-                  <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
+          {sortTeam(teamOne).map((player, i) => {
+            return (
+              <div
+                key={i}
+                className={
+                  game.playerInfo.win ? style.team100Win : style.team100Loss
+                }>
+                <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
 
-                  <div>
-                    {(
-                      ((player.totalMinionsKilled +
-                        player.neutralMinionsKilled) /
-                        game.gameDuration) *
-                      1000 *
-                      60
-                    ).toFixed(1)}
-                    cs/min
-                  </div>
+                <div>
+                  {(
+                    ((player.totalMinionsKilled + player.neutralMinionsKilled) /
+                      game.gameDuration) *
+                    1000 *
+                    60
+                  ).toFixed(1)}
+                  cs/min
                 </div>
-              )
-            })}
+              </div>
+            )
+          })}
         </div>
 
         <div className={style.sixthCard}>
@@ -442,32 +439,26 @@ function HistoryCardComplex({ game, clickArrow, open }) {
           ))}
         </div>
         <div className={style.statsContainer2}>
-          {game.participants
-            .slice(
-              Math.ceil(game.participants.length / 2),
-              game.participants.length
-            )
-            .map((player, i) => {
-              return (
-                <div
-                  key={i}
-                  className={
-                    game.playerInfo.win ? style.team200Win : style.team200Loss
-                  }>
-                  <div>
-                    {(
-                      ((player.totalMinionsKilled +
-                        player.neutralMinionsKilled) /
-                        game.gameDuration) *
-                      1000 *
-                      60
-                    ).toFixed(1)}
-                    cs/min
-                  </div>
-                  <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
+          {sortTeam(teamTwo).map((player, i) => {
+            return (
+              <div
+                key={i}
+                className={
+                  game.playerInfo.win ? style.team200Win : style.team200Loss
+                }>
+                <div>
+                  {(
+                    ((player.totalMinionsKilled + player.neutralMinionsKilled) /
+                      game.gameDuration) *
+                    1000 *
+                    60
+                  ).toFixed(1)}
+                  cs/min
                 </div>
-              )
-            })}
+                <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
