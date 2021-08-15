@@ -18,7 +18,7 @@ import LeaderboardSkeleton from './LeaderboardSkeleton'
 function Leaderboard({ history, match }) {
   const [division, setDivision] = useState('I')
   const [mapDivision, setMapDivision] = useState(['I', 'II', 'III', 'IV'])
-
+  const [pagePosts, setPagePosts] = useState(0)
   const dispatch = useDispatch()
   const {
     input: {
@@ -37,7 +37,7 @@ function Leaderboard({ history, match }) {
   //pagination info
   const indexOfLastPost = currentPage * postsPerPage
   const indexofFirstPost = indexOfLastPost - postsPerPage
-  const currentPosts = data.slice(indexofFirstPost, indexOfLastPost)
+  // const currentPosts = data.slice(indexofFirstPost, indexOfLastPost)
 
   // change page
   const paginate = (pageNumber) => {
@@ -103,6 +103,10 @@ function Leaderboard({ history, match }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [region, rank, division, page])
 
+  useEffect(() => {
+    setPagePosts(data.slice(indexofFirstPost, indexOfLastPost))
+  }, [data, indexOfLastPost, indexofFirstPost])
+
   return (
     <>
       <LeaderboardSkeleton loading={leaderboardLoading} />
@@ -146,7 +150,7 @@ function Leaderboard({ history, match }) {
         rank === 'GRANDMASTER' ||
         rank === 'MASTER' ? (
           <LeaderboardChallengerToMaster
-            leaderboard={currentPosts}
+            leaderboard={pagePosts}
             paginate={paginate}
             getPlayerName={getPlayerName}
             match={match}
@@ -154,7 +158,7 @@ function Leaderboard({ history, match }) {
           />
         ) : (
           <LeaderboardDiamondToIron
-            leaderboard={currentPosts}
+            leaderboard={pagePosts}
             paginate={paginate}
             getPlayerName={getPlayerName}
           />

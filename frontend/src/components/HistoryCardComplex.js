@@ -30,11 +30,10 @@ function HistoryCardComplex({ game, clickArrow, open }) {
 
   const sortTeam = (team) => {
     const sortedTeam = [...team]
-    console.log(sortedTeam)
+
     if (sortedTeam[0].individualPosition === 'Invalid') {
       return sortedTeam
     } else {
-      console.log('invalid')
       sortedTeam.sort(
         (a, b) =>
           position.indexOf(a.teamPosition) - position.indexOf(b.teamPosition)
@@ -86,7 +85,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
           <div className={style.secondCard}>
             <div className={style.imageContainer}>
               <div className={style.championImg}>
-                {console.log(game.championImage)}
                 <img
                   className={style.secondColImg}
                   alt={game.championImage}

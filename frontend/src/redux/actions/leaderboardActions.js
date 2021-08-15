@@ -54,7 +54,7 @@ export const getLeaderboardChalltoMaster =
           type: GET_LEADERBOARD,
           payload: data.entries,
         })
-      }, 3000)
+      }, 5000)
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,
@@ -93,7 +93,7 @@ export const getLeaderboardDiamondtoIron =
           type: GET_LEADERBOARD,
           payload: data,
         })
-      }, 2000)
+      }, 3000)
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,
