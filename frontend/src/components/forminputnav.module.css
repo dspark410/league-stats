@@ -32,6 +32,26 @@
   outline: none;
 }
 
+.selectContainerSelectDisabled {
+  border: none;
+  outline: none;
+  background-color: rgb(43, 34, 58);
+  padding: 11px 10px;
+  border-radius: 5px;
+  color: #e1e1e1;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 15px;
+  opacity: 0.7;
+}
+
+.selectContainerSelectDisabled:hover {
+  cursor: not-allowed;
+  background-color: #54425f;
+  opacity: 1;
+  border: none;
+  outline: none;
+}
 .input[type='text'] {
   font-size: 14px;
   font-weight: bold;

@@ -14,6 +14,7 @@ function FormInput({ handleSubmit, inputEl, handleOnBlur }) {
       summonerInput: { name, region },
       nav,
     },
+    leaderboard: { leaderboardLoading },
   } = useSelector((state) => state)
 
   const handleOnFocus = () => {
@@ -27,8 +28,11 @@ function FormInput({ handleSubmit, inputEl, handleOnBlur }) {
         onSubmit={handleSubmit}
         className={nav ? styleNav.selectContainer : styleHome.selectContainer}>
         <select
+          disabled={leaderboardLoading}
           className={
-            nav
+            nav && leaderboardLoading
+              ? styleNav.selectContainerSelectDisabled
+              : nav
               ? styleNav.selectContainerSelect
               : styleHome.selectContainerSelect
           }
