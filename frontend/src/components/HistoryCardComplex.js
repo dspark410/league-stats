@@ -77,9 +77,15 @@ function HistoryCardComplex({ game, clickArrow, open }) {
           <p
             className={
               game.playerInfo.win ? style.subTextWin : style.subTextLoss
-            }>{`${Math.floor(game.gameDuration / 60)}m ${Math.floor(
-            game.gameDuration % 60
-          )}s `}</p>
+            }>
+            {JSON.stringify(game.gameDuration).length <= 4
+              ? `${Math.floor(game.gameDuration / 60)}m ${Math.floor(
+                  game.gameDuration % 60
+                )}s `
+              : `${Math.floor(game.gameDuration / 1000 / 60)}m ${Math.floor(
+                  game.gameDuration % 60
+                )}s `}
+          </p>
         </div>
         <div className={style.secondCol}>
           <div className={style.secondCard}>
@@ -228,19 +234,37 @@ function HistoryCardComplex({ game, clickArrow, open }) {
             </div>
           </Tooltip>
           <Tooltip
-            moreInfo={`${(
-              ((game.playerInfo.totalMinionsKilled +
-                game.playerInfo.neutralMinionsKilled) /
-                game.gameDuration) *
-              60
-            ).toFixed(1)} CS per minute`}>
+            moreInfo={
+              JSON.stringify(game.gameDuration).length <= 4
+                ? `${(
+                    ((game.playerInfo.totalMinionsKilled +
+                      game.playerInfo.neutralMinionsKilled) /
+                      game.gameDuration) *
+                    60
+                  ).toFixed(1)} CS per minute`
+                : `${(
+                    ((game.playerInfo.totalMinionsKilled +
+                      game.playerInfo.neutralMinionsKilled) /
+                      game.gameDuration) *
+                    60 *
+                    1000
+                  ).toFixed(1)} CS per minute`
+            }>
             <span className={style.level}>
-              {(
-                ((game.playerInfo.totalMinionsKilled +
-                  game.playerInfo.neutralMinionsKilled) /
-                  game.gameDuration) *
-                60
-              ).toFixed(1)}
+              {JSON.stringify(game.gameDuration).length <= 4
+                ? (
+                    ((game.playerInfo.totalMinionsKilled +
+                      game.playerInfo.neutralMinionsKilled) /
+                      game.gameDuration) *
+                    60
+                  ).toFixed(1)
+                : (
+                    ((game.playerInfo.totalMinionsKilled +
+                      game.playerInfo.neutralMinionsKilled) /
+                      game.gameDuration) *
+                    60 *
+                    1000
+                  ).toFixed(1)}
               cs/min
             </span>
           </Tooltip>
@@ -264,11 +288,20 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                 <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>
 
                 <div>
-                  {(
-                    ((player.totalMinionsKilled + player.neutralMinionsKilled) /
-                      game.gameDuration) *
-                    60
-                  ).toFixed(1)}
+                  {JSON.stringify(game.gameDuration).length <= 4
+                    ? (
+                        ((player.totalMinionsKilled +
+                          player.neutralMinionsKilled) /
+                          game.gameDuration) *
+                        60
+                      ).toFixed(1)
+                    : (
+                        ((player.totalMinionsKilled +
+                          player.neutralMinionsKilled) /
+                          game.gameDuration) *
+                        60 *
+                        1000
+                      ).toFixed(1)}
                   cs/min
                 </div>
               </div>
@@ -442,11 +475,20 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                   game.playerInfo.win ? style.team200Win : style.team200Loss
                 }>
                 <div>
-                  {(
-                    ((player.totalMinionsKilled + player.neutralMinionsKilled) /
-                      game.gameDuration) *
-                    60
-                  ).toFixed(1)}
+                  {JSON.stringify(game.gameDuration).length <= 4
+                    ? (
+                        ((player.totalMinionsKilled +
+                          player.neutralMinionsKilled) /
+                          game.gameDuration) *
+                        60
+                      ).toFixed(1)
+                    : (
+                        ((player.totalMinionsKilled +
+                          player.neutralMinionsKilled) /
+                          game.gameDuration) *
+                        60 *
+                        1000
+                      ).toFixed(1)}
                   cs/min
                 </div>
                 <div>{`${player.kills} / ${player.deaths} / ${player.assists}`}</div>

@@ -57,9 +57,15 @@ function HistoryCardSimple({ game, clickArrow, open }) {
         <p
           className={
             game.playerInfo.win ? style.subTextWin : style.subTextLoss
-          }>{`${Math.floor(game.gameDuration / 60)}m ${Math.floor(
-          game.gameDuration % 60
-        )}s `}</p>
+          }>
+          {JSON.stringify(game.gameDuration).length <= 4
+            ? `${Math.floor(game.gameDuration / 60)}m ${Math.floor(
+                game.gameDuration % 60
+              )}s `
+            : `${Math.floor(game.gameDuration / 1000 / 60)}m ${Math.floor(
+                game.gameDuration % 60
+              )}s `}
+        </p>
       </div>
       <div className={style.fourthCol}>
         <p>
@@ -77,12 +83,20 @@ function HistoryCardSimple({ game, clickArrow, open }) {
       </div>
       <div className={style.fifthCol}>
         <span>
-          {(
-            ((game.playerInfo.totalMinionsKilled +
-              game.playerInfo.neutralMinionsKilled) /
-              game.gameDuration) *
-            60
-          ).toFixed(1)}
+          {JSON.stringify(game.gameDuration).length <= 4
+            ? (
+                ((game.playerInfo.totalMinionsKilled +
+                  game.playerInfo.neutralMinionsKilled) /
+                  game.gameDuration) *
+                60
+              ).toFixed(1)
+            : (
+                ((game.playerInfo.totalMinionsKilled +
+                  game.playerInfo.neutralMinionsKilled) /
+                  game.gameDuration) *
+                60 *
+                1000
+              ).toFixed(1)}
         </span>
         <div
           className={
