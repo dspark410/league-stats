@@ -77,8 +77,8 @@ function HistoryCardComplex({ game, clickArrow, open }) {
           <p
             className={
               game.playerInfo.win ? style.subTextWin : style.subTextLoss
-            }>{`${Math.floor(game.gameDuration / 1000 / 60)}m ${Math.floor(
-            (game.gameDuration / 1000) % 60
+            }>{`${Math.floor(game.gameDuration / 60)}m ${Math.floor(
+            game.gameDuration % 60
           )}s `}</p>
         </div>
         <div className={style.secondCol}>
@@ -232,7 +232,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
               ((game.playerInfo.totalMinionsKilled +
                 game.playerInfo.neutralMinionsKilled) /
                 game.gameDuration) *
-              1000 *
               60
             ).toFixed(1)} CS per minute`}>
             <span className={style.level}>
@@ -240,7 +239,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                 ((game.playerInfo.totalMinionsKilled +
                   game.playerInfo.neutralMinionsKilled) /
                   game.gameDuration) *
-                1000 *
                 60
               ).toFixed(1)}
               cs/min
@@ -269,7 +267,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                   {(
                     ((player.totalMinionsKilled + player.neutralMinionsKilled) /
                       game.gameDuration) *
-                    1000 *
                     60
                   ).toFixed(1)}
                   cs/min
@@ -448,7 +445,6 @@ function HistoryCardComplex({ game, clickArrow, open }) {
                   {(
                     ((player.totalMinionsKilled + player.neutralMinionsKilled) /
                       game.gameDuration) *
-                    1000 *
                     60
                   ).toFixed(1)}
                   cs/min
