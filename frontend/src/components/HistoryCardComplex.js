@@ -31,7 +31,7 @@ function HistoryCardComplex({ game, clickArrow, open }) {
   const sortTeam = (team) => {
     const sortedTeam = [...team]
 
-    if (sortedTeam[0].individualPosition === 'Invalid') {
+    if (sortedTeam[0]?.individualPosition === 'Invalid') {
       return sortedTeam
     } else {
       sortedTeam.sort(
@@ -64,6 +64,8 @@ function HistoryCardComplex({ game, clickArrow, open }) {
           <p>
             {game.gameType === 'Ultimate Spellbook games'
               ? 'Ult Spellbook'
+              : !game.gameType
+              ? 'Custom Games'
               : game.gameType.split(' ').slice(0, 3).join(' ')}
           </p>
           <p>{game.playerInfo.win ? 'Victory' : 'Defeat'}</p>

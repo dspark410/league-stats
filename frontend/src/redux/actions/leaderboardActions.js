@@ -43,18 +43,20 @@ export const getLeaderboardChalltoMaster =
         { cancelToken: source.token }
       )
 
-      data.entries
-        .sort((a, b) => b.leaguePoints - a.leaguePoints)
-        .forEach((entry, i) => {
-          entry.tier = data.tier.toUpperCase()
-          entry.number = i + 1
-        })
-      timer = setTimeout(() => {
-        dispatch({
-          type: GET_LEADERBOARD,
-          payload: data.entries,
-        })
-      }, 5000)
+      if (data.entries.length > 0) {
+        data.entries
+          .sort((a, b) => b.leaguePoints - a.leaguePoints)
+          .forEach((entry, i) => {
+            entry.tier = data.tier.toUpperCase()
+            entry.number = i + 1
+          })
+        timer = setTimeout(() => {
+          dispatch({
+            type: GET_LEADERBOARD,
+            payload: data.entries,
+          })
+        }, 3000)
+      }
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,
@@ -74,26 +76,28 @@ export const getLeaderboardDiamondtoIron =
       dispatch({
         type: LEADERBOARD_LOADING,
       })
-      let { data } = await axios.get(
+      const { data } = await axios.get(
         `${endpoint}/api/leaderboard/${region}/${rank}/${division}/${page}`,
         { cancelToken: source.token }
       )
 
-      data
-        .sort((a, b) => b.leaguePoints - a.leaguePoints)
-        .forEach((entry, i) => {
-          entry.number = i + 1
-        })
-
       if (data.length === 0) {
         data = []
       }
-      timer = setTimeout(() => {
-        dispatch({
-          type: GET_LEADERBOARD,
-          payload: data,
-        })
-      }, 3000)
+
+      if (data.length > 0) {
+        data
+          .sort((a, b) => b.leaguePoints - a.leaguePoints)
+          .forEach((entry, i) => {
+            entry.number = i + 1
+          })
+        timer = setTimeout(() => {
+          dispatch({
+            type: GET_LEADERBOARD,
+            payload: data,
+          })
+        }, 3000)
+      }
     } catch (error) {
       dispatch({
         type: LEADERBOARD_ERROR,

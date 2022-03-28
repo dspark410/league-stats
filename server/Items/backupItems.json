@@ -3,7 +3,7 @@
         "name": "Boots",
         "description": "<mainText><stats><attention>25</attention> Move Speed</stats></mainText><br>",
         "colloq": ";",
-        "plaintext": "Slightly increases Movement Speed",
+        "plaintext": "Slightly increases Move Speed",
         "into": [
             "3158",
             "3006",
@@ -40,7 +40,7 @@
         "stats": {
             "FlatMovementSpeedMod": 25
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1004": {
         "name": "Faerie Charm",
@@ -76,7 +76,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1005": {
         "name": "Meki Pendant",
@@ -114,7 +114,7 @@
     },
     "1006": {
         "name": "Rejuvenation Bead",
-        "description": "<mainText><stats><attention>50%</attention> Base Health Regen</stats></mainText><br>",
+        "description": "<mainText><stats><attention>100%</attention> Base Health Regen</stats></mainText><br>",
         "colloq": ";",
         "plaintext": "Slightly increases Health Regen",
         "into": [
@@ -131,10 +131,10 @@
             "h": 48
         },
         "gold": {
-            "base": 150,
+            "base": 300,
             "purchasable": true,
-            "total": 150,
-            "sell": 105
+            "total": 300,
+            "sell": 120
         },
         "tags": [
             "HealthRegen"
@@ -146,7 +146,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1007": {
         "name": "Regrowth Pendant",
@@ -226,7 +226,7 @@
             "FlatHPPoolMod": 350
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1018": {
         "name": "Cloak of Agility",
@@ -275,7 +275,7 @@
         "stats": {
             "FlatCritChanceMod": 0.15
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1026": {
         "name": "Blasting Wand",
@@ -284,7 +284,6 @@
         "plaintext": "Moderately increases Ability Power",
         "into": [
             "3003",
-            "3100",
             "3115",
             "3116",
             "6655",
@@ -322,7 +321,7 @@
         "stats": {
             "FlatMagicDamageMod": 40
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1027": {
         "name": "Sapphire Crystal",
@@ -360,7 +359,7 @@
         "stats": {
             "FlatMPPoolMod": 250
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1028": {
         "name": "Ruby Crystal",
@@ -415,7 +414,7 @@
         "stats": {
             "FlatHPPoolMod": 150
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1029": {
         "name": "Cloth Armor",
@@ -462,7 +461,7 @@
         "stats": {
             "FlatArmorMod": 15
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1031": {
         "name": "Chain Vest",
@@ -505,7 +504,7 @@
             "FlatArmorMod": 40
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1033": {
         "name": "Null-Magic Mantle",
@@ -514,6 +513,7 @@
         "plaintext": "Slightly increases Magic Resist",
         "into": [
             "3193",
+            "3091",
             "1057",
             "3105",
             "3211",
@@ -551,7 +551,7 @@
         "stats": {
             "FlatSpellBlockMod": 25
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1035": {
         "name": "Emberknife",
@@ -591,7 +591,7 @@
             "Effect3Amount": "5",
             "Effect4Amount": "8"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1036": {
         "name": "Long Sword",
@@ -601,7 +601,6 @@
         "into": [
             "3179",
             "3071",
-            "3091",
             "1053",
             "3004",
             "3035",
@@ -644,7 +643,7 @@
         "stats": {
             "FlatPhysicalDamageMod": 10
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1037": {
         "name": "Pickaxe",
@@ -654,6 +653,7 @@
         "into": [
             "6035",
             "3077",
+            "3091",
             "6676",
             "3031",
             "3053",
@@ -694,7 +694,7 @@
         "stats": {
             "FlatPhysicalDamageMod": 25
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1038": {
         "name": "B. F. Sword",
@@ -735,7 +735,7 @@
         "stats": {
             "FlatPhysicalDamageMod": 40
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1039": {
         "name": "Hailblade",
@@ -775,7 +775,7 @@
             "Effect3Amount": "5",
             "Effect4Amount": "8"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1040": {
         "name": "Obsidian Edge",
@@ -815,7 +815,7 @@
             "Effect3Amount": "5",
             "Effect4Amount": "8"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1041": {
         "name": "Hunter's Machete",
@@ -904,7 +904,7 @@
         "stats": {
             "PercentAttackSpeedMod": 0.12
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1043": {
         "name": "Recurve Bow",
@@ -948,7 +948,7 @@
             "PercentAttackSpeedMod": 0.25
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1051": {
         "name": "Brawler's Gloves",
@@ -1043,7 +1043,7 @@
         "stats": {
             "FlatMagicDamageMod": 20
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1053": {
         "name": "Vampiric Scepter",
@@ -1091,7 +1091,7 @@
             "PercentLifeStealMod": 0.1
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1054": {
         "name": "Doran's Shield",
@@ -1134,7 +1134,7 @@
             "Effect3Amount": "40",
             "Effect4Amount": "0.66"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1055": {
         "name": "Doran's Blade",
@@ -1172,7 +1172,7 @@
             "FlatPhysicalDamageMod": 8,
             "FlatHPPoolMod": 80
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1056": {
         "name": "Doran's Ring",
@@ -1210,7 +1210,7 @@
             "FlatHPPoolMod": 70,
             "FlatMagicDamageMod": 15
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1057": {
         "name": "Negatron Cloak",
@@ -1221,7 +1221,6 @@
             "1033"
         ],
         "into": [
-            "3091",
             "3222",
             "4401"
         ],
@@ -1253,7 +1252,7 @@
             "FlatSpellBlockMod": 50
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1058": {
         "name": "Needlessly Large Rod",
@@ -1292,7 +1291,7 @@
         "stats": {
             "FlatMagicDamageMod": 60
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1059": {
         "name": "Space Vampiric Scepter",
@@ -1634,7 +1633,7 @@
             "FlatHPPoolMod": 40,
             "FlatMagicDamageMod": 15
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1083": {
         "name": "Cull",
@@ -1670,7 +1669,7 @@
         "stats": {
             "FlatPhysicalDamageMod": 7
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "1300": {
         "name": "Enchantment: Furor",
@@ -4390,7 +4389,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2004": {
         "name": "Mana Potion",
@@ -4540,7 +4539,7 @@
         "effect": {
             "Effect1Amount": "10"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2011": {
         "name": "Elixir Of Skill",
@@ -4701,7 +4700,7 @@
             "PercentAttackSpeedMod": 0.15
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2031": {
         "name": "Refillable Potion",
@@ -4740,7 +4739,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2032": {
         "name": "Hunter's Potion",
@@ -4825,7 +4824,7 @@
         },
         "stats": {},
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2037": {
         "name": "Elixir of Fortitude",
@@ -5417,11 +5416,11 @@
             "Effect1Amount": "15",
             "Effect2Amount": "0.25"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2052": {
         "name": "Poro-Snax",
-        "description": "",
+        "description": "<mainText><stats></stats><active>Active - Consume:</active> Serves a scrumptious scoop to a nearby Poro, causing it to grow in size.</mainText><br>",
         "colloq": ";",
         "plaintext": "",
         "stacks": 2,
@@ -5450,7 +5449,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2053": {
         "name": "Raptor Cloak",
@@ -5574,7 +5573,7 @@
             "Effect1Amount": "1",
             "Effect2Amount": "2"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2056": {
         "name": "Pilfered Stealth Ward",
@@ -5953,7 +5952,7 @@
             "FlatMagicDamageMod": 40
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2137": {
         "name": "Elixir of Ruin",
@@ -6049,7 +6048,7 @@
             "Effect7Amount": "0",
             "Effect8Amount": "9"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2139": {
         "name": "Elixir of Sorcery",
@@ -6095,7 +6094,7 @@
             "Effect7Amount": "0",
             "Effect8Amount": "9"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2140": {
         "name": "Elixir of Wrath",
@@ -6142,7 +6141,7 @@
             "Effect7Amount": "0",
             "Effect8Amount": "9"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2301": {
         "name": "Eye of the Watchers",
@@ -6417,7 +6416,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2419": {
         "name": "Commencing Stopwatch",
@@ -6453,7 +6452,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2420": {
         "name": "Stopwatch",
@@ -6493,7 +6492,7 @@
             "Effect1Amount": "0",
             "Effect2Amount": "2.5"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2421": {
         "name": "Broken Stopwatch",
@@ -6535,7 +6534,7 @@
             "Effect4Amount": "0",
             "Effect5Amount": "300"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2422": {
         "name": "Slightly Magical Footwear",
@@ -6579,7 +6578,7 @@
         "stats": {
             "FlatMovementSpeedMod": 25
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2423": {
         "name": "Perfectly Timed Stopwatch",
@@ -6620,7 +6619,7 @@
             "Effect1Amount": "0",
             "Effect2Amount": "2.5"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "2424": {
         "name": "Broken Stopwatch",
@@ -6663,7 +6662,7 @@
             "Effect4Amount": "0",
             "Effect5Amount": "300"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3001": {
         "name": "Evenshroud",
@@ -6707,7 +6706,7 @@
             "FlatArmorMod": 30
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3003": {
         "name": "Archangel's Staff",
@@ -6753,7 +6752,7 @@
             "FlatMagicDamageMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3004": {
         "name": "Manamune",
@@ -6798,7 +6797,7 @@
             "FlatMPPoolMod": 500
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3005": {
         "name": "Atma's Reckoning",
@@ -6855,7 +6854,7 @@
         "name": "Berserker's Greaves",
         "description": "<mainText><stats><attention>35%</attention> Attack Speed<br><attention>45</attention> Move Speed</stats></mainText><br>",
         "colloq": ";",
-        "plaintext": "Enhances Movement Speed and Attack Speed",
+        "plaintext": "Enhances Move Speed and Attack Speed",
         "from": [
             "1001",
             "1042"
@@ -6890,7 +6889,7 @@
             "PercentAttackSpeedMod": 0.35
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3007": {
         "name": "Archangel's Staff (Quick Charge)",
@@ -7006,7 +7005,7 @@
         "name": "Boots of Swiftness",
         "description": "<mainText><stats><attention>60</attention> Move Speed</stats><br><li>The strength of movement slowing effects is reduced by 25%.</mainText><br>",
         "colloq": ";",
-        "plaintext": "Enhances Movement Speed and reduces the effect of slows",
+        "plaintext": "Enhances Move Speed and reduces the effect of slows",
         "from": [
             "1001"
         ],
@@ -7041,7 +7040,7 @@
             "Effect1Amount": "0.25"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3010": {
         "name": "Catalyst of Aeons",
@@ -7140,13 +7139,13 @@
             "FlatMagicDamageMod": 55
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3020": {
         "name": "Sorcerer's Shoes",
         "description": "<mainText><stats><attention>18</attention> Magic Penetration<br><attention>45</attention> Move Speed</stats></mainText><br>",
         "colloq": ";",
-        "plaintext": "Enhances Movement Speed and magic damage",
+        "plaintext": "Enhances Move Speed and magic damage",
         "from": [
             "1001"
         ],
@@ -7182,7 +7181,7 @@
             "Effect1Amount": "18"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3022": {
         "name": "Frozen Mallet",
@@ -7333,7 +7332,7 @@
             "FlatArmorMod": 20
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3025": {
         "name": "Iceborn Gauntlet",
@@ -7434,7 +7433,7 @@
             "Effect4Amount": "0.3"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3027": {
         "name": "Rod of Ages",
@@ -7708,7 +7707,7 @@
             "FlatCritChanceMod": 0.2
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3033": {
         "name": "Mortal Reminder",
@@ -7753,7 +7752,7 @@
             "PercentAttackSpeedMod": 0.25
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3034": {
         "name": "Giant Slayer",
@@ -7843,7 +7842,7 @@
             "FlatPhysicalDamageMod": 20
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3036": {
         "name": "Lord Dominik's Regards",
@@ -7888,7 +7887,7 @@
             "Effect1Amount": "0.2"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3037": {
         "name": "Mana Manipulator",
@@ -7963,7 +7962,7 @@
             "FlatMPPoolMod": 860,
             "FlatMagicDamageMod": 80
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3041": {
         "name": "Mejai's Soulstealer",
@@ -8004,7 +8003,7 @@
             "FlatMagicDamageMod": 20
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3042": {
         "name": "Muramana",
@@ -8045,7 +8044,7 @@
             "FlatPhysicalDamageMod": 35,
             "FlatMPPoolMod": 860
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3043": {
         "name": "Muramana",
@@ -8097,10 +8096,8 @@
             "1036"
         ],
         "into": [
-            "6630",
             "3053",
-            "3181",
-            "6632"
+            "3181"
         ],
         "image": {
             "full": "3044.png",
@@ -8143,7 +8140,7 @@
             "Effect8Amount": "8"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3046": {
         "name": "Phantom Dancer",
@@ -8209,13 +8206,13 @@
             "Effect18Amount": "9"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3047": {
         "name": "Plated Steelcaps",
         "description": "<mainText><stats><attention>20</attention> Armor<br><attention>45</attention> Move Speed</stats><br><li>Reduces incoming damage from Attacks by 12%.</mainText><br>",
         "colloq": ";",
-        "plaintext": "Enhances Movement Speed and reduces incoming basic attack damage",
+        "plaintext": "Enhances Move Speed and reduces incoming basic attack damage",
         "from": [
             "1001",
             "1029"
@@ -8253,7 +8250,7 @@
             "Effect1Amount": "0.12"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3048": {
         "name": "Seraph's Embrace",
@@ -8295,7 +8292,7 @@
     },
     "3050": {
         "name": "Zeke's Convergence",
-        "description": "<mainText><stats><attention>250</attention> Health<br><attention>25</attention> Armor<br><attention>250</attention> Mana<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Conduit:</active> Designate an <attention>Accomplice</attention> (60s cooldown).<br><li><passive>Convergence:</passive> For 8 seconds after you <status>Immobilize</status> an enemy, your <attention>Accomplice's</attention> Attacks and Ability hits apply an additional <magicDamage>(30 - 70 (based on level) magic damage</magicDamage> to that enemy.<br><br><rules>Champions can only be linked by one Zeke's Convergence at a time.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>250</attention> Health<br><attention>25</attention> Armor<br><attention>250</attention> Mana<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Conduit:</active> Designate an <attention>Accomplice</attention> (60s cooldown).<br><li><passive>Convergence:</passive> For 8 seconds after you <status>Immobilize</status> an enemy, your <attention>Accomplice's</attention> Attacks and Ability hits apply an additional <magicDamage>(30 - 70 (based on level)(+1.5% max Health)(+7.5% Ability Power) magic damage</magicDamage> to that enemy.<br><br><rules>Champions can only be linked by one Zeke's Convergence at a time.</rules></mainText><br>",
         "colloq": ";haroldandkumar",
         "plaintext": "Grants you and your ally bonuses when you cast your ultimate.",
         "from": [
@@ -8338,7 +8335,7 @@
             "FlatArmorMod": 25
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3051": {
         "name": "Hearthbound Axe",
@@ -8364,10 +8361,10 @@
             "h": 48
         },
         "gold": {
-            "base": 450,
+            "base": 350,
             "purchasable": true,
-            "total": 1100,
-            "sell": 770
+            "total": 1000,
+            "sell": 700
         },
         "tags": [
             "Damage",
@@ -8390,7 +8387,7 @@
             "Effect3Amount": "60"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3052": {
         "name": "Jaurim's Fist",
@@ -8446,7 +8443,7 @@
     },
     "3053": {
         "name": "Sterak's Gage",
-        "description": "<mainText><stats><attention>50</attention> Attack Damage<br><attention>400</attention> Health</stats><br><li><passive>Bloodlust:</passive> Dealing damage to or taking damage from a champion grants a stack, restoring <healing>(2% max Health | 1.2% max Health for Ranged champions)</healing> over 6 seconds. Stacks beyond the first heal for 50% less.<li><passive>Lifeline:</passive> Upon taking damage that would reduce your Health below 30%, gain a <shield>100 Shield (increased by (8% max Health | 4.8% max Health for Ranged champions) per stack of <passive>Bloodlust</passive>)</shield> for 4 seconds (60s cooldown).<br><br><rules><attention>Bloodlust</attention> stacks up to 5 times; 1 per champion. Healing and bonus shielding reduced to 60% for Ranged users.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>400</attention> Health</stats><br><li><passive>The Claws that Catch:</passive> Gain 40% of base AD as bonus Attack Damage.<li><passive>Lifeline:</passive> Upon taking damage that would reduce your Health below 30%, gain a <shield>75% Bonus HP Shield</shield> for 3.75 seconds (60s ).</mainText><br>",
         "colloq": ";juggernaut;primal",
         "plaintext": "Shields against large bursts of damage",
         "from": [
@@ -8480,11 +8477,10 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 50,
             "FlatHPPoolMod": 400
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3056": {
         "name": "Ohmwrecker",
@@ -8574,7 +8570,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3060": {
         "name": "Banner of Command",
@@ -8683,7 +8679,7 @@
             "FlatSpellBlockMod": 40
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3066": {
         "name": "Winged Moonplate",
@@ -8726,7 +8722,7 @@
             "FlatHPPoolMod": 150
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3067": {
         "name": "Kindlegem",
@@ -8791,7 +8787,7 @@
             "FlatHPPoolMod": 200
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3068": {
         "name": "Sunfire Aegis",
@@ -8837,7 +8833,7 @@
             "FlatArmorMod": 35
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3069": {
         "name": "Remnant of the Ascended",
@@ -8938,11 +8934,11 @@
         "stats": {
             "FlatMPPoolMod": 240
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3071": {
         "name": "Black Cleaver",
-        "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>450</attention> Health<br><attention>25</attention> Ability Haste</stats><br><li><passive>Carve:</passive> Dealing physical damage to a champion applies a stack of <scaleArmor>5% Armor reduction</scaleArmor> for 6 seconds (max <scaleArmor>30% Armor reduction</scaleArmor>).<li><passive>Rage:</passive> Dealing physical damage to a champion grants 3 Move Speed per stack of <unique>Carve</unique> on them for 2 seconds.</mainText><br>",
+        "description": "<mainText><stats><attention>45</attention> Attack Damage<br><attention>350</attention> Health<br><attention>30</attention> Ability Haste</stats><br><li><passive>Carve:</passive> Dealing physical damage to a champion applies a stack of <scaleArmor>5% Armor reduction</scaleArmor> for 6 seconds (max <scaleArmor>30% Armor reduction</scaleArmor>).<li><passive>Rage:</passive> Dealing physical damage to a champion grants 3 Move Speed per stack of <unique>Carve</unique> on them for 2 seconds.</mainText><br>",
         "colloq": ";bc",
         "plaintext": "Dealing physical damage to enemy champions reduces their Armor",
         "from": [
@@ -8981,8 +8977,8 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 40,
-            "FlatHPPoolMod": 450
+            "FlatPhysicalDamageMod": 45,
+            "FlatHPPoolMod": 350
         },
         "effect": {
             "Effect1Amount": "-0.2",
@@ -8997,7 +8993,7 @@
             "Effect10Amount": "0.01"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3072": {
         "name": "Bloodthirster",
@@ -9041,7 +9037,7 @@
             "PercentLifeStealMod": 0.2
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3073": {
         "name": "Tear of the Goddess (Quick Charge)",
@@ -9100,7 +9096,7 @@
     },
     "3074": {
         "name": "Ravenous Hydra",
-        "description": "<mainText><stats><attention>65</attention> Attack Damage<br><attention>20</attention> Ability Haste<br><attention>10%</attention> Omnivamp</stats><br><li><passive>Cleave:</passive> Attacks and Abilities deal up to <physicalDamage>(60% Attack Damage) physical damage</physicalDamage> to other enemies near target hit.<br><br><rules>Deals a minimum of (12% Attack Damage) damage to units at the end of its range, can only hit each target once per Attack or Ability, and doesn't trigger off of periodic damage.<br>Cleave does not trigger on structures. </rules><br></mainText><br>",
+        "description": "<mainText><stats><attention>70</attention> Attack Damage<br><attention>20</attention> Ability Haste<br><attention>10%</attention> Omnivamp</stats><br><li><passive>Cleave:</passive> Attacks and Abilities deal up to <physicalDamage>(60% Attack Damage) physical damage</physicalDamage> to other enemies near target hit.<br><br><rules>Deals a minimum of (12% Attack Damage) damage to units at the end of its range, can only hit each target once per Attack or Ability, and doesn't trigger off of periodic damage.<br>Cleave does not trigger on structures. </rules><br></mainText><br>",
         "colloq": ";",
         "plaintext": "Melee attacks hit nearby enemies, dealing damage and restoring Health",
         "from": [
@@ -9137,10 +9133,10 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 65
+            "FlatPhysicalDamageMod": 70
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3075": {
         "name": "Thornmail",
@@ -9181,7 +9177,7 @@
             "FlatArmorMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3076": {
         "name": "Bramble Vest",
@@ -9223,7 +9219,7 @@
             "FlatArmorMod": 30
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3077": {
         "name": "Tiamat",
@@ -9269,11 +9265,11 @@
             "Effect2Amount": "0.6"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3078": {
         "name": "Trinity Force",
-        "description": "<mainText><stats><attention>35</attention> Attack Damage<br><attention>30%</attention> Attack Speed<br><attention>200</attention> Health<br><attention>20</attention> Ability Haste</stats><br><li><passive>Threefold Strike:</passive> Attacks grant <speed>20 Move Speed</speed> for 3 seconds. If the target is a champion, increase your <scaleAD>base Attack Damage by 6%</scaleAD> for 3 seconds, stacking up to 5 times (Max increase <scaleAD>30% AD</scaleAD>).<li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>(200% base Attack Damage) physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>3</attention> Attack Damage,  <attention>3</attention> Ability Haste, and <attention> 3</attention> Move Speed</mainText><br>",
+        "description": "<mainText><stats><attention>35</attention> Attack Damage<br><attention>30%</attention> Attack Speed<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste</stats><br><li><passive>Threefold Strike:</passive> Attacks grant <speed>20 Move Speed</speed> for 3 seconds. If the target is a champion, increase your <scaleAD>base Attack Damage by 4%</scaleAD> for 3 seconds, stacking up to 5 times (Max increase <scaleAD>20% AD</scaleAD>).<li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>(200% base Attack Damage) physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). <br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>3</attention> Attack Damage,  <attention>3</attention> Ability Haste, and <attention> 3</attention> Move Speed</mainText><br>",
         "colloq": ";triforce;tons of damage",
         "plaintext": "Tons of Damage",
         "from": [
@@ -9291,7 +9287,7 @@
             "h": 48
         },
         "gold": {
-            "base": 733,
+            "base": 833,
             "purchasable": true,
             "total": 3333,
             "sell": 2333
@@ -9313,7 +9309,7 @@
         },
         "stats": {
             "FlatPhysicalDamageMod": 35,
-            "FlatHPPoolMod": 200,
+            "FlatHPPoolMod": 300,
             "PercentAttackSpeedMod": 0.3
         },
         "effect": {
@@ -9324,7 +9320,7 @@
             "Effect5Amount": "1.5"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3080": {
         "name": "Space Bloodthirster",
@@ -9414,7 +9410,7 @@
             "FlatArmorMod": 40
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3083": {
         "name": "Warmog's Armor",
@@ -9436,7 +9432,7 @@
             "h": 48
         },
         "gold": {
-            "base": 650,
+            "base": 500,
             "purchasable": true,
             "total": 3000,
             "sell": 2100
@@ -9457,7 +9453,7 @@
             "FlatHPPoolMod": 800
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3084": {
         "name": "Overlord's Bloodmail",
@@ -9554,13 +9550,13 @@
             "Effect6Amount": "1"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3086": {
         "name": "Zeal",
         "description": "<mainText><stats><attention>18%</attention> Attack Speed<br><attention>15%</attention> Critical Strike Chance</stats><br><li><passive>Zealous:</passive> Gain <speed>7% Move Speed</speed>.</mainText><br>",
         "colloq": ";",
-        "plaintext": "Slight bonuses to Critical Strike Chance, Movement Speed and Attack Speed",
+        "plaintext": "Slight bonuses to Critical Strike Chance, Move Speed and Attack Speed",
         "from": [
             "1018",
             "1042"
@@ -9606,7 +9602,7 @@
             "Effect1Amount": "0.07"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3087": {
         "name": "Statikk Shiv",
@@ -9698,7 +9694,7 @@
             "FlatMagicDamageMod": 120
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3090": {
         "name": "Wooglet's Witchcap",
@@ -9753,13 +9749,13 @@
     },
     "3091": {
         "name": "Wit's End",
-        "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>40%</attention> Attack Speed<br><attention>50</attention> Magic Resist</stats><br><li><passive>Fray:</passive> Attacks apply <magicDamage>15 - 80 (based on level) magic damage</magicDamage> <OnHit>On-Hit</OnHit> and grant <speed>20 Move Speed</speed> for 2 seconds.</mainText><br>",
+        "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>40%</attention> Attack Speed<br><attention>40</attention> Magic Resist</stats><br><li><passive>Fray:</passive> Attacks apply <magicDamage>15 - 80 (based on level) magic damage</magicDamage> <OnHit>On-Hit</OnHit> and grant <speed>20 Move Speed</speed> for 2 seconds.</mainText><br>",
         "colloq": ";",
         "plaintext": "Resist magic damage and claw your way back to life.",
         "from": [
             "3051",
-            "1057",
-            "1036"
+            "1033",
+            "1037"
         ],
         "image": {
             "full": "3091.png",
@@ -9771,7 +9767,7 @@
             "h": 48
         },
         "gold": {
-            "base": 750,
+            "base": 775,
             "purchasable": true,
             "total": 3100,
             "sell": 2170
@@ -9791,11 +9787,11 @@
         },
         "stats": {
             "FlatPhysicalDamageMod": 40,
-            "FlatSpellBlockMod": 50,
+            "FlatSpellBlockMod": 40,
             "PercentAttackSpeedMod": 0.4
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3092": {
         "name": "Remnant of the Watchers",
@@ -9955,7 +9951,7 @@
             "PercentAttackSpeedMod": 0.35
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3095": {
         "name": "Stormrazor",
@@ -10008,7 +10004,7 @@
             "Effect6Amount": "0.5"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3096": {
         "name": "Nomad's Medallion",
@@ -10243,13 +10239,13 @@
     },
     "3100": {
         "name": "Lich Bane",
-        "description": "<mainText><stats><attention>75</attention> Ability Power<br><attention>8%</attention> Move Speed</stats><br><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <magicDamage>(150% base Attack Damage + 40% Ability Power) magic damage</magicDamage> <OnHit>On-Hit</OnHit> (2.5s cooldown).</mainText><br>",
+        "description": "<mainText><stats><attention>75</attention> Ability Power<br><attention>15</attention> Ability Haste<br><attention>8%</attention> Move Speed</stats><br><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <magicDamage>(75% base Attack Damage + 50% Ability Power) magic damage</magicDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown).</mainText><br>",
         "colloq": ";",
         "plaintext": "Grants a bonus to next attack after spell cast",
         "from": [
             "3057",
             "3113",
-            "1026"
+            "3108"
         ],
         "image": {
             "full": "3100.png",
@@ -10261,7 +10257,7 @@
             "h": 48
         },
         "gold": {
-            "base": 600,
+            "base": 550,
             "purchasable": true,
             "total": 3000,
             "sell": 2100
@@ -10269,7 +10265,8 @@
         "tags": [
             "SpellDamage",
             "OnHit",
-            "NonbootsMovement"
+            "NonbootsMovement",
+            "AbilityHaste"
         ],
         "maps": {
             "11": true,
@@ -10282,7 +10279,7 @@
             "FlatMagicDamageMod": 75
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3101": {
         "name": "Stinger",
@@ -10381,7 +10378,7 @@
             "Effect6Amount": "2"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3104": {
         "name": "Lord Van Damm's Pillager",
@@ -10481,7 +10478,7 @@
             "FlatArmorMod": 30
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3106": {
         "name": "Madred's Razors",
@@ -10572,7 +10569,7 @@
             "FlatHPPoolMod": 200
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3108": {
         "name": "Fiendish Codex",
@@ -10583,6 +10580,7 @@
             "1052"
         ],
         "into": [
+            "3100",
             "3102",
             "6653",
             "3157",
@@ -10622,11 +10620,11 @@
             "Effect1Amount": "-0.1"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3109": {
         "name": "Knight's Vow",
-        "description": "<mainText><stats><attention>400</attention> Health<br><attention>10</attention> Ability Haste<br><attention>150%</attention> Base Health Regen</stats><br><br><active>Active -</active> <active>Pledge:</active> Designate an ally who is <attention>Worthy</attention> (60s cooldown).<br><li><passive>Sacrifice:</passive> While your <attention>Worthy</attention> ally is nearby, redirect 10% of damage they take to you and heal for 8% of the damage dealt by your <attention>Worthy</attention> ally to Champions. If they have less than 30% Health the damage reduction is increased to <attention>20%</attention>.<br><br><rules>Champions can only be linked by one Knight's Vow at a time. Damage redirection stops if you have less than 30% Health</rules></mainText><br>",
+        "description": "<mainText><stats><attention>400</attention> Health<br><attention>10</attention> Ability Haste<br><attention>200%</attention> Base Health Regen</stats><br><br><active>Active -</active> <active>Pledge:</active> Designate an ally who is <attention>Worthy</attention> (60s cooldown).<br><li><passive>Sacrifice:</passive> While your <attention>Worthy</attention> ally is nearby, redirect 10% of damage they take to you and heal for 8% of the damage dealt by your <attention>Worthy</attention> ally to Champions. If they have less than 30% Health the damage reduction is increased to <attention>20%</attention>.<br><br><rules>Champions can only be linked by one Knight's Vow at a time. Damage redirection stops if you have less than 30% Health</rules></mainText><br>",
         "colloq": ";",
         "plaintext": "Partner with an ally to protect each other",
         "from": [
@@ -10644,7 +10642,7 @@
             "h": 48
         },
         "gold": {
-            "base": 700,
+            "base": 400,
             "purchasable": true,
             "total": 2300,
             "sell": 1610
@@ -10668,7 +10666,7 @@
             "FlatHPPoolMod": 400
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3110": {
         "name": "Frozen Heart",
@@ -10712,13 +10710,13 @@
             "FlatArmorMod": 80
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3111": {
         "name": "Mercury's Treads",
         "description": "<mainText><stats><attention>25</attention> Magic Resist<br><attention>45</attention> Move Speed<br><attention>30%</attention> Tenacity</stats><br><br><rules>Tenacity reduces the duration of <status>Stun</status>, <status>Slow</status>, <status>Taunt</status>, <status>Fear</status>, <status>Silence</status>, <status>Blind</status>, <status>Polymorph</status> and <status>Immobilizing</status> effects. It has no effect on <status>Airborne</status> or <status>Suppression</status>.</rules></mainText><br>",
         "colloq": ";",
-        "plaintext": "Increases Movement Speed and reduces duration of disabling effects",
+        "plaintext": "Increases Move Speed and reduces duration of disabling effects",
         "from": [
             "1001",
             "1033"
@@ -10754,7 +10752,7 @@
             "FlatSpellBlockMod": 25
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3112": {
         "name": "Guardian's Orb",
@@ -10795,13 +10793,13 @@
         "effect": {
             "Effect1Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3113": {
         "name": "Aether Wisp",
         "description": "<mainText><stats><attention>30</attention> Ability Power</stats><br><li><passive>Glide:</passive> Gain <speed>5% Move Speed</speed>.</mainText><br>",
         "colloq": ";",
-        "plaintext": "Increases Ability Power and Movement Speed",
+        "plaintext": "Increases Ability Power and Move Speed",
         "from": [
             "1052"
         ],
@@ -10838,7 +10836,7 @@
             "FlatMagicDamageMod": 30
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3114": {
         "name": "Forbidden Idol",
@@ -10880,7 +10878,7 @@
         },
         "stats": {},
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3115": {
         "name": "Nashor's Tooth",
@@ -10923,11 +10921,11 @@
             "PercentAttackSpeedMod": 0.5
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3116": {
         "name": "Rylai's Crystal Scepter",
-        "description": "<mainText><stats><attention>90</attention> Ability Power<br><attention>350</attention> Health</stats><br><li><passive>Rimefrost:</passive> Damaging Abilities <status>Slow</status> enemies by 30% for 1 second.</mainText><br>",
+        "description": "<mainText><stats><attention>75</attention> Ability Power<br><attention>400</attention> Health</stats><br><li><passive>Rimefrost:</passive> Damaging Abilities <status>Slow</status> enemies by 30% for 1 second.</mainText><br>",
         "colloq": ";",
         "plaintext": "Abilities slow enemies",
         "from": [
@@ -10945,10 +10943,10 @@
             "h": 48
         },
         "gold": {
-            "base": 815,
+            "base": 415,
             "purchasable": true,
-            "total": 3000,
-            "sell": 2100
+            "total": 2600,
+            "sell": 1820
         },
         "tags": [
             "Health",
@@ -10962,8 +10960,8 @@
             "22": false
         },
         "stats": {
-            "FlatHPPoolMod": 350,
-            "FlatMagicDamageMod": 90
+            "FlatHPPoolMod": 400,
+            "FlatMagicDamageMod": 75
         },
         "effect": {
             "Effect1Amount": "-0.3",
@@ -10974,13 +10972,13 @@
             "Effect6Amount": "1"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3117": {
         "name": "Mobility Boots",
         "description": "<mainText><stats></stats><attention>25</attention> Move Speed <li>When out of combat for at least 5 seconds, increase this item's effect to <attention>115</attention>.</mainText><br>",
         "colloq": ";",
-        "plaintext": "Greatly enhances Movement Speed when out of combat",
+        "plaintext": "Greatly enhances Move Speed when out of combat",
         "from": [
             "1001"
         ],
@@ -11022,7 +11020,7 @@
             "Effect8Amount": "25"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3118": {
         "name": "Space Knight's Vow",
@@ -11118,11 +11116,11 @@
             "FlatMPPoolMod": 500
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3121": {
         "name": "Fimbulwinter",
-        "description": "<mainText><stats><attention>400</attention> Health<br><attention>860</attention> Mana<br><attention>15</attention> Ability Haste</stats><li><passive>Awe:</passive> Gain bonus <scaleHealth>Health equal to 8% Total Mana</scaleHealth>.<li><passive>Everlasting:</passive> <status>Immobilizing</status> or <status>Slowing</status> (Melee only) an enemy champion consumes <scaleMana>3% current Mana</scaleMana> and grants a Shield for 3 seconds, absorbing <scaleMana>100-200 + 5% current Mana</scaleMana> damage (8s ). The Shield is increased by <attention>80%</attention> if more than one enemy is nearby.<br><br><rules>This effect only activates while you have greater than 20% Mana.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>400</attention> Health<br><attention>860</attention> Mana<br><attention>15</attention> Ability Haste</stats><li><passive>Awe:</passive> Gain bonus <scaleHealth>Health equal to 8% Total Mana</scaleHealth>.<li><passive>Everlasting:</passive> <status>Immobilizing</status> or <status>Slowing</status> (Melee only) an enemy champion consumes <scaleMana>3% current Mana</scaleMana> and grants a Shield for 3 seconds, absorbing <scaleMana>100-200 + 5% current Mana</scaleMana> damage (8s). The Shield is increased by <attention>80%</attention> if more than one enemy is nearby.<br><br><rules>This effect only activates while you have greater than 20% Mana.</rules></mainText><br>",
         "colloq": "",
         "plaintext": "",
         "specialRecipe": 3119,
@@ -11157,7 +11155,7 @@
             "FlatHPPoolMod": 400,
             "FlatMPPoolMod": 860
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3122": {
         "name": "Wicked Hatchet",
@@ -11251,7 +11249,7 @@
             "Effect1Amount": "3"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3124": {
         "name": "Guinsoo's Rageblade",
@@ -11309,7 +11307,7 @@
             "Effect13Amount": "3"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3126": {
         "name": "Madred's Bloodrazor",
@@ -11506,11 +11504,13 @@
             "6609",
             "3071",
             "3004",
+            "6630",
             "3074",
             "3142",
             "3156",
             "3508",
             "6333",
+            "6632",
             "6675",
             "6691",
             "6693",
@@ -11547,7 +11547,7 @@
             "FlatPhysicalDamageMod": 25
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3134": {
         "name": "Serrated Dirk",
@@ -11602,7 +11602,7 @@
             "Effect1Amount": "10"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3135": {
         "name": "Void Staff",
@@ -11642,7 +11642,7 @@
             "FlatMagicDamageMod": 65
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3136": {
         "name": "Haunting Guise",
@@ -11789,7 +11789,7 @@
         "name": "Mercurial Scimitar",
         "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>20%</attention> Critical Strike Chance<br><attention>30</attention> Magic Resist</stats><br><br><active>Active -</active> <active>Quicksilver:</active> Remove all crowd control debuffs (excluding <status>Airborne</status>) and also gain <speed>50% Move Speed</speed> for 1 second (90s cooldown).</mainText><br>",
         "colloq": ";",
-        "plaintext": "Activate to remove all crowd control debuffs and grant massive Movement Speed",
+        "plaintext": "Activate to remove all crowd control debuffs and grant massive Move Speed",
         "from": [
             "3140",
             "1018",
@@ -11835,7 +11835,7 @@
             "Effect3Amount": "90"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3140": {
         "name": "Quicksilver Sash",
@@ -11878,7 +11878,7 @@
             "FlatSpellBlockMod": 30
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3141": {
         "name": "Sword of the Occult",
@@ -11932,7 +11932,7 @@
         "name": "Youmuu's Ghostblade",
         "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>15</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Wraith Step:</active> Gain <speed>20% Move Speed</speed> and <status>Ghosting</status> for 6 seconds (45s cooldown).<br><li><passive>Haunt:</passive> Gain <speed>40 Move Speed</speed> out of combat.<br><br><rules><status>Ghosted</status> units ignore collision with other units.</rules></mainText><br>",
         "colloq": ";lethality",
-        "plaintext": "Activate to greatly increase Movement Speed",
+        "plaintext": "Activate to greatly increase Move Speed",
         "from": [
             "3134",
             "3133"
@@ -11976,7 +11976,7 @@
             "Effect6Amount": "40"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3143": {
         "name": "Randuin's Omen",
@@ -12022,7 +12022,7 @@
             "FlatArmorMod": 80
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3144": {
         "name": "Bilgewater Cutlass",
@@ -12122,7 +12122,7 @@
             "FlatMagicDamageMod": 25
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3146": {
         "name": "Hextech Gunblade",
@@ -12446,7 +12446,7 @@
     },
     "3152": {
         "name": "Hextech Rocketbelt",
-        "description": "<mainText><stats><attention>90</attention> Ability Power<br><attention>6</attention> Magic Penetration<br><attention>250</attention> Health<br><attention>15</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Hex Bolt:</active> Dash in target direction, unleashing an arc of magic missiles that deal <magicDamage>(125 +15% Ability Power) magic damage</magicDamage>. Then, gain <speed>30% Move Speed</speed> towards enemy champions for 1.5 seconds (40s cooldown).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Magic Penetration.<br><br><rules>Supersonic's dash cannot pass through terrain.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>90</attention> Ability Power<br><attention>6</attention> Magic Penetration<br><attention>250</attention> Health<br><attention>15</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Supersonic:</active> Dash in target direction, unleashing an arc of magic missiles that deal <magicDamage>(125 +15% Ability Power) magic damage</magicDamage>. Then, gain <speed>30% Move Speed</speed> towards enemy champions for 1.5 seconds (40s cooldown).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Magic Penetration.<br><br><rules>Supersonic's dash cannot pass through terrain.</rules></mainText><br>",
         "colloq": "rocket belt;",
         "plaintext": "Activate to dash forward and unleash a fiery explosion",
         "from": [
@@ -12489,13 +12489,13 @@
             "FlatMagicDamageMod": 90
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3153": {
         "name": "Blade of The Ruined King",
-        "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>25%</attention> Attack Speed<br><attention>10%</attention> Life Steal</stats><br><li><passive>Mist's Edge:</passive> Attacks apply <physicalDamage>physical damage</physicalDamage> <OnHit>On-Hit</OnHit> equal to (10% for Melee users | 6% for Ranged users) of the target's current Health. <li><passive>Siphon:</passive> Attacking a champion 3 times deals <magicDamage>40 - 150 (based on level) magic damage</magicDamage> and steals 25% Move Speed for 2 seconds (20s cooldown).<br><br><rules>Maximum <passive>Mist's Edge</passive> damage dealt to monsters and minions is 60.<br>Item performance differs for melee and ranged users.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>25%</attention> Attack Speed<br><attention>10%</attention> Life Steal</stats><br><li><passive>Mist's Edge:</passive> Attacks apply <physicalDamage>physical damage</physicalDamage> <OnHit>On-Hit</OnHit> equal to (12% for Melee users | 8% for Ranged users) of the target's current Health. <li><passive>Siphon:</passive> Attacking a champion 3 times deals <magicDamage>40 - 150 (based on level) magic damage</magicDamage> and steals 25% Move Speed for 2 seconds (20s cooldown).<br><br><rules>Maximum <passive>Mist's Edge</passive> damage dealt to monsters and minions is 60.<br>Item performance differs for melee and ranged users.</rules></mainText><br>",
         "colloq": ";brk;bork;bork;bork;botrk",
-        "plaintext": "Deals damage based on target's Health, can steal Movement Speed",
+        "plaintext": "Deals damage based on target's Health, can steal Move Speed",
         "from": [
             "1053",
             "1043",
@@ -12511,10 +12511,10 @@
             "h": 48
         },
         "gold": {
-            "base": 425,
+            "base": 525,
             "purchasable": true,
-            "total": 3200,
-            "sell": 2240
+            "total": 3300,
+            "sell": 2310
         },
         "tags": [
             "Damage",
@@ -12536,7 +12536,7 @@
             "PercentLifeStealMod": 0.1
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3154": {
         "name": "Wriggle's Lantern",
@@ -12586,7 +12586,7 @@
     },
     "3155": {
         "name": "Hexdrinker",
-        "description": "<mainText><stats><attention>20</attention> Attack Damage<br><attention>35</attention> Magic Resist</stats><br><li><passive>Lifeline:</passive> Upon taking magic damage that would reduce Health below 30%, gain <shield>110 - 280 (based on level) magic damage Shield</shield> for 3 seconds (90s cooldown).</mainText><br>",
+        "description": "<mainText><stats><attention>25</attention> Attack Damage<br><attention>35</attention> Magic Resist</stats><br><li><passive>Lifeline:</passive> Upon taking magic damage that would reduce Health below 30%, gain <shield>110 - 280 (based on level) magic damage Shield</shield> for 3 seconds (90s cooldown).</mainText><br>",
         "colloq": ";",
         "plaintext": "Increases Attack Damage and Magic Resist",
         "stacks": 0,
@@ -12623,15 +12623,15 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 20,
+            "FlatPhysicalDamageMod": 25,
             "FlatSpellBlockMod": 35
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3156": {
         "name": "Maw of Malmortius",
-        "description": "<mainText><stats><attention>50</attention> Attack Damage<br><attention>50</attention> Magic Resist<br><attention>15</attention> Ability Haste</stats><br><li><passive>Lifeline:</passive> Upon taking magic damage that would reduce Health below 30%, gain <shield>(200 + 20% max Health) magic damage Shield</shield> for 5 seconds (60s cooldown).</mainText><br>",
+        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>50</attention> Magic Resist<br><attention>20</attention> Ability Haste</stats><br><li><passive>Lifeline:</passive> Upon taking magic damage that would reduce Health below 30%, gain <shield>(200 + 225% bonus Attack Damage [75% Shield Size for Ranged Users]) magic damage Shield</shield> for 5 seconds (60s cooldown). When <passive>Lifeline</passive> triggers, gain <lifeSteal>12% Omnivamp</lifeSteal> until the end of combat.  </mainText><br>",
         "colloq": ";",
         "plaintext": "Grants bonus Attack Damage when Health is low",
         "stacks": 0,
@@ -12649,10 +12649,10 @@
             "h": 48
         },
         "gold": {
-            "base": 400,
+            "base": 500,
             "purchasable": true,
-            "total": 2800,
-            "sell": 1960
+            "total": 2900,
+            "sell": 2030
         },
         "tags": [
             "SpellBlock",
@@ -12667,7 +12667,7 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 50,
+            "FlatPhysicalDamageMod": 55,
             "FlatSpellBlockMod": 50
         },
         "effect": {
@@ -12683,7 +12683,7 @@
             "Effect10Amount": "7"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3157": {
         "name": "Zhonya's Hourglass",
@@ -12733,13 +12733,13 @@
             "Effect3Amount": "120"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3158": {
         "name": "Ionian Boots of Lucidity",
         "description": "<mainText><stats><attention>20</attention> Ability Haste<br><attention>45</attention> Move Speed</stats><br><li>Gain 12 Summoner Spell Haste.<br><br><flavorText>''This item is dedicated in honor of Ionia's victory over Noxus in the Rematch for the Southern Provinces on 10 December, 20 CLE.'</flavorText></mainText><br>",
         "colloq": "",
-        "plaintext": "Increases Movement Speed and Cooldown Reduction",
+        "plaintext": "Increases Move Speed and Cooldown Reduction",
         "from": [
             "1001"
         ],
@@ -12772,7 +12772,7 @@
             "FlatMovementSpeedMod": 45
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3159": {
         "name": "Grez's Spectral Lantern",
@@ -13079,7 +13079,7 @@
             "FlatMagicDamageMod": 80
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3166": {
         "name": "Bonetooth Necklace",
@@ -13581,7 +13581,7 @@
         "effect": {
             "Effect1Amount": "10"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3178": {
         "name": "Ionic Spark",
@@ -13666,7 +13666,7 @@
             "Effect3Amount": "45"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3180": {
         "name": "Odyn's Veil",
@@ -13762,7 +13762,7 @@
             "FlatHPPoolMod": 400
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3184": {
         "name": "Guardian's Hammer",
@@ -13801,7 +13801,7 @@
             "FlatHPPoolMod": 150,
             "PercentLifeStealMod": 0.1
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3185": {
         "name": "Lightbringer",
@@ -14046,7 +14046,7 @@
             "FlatArmorMod": 30
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3191": {
         "name": "Seeker's Armguard",
@@ -14094,7 +14094,7 @@
             "Effect2Amount": "15"
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3193": {
         "name": "Gargoyle Stoneplate",
@@ -14139,7 +14139,7 @@
             "FlatArmorMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3194": {
         "name": "Adaptive Helm",
@@ -14744,7 +14744,7 @@
             "FlatSpellBlockMod": 25
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3222": {
         "name": "Mikael's Blessing",
@@ -14788,7 +14788,7 @@
             "FlatSpellBlockMod": 50
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3230": {
         "name": "Space Ravenous Hydra",
@@ -17342,7 +17342,7 @@
             "Effect7Amount": "30",
             "Effect8Amount": "120"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3340": {
         "name": "Stealth Ward",
@@ -17388,7 +17388,7 @@
             "Effect7Amount": "30",
             "Effect8Amount": "120"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3341": {
         "name": "Sweeping Lens (Trinket)",
@@ -17834,7 +17834,7 @@
             "Effect14Amount": "10",
             "Effect15Amount": "45"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3364": {
         "name": "Oracle Lens",
@@ -17879,7 +17879,7 @@
             "Effect8Amount": "120",
             "Effect9Amount": "60"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3371": {
         "name": "Molten Edge",
@@ -18627,7 +18627,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3401": {
         "name": "Remnant of the Aspect",
@@ -20096,7 +20096,7 @@
             "FlatMagicDamageMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3508": {
         "name": "Essence Reaver",
@@ -20142,7 +20142,7 @@
             "FlatCritChanceMod": 0.2
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3512": {
         "name": "Zz'Rot Portal",
@@ -20245,7 +20245,7 @@
             "Effect3Amount": "20",
             "Effect4Amount": "180"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3514": {
         "name": "Eye of the Herald",
@@ -20359,7 +20359,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3600": {
         "name": "Kalista's Black Spear",
@@ -20392,7 +20392,7 @@
             "22": false
         },
         "stats": {},
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3611": {
         "name": "Razorfin",
@@ -23378,7 +23378,7 @@
             "FlatArmorMod": 45
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3744": {
         "name": "Staff of Flowing Water",
@@ -23546,7 +23546,7 @@
             "Effect10Amount": "5"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3751": {
         "name": "Bami's Cinder",
@@ -23661,7 +23661,7 @@
     },
     "3801": {
         "name": "Crystalline Bracer",
-        "description": "<mainText><stats><attention>200</attention> Health<br><attention>50%</attention> Base Health Regen</stats></mainText><br>",
+        "description": "<mainText><stats><attention>200</attention> Health<br><attention>100%</attention> Base Health Regen</stats></mainText><br>",
         "colloq": ";",
         "plaintext": "Grants Health and Health Regen",
         "from": [
@@ -23684,8 +23684,8 @@
         "gold": {
             "base": 100,
             "purchasable": true,
-            "total": 650,
-            "sell": 455
+            "total": 800,
+            "sell": 560
         },
         "tags": [
             "Health",
@@ -23701,7 +23701,7 @@
             "FlatHPPoolMod": 200
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3802": {
         "name": "Lost Chapter",
@@ -23752,7 +23752,7 @@
             "FlatMagicDamageMod": 40
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3812": {
         "name": "Death's Dance",
@@ -23903,7 +23903,7 @@
             "Effect4Amount": "40"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3829": {
         "name": "Trickster's Glass",
@@ -24157,7 +24157,7 @@
             "Effect6Amount": "3",
             "Effect7Amount": "2000"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3851": {
         "name": "Frostfang",
@@ -24206,7 +24206,7 @@
             "Effect6Amount": "3",
             "Effect7Amount": "2000"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3853": {
         "name": "Shard of True Ice",
@@ -24249,7 +24249,7 @@
         "effect": {
             "Effect1Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3854": {
         "name": "Steel Shoulderguards",
@@ -24297,7 +24297,7 @@
             "Effect5Amount": "35",
             "Effect6Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3855": {
         "name": "Runesteel Spaulders",
@@ -24345,7 +24345,7 @@
             "Effect5Amount": "35",
             "Effect6Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3857": {
         "name": "Pauldrons of Whiterock",
@@ -24388,7 +24388,7 @@
         "effect": {
             "Effect1Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3858": {
         "name": "Relic Shield",
@@ -24436,7 +24436,7 @@
             "Effect5Amount": "35",
             "Effect6Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3859": {
         "name": "Targon's Buckler",
@@ -24484,7 +24484,7 @@
             "Effect5Amount": "35",
             "Effect6Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3860": {
         "name": "Bulwark of the Mountain",
@@ -24527,7 +24527,7 @@
         "effect": {
             "Effect1Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3862": {
         "name": "Spectral Sickle",
@@ -24576,7 +24576,7 @@
             "Effect6Amount": "3",
             "Effect7Amount": "2000"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3863": {
         "name": "Harrowing Crescent",
@@ -24625,7 +24625,7 @@
             "Effect6Amount": "3",
             "Effect7Amount": "2000"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3864": {
         "name": "Black Mist Scythe",
@@ -24668,7 +24668,7 @@
         "effect": {
             "Effect1Amount": "3"
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3901": {
         "name": "Fire at Will",
@@ -24978,7 +24978,7 @@
             "FlatMagicDamageMod": 30
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "3924": {
         "name": "Flesheater (Melee Only)",
@@ -25443,7 +25443,7 @@
             "FlatMagicDamageMod": 40
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4010": {
         "name": "Bloodletter's Veil",
@@ -26063,9 +26063,9 @@
     },
     "4401": {
         "name": "Force of Nature",
-        "description": "<mainText><stats><attention>350</attention> Health<br><attention>70</attention> Magic Resist<br><attention>5%</attention> Move Speed</stats><br><li><passive>Absorb:</passive> Taking <magicDamage>magic damage</magicDamage> from enemy Champions grants a stack of <attention>Steadfast</attention> (max 6) for 5 seconds. Enemy <status>Immobilizing</status> effects grant an additional 2 stacks.<li><passive>Dissipate:</passive> While at 6 stacks of <attention>Steadfast</attention>, take <magicDamage>20% reduced magic damage</magicDamage> and gain 10% increased Move Speed.<br><br><rules>One spell can add a new stack of <attention>Steadfast</attention> every 1 second.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>350</attention> Health<br><attention>70</attention> Magic Resist<br><attention>5%</attention> Move Speed</stats><br><li><passive>Absorb:</passive> Taking <magicDamage>magic damage</magicDamage> from enemy Champions grants a stack of <attention>Steadfast</attention> (max 6) for 7 seconds. Enemy <status>Immobilizing</status> effects grant an additional 2 stacks.<li><passive>Dissipate:</passive> While at 6 stacks of <attention>Steadfast</attention>, take <magicDamage>25% reduced magic damage</magicDamage> and gain 10% increased Move Speed.<br><br><rules>One spell can add a new stack of <attention>Steadfast</attention> every 1 second.</rules></mainText><br>",
         "colloq": ";fon",
-        "plaintext": "Movement Speed, Magic Resist, and max Health Regeneration",
+        "plaintext": "Move Speed, Magic Resist, and max Health Regeneration",
         "from": [
             "1057",
             "1028",
@@ -26103,7 +26103,7 @@
             "FlatSpellBlockMod": 70
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4402": {
         "name": "Innervating Locket",
@@ -26221,7 +26221,7 @@
             "PercentLifeStealMod": 0.1
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4628": {
         "name": "Horizon Focus",
@@ -26249,7 +26249,8 @@
         },
         "tags": [
             "Health",
-            "SpellDamage"
+            "SpellDamage",
+            "AbilityHaste"
         ],
         "maps": {
             "11": true,
@@ -26262,7 +26263,7 @@
             "FlatMagicDamageMod": 85
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4629": {
         "name": "Cosmic Drive",
@@ -26308,7 +26309,7 @@
             "FlatMagicDamageMod": 65
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4630": {
         "name": "Blighting Jewel",
@@ -26350,7 +26351,7 @@
             "FlatMagicDamageMod": 25
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4632": {
         "name": "Verdant Barrier",
@@ -26394,7 +26395,7 @@
             "FlatMagicDamageMod": 20
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4633": {
         "name": "Riftmaker",
@@ -26439,7 +26440,7 @@
             "FlatMagicDamageMod": 80
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4635": {
         "name": "Leeching Leer",
@@ -26484,11 +26485,11 @@
             "FlatMagicDamageMod": 20
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4636": {
         "name": "Night Harvester",
-        "description": "<mainText><stats><attention>90</attention> Ability Power<br><attention>300</attention> Health<br><attention>15</attention> Ability Haste</stats><br><li><passive>Soulrend:</passive> Damaging a champion deals an additional <magicDamage>(125 +15% Ability Power magic damage)</magicDamage> and grants you <speed>25% Move Speed</speed> for 1.5 seconds (40s cooldown per champion).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br><br><rules>Damaging a new champion will extend the duration of the Move Speed bonus.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>90</attention> Ability Power<br><attention>300</attention> Health<br><attention>15</attention> Ability Haste</stats><br><li><passive>Soulrend:</passive> Damaging a champion deals an additional <magicDamage>(125 +15% Ability Power) magic damage</magicDamage> and grants you <speed>25% Move Speed</speed> for 1.5 seconds (40s cooldown per champion).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.<br><br><rules>Damaging a new champion will extend the duration of the Move Speed bonus.</rules></mainText><br>",
         "colloq": "",
         "plaintext": "",
         "from": [
@@ -26529,7 +26530,7 @@
             "FlatMagicDamageMod": 90
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4637": {
         "name": "Demonic Embrace",
@@ -26571,7 +26572,7 @@
             "FlatMagicDamageMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4638": {
         "name": "Watchful Wardstone",
@@ -26614,7 +26615,7 @@
         "stats": {
             "FlatHPPoolMod": 150
         },
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4641": {
         "name": "Stirring Wardstone",
@@ -26701,7 +26702,7 @@
             "FlatMagicDamageMod": 20
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4643": {
         "name": "Vigilant Wardstone",
@@ -26744,7 +26745,7 @@
             "FlatHPPoolMod": 150
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4644": {
         "name": "Crown of the Shattered Queen",
@@ -26790,7 +26791,7 @@
             "FlatMagicDamageMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "4645": {
         "name": "Shadowflame",
@@ -26832,7 +26833,7 @@
             "FlatMagicDamageMod": 100
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6029": {
         "name": "Ironspike Whip",
@@ -26875,7 +26876,7 @@
             "FlatPhysicalDamageMod": 30
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6035": {
         "name": "Silvermere Dawn",
@@ -26926,18 +26927,18 @@
             "Effect3Amount": "90"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6333": {
         "name": "Death's Dance",
-        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>45</attention> Armor<br><attention>15</attention> Ability Haste</stats><br><li><passive>Ignore Pain:</passive> 35% (15% for Ranged users) of physical damage taken is dealt to you over 3 seconds instead.<li><passive>Defy:</passive> Champion takedowns cleanse <passive>Ignore Pain's</passive> remaining damage pool and restore <healing>15% of max Health</healing> over 2 seconds.<br></mainText><br>",
+        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>45</attention> Armor<br><attention>15</attention> Ability Haste</stats><br><li><passive>Ignore Pain:</passive> 30% (10% for Ranged users) of damage taken is dealt to you over 3 seconds instead.<li><passive>Defy:</passive> Champion takedowns cleanse <passive>Ignore Pain's</passive> remaining damage pool and restore <healing>175% bonus AD in Health</healing> over 2 seconds.</mainText><br>",
         "colloq": "",
         "plaintext": "",
         "stacks": 0,
         "from": [
+            "1037",
             "1031",
-            "3133",
-            "1037"
+            "3133"
         ],
         "image": {
             "full": "6333.png",
@@ -26949,10 +26950,10 @@
             "h": 48
         },
         "gold": {
-            "base": 325,
+            "base": 525,
             "purchasable": true,
-            "total": 3100,
-            "sell": 2170
+            "total": 3300,
+            "sell": 2310
         },
         "tags": [
             "Armor",
@@ -26971,7 +26972,7 @@
             "FlatArmorMod": 45
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6609": {
         "name": "Chempunk Chainsword",
@@ -27015,13 +27016,13 @@
             "FlatHPPoolMod": 250
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6616": {
         "name": "Staff of Flowing Water",
         "description": "<mainText><stats><attention>50</attention> Ability Power<br><attention>10%</attention> Heal and Shield Power<br><attention>100%</attention> Base Mana Regen</stats><br><li><passive>Rapids:</passive> Healing or Shielding another ally grants you both <magicDamage>25 - 45 Ability Power</magicDamage>  and <magicDamage>20 Ability Haste</magicDamage> for 4 seconds.<br><br><rules>Strength of level-scaling effects are based on the ally's level.</rules></mainText><br>",
         "colloq": "",
-        "plaintext": "Your heals and shields reduce crowd control and grant movement speed",
+        "plaintext": "Your heals and shields reduce crowd control and grant Move Speed",
         "from": [
             "1052",
             "3114",
@@ -27057,7 +27058,7 @@
             "FlatMagicDamageMod": 50
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6617": {
         "name": "Moonstone Renewer",
@@ -27099,16 +27100,16 @@
             "FlatMagicDamageMod": 40
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6630": {
         "name": "Goredrinker",
-        "description": "<mainText><stats><attention>45</attention> Attack Damage<br><attention>450</attention> Health<br><attention>20</attention> Ability Haste<br><attention>10%</attention> Omnivamp</stats><br><br><active>Active -</active> <active>Thirsting Slash:</active> Deal <physicalDamage>(175% Base Attack Damage) physical damage</physicalDamage> to nearby enemies. Restore <healing>(25% Base Attack Damage + 10% missing Health)</healing> for each champion hit (15s cooldown, reduced by Ability Haste).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.</mainText><br>",
+        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste<br><attention>10%</attention> Omnivamp</stats><br><br><active>Active -</active> <active>Thirsting Slash:</active> Deal <physicalDamage>(175% Base Attack Damage) physical damage</physicalDamage> to nearby enemies. Restore <healing>(25% Base Attack Damage + 10% missing Health)</healing> for each champion hit (15s cooldown, reduced by Ability Haste).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste.</mainText><br>",
         "colloq": "",
         "plaintext": "",
         "from": [
             "6029",
-            "3044",
+            "3133",
             "3067"
         ],
         "image": {
@@ -27142,11 +27143,11 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 45,
-            "FlatHPPoolMod": 450
+            "FlatPhysicalDamageMod": 55,
+            "FlatHPPoolMod": 300
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6631": {
         "name": "Stridebreaker",
@@ -27168,7 +27169,7 @@
             "h": 48
         },
         "gold": {
-            "base": 300,
+            "base": 400,
             "purchasable": true,
             "total": 3300,
             "sell": 2310
@@ -27202,15 +27203,15 @@
             "Effect5Amount": "10"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6632": {
         "name": "Divine Sunderer",
-        "description": "<mainText><stats><attention>35</attention> Attack Damage<br><attention>400</attention> Health<br><attention>20</attention> Ability Haste</stats><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>12% (9% for Ranged owners) target max Health physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). If the target is a champion, restore 65% of the enhanced damage (40% for Ranged owners).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5%</attention> Armor Penetration and <attention>5%</attention> Magic Penetration.<br><br><rules><passive>Spellblade</passive> will deal a minimum of (150% base Attack Damage) damage to units, but no more than (250% base Attack Damage) damage to Monsters.</rules></mainText><br>",
+        "description": "<mainText><stats><attention>40</attention> Attack Damage<br><attention>300</attention> Health<br><attention>20</attention> Ability Haste</stats><li><passive>Spellblade:</passive> After using an Ability, your next Attack is enhanced with an additional <physicalDamage>12% (9% for Ranged owners) target current Health physical damage</physicalDamage> <OnHit>On-Hit</OnHit> (1.5s cooldown). If the target is a champion, restore 65% of the enhanced damage (40% for Ranged owners).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5%</attention> Armor Penetration and <attention>5%</attention> Magic Penetration.<br><br><rules><passive>Spellblade</passive> will deal a minimum of (150% base Attack Damage) damage to units, but no more than (250% base Attack Damage) damage to Monsters.</rules></mainText><br>",
         "colloq": "",
         "plaintext": "",
         "from": [
-            "3044",
+            "3133",
             "3057",
             "3067"
         ],
@@ -27246,11 +27247,11 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 35,
-            "FlatHPPoolMod": 400
+            "FlatPhysicalDamageMod": 40,
+            "FlatHPPoolMod": 300
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6653": {
         "name": "Liandry's Anguish",
@@ -27293,7 +27294,7 @@
             "FlatMagicDamageMod": 80
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6655": {
         "name": "Luden's Tempest",
@@ -27338,11 +27339,11 @@
             "FlatMagicDamageMod": 80
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6656": {
         "name": "Everfrost",
-        "description": "<mainText><stats><attention>70</attention> Ability Power<br><attention>250</attention> Health<br><attention>600</attention> Mana<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Glaciate:</active> Deal <magicDamage>(100+30% Ability Power) magic damage</magicDamage> in a cone, <status>Slowing</status> enemies by 65% for 1.5 seconds. Enemies at the center of the cone are <status>Rooted</status> instead (30s cooldown).<br><hr><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>10</attention> Ability Power. <br></mainText><br>",
+        "description": "<mainText><stats><attention>70</attention> Ability Power<br><attention>250</attention> Health<br><attention>600</attention> Mana<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Glaciate:</active> Deal <magicDamage>(100+30% Ability Power) magic damage</magicDamage> in a cone, <status>Slowing</status> enemies by 65% for 1.5 seconds. Enemies at the center of the cone are <status>Rooted</status> instead (30s cooldown).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>10</attention> Ability Power. <br></mainText><br>",
         "colloq": "",
         "plaintext": "",
         "from": [
@@ -27386,7 +27387,7 @@
             "FlatMagicDamageMod": 70
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6660": {
         "name": "Bami's Cinder",
@@ -27430,11 +27431,11 @@
             "FlatHPPoolMod": 300
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6662": {
         "name": "Frostfire Gauntlet",
-        "description": "<mainText><stats><attention>350</attention> Health<br><attention>25</attention> Armor<br><attention>25</attention> Magic Resist<br><attention>20</attention> Ability Haste</stats><br><li><passive>Immolate :</passive> Taking or dealing damage causes you to begin dealing <magicDamage>(12 + 1% bonus Health) magic damage</magicDamage> per second to nearby enemies (increased by 25% against minions and 150% against monsters) for 3 seconds.<li><passive>Snowbind:</passive> Attacks create a frost field for 1.5 seconds and deal (20 - 100 +0.5% max Health for Melee champions / 10-50 +0.25% max Health for ranged champions) bonus magic damage to all enemies in the area (4s cooldown, 6s cooldown for ranged champions). Enemies that move across the field are <status>Slowed</status> by 25% for melee champions and 12.5% for ranged champions (increased by your <scaleHealth>max Health</scaleHealth>).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>100</attention> Health and <attention>6%</attention> Size.</mainText><br>",
+        "description": "<mainText><stats><attention>350</attention> Health<br><attention>25</attention> Armor<br><attention>25</attention> Magic Resist<br><attention>20</attention> Ability Haste</stats><br><li><passive>Immolate :</passive> Taking or dealing damage causes you to begin dealing <magicDamage>(12 + 1% bonus Health) magic damage</magicDamage> per second to nearby enemies (increased by 25% against minions and 150% against monsters) for 3 seconds.<li><passive>Snowbind:</passive> Attacks create a frost field for 1.5 seconds and deal (12-85  / 6-42.5) bonus magic damage to all enemies in the area (4s cooldown, 6s cooldown for ranged champions). Enemies that move across the field are <status>Slowed</status> by 25% for melee champions and 12.5% for ranged champions (increased by your <scaleHealth>max Health</scaleHealth>).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>100</attention> Health and <attention>6%</attention> Size.</mainText><br>",
         "colloq": "",
         "plaintext": "High Magic Resist.Passively slow nearby enemies. When spells are cast near you, release a wave of energy that damages and slows.",
         "from": [
@@ -27478,11 +27479,11 @@
             "FlatArmorMod": 25
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6664": {
         "name": "Turbo Chemtank",
-        "description": "<mainText><stats><attention>350</attention> Health<br><attention>25</attention> Armor<br><attention>25</attention> Magic Resist<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Supercharged:</active> Grants <speed>40% Move Speed</speed> towards enemies or enemy turrets for 4 seconds. Once near an enemy (or after 4 seconds) a shockwave is emitted that <status>Slows</status> nearby champions by 50% for 1.5 seconds (90s cooldown).<br><li><passive>Refuel:</passive> Moving and dealing damage fills up the <keywordMajor>Chemtank</keywordMajor>. At 100 stacks, your next basic attack deals <magicDamage>40-120 (+1% max Health, + 3% Move Speed) magic damage</magicDamage> to all nearby enemies (increased by 25% against minions and 175% against jungle monsters).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste and <attention>50</attention> Health.</mainText><br>",
+        "description": "<mainText><stats><attention>350</attention> Health<br><attention>25</attention> Armor<br><attention>25</attention> Magic Resist<br><attention>20</attention> Ability Haste</stats><br><br><active>Active -</active> <active>Supercharged:</active> Grants <speed>40% Move Speed</speed> towards enemies or enemy turrets for 4 seconds. Once near an enemy (or after 4 seconds) a shockwave is emitted that <status>Slows</status> nearby champions by 50% for 1.5 seconds (90s cooldown).<br><passive>Refuel:</passive> Moving and taking damage from Champions and large monsters fills up the <keywordMajor>Chemtank</keywordMajor>. At 100 stacks, your next basic attack deals <magicDamage>40-120 (+1% max Health, + 3% Move Speed) magic damage</magicDamage> to all nearby enemies (increased by 30% against minions and 200% against jungle monsters).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Ability Haste and <attention>50</attention> Health.</mainText><br>",
         "colloq": "",
         "plaintext": "Immobilize enemies to gain a shield. Activate to run faster at opponents.",
         "from": [
@@ -27529,7 +27530,7 @@
             "FlatArmorMod": 25
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6670": {
         "name": "Noonquiver",
@@ -27576,7 +27577,7 @@
             "PercentAttackSpeedMod": 0.15
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6671": {
         "name": "Galeforce",
@@ -27622,7 +27623,7 @@
             "PercentAttackSpeedMod": 0.2
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6672": {
         "name": "Kraken Slayer",
@@ -27667,11 +27668,11 @@
             "PercentAttackSpeedMod": 0.25
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6673": {
         "name": "Immortal Shieldbow",
-        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>20%</attention> Attack Speed<br><attention>20%</attention> Critical Strike Chance<br><attention>10%</attention> Life Steal</stats><br><li><passive>Lifeline:</passive> When taking damage that would reduce you below 30% Health, gain a <shield>250 - 700 Shield</shield> for 3s. In addition, gain <attackDamage>15-35 Attack Damage</attackDamage> for 8s (90s ).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Attack Damage and <attention>50</attention> Health.</mainText><br>",
+        "description": "<mainText><stats><attention>50</attention> Attack Damage<br><attention>20%</attention> Attack Speed<br><attention>20%</attention> Critical Strike Chance<br><attention>10%</attention> Life Steal</stats><br><li><passive>Lifeline:</passive> When taking damage that would reduce you below 30% Health, gain a <shield>275 - 650 Shield</shield> for 3s. In addition, gain <attackDamage>15-35 Attack Damage</attackDamage> for 8s (90s ).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>5</attention> Attack Damage and <attention>50</attention> Health.</mainText><br>",
         "colloq": "",
         "plaintext": "",
         "from": [
@@ -27708,13 +27709,13 @@
             "22": false
         },
         "stats": {
-            "FlatPhysicalDamageMod": 55,
+            "FlatPhysicalDamageMod": 50,
             "FlatCritChanceMod": 0.2,
             "PercentAttackSpeedMod": 0.2,
             "PercentLifeStealMod": 0.1
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6675": {
         "name": "Navori Quickblades",
@@ -27763,7 +27764,7 @@
             "Effect3Amount": "90"
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6676": {
         "name": "The Collector",
@@ -27806,7 +27807,7 @@
             "FlatCritChanceMod": 0.2
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6677": {
         "name": "Rageknife",
@@ -27849,7 +27850,7 @@
             "PercentAttackSpeedMod": 0.25
         },
         "depth": 2,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6691": {
         "name": "Duskblade of Draktharr",
@@ -27893,11 +27894,11 @@
             "FlatPhysicalDamageMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6692": {
         "name": "Eclipse",
-        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>8%</attention> Omnivamp</stats><br><br><li><passive>Ever Rising Moon:</passive> Hitting a champion with 2 separate Attacks or Abilities within 1.5 seconds deals an additional <physicalDamage>6% max Health physical damage</physicalDamage>, grants you <speed>15% Move Speed</speed> and a <shield>(180 + 40% bonus Attack Damage) Shield (50% shield for ranged champions)</shield> for 2 seconds (6s cooldown, 16s cooldown for ranged champions).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>4%</attention> Armor Penetration</mainText><br>",
+        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>18</attention> Lethality<br><attention>8%</attention> Omnivamp</stats><br><br><li><passive>Ever Rising Moon:</passive> Hitting a champion with 2 separate Attacks or Abilities within 1.5 seconds deals an additional <physicalDamage>6% max Health physical damage</physicalDamage>, grants you <speed>15% Move Speed</speed> and a <shield>(180 + 40% bonus Attack Damage) Shield (50% shield for ranged champions)</shield> for 2 seconds (8s cooldown, 16s cooldown for ranged champions).<br><br><rarityMythic>Mythic Passive:</rarityMythic> Grants all other <rarityLegendary>Legendary</rarityLegendary> items <attention>4%</attention> Armor Penetration</mainText><br>",
         "colloq": "",
         "plaintext": "",
         "from": [
@@ -27937,7 +27938,7 @@
             "FlatPhysicalDamageMod": 55
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6693": {
         "name": "Prowler's Claw",
@@ -27981,7 +27982,7 @@
             "FlatPhysicalDamageMod": 60
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6694": {
         "name": "Serylda's Grudge",
@@ -28023,7 +28024,7 @@
             "FlatPhysicalDamageMod": 45
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6695": {
         "name": "Serpent's Fang",
@@ -28063,11 +28064,11 @@
             "FlatPhysicalDamageMod": 55
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "6696": {
         "name": "Axiom Arc",
-        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>10</attention> Lethality<br><attention>25</attention> Ability Haste</stats><br><li><passive>Flux:</passive> Whenever a Champion dies within 3 seconds of having damaged them, refund 20% of your Ultimate Ability's total cooldown.</mainText><br>",
+        "description": "<mainText><stats><attention>55</attention> Attack Damage<br><attention>10</attention> Lethality<br><attention>25</attention> Ability Haste</stats><br><li><passive>Flux:</passive> Whenever a Champion dies within 3 seconds of you having damaged them, refund 20% of your Ultimate Ability's total cooldown.</mainText><br>",
         "colloq": "",
         "plaintext": "",
         "from": [
@@ -28104,7 +28105,7 @@
             "FlatPhysicalDamageMod": 55
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "7000": {
         "name": "Sandshrike's Claw",
@@ -29204,7 +29205,7 @@
             "FlatHPPoolMod": 650
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     },
     "8020": {
         "name": "Abyssal Mask",
@@ -29247,6 +29248,6 @@
             "FlatSpellBlockMod": 30
         },
         "depth": 3,
-        "version": "11.24.1"
+        "version": "12.5.1"
     }
 }

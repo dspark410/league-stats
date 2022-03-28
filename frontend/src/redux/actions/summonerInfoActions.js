@@ -44,7 +44,7 @@ export const getSummonerInfo = (summonerName, region) => async (dispatch) => {
           payload: data,
         })
       }
-    }, 3000)
+    })
   } catch (error) {
     dispatch({
       type: SUMMONER_INFO_ERROR,
@@ -102,7 +102,7 @@ export const getSummonerRegion = () => (dispatch) => {
     dispatch({
       type: GET_SUMMONER_REGION,
     })
-  }, 3000)
+  })
 }
 
 export const clearSearch = () => (dispatch) => {

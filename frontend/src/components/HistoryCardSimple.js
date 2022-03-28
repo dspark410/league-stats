@@ -40,6 +40,8 @@ function HistoryCardSimple({ game, clickArrow, open }) {
         <p>
           {game.gameType === 'Ultimate Spellbook games'
             ? 'Ult Spellbook'
+            : !game.gameType
+            ? 'Custom Games'
             : game.gameType.split(' ').slice(0, 3).join(' ')}
         </p>
         <p
