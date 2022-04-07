@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense, lazy } from 'react'
 import './App.css'
 import { useSelector } from 'react-redux'
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -9,6 +9,12 @@ import Champions from './pages/Champions'
 import ChampionDetail from './pages/ChampionDetail'
 import Leaderboard from './pages/Leaderboard'
 import Footer from './components/Footer'
+
+const lazyHome = lazy(() => import('./pages/Home'))
+const lazyWelcome = lazy(() => import('./pages/Welcome'))
+const lazyChampions = lazy(() => import('./pages/Champions'))
+const lazyChampionDetail = lazy(() => import('./pages/ChampionDetail'))
+const lazyLeaderboard = lazy(() => import('./pages/Leaderboard'))
 
 function App() {
   const {
@@ -32,18 +38,24 @@ function App() {
       ) : null}
       <div className={nav ? 'overlay' : 'overlay2'}>
         <Navbar />
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route
-            exact
-            path='/summoner/:region/:summonerName'
-            component={Welcome}
-          />
-          <Route exact path='/champions' component={Champions} />
-          <Route exact path='/champions/:champion' component={ChampionDetail} />
-          <Route exact path='/leaderboard' component={Leaderboard} />
-          <Redirect to='/' />
-        </Switch>
+        <Suspense fallback={<div>loading</div>}>
+          <Switch>
+            <Route exact path='/' component={lazyHome} />
+            <Route
+              exact
+              path='/summoner/:region/:summonerName'
+              component={lazyWelcome}
+            />
+            <Route exact path='/champions' component={lazyChampions} />
+            <Route
+              exact
+              path='/champions/:champion'
+              component={lazyChampionDetail}
+            />
+            <Route exact path='/leaderboard' component={lazyLeaderboard} />
+            <Redirect to='/' />
+          </Switch>
+        </Suspense>
         <Footer />
       </div>
     </>
